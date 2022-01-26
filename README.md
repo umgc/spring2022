@@ -11,7 +11,7 @@ RememberAll
 
 ## Tech
 
-MemorEZ uses a number of open source projects to work properly:
+MemorEZ uses a number of open source projects to work:
 
 - [Flutter] - Open-source UI software development kit created by Google. It is used to develop cross platform applications for Android, iOS, Linux, Mac, Windows, Google Fuchsia, Web platform, and the web from a single codebase
 - [Dart] - Programming language designed for client development, such as for the web and mobile apps.
