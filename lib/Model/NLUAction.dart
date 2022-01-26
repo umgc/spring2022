@@ -1,0 +1,9 @@
+
+enum ActionType {
+  CREATE_NOTE,
+  NOTFOUND,
+  APP_HELP,
+  APP_NAV,
+  ANSWER,
+  USER_LOCATION
+}
