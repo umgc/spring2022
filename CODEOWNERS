@@ -1,0 +1,43 @@
+# Development Branch Codeowners
+# The CODEOWNERS file will be used to define individuals or teams that are responsible for code in the @umgc/Spring2022 repository.
+
+# Any change in the @umgc/Spring2022 repo will require approval from @Daryle and @Tomentosa
+* @Daryle @Tomentosa
+
+# Any change inside the `/dso` directory
+# will require approval from @drewnicolette or @robertwrenjr.
+/dso/ @drewnicolette @robertwrenjr
+
+
+# Any change inside the `/FlutteringMind` directory
+# will require approval from the PM in the organizational flutteringmind
+/FlutteringMind @umgc/Spring2022/flutteringmind
+
+
+# Any change inside the `/FlutteringMind/BusinessAnalyst` directory
+# will require approval from anyone in the organizational flutteringmind business-analyst
+/FlutteringMind/BusinessAnalyst @umgc/Spring2022/flutteringmind/business-analyst
+
+
+# Any change inside the `/FlutteringMind/Developer` directory
+# will require approval from anyone in the organizational flutteringmind developer
+/FlutteringMind/Developer @umgc/Spring2022/flutteringmind/developer
+
+
+# Any change inside the `/RememberAll` directory
+# will require approval from the PM in the organizational rememberall
+/RememberAll @umgc/Spring2022/rememberall
+
+
+# Any change inside the `/RememberAll/BusinessAnalyst` directory
+# will require approval from anyone in the organizational rememberall business-analyst
+/RememberAll/BusinessAnalyst @umgc/Spring2022/rememberall/business-analyst
+
+
+# Any change inside the `/RememberAll/Developer` directory
+# will require approval from anyone in the organizational rememberall developer
+/RememberAll/Developer @umgc/Spring2022/rememberall/developer
+
+
+# For more information, about code owners see:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
