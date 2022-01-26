@@ -31,4 +31,4 @@ android/.*
 .vscode/
 
 # Spring 2022 DevSecOps
-.github/CODEOWNERS
+CODEOWNERS
