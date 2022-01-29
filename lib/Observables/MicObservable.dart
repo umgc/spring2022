@@ -120,7 +120,7 @@ abstract class _AbstractMicObserver with Store {
 
   @action
   void _clearChatHistory() {
-    systemUserMessage.clear();
+    // systemUserMessage.clear();
   }
 
   @action
@@ -179,7 +179,7 @@ abstract class _AbstractMicObserver with Store {
 
   @action
   void clearMsgTextInput() {
-    messageInputText = "";
+    //messageInputText = "";
   }
 
   @action
@@ -511,7 +511,7 @@ abstract class _AbstractMicObserver with Store {
 
     print("available $available");
     if (available) {
-      final selectedLocaleId = await _getLocaleId();
+      final selectedLocaleId = locale.toString();
       _speech.listen(
         localeId: selectedLocaleId,
         //listenFor: Duration(minutes: 15),
