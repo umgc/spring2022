@@ -7,6 +7,7 @@ import 'package:untitled3/Observables/MicObservable.dart';
 import 'package:untitled3/Observables/OnboardObservable.dart';
 // Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
 import 'package:untitled3/Screens/NotificationScreen.dart';
 import 'package:untitled3/Screens/Onboarding/Boarding.dart';
 import 'Screens/Splash/SplashScreen.dart';
@@ -70,11 +71,12 @@ class _MyAppState extends State<MyApp> {
                       create: (_) => CalendarObservable()),
                   Provider<CheckListObserver>(
                       create: (_) => CheckListObserver()),
-                  Provider<HelpObserver>(create: (_)=> HelpObserver())
+                  Provider<HelpObserver>(create: (_) => HelpObserver())
                 ],
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  home: SplashScreen(),
+                  //to load original main screen set home to SplashScreen.dart()
+                  home: MainMenuScreen(),
                   localizationsDelegates: [
                     i18n,
                     GlobalMaterialLocalizations.delegate,
@@ -106,8 +108,8 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   supportedLocales: i18n.supportedLocales,
-                  localeResolutionCallback:
-                      i18n.resolution(fallback: settingObserver.userSettings.locale),
+                  localeResolutionCallback: i18n.resolution(
+                      fallback: settingObserver.userSettings.locale),
                 ))));
   }
 }
