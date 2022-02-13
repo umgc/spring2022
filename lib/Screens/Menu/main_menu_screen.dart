@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untitled3/Screens/Components/bottom_buttons.dart';
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({Key? key}) : super(key: key);
@@ -10,11 +11,10 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreen extends State<MainMenuScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu'),
+        title: const Text('MemorEZ'),
       ),
       body: Column(
         children: <Widget>[
@@ -179,78 +179,8 @@ class _MainMenuScreen extends State<MainMenuScreen> {
             ),
           ),
           Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          FaIcon(FontAwesomeIcons.home),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              primary: Colors.white,
-                            ),
-                            onPressed: () {},
-                            child: const Text('MENU'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          FaIcon(FontAwesomeIcons.microphone),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              primary: Colors.white,
-                            ),
-                            onPressed: () {},
-                            child: const Text('CHAT'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          FaIcon(FontAwesomeIcons.questionCircle),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              primary: Colors.white,
-                            ),
-                            onPressed: () {},
-                            child: const Text('HELP'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+            child: BottomButtons(),
+          )
         ],
       ),
     );
