@@ -8,7 +8,7 @@ import 'package:untitled3/Observables/OnboardObservable.dart';
 // Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
+// import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
 import 'package:untitled3/Screens/NotificationScreen.dart';
 import 'package:untitled3/Screens/Onboarding/Boarding.dart';
 import 'Screens/Splash/SplashScreen.dart';
