@@ -21,25 +21,23 @@ class HelpState extends State<Help> {
     final MenuObserver menuObserver = Provider.of<MenuObserver>(context);
     final MainNavObserver navObserver = Provider.of<MainNavObserver>(context);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body:HelpTable(helpObserver.helpItems, () => {"Displayed Help Content"}),
-        floatingActionButtonLocation:
-                FloatingActionButtonLocation.startFloat,
-        floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  menuObserver.changeScreen(MENU_SCREENS.MENU);
-                },
-                tooltip: I18n.of(context)!.back,
-                child: Icon(Icons.arrow_back),
-              )
-        );
+      resizeToAvoidBottomInset: false,
+      body: HelpTable(helpObserver.helpItems, () => {"Displayed Help Content"}),
+      // floatingActionButtonLocation:
+      //         FloatingActionButtonLocation.startFloat,
+      // floatingActionButton: FloatingActionButton(
+      //         onPressed: () {
+      //           menuObserver.changeScreen(MENU_SCREENS.MENU);
+      //         },
+      //         tooltip: I18n.of(context)!.back,
+      //         child: Icon(Icons.arrow_back),
+      //       )
+    );
   }
 }
 
-
 /// View Notes page
 class HelpTable extends StatelessWidget {
-
   final List<HelpContent> helpItems;
   final Function? onListItemClickCallBackFn;
   //Flutter will autto assign this param to usersNotes
@@ -47,10 +45,9 @@ class HelpTable extends StatelessWidget {
   static const ICON_SIZE = 40.00;
   @override
   Widget build(BuildContext context) {
-    
     //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
     return ListView.builder(
-       shrinkWrap: true,
+      shrinkWrap: true,
       itemCount: helpItems.length,
       itemBuilder: (context, index) {
         return Container(
@@ -63,23 +60,22 @@ class HelpTable extends StatelessWidget {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: ListTile(
-            onTap: () => {
-              Navigator.push(
+              onTap: () => {
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => (VideoPlayerScreen(title: helpItems[index].title, 
-                      videoUrl: "assets/help/example_help.mp4"))),
+                      MaterialPageRoute(
+                          builder: (context) => (VideoPlayerScreen(
+                              title: helpItems[index].title,
+                              videoUrl: "assets/help/example_help.mp4"))),
                     )
-            },
-            title: Text(
-                '${helpItems[index].title}',
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center),
-            trailing: 
-            Icon( 
-              Icons.play_arrow,
-              size: ICON_SIZE,
-            )
-          ),
+                  },
+              title: Text('${helpItems[index].title}',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center),
+              trailing: Icon(
+                Icons.play_arrow,
+                size: ICON_SIZE,
+              )),
         );
       },
     );
