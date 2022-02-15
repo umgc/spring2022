@@ -7,6 +7,7 @@ import 'package:untitled3/Observables/MicObservable.dart';
 import 'package:untitled3/Observables/OnboardObservable.dart';
 // Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:untitled3/Screens/Main.dart';
 import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
 import 'package:untitled3/Screens/NotificationScreen.dart';
 import 'package:untitled3/Screens/Onboarding/Boarding.dart';
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
                   //to load original main screen set home to SplashScreen.dart()
-                  home: MainMenuScreen(),
+                  home: MainNavigator(),
                   localizationsDelegates: [
                     i18n,
                     GlobalMaterialLocalizations.delegate,
