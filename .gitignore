@@ -22,7 +22,8 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
-#assets/NLU/Lex_Credentials.xml
+assets/NLU/Lex_Credentials.xml
+
 # android generated files
 android/*/.*
 android/.*
