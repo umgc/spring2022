@@ -5,12 +5,16 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:untitled3/Model/CalendarEvent.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
+import 'package:untitled3/Screens/Settings/Setting.dart';
 import 'package:untitled3/Utility/CalendarUtility.dart';
 import 'package:untitled3/Observables/NoteObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled3/generated/i18n.dart';
 
 final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
+bool _weekHasBeenPressed = false;
+bool _monthHasBeenPressed = true;
+bool _dayHasBeenPressed = false;
 
 class Calendar extends StatefulWidget {
   @override
@@ -46,10 +50,15 @@ class CalendarState extends State<Calendar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                //Week Button
                 TextButton(
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
+                    primary:
+                        _weekHasBeenPressed ? Colors.black : Colors.blueGrey,
                     textStyle: TextStyle(
+                      fontWeight: _weekHasBeenPressed
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       fontSize: 20,
                     ),
                   ),
@@ -60,7 +69,13 @@ class CalendarState extends State<Calendar> {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () => {
+                    setState(() {
+                      _weekHasBeenPressed = true;
+                      _dayHasBeenPressed = false;
+                      _monthHasBeenPressed = false;
+                    })
+                  },
                 ),
                 VerticalDivider(
                   color: Colors.black,
@@ -76,8 +91,12 @@ class CalendarState extends State<Calendar> {
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
+                    primary:
+                    _monthHasBeenPressed ? Colors.black : Colors.blueGrey,
                     textStyle: TextStyle(
+                      fontWeight: _monthHasBeenPressed
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       fontSize: 20,
                     ),
                   ),
@@ -89,7 +108,13 @@ class CalendarState extends State<Calendar> {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () => {
+                    setState(() {
+                      _monthHasBeenPressed = true;
+                      _weekHasBeenPressed = false;
+                      _dayHasBeenPressed = false;
+                    })
+                  },
                 ),
                 VerticalDivider(
                   color: Colors.black,
@@ -105,8 +130,12 @@ class CalendarState extends State<Calendar> {
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
+                    primary:
+                    _dayHasBeenPressed ? Colors.black : Colors.blueGrey,
                     textStyle: TextStyle(
+                      fontWeight: _dayHasBeenPressed
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                       fontSize: 20,
                     ),
                   ),
@@ -118,7 +147,13 @@ class CalendarState extends State<Calendar> {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () => {
+                    setState(() {
+                      _dayHasBeenPressed = true;
+                      _monthHasBeenPressed = false;
+                      _weekHasBeenPressed = false;
+                    })
+                  },
                 ),
               ],
             ),
@@ -171,7 +206,6 @@ class CalendarState extends State<Calendar> {
               child: Text(I18n.of(context)!.clearSelection),
               onPressed: () {},
             ),
-
           ],
         ),
       ),
