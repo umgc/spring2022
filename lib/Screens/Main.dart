@@ -66,12 +66,14 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
       return Menu();
     }
-    if (screen == MAIN_SCREENS.HOME) {
-      screenNav.setTitle(I18n.of(context)!.homeScreenName);
+    if (screen == MAIN_SCREENS.HOME || index == 1) {
+      // screenNav.setTitle(I18n.of(context)!.homeScreenName);
+      screenNav.setTitle("Chat");
       return _speechScreen;
     }
     if (screen == MAIN_SCREENS.CALENDAR) {
       screenNav.setTitle(I18n.of(context)!.calendarScreenName);
+
       return _calendar;
     }
     if (screen == MAIN_SCREENS.CHECKLIST) {
@@ -79,7 +81,8 @@ class _MainNavigatorState extends State<MainNavigator> {
       return _checklist;
     }
     if (screen == MAIN_SCREENS.NOTE) {
-      screenNav.setTitle(I18n.of(context)!.checklistScreenName);
+      // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
+      screenNav.setTitle("Notes");
       return _note;
     }
     if (screen == MAIN_SCREENS.NOTIFICATION) {
@@ -92,7 +95,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
 
     //menu screens
-    if (screen == MENU_SCREENS.HELP) {
+    if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
       return _help;
     }
@@ -105,7 +108,8 @@ class _MainNavigatorState extends State<MainNavigator> {
       return Trigger();
     }
     if (screen == MENU_SCREENS.SETTING) {
-      screenNav.setTitle(I18n.of(context)!.settingScreenName);
+      //screenNav.setTitle(I18n.of(context)!.settingScreenName);
+      screenNav.setTitle("Settings");
       return _settings;
     }
 
@@ -160,6 +164,12 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final micObserver = Provider.of<MicObserver>(context);
@@ -172,7 +182,7 @@ class _MainNavigatorState extends State<MainNavigator> {
       builder: (_) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          titleTextStyle: TextStyle(color: Colors.blue[700]),
+          titleTextStyle: TextStyle(color: Colors.black),
           toolbarHeight: 50,
           centerTitle: true,
           title: Column(
@@ -217,8 +227,14 @@ class _MainNavigatorState extends State<MainNavigator> {
                 onTap: screenNav.setFocusedBtn,
                 selectedItemColor: Colors.black,
                 unselectedItemColor: Colors.black,
-                unselectedLabelStyle: TextStyle(fontSize: 18),
-                selectedLabelStyle: TextStyle(fontSize: 18),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+                selectedLabelStyle: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
                 // showUnselectedLabels: true,
                 // showSelectedLabels: true,
                 items: [
@@ -234,6 +250,9 @@ class _MainNavigatorState extends State<MainNavigator> {
                               iconSize: 40,
                               onPressed: () {
                                 screenNav.changeScreen(MAIN_SCREENS.MENU);
+                                screenNav.setFocusedBtn(0);
+                                _currentIndex = 0;
+                                micObserver.micIsExpectedToListen = false;
                               }),
                         ),
                       ),
@@ -251,11 +270,14 @@ class _MainNavigatorState extends State<MainNavigator> {
                             child: IconButton(
                                 icon: new Icon(Icons.mic),
                                 iconSize: 43,
-                                color: (screenNav.focusedNavBtn == 0)
+                                color: (screenNav.focusedNavBtn == 1)
                                     ? Colors.white
                                     : Colors.black,
-                                onPressed: () =>
-                                    {_onClickMic(micObserver, screenNav)}),
+                                onPressed: () => {
+                                      _onClickMic(micObserver, screenNav),
+                                      screenNav.setFocusedBtn(1),
+                                      _currentIndex = 1,
+                                    }),
                           ),
                         ),
                       ),
@@ -274,6 +296,9 @@ class _MainNavigatorState extends State<MainNavigator> {
                               iconSize: 40,
                               onPressed: () {
                                 screenNav.changeScreen(MENU_SCREENS.HELP);
+                                screenNav.setFocusedBtn(2);
+                                _currentIndex = 2;
+                                micObserver.micIsExpectedToListen = false;
                               }),
                         ),
                       ),
@@ -288,4 +313,5 @@ class _MainNavigatorState extends State<MainNavigator> {
     );
   }
 }
+
 //TODO User FittedBox to resize according to the phone's size
