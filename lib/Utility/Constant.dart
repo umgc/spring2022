@@ -15,6 +15,7 @@ enum MAIN_SCREENS {
   HOME,
   CALENDAR,
   CHECKLIST,
+  TASKS
 }
 
 enum NOTE_SCREENS {
