@@ -22,6 +22,7 @@ import 'package:untitled3/Observables/NoteObservable.dart';
 import 'package:untitled3/Observables/ScreenNavigator.dart';
 import 'package:untitled3/Observables/NotificationObservable.dart';
 import 'package:dcdg/dcdg.dart';
+import 'package:untitled3/Observables/TasksObservable.dart';
 
 void main() {
   runApp(MyApp());
@@ -72,7 +73,8 @@ class _MyAppState extends State<MyApp> {
                       create: (_) => CalendarObservable()),
                   Provider<CheckListObserver>(
                       create: (_) => CheckListObserver()),
-                  Provider<HelpObserver>(create: (_) => HelpObserver())
+                  Provider<HelpObserver>(create: (_) => HelpObserver()),
+                  Provider<TasksObserver>(create: (_) => TasksObserver())
                 ],
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,

@@ -29,6 +29,7 @@ import 'calendar.dart';
 import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:untitled3/Screens/Tasks/tasks.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -50,6 +51,7 @@ class _MainNavigatorState extends State<MainNavigator> {
   NotificationScreen _notificationScreen = NotificationScreen();
   Help _help = Help();
   Settings _settings = Settings();
+  Tasks _tasks = Tasks();
 
   Widget _changeScreen(screen, index) {
     print("index $index");
@@ -83,6 +85,10 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.NOTIFICATION) {
       screenNav.setTitle(I18n.of(context)!.notificationsScreenName);
       return _notificationScreen;
+    }
+    if (screen == MAIN_SCREENS.TASKS){
+      screenNav.setTitle(I18n.of(context)!.checklistScreenName);
+      return _tasks;
     }
 
     //menu screens

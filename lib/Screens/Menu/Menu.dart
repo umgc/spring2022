@@ -54,7 +54,7 @@ class MenuState extends State<Menu> {
                                     ),
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {screenNav.changeScreen(MAIN_SCREENS.TASKS);},
                               ),
                             ),
                           ),
