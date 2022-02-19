@@ -86,8 +86,9 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.notificationsScreenName);
       return _notificationScreen;
     }
-    if (screen == MAIN_SCREENS.TASKS){
-      screenNav.setTitle(I18n.of(context)!.checklistScreenName);
+    if (screen == MAIN_SCREENS.TASKS) {
+      // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
+      screenNav.setTitle("Tasks");
       return _tasks;
     }
 
