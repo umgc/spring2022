@@ -12,6 +12,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Decrypt and Unzip File
+        run: |
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.LEX_SECRET }}" --output creds.zip creds.zip.gpg
+          jar xvf creds.zip
+      - name: Check files in android directory
+        run: |
+          mv ./creds/Lex_Credentials.xml ./assests/NLU/
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
