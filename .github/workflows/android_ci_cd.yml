@@ -22,9 +22,9 @@ jobs:
       - name: Check files in directory
         run: |
           cd creds && ls -ltr .
-      - name: Check files in android directory
+      - name: Move file to assests/NLU directory 
         run: |
-          mv ./creds/Lex_Credentials.xml ./assests/NLU/
+          mv ./creds/Lex_Credentials.xml ./assests/NLU
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
