@@ -3,10 +3,10 @@ name: Android CI/CD
 on:
   push:
     branches:
-      - "feature/github-actions"
+      - "development"
   pull_request:
     branches:
-      - "feature/github-actions"
+      - "development"
 
 jobs:
   # CI
