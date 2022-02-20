@@ -20,7 +20,7 @@ bool _dayHasBeenPressed = false;
 
 bool _calendarIsVisable = true;
 var _calendarFormat = CalendarFormat.month;
-HeaderStyle headerS = new HeaderStyle();
+var _focusedDay = DateTime.now();
 
 class Calendar extends StatefulWidget {
   @override
@@ -170,13 +170,15 @@ class CalendarState extends State<Calendar> {
               Visibility(
                 visible: _calendarIsVisable,
                 child: TableCalendar(
+                  //this sets the clalendarFormat to what is found in the observer
                   calendarFormat: calendarObserver.calendarFormat,
+                  //This reaches into the TableCalendar and sets some header properties
                   headerStyle: HeaderStyle(
                       formatButtonVisible: false,
                       titleCentered: true,
                       headerPadding: EdgeInsets.all(5),
                   ),
-                  focusedDay: DateTime.now(),
+                  focusedDay: _focusedDay,
                   locale: settingObserver.userSettings.locale.languageCode,
                   firstDay: DateTime.parse(
                       "2022-02-15"), //Date of the oldest past event
@@ -190,8 +192,9 @@ class CalendarState extends State<Calendar> {
                         .loadEventsOfSelectedDay(day.toString().split(" ")[0]);
                   },
                   onDaySelected: (selectedDay, focusDay) {
+                    _focusedDay=selectedDay;
                     print("onDaySelected selectedDay: $selectedDay");
-                    //exctract the date portion
+                    //extract the date portion
                     calendarObserver.setSelectedDay(selectedDay);
                     calendarObserver.loadEventsOfSelectedDay(
                         selectedDay.toString().split(" ")[0]);
@@ -218,6 +221,7 @@ class CalendarState extends State<Calendar> {
                 ),
               ),
               const SizedBox(height: 8.0),
+              //This is the area below the calendar that shows the notes/reminders
               Expanded(
                 child: ValueListenableBuilder<List<CalenderEvent>>(
                     valueListenable: calendarObserver.selectedEvents,
