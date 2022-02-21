@@ -34,7 +34,7 @@ class _NotesOnDayState extends State<NotesOnDay> {
                 ),
                 child: ListTile(
                   //onTap: () => print('${value[index]}'),
-                  title: Text('${value[index]} \t at \t ${value[index].time}',
+                  title: Text("${value[index]} \t at \t ${value[index].time}",
                       textAlign: TextAlign.center),
                 ),
               );
