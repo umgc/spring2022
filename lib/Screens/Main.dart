@@ -43,15 +43,6 @@ class MainNavigator extends StatefulWidget {
 
 class _MainNavigatorState extends State<MainNavigator> {
   int _currentIndex = 0;
-  Note _note = Note();
-  Menu _menu = Menu();
-  SpeechScreen _speechScreen = SpeechScreen();
-  Calendar _calendar = Calendar();
-  Checklist _checklist = Checklist();
-  NotificationScreen _notificationScreen = NotificationScreen();
-  Help _help = Help();
-  Settings _settings = Settings();
-  Tasks _tasks = Tasks();
 
   Widget _changeScreen(screen, index) {
     print("index $index");
@@ -60,7 +51,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle("Help Screen");
-      return _help;
+      return Help();
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -69,36 +60,35 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.HOME || index == 1) {
       // screenNav.setTitle(I18n.of(context)!.homeScreenName);
       screenNav.setTitle("Chat");
-      return _speechScreen;
+      return SpeechScreen();
     }
     if (screen == MAIN_SCREENS.CALENDAR) {
       screenNav.setTitle(I18n.of(context)!.calendarScreenName);
-
-      return _calendar;
+      return Calendar();
     }
     if (screen == MAIN_SCREENS.CHECKLIST) {
       screenNav.setTitle(I18n.of(context)!.checklistScreenName);
-      return _checklist;
+      return Checklist();
     }
     if (screen == MAIN_SCREENS.NOTE) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle("Notes");
-      return _note;
+      return Note();
     }
     if (screen == MAIN_SCREENS.NOTIFICATION) {
       screenNav.setTitle(I18n.of(context)!.notificationsScreenName);
-      return _notificationScreen;
+      return NotificationScreen();
     }
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle("Tasks");
-      return _tasks;
+      return Tasks();
     }
 
     //menu screens
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
-      return _help;
+      return Help();
     }
     if (screen == MENU_SCREENS.SYNC_TO_CLOUD) {
       screenNav.setTitle(I18n.of(context)!.syncToCloudScreen);
@@ -111,7 +101,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MENU_SCREENS.SETTING) {
       //screenNav.setTitle(I18n.of(context)!.settingScreenName);
       screenNav.setTitle("Settings");
-      return _settings;
+      return Settings();
     }
 
     return Text("Wrong Screen - fix it");
