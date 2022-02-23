@@ -30,6 +30,7 @@ import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:untitled3/Screens/Tasks/tasks.dart';
+import 'dart:io';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,6 +44,38 @@ class MainNavigator extends StatefulWidget {
 
 class _MainNavigatorState extends State<MainNavigator> {
   int _currentIndex = 0;
+
+  Future<bool> _onWillPop(BuildContext context) async {
+    bool? exitResult = await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+    return exitResult ?? false;
+  }
+
+  Future<bool?> _showExitDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+  }
+
+  AlertDialog _buildExitDialog(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Please confirm'),
+      content: const Text('Do you want to exit the app?'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text('No'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: Text('Yes'),
+        ),
+      ],
+    );
+  }
 
   Widget _changeScreen(screen, index) {
     print("index $index");
@@ -170,134 +203,137 @@ class _MainNavigatorState extends State<MainNavigator> {
     helpObserver.loadHelpCotent();
     final menuObserver = Provider.of<MenuObserver>(context);
     return Observer(
-      builder: (_) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          titleTextStyle: TextStyle(color: Colors.black),
-          toolbarHeight: 50,
-          centerTitle: true,
-          title: Column(
-            children: [
-              Row(
-                //mainAxisAlignment:MainAxisAlignment.end,
-                children: [
-                  Observer(
-                      builder: (_) => Text(
-                            '${screenNav.screenTitle}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          )),
-                ],
-              ),
-            ],
-          ),
-        ),
-        body: Container(
-            //margin: const EdgeInsets.only(bottom: 30.0),
-            child: Center(
-                child: _changeScreen(
-                    screenNav.currentScreen, screenNav.focusedNavBtn))),
-        bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          notchMargin: 8.0,
-          clipBehavior: Clip.antiAlias,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                top: BorderSide(
-                  color: Colors.grey,
-                  width: 0.5,
+      builder: (_) => WillPopScope(
+        onWillPop: () => _onWillPop(context),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            titleTextStyle: TextStyle(color: Colors.black),
+            toolbarHeight: 50,
+            centerTitle: true,
+            title: Column(
+              children: [
+                Row(
+                  //mainAxisAlignment:MainAxisAlignment.end,
+                  children: [
+                    Observer(
+                        builder: (_) => Text(
+                              '${screenNav.screenTitle}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                              ),
+                            )),
+                  ],
                 ),
-              ),
+              ],
             ),
-            child: BottomNavigationBar(
-                currentIndex: _currentIndex,
-                onTap: screenNav.setFocusedBtn,
-                selectedItemColor: Colors.black,
-                unselectedItemColor: Colors.black,
-                unselectedLabelStyle: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-                selectedLabelStyle: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                ),
-                // showUnselectedLabels: true,
-                // showSelectedLabels: true,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      child: Observer(
-                        builder: (_) => Container(
-                          child: new IconButton(
-                              icon: new Icon(Icons.home),
-                              color: (screenNav.focusedNavBtn == 0)
-                                  ? Colors.white
-                                  : Colors.black,
-                              iconSize: 40,
-                              onPressed: () {
-                                screenNav.changeScreen(MAIN_SCREENS.MENU);
-                                screenNav.setFocusedBtn(0);
-                                _currentIndex = 0;
-                                micObserver.micIsExpectedToListen = false;
-                              }),
-                        ),
-                      ),
-                    ),
-                    label: 'Menu',
-                    // label: I18n.of(context)!.notesScreenName,
+          ),
+          body: Container(
+              //margin: const EdgeInsets.only(bottom: 30.0),
+              child: Center(
+                  child: _changeScreen(
+                      screenNav.currentScreen, screenNav.focusedNavBtn))),
+          bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            notchMargin: 8.0,
+            clipBehavior: Clip.antiAlias,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey,
+                    width: 0.5,
                   ),
-                  BottomNavigationBarItem(
+                ),
+              ),
+              child: BottomNavigationBar(
+                  currentIndex: _currentIndex,
+                  onTap: screenNav.setFocusedBtn,
+                  selectedItemColor: Colors.black,
+                  unselectedItemColor: Colors.black,
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  selectedLabelStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  // showUnselectedLabels: true,
+                  // showSelectedLabels: true,
+                  items: [
+                    BottomNavigationBarItem(
                       icon: Container(
-                        // constraints: BoxConstraints(),
                         child: Observer(
-                          builder: (_) => AvatarGlow(
-                            endRadius: 29,
-                            animate: micObserver.micIsExpectedToListen,
-                            child: IconButton(
-                                icon: new Icon(Icons.mic),
-                                iconSize: 43,
-                                color: (screenNav.focusedNavBtn == 1)
+                          builder: (_) => Container(
+                            child: new IconButton(
+                                icon: new Icon(Icons.home),
+                                color: (screenNav.focusedNavBtn == 0)
                                     ? Colors.white
                                     : Colors.black,
-                                onPressed: () => {
-                                      _onClickMic(micObserver, screenNav),
-                                      screenNav.setFocusedBtn(1),
-                                      _currentIndex = 1,
-                                    }),
+                                iconSize: 40,
+                                onPressed: () {
+                                  screenNav.changeScreen(MAIN_SCREENS.MENU);
+                                  screenNav.setFocusedBtn(0);
+                                  _currentIndex = 0;
+                                  micObserver.micIsExpectedToListen = false;
+                                }),
                           ),
                         ),
                       ),
-                      label: 'Chat'),
+                      label: 'Menu',
+                      // label: I18n.of(context)!.notesScreenName,
+                    ),
+                    BottomNavigationBarItem(
+                        icon: Container(
+                          // constraints: BoxConstraints(),
+                          child: Observer(
+                            builder: (_) => AvatarGlow(
+                              endRadius: 29,
+                              animate: micObserver.micIsExpectedToListen,
+                              child: IconButton(
+                                  icon: new Icon(Icons.mic),
+                                  iconSize: 43,
+                                  color: (screenNav.focusedNavBtn == 1)
+                                      ? Colors.white
+                                      : Colors.black,
+                                  onPressed: () => {
+                                        _onClickMic(micObserver, screenNav),
+                                        screenNav.setFocusedBtn(1),
+                                        _currentIndex = 1,
+                                      }),
+                            ),
+                          ),
+                        ),
+                        label: 'Chat'),
 
-                  // ),
-                  BottomNavigationBarItem(
-                    icon: Container(
-                      child: Observer(
-                        builder: (_) => Container(
-                          child: IconButton(
-                              icon: new Icon(Icons.help_outline),
-                              color: (screenNav.focusedNavBtn == 2)
-                                  ? Colors.white
-                                  : Colors.black,
-                              iconSize: 40,
-                              onPressed: () {
-                                screenNav.changeScreen(MENU_SCREENS.HELP);
-                                screenNav.setFocusedBtn(2);
-                                _currentIndex = 2;
-                                micObserver.micIsExpectedToListen = false;
-                              }),
+                    // ),
+                    BottomNavigationBarItem(
+                      icon: Container(
+                        child: Observer(
+                          builder: (_) => Container(
+                            child: IconButton(
+                                icon: new Icon(Icons.help_outline),
+                                color: (screenNav.focusedNavBtn == 2)
+                                    ? Colors.white
+                                    : Colors.black,
+                                iconSize: 40,
+                                onPressed: () {
+                                  screenNav.changeScreen(MENU_SCREENS.HELP);
+                                  screenNav.setFocusedBtn(2);
+                                  _currentIndex = 2;
+                                  micObserver.micIsExpectedToListen = false;
+                                }),
+                          ),
                         ),
                       ),
+                      label: 'Help',
+                      // label: I18n.of(context)!.notesScreenName,
                     ),
-                    label: 'Help',
-                    // label: I18n.of(context)!.notesScreenName,
-                  ),
-                ]),
+                  ]),
+            ),
           ),
         ),
       ),
