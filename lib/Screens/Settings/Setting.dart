@@ -8,13 +8,15 @@ import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
 import 'dart:math' as math;
 
-List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
+//List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
 
-List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
+//List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
 
 List<String> daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
 
 bool notesNotification = false; //NOTES Enable Notifications
+bool tasksNotification = false;// Tasks Enable Notifications
+
 String note1 = '1'; //Minutes Before Notification NOTES
 String note2 = '7';
 
@@ -74,24 +76,25 @@ class _SettingState extends State<Settings> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-///////////////////////////////////////////////////////////////////////////////////Notes
+                /**
+                 * Notes section
+                 */
                 Row(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Notes',
                         style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue[800])),
+                            color: Colors.blue[800]
+                        )
+                    ),
                   ],
                 ),
               ],
             ),
             SizedBox(
-              height: 10.0,
+              height: 10.0, //for spacing
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,18 +113,16 @@ class _SettingState extends State<Settings> {
                       notesNotification = newValue;
                     });
                   },
-                  inactiveThumbColor: Colors.black,
-                  inactiveTrackColor: Colors.red,
+                  inactiveThumbColor: Colors.blue,
+                  inactiveTrackColor: Colors.grey,
                   activeTrackColor: Colors.green,
-                  activeColor: Colors.blueAccent,
-                  hoverColor: Colors.amberAccent,
-                  focusColor: Colors.pink,
+                  activeColor: Colors.blue,
                 ),
               ],
             ),
             Row(
               mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, ////if disabled, grey-out
+                  MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   'Minutes Before Notification',
@@ -150,7 +151,7 @@ class _SettingState extends State<Settings> {
             ),
             Row(
               mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, ////if disabled, grey-out
+                  MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   'Days To Keep Notes',
@@ -177,31 +178,23 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
-            Divider(
-              thickness: 2.0,
-              indent: 5,
-              endIndent: 5,
-            ),
-            Divider(
-              thickness: 2.0,
-              indent: 5,
-              height: 40,
-              endIndent: 5,
-            ),
+            addTopDivider(),
+            addBotDivider(),
 
-///////////////////////////////////////////////////////////////////////////////////Tasks
+            /**
+             * Tasks section
+             */
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Tasks',
                         style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue[800])),
+                            color: Colors.blue[800]
+                        )
+                    ),
                   ],
                 ),
               ],
@@ -220,24 +213,22 @@ class _SettingState extends State<Settings> {
                   ),
                 ),
                 Switch(
-                  value: notesNotification,
+                  value: tasksNotification,
                   onChanged: (bool newValue) {
                     setState(() {
-                      notesNotification = newValue;
+                      tasksNotification = newValue;
                     });
                   },
-                  inactiveThumbColor: Colors.black,
-                  inactiveTrackColor: Colors.red,
+                  inactiveThumbColor: Colors.blue,
+                  inactiveTrackColor: Colors.grey,
                   activeTrackColor: Colors.green,
-                  activeColor: Colors.blueAccent,
-                  hoverColor: Colors.amberAccent,
-                  focusColor: Colors.pink,
+                  activeColor: Colors.blue,
                 ),
               ],
             ),
             Row(
               mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, ////if disabled, grey-out
+                  MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   'Minutes Before Notification',
@@ -264,32 +255,23 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
+            addTopDivider(),
+            addBotDivider(),
 
-            Divider(
-              thickness: 2.0,
-              indent: 5,
-              endIndent: 5,
-            ),
-            Divider(
-              thickness: 2.0,
-              indent: 5,
-              height: 40,
-              endIndent: 5,
-            ),
-
-            ///////////////////////////////////////////////////////////////////////////App Settings
+            /**
+             * App Settings Section
+             */
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
-                  //crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('App Settings',
                         style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue[800])),
+                            color: Colors.blue[800]
+                        )
+                    ),
                   ],
                 ),
               ],
@@ -327,7 +309,7 @@ class _SettingState extends State<Settings> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment
-                  .spaceBetween, ////if disabled, grey-out???????????????????
+                  .spaceBetween,
               children: <Widget>[
                 Text(
                   'Language',
@@ -383,19 +365,12 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
-            Divider(
-              thickness: 2.0,
-              indent: 5,
-              endIndent: 5,
-            ),
-            Divider(
-              thickness: 2.0,
-              indent: 5,
-              height: 40,
-              endIndent: 5,
-            ),
+            addTopDivider(),
+            addBotDivider(),
 
-            ///////////////////////////////////////////////////////////////////////////Trigger Settings
+            /**
+             * Triggers section of the screen
+             */
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // crossAxisAlignment: CrossAxisAlignment.start,
@@ -412,10 +387,17 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
+
+            /**
+             * Invisible Box for spacing
+             */
             SizedBox(
               height: 12.0,
             ),
 
+            /**
+             * Start Recording Trigger
+             */
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -428,27 +410,33 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
-            TextField(
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                hintText: 'Hint Text instead of real text.',
-                hintStyle: TextStyle(
-                  color: Colors.black
+            SizedBox(
+              height: 3.0,
+            ),
+            Container(
+              height: 35.0,
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  hintText: 'Placeholder text.',
+                  hintStyle: TextStyle(color: Colors.black),
+                  filled: true,
+                  fillColor: Colors.grey[300],
                 ),
-                filled: true,
-                fillColor: Colors.lightBlueAccent,
-                //hintStyle: TextStyle(
-               //   color: Colors.grey,
-               // ),
+                onChanged: (value) {},
               ),
-              onChanged: (value) {},
             ),
 
-
+            /**
+             * Invisible Box for spacing.
+             */
             SizedBox(
               height: 12.0,
             ),
 
+            /**
+             * Stop Recording Trigger
+             */
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -461,29 +449,33 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
-            TextField(
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                hintText: 'I got bored and used diff colors.',
-                hintStyle: TextStyle(
-                    color: Colors.black
+            SizedBox(
+              height: 3.0,
+            ),
+            Container(
+              height: 35.0,
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  hintText: 'Placeholder text.',
+                  hintStyle: TextStyle(color: Colors.black),
+                  filled: true,
+                  fillColor: Colors.grey[300],
                 ),
-                filled: true,
-                fillColor: Colors.pink,
-                //hintStyle: TextStyle(
-                //   color: Colors.grey,
-                // ),
+                onChanged: (value) {},
               ),
-              onChanged: (value) {},
             ),
 
-
+            /**
+             * Invisible Box for spacing
+             */
             SizedBox(
               height: 12.0,
             ),
 
-
-
+            /**
+             * Playback Notes Trigger
+             */
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -496,28 +488,44 @@ class _SettingState extends State<Settings> {
                 ),
               ],
             ),
-            TextField(
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                hintText: 'I got bored and used diff colors.',
-                hintStyle: TextStyle(
-                    color: Colors.black
-                ),
-                filled: true,
-                fillColor: Colors.amber,
-                //hintText: 'Enter city name',
-                //hintStyle: TextStyle(
-                //   color: Colors.grey,
-                // ),
-              ),
-              onChanged: (value) {},
+            SizedBox(
+              height: 3.0,
             ),
-
+            Container(
+              height: 35.0,
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  hintText: 'Placeholder text.',
+                  hintStyle: TextStyle(color: Colors.black),
+                  filled: true,
+                  fillColor: Colors.grey[300],
+                ),
+                onChanged: (value) {},
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Divider addTopDivider() {
+  return Divider(
+    thickness: 2.0,
+    indent: 5,
+    endIndent: 5,
+  );
+}
+
+Divider addBotDivider() {
+  return Divider(
+    thickness: 2.0,
+    indent: 5,
+    height: 40,
+    endIndent: 5,
+  );
 }
 
 //
