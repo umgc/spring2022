@@ -1,6 +1,7 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:untitled3/Model/Note.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
@@ -23,7 +24,27 @@ bool _filteredNotesIsVisible = false;
 bool _calendarBarIsVisible = true;
 
 var _calendarFormat = CalendarFormat.month;
-var _focusedDay = DateTime.now();
+DateTime _focusedDay = DateTime.now();
+
+var _dateColor = Colors.white;
+
+DateTime startDate = _focusedDay.subtract(const Duration(days: 180));
+DateTime endDate = _focusedDay.add(const Duration(days: 180));
+var _months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'April',
+  'May',
+  'June',
+  'July',
+  'Aug',
+  'Sept',
+  'Oct',
+  'Nov',
+  'Dec'
+];
+
 ////////////////////////////////////////////////////////////////////////////////
 
 class Calendar extends StatefulWidget {
@@ -66,6 +87,8 @@ class CalendarState extends State<Calendar> {
         });
       }
       }
+
+    var _days = calendarObserver.getDaysInBetween(startDate, endDate);
 
     return Observer(
       builder: (_) => Padding(
@@ -139,8 +162,8 @@ class CalendarState extends State<Calendar> {
                   onPressed: () => {
                     setState(() {
                       _weekHasBeenPressed = true;
-                      _dayHasBeenPressed = true;
-                      _monthHasBeenPressed = true;
+                      _dayHasBeenPressed = false;
+                      _monthHasBeenPressed = false;
                       _dailyCalendarIsVisible = false;
 
                       _calendarIsVisable = true;
@@ -184,8 +207,8 @@ class CalendarState extends State<Calendar> {
                     setState(() {
                       _monthHasBeenPressed = true;
                       _weekHasBeenPressed = false;
-                          _dayHasBeenPressed = false;
-                          _dailyCalendarIsVisible = false;
+                      _dayHasBeenPressed = false;
+                      _dailyCalendarIsVisible = false;
 
                       _calendarIsVisable = true;
                       _notesOnDayIsVisible = true;
@@ -232,7 +255,7 @@ class CalendarState extends State<Calendar> {
                       _weekHasBeenPressed = false;
 
                       _calendarIsVisable = false;
-                      _notesOnDayIsVisible=false;
+                      _notesOnDayIsVisible = false;
                     })
                   },
                 ),
@@ -252,9 +275,8 @@ class CalendarState extends State<Calendar> {
                 ),
                 focusedDay: _focusedDay,
                 locale: settingObserver.userSettings.locale.languageCode,
-                firstDay: DateTime.parse(
-                    "2022-02-15"), //Date of the oldest past event
-                lastDay: DateTime.parse("2023-02-27"), //Date of the last event
+                firstDay: startDate, //Date of the oldest past event
+                lastDay: endDate, //Date of the last event
                 selectedDayPredicate: (day) {
                   return isSameDay(calendarObserver.selectedDay, day);
                 },
@@ -298,17 +320,14 @@ class CalendarState extends State<Calendar> {
                 visible: _dailyCalendarIsVisible,
                 child: Expanded(
                   child: CustomScrollView(
+                    controller: ScrollController(
+                        initialScrollOffset: 50 * _days.length / 2 - 50),
                     slivers: <Widget>[
                       SliverFixedExtentList(
                         itemExtent: 50.0,
                         delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return Container(
-                              alignment: Alignment.center,
-                              color: Colors.lightBlue[100 * (index % 9)],
-                              child: Text('List Item $index'),
-                            );
-                          },
+                          (context, index) => _buildTile(context, _days[index]),
+                          childCount: _days.length,
                         ),
                       ),
                     ],
@@ -325,6 +344,32 @@ class CalendarState extends State<Calendar> {
           ],
         ),
       ),
+    );
+  }
+
+  _buildTile(BuildContext context, date) {
+    //DateFormat format = new DateFormat("MMMM dd, yyyy");
+
+    var _day = DateTime.parse(date.toString()).day;
+    var _month = _months[DateTime.parse(date.toString()).month - 1];
+    var _year = DateTime.parse(date.toString()).year;
+    //_focusedDay=date;
+
+    date.compareTo(DateTime.now()) < 0 ? _dateColor = Colors.black12 : null;
+    date.compareTo(DateTime.now().subtract(const Duration(days: 1))) > 0
+        ? _dateColor = Colors.white
+        : null;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: Container(
+            color: _dateColor,
+            child: ListTile(title: Text('$_month $_day $_year')),
+          ),
+        )
+      ],
     );
   }
 }

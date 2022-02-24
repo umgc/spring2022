@@ -22,11 +22,11 @@ class _NotesOnDayState extends State<NotesOnDay> {
         return ListView.builder(
             itemCount: value.length,
             itemBuilder: (context, index) {
-
               return Container(
+                height: 50,
                 margin: const EdgeInsets.symmetric(
                   horizontal: 12.0,
-                  vertical: 4.0,
+                  vertical: 3,
                 ),
                 decoration: BoxDecoration(
                   border: Border.all(),
