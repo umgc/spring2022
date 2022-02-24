@@ -65,14 +65,6 @@ jobs:
       - name: Check files in directory
         run: |
           cd creds && ls -ltr .
-          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.LEX_SECRET }}" --output creds.zip creds.zip.gpg
-          jar xvf creds.zip
-      - name: Check files in directory
-        run: |
-          ls -ltr .
-      - name: Check files in directory
-        run: |
-          cd creds && ls -ltr .
       - name: Move file to assests/NLU directory
         run: |
           mv ./creds/Lex_Credentials.xml ./assets/NLU
