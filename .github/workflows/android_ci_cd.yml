@@ -78,5 +78,5 @@ jobs:
           channel: "stable"
       - name: Install Flutter dependencies
         run: flutter pub get
-      - name: Build the APK
-        run: flutter build apk --release --split-per-abi
+      - name: Build App Bundle
+        run: flutter build appbundle
