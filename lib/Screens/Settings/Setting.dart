@@ -8,17 +8,20 @@ import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
 import 'dart:math' as math;
 
-//List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
-
-//List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
+List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
+List<String> minutesBeforeNotification = ['1', '2', '3', '5', '10', '30']; // can add padding to keep dropdown menu on screen
+List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
 
 List<String> daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
 
 bool notesNotification = false; //NOTES Enable Notifications
 bool tasksNotification = false;// Tasks Enable Notifications
 
+String minBefore = '2';
 String note1 = '1'; //Minutes Before Notification NOTES
-String note2 = '7';
+String note2 = '1';
+String note3 = '1';
+String note4 = '1';
 
 class Settings extends StatefulWidget {
   @override
@@ -133,8 +136,8 @@ class _SettingState extends State<Settings> {
                 ),
                 DropdownButton<String>(
                   alignment: Alignment.center,
-                  value: note1,
-                  items: daysToKeepFilesOptions
+                  value: minutesBeforeNotification[0], /// the default or saved value
+                  items: minutesBeforeNotification
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -143,7 +146,7 @@ class _SettingState extends State<Settings> {
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      note1 = newValue!;
+                      minBefore = newValue!;
                     });
                   },
                 ),
@@ -279,6 +282,8 @@ class _SettingState extends State<Settings> {
             SizedBox(
               height: 10.0,
             ),
+
+            /// Not sure what options we are including for font
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -291,17 +296,17 @@ class _SettingState extends State<Settings> {
                 ),
                 DropdownButton<String>(
                   alignment: Alignment.center,
-                  value: note1,
-                  items: daysToKeepFilesOptions
-                      .map<DropdownMenuItem<String>>((String value) {
+                  value: FontSize.MEDIUM.name,
+                  items: fontSizes
+                      .map<DropdownMenuItem<String>>((FontSize value) {
                     return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                      value: value.name,
+                      child: Text(value.name),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      note1 = newValue!;
+                      note3 = newValue!;
                     });
                   },
                 ),
@@ -318,19 +323,72 @@ class _SettingState extends State<Settings> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                DropdownButton<String>(
+
+
+                ///specific predefined parts are translated???
+                Text(I18n.of(context)!.cancel,
+                //locale: settingObserver.userSettings.locale,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                ///
+
+                // Text(I18n.of(context)!.language,
+                //     style: Theme.of(context).textTheme.bodyText2),
+                // Padding(
+                //   padding: const EdgeInsets.all(3),
+                //   child: Container(
+                //     width: 60,
+                //     height: 40,
+                //     padding: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: Colors.black, width: 1),
+                //     ),
+                //       DropdownButton(
+                //       hint: Text(
+                //         I18n.of(context)!.selectLanguage,
+                //         style: Theme.of(context).textTheme.headline6,
+                //       ),
+                //
+                //       value: settingObserver.userSettings.locale,
+                //       onChanged: (Locale? newLocale) {
+                //         setState(() {
+                //           if (newLocale != null) {
+                //             settingObserver.userSettings.locale = newLocale;
+                //           }
+                //         });
+                //       },
+                //       isExpanded: true,
+                //       underline: SizedBox(),
+                //       style: Theme.of(context).textTheme.bodyText1,
+                //       items: supportedLocales.map((valueItem) {
+                //         return DropdownMenuItem(
+                //             value: valueItem,
+                //             child: Text((LocaleService.getDisplayLanguage(
+                //                 valueItem.languageCode)["name"])));
+                //       }).toList(),
+                //     ),
+
+
+
+
+                ///
+                DropdownButton(
                   alignment: Alignment.center,
-                  value: note1,
-                  items: daysToKeepFilesOptions
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
+                  //value: note1,
+                  value: settingObserver.userSettings.locale,
+                  items: supportedLocales.map((valueItem) {
+                    return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text((LocaleService.getDisplayLanguage(
+                            valueItem.languageCode)["name"])
+                        )
                     );
                   }).toList(),
-                  onChanged: (String? newValue) {
+                  onChanged: (Locale? newLocale) {
                     setState(() {
-                      note1 = newValue!;
+                      if (newLocale != null) {
+                        settingObserver.userSettings.locale = newLocale;
+                      }
                     });
                   },
                 ),
@@ -349,7 +407,7 @@ class _SettingState extends State<Settings> {
                 ),
                 DropdownButton<String>(
                   alignment: Alignment.center,
-                  value: note2,
+                  value: note4,
                   items: daysToKeepFilesOptions
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
@@ -359,7 +417,8 @@ class _SettingState extends State<Settings> {
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      note2 = newValue!;
+                      note4 = newValue!;
+                      print('App Settings Theme combo selection: $note4'); ///remove after testing
                     });
                   },
                 ),
@@ -504,7 +563,127 @@ class _SettingState extends State<Settings> {
                 onChanged: (value) {},
               ),
             ),
+            //end Playback Notes section
+
+            /**
+             * for testing functionality*********************************************************************
+             */
+            Text(I18n.of(context)!.daysToKeepNotes,
+                style: Theme.of(context).textTheme.bodyText2),
+            Padding(
+              padding: EdgeInsets.fromLTRB(1.0, 2.0, 3.0, 4.0),
+              child: Container(
+                width: 60,
+                height: 40,
+                padding: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 1),
+                ),
+                child: DropdownButton(
+                  onTap: () => print('tap tap'),
+                  hint: Text(
+                    I18n.of(context)!.promptNoteDeletionTimeline,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  icon: Icon(
+// Add this
+                    Icons.edit_sharp, // Add this
+                    color: Colors.blue, // Add this
+                  ),
+                  value: settingObserver.userSettings.daysToKeepFiles,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                     // settingObserver.userSettings.daysToKeepFiles =
+                    //      newValue ?? DEFAULT_DAYS_TO_KEEP_FILES;
+                    });
+                  },
+                  isExpanded: true,
+                  underline: SizedBox(),
+
+                  style: Theme.of(context).textTheme.bodyText1,
+                  items: daysToKeepFilesOptions.map((valueItem) {
+                    return DropdownMenuItem(
+                        value: valueItem, child: Text((valueItem)));
+                  }).toList(),
+
+                ),
+              ),
+            ),
+
+            /***********************************************************************
+             * for testing functionality
+             */
+
+            Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+    GestureDetector(
+    onTap: () {
+    final screenNav =
+    Provider.of<MenuObserver>(context, listen: false);
+    screenNav.changeScreen(MENU_SCREENS.MENU);
+    },
+    child: Column(
+    children: [
+    Transform.rotate(
+    angle: 180 * math.pi / 180,
+    child: Icon(
+    Icons.exit_to_app_rounded,
+    size: ICON_SIZE,
+    color: Colors.amber,
+    )),
+    Text(
+    I18n.of(context)!.cancel,
+    style: Theme.of(context).textTheme.bodyText1,
+    )
+    ],
+    )),
+//SAVE BUTTON
+    GestureDetector(
+    onTap: () {
+    settingObserver.saveSetting();
+    I18n.onLocaleChanged!(
+    settingObserver.userSettings.locale);
+    },
+    child: Column(
+    children: [
+    Icon(
+    Icons.save,
+    size: ICON_SIZE,
+    color: Colors.green,
+    ),
+    Text(
+    I18n.of(context)!.save,
+    style: Theme.of(context).textTheme.bodyText1,
+    )
+    ],
+    )),
+    GestureDetector(
+    onTap: () {
+    Setting setting = settingObserver.userSettings;
+    setting.menuFontSize = DEFAULT_FONT_SIZE;
+    setting.noteFontSize = DEFAULT_FONT_SIZE;
+    setting.daysToKeepFiles = DEFAULT_DAYS_TO_KEEP_FILES;
+    setting.locale = DEFAULT_LOCALE;
+    setting.appTheme = DEFAULT_APP_THEME;
+    settingObserver.saveSetting();
+
+    I18n.onLocaleChanged!(DEFAULT_LOCALE);
+    },
+    child: Column(
+    children: [
+    Icon(
+    Icons.restore,
+    size: ICON_SIZE,
+    color: Colors.blueAccent,
+    ),
+    Text(
+    I18n.of(context)!.resetSettings,
+    style: Theme.of(context).textTheme.bodyText1,
+    ),],),),
           ],
+        ),
+    ]
         ),
       ),
     );
