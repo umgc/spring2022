@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:untitled3/Model/Note.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
 import 'package:untitled3/Observables/NoteObservable.dart';
@@ -17,6 +19,8 @@ bool _dayHasBeenPressed = false;
 bool _calendarIsVisable = true;
 bool _dailyCalendarIsVisible = false;
 bool _notesOnDayIsVisible = true;
+bool _filteredNotesIsVisible = false;
+bool _calendarBarIsVisible = true;
 
 var _calendarFormat = CalendarFormat.month;
 var _focusedDay = DateTime.now();
@@ -28,6 +32,9 @@ class Calendar extends StatefulWidget {
 }
 
 class CalendarState extends State<Calendar> {
+
+  List<TextNote> _matchedEvents = [];
+
   @override
   Widget build(BuildContext context) {
     final noteObserver = Provider.of<NoteObserver>(context);
@@ -37,17 +44,76 @@ class CalendarState extends State<Calendar> {
     calendarObserver.setNoteObserver(noteObserver);
     calendarObserver.calendarFormat = _calendarFormat;
 
+
+    // This function is called whenever the text field changes
+    void _runFilter(String value) {
+      final List<TextNote> _allEvents = noteObserver.usersNotes;
+      List<TextNote> _results = [];
+      if((value.isEmpty) ) {
+
+        setState(() {
+          _filteredNotesIsVisible = false;
+          _calendarIsVisable = true;
+        });
+      }else {
+        _results = _allEvents.where((event) => event.text.toLowerCase().contains(value.toLowerCase())).toList();
+        // Refresh the UI
+        setState(() {
+          _matchedEvents = _results;
+          _filteredNotesIsVisible = true;
+          _calendarIsVisable = false;
+          _calendarBarIsVisible = false;
+        });
+      }
+      }
+
     return Observer(
       builder: (_) => Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            const TextField(
-              decoration: InputDecoration(
+             TextField(
+                onChanged: (value) => _runFilter(value),
+                decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: '--Search For A Note--',
+              )
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Visibility(
+            visible: _filteredNotesIsVisible,
+            child:
+            Expanded(
+              child: _matchedEvents.isNotEmpty
+                  ? new ListView.builder(
+                itemCount: _matchedEvents.length,
+                itemBuilder: (context, index) =>
+              new Container(
+                key: ValueKey(_matchedEvents[index].noteId),
+              margin: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 4.0,
+              ),
+              decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: new ListTile(
+             //onTap: () => print('${value[index]}'),
+             title: Text("${_matchedEvents[index].text} \t at \t ${_matchedEvents[index].eventTime}", textAlign: TextAlign.center),
               ),
             ),
+           ): const Text(
+                'No results found',
+                style: TextStyle(fontSize: 24),
+              ),
+            ),
+            ),
+            Visibility(
+              visible: _calendarBarIsVisible,
+              child:
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -171,6 +237,7 @@ class CalendarState extends State<Calendar> {
                   },
                 ),
               ],
+            ),
             ),
             Visibility(
               visible: _calendarIsVisable,
