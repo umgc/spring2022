@@ -8,16 +8,26 @@ import 'package:untitled3/Utility/Constant.dart';
 import '../../Observables/NoteObservable.dart';
 
 /// View Notes page
-class NoteTable extends StatelessWidget {
-  TextEditingController controller = TextEditingController();
-  String _searchResult = '';
+class NoteTable extends StatefulWidget {
   final List<TextNote> usersNotes;
-
   final Function? onListItemClickCallBackFn;
   //Flutter will autto assign this param to usersNotes
   NoteTable(this.usersNotes, this.onListItemClickCallBackFn);
-  List searchUserNotes = [];
 
+  @override
+  State<NoteTable> createState() => _NoteTableState();
+}
+
+class _NoteTableState extends State<NoteTable> {
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  // void filterSearchResults(String query) {
   @override
   Widget build(BuildContext context) {
     // String noteDetailScreen =I18n.of(context)!.notesDetailScreenName;
@@ -48,11 +58,9 @@ class NoteTable extends StatelessWidget {
               hintText: '--Search For A Note--',
             ),
             onChanged: (value) {
-              _searchResult = value;
-              searchUserNotes = usersNotes
-                  .where((userNotes) =>
-                      userNotes.localText.contains(_searchResult))
-                  .toList();
+              setState(() {
+                NoteObserver().onSearchNote(value);
+              });
             },
           ),
           DataTable(
@@ -80,7 +88,7 @@ class NoteTable extends StatelessWidget {
                 ),
               ],
               rows: List<DataRow>.generate(
-                usersNotes.length,
+                widget.usersNotes.length,
                 (int index) => DataRow(
                   cells: <DataCell>[
                     DataCell(Text("${(index + 1)}")),
@@ -89,21 +97,23 @@ class NoteTable extends StatelessWidget {
                           padding: EdgeInsets.all(10),
                           width: noteWidth,
                           child: Text(
-                            usersNotes[index].localText,
+                            widget.usersNotes[index].localText,
                             style: TEXT_STYLE,
                           )),
                       showEditIcon: true,
                       onTap: () => {
                         screenNav.changeScreen(MAIN_SCREENS.NOTE),
                         noteObserver
-                            .setCurrNoteIdForDetails(usersNotes[index].noteId)
+                            .setCurrNoteIdForDetails(
+                                widget.usersNotes[index].noteId)
                             .then((value) => noteObserver
                                 .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
-                        if (onListItemClickCallBackFn != null)
-                          {onListItemClickCallBackFn!.call()}
+                        if (widget.onListItemClickCallBackFn != null)
+                          {widget.onListItemClickCallBackFn!.call()}
                       },
                     ),
-                    DataCell(Text(timeago.format(usersNotes[index].recordedTime,
+                    DataCell(Text(timeago.format(
+                        widget.usersNotes[index].recordedTime,
                         locale:
                             settingObserver.userSettings.locale.languageCode))),
                   ],

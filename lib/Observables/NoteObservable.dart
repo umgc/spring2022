@@ -46,9 +46,9 @@ abstract class _AbstractNoteObserver with Store {
   String newNoteEventTime = "";
 
   @action
-  Future getImage() async{
+  Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
-    _image =File(image!.path);
+    _image = File(image!.path);
     Share.shareFiles([image.path]);
   }
 
@@ -98,14 +98,19 @@ abstract class _AbstractNoteObserver with Store {
   void setNotes(notes) {
     print("set note to: ${notes}");
     usersNotes = notes;
+    print('From line 101 Xxxxxxxxxxxxxxxxxxxx' + usersNotes[1].toString());
   }
 
   @action
   List<TextNote> onSearchNote(String searchQuery) {
+    print(searchQuery.toLowerCase() +
+        ' from line 107 xxxxxxxxxxxxxxxxxxxxxxxxxxx');
     List<TextNote> filteredResult = usersNotes
         .where((element) =>
             element.text.toLowerCase().contains(searchQuery.toLowerCase()))
         .toList();
+    print(' from line 113 Xxxxxxxxxxxxxxxxxxxx' +
+        usersNotes[0].text.toLowerCase().contains(searchQuery).toString());
 
     return filteredResult;
   }
