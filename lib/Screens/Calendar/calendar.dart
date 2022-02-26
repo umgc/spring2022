@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:untitled3/Model/CalendarEvent.dart';
 import 'package:untitled3/Model/Note.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
@@ -12,7 +13,7 @@ import 'package:untitled3/Screens/Calendar/notesOnSelectedDay.dart';
 
 final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
-//Current button and View State attributes /////////////////////////////////////
+//Current button and View State attributes ----------------------------------------
 bool _weekHasBeenPressed = false;
 bool _monthHasBeenPressed = true;
 bool _dayHasBeenPressed = false;
@@ -30,6 +31,7 @@ var _dateColor = Colors.white;
 
 DateTime startDate = _focusedDay.subtract(const Duration(days: 180));
 DateTime endDate = _focusedDay.add(const Duration(days: 180));
+
 var _months = [
   'Jan',
   'Feb',
@@ -44,8 +46,10 @@ var _months = [
   'Nov',
   'Dec'
 ];
+List<ListTile> _DailyListTile = [];
+ListTile tempTile = ListTile();
 
-////////////////////////////////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------
 
 class Calendar extends StatefulWidget {
   @override
@@ -53,6 +57,7 @@ class Calendar extends StatefulWidget {
 }
 
 class CalendarState extends State<Calendar> {
+  get calendarObserver => this.calendarObserver;
 
   List<TextNote> _matchedEvents = [];
 
@@ -64,20 +69,23 @@ class CalendarState extends State<Calendar> {
 
     calendarObserver.setNoteObserver(noteObserver);
     calendarObserver.calendarFormat = _calendarFormat;
-
+    var _days = calendarObserver.getDaysInBetween(startDate, endDate);
 
     // This function is called whenever the text field changes
     void _runFilter(String value) {
       final List<TextNote> _allEvents = noteObserver.usersNotes;
       List<TextNote> _results = [];
-      if((value.isEmpty) ) {
-
+      if ((value.isEmpty)) {
         setState(() {
           _filteredNotesIsVisible = false;
           _calendarIsVisable = true;
+          _calendarBarIsVisible = true;
         });
-      }else {
-        _results = _allEvents.where((event) => event.text.toLowerCase().contains(value.toLowerCase())).toList();
+      } else {
+        _results = _allEvents
+            .where((event) =>
+                event.text.toLowerCase().contains(value.toLowerCase()))
+            .toList();
         // Refresh the UI
         setState(() {
           _matchedEvents = _results;
@@ -86,182 +94,225 @@ class CalendarState extends State<Calendar> {
           _calendarBarIsVisible = false;
         });
       }
-      }
+    }
 
-    var _days = calendarObserver.getDaysInBetween(startDate, endDate);
+    // This function is called to update the list of daily List tiles
+    void _generateDailyTiles() {
+      for (var i = 0; i < _days.length; i++) {
+        var _day = DateTime.parse(_days[i].toString()).day;
+        var _month = _months[DateTime.parse(_days[i].toString()).month - 1];
+        var _year = DateTime.parse(_days[i].toString()).year;
+
+        tempTile = ListTile(
+          title: Text('$_month $_day $_year'),
+        );
+        _DailyListTile.add(tempTile);
+
+        List _events = calendarObserver
+            .loadEventsOfSelectedDay(_days[i].toString().split(" ")[0]);
+
+        for (var ii = 0; ii < _events.length; ii++) {
+          print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Re Ran Daily");
+
+          tempTile = ListTile(
+              title: Container(
+            height: 44,
+            margin: EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 1,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.lightBlue.shade500,
+              border: Border.all(),
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("\t${_events[ii]} \t at \t ${_events[ii].time}",
+                    textAlign: TextAlign.left),
+              ],
+            ),
+          ));
+          _DailyListTile.add(tempTile);
+        }
+      }
+    }
 
     return Observer(
       builder: (_) => Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-             TextField(
+            TextField(
                 onChanged: (value) => _runFilter(value),
                 decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '--Search For A Note--',
-              )
-            ),
+                  border: OutlineInputBorder(),
+                  hintText: '--Search For A Note--',
+                )),
             const SizedBox(
               height: 15,
             ),
             Visibility(
-            visible: _filteredNotesIsVisible,
-            child:
-            Expanded(
-              child: _matchedEvents.isNotEmpty
-                  ? new ListView.builder(
-                itemCount: _matchedEvents.length,
-                itemBuilder: (context, index) =>
-              new Container(
-                key: ValueKey(_matchedEvents[index].noteId),
-              margin: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 4.0,
+              visible: _filteredNotesIsVisible,
+              child: Expanded(
+                child: _matchedEvents.isNotEmpty
+                    ? new ListView.builder(
+                        itemCount: _matchedEvents.length,
+                        itemBuilder: (context, index) => new Container(
+                          key: ValueKey(_matchedEvents[index].noteId),
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 12.0,
+                            vertical: 4.0,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: new ListTile(
+                            //onTap: () => print('${value[index]}'),
+                            title: Text(
+                                "${_matchedEvents[index].text} \t at \t ${_matchedEvents[index].eventTime}",
+                                textAlign: TextAlign.center),
+                          ),
+                        ),
+                      )
+                    : const Text(
+                        'No results found',
+                        style: TextStyle(fontSize: 24),
+                      ),
               ),
-              decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.circular(12.0),
-              ),
-              child: new ListTile(
-             //onTap: () => print('${value[index]}'),
-             title: Text("${_matchedEvents[index].text} \t at \t ${_matchedEvents[index].eventTime}", textAlign: TextAlign.center),
-              ),
-            ),
-           ): const Text(
-                'No results found',
-                style: TextStyle(fontSize: 24),
-              ),
-            ),
             ),
             Visibility(
               visible: _calendarBarIsVisible,
-              child:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //Week Button
-                TextButton(
-                  style: TextButton.styleFrom(
-                    primary:
-                        _weekHasBeenPressed ? Colors.black : Colors.blueGrey,
-                    textStyle: TextStyle(
-                      fontWeight: _weekHasBeenPressed
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      fontSize: 20,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Week',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  //Week Button
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary:
+                          _weekHasBeenPressed ? Colors.black : Colors.blueGrey,
+                      textStyle: TextStyle(
+                        fontWeight: _weekHasBeenPressed
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        fontSize: 20,
                       ),
-                    ],
-                  ),
-                  onPressed: () => {
-                    setState(() {
-                      _weekHasBeenPressed = true;
-                      _dayHasBeenPressed = false;
-                      _monthHasBeenPressed = false;
-                      _dailyCalendarIsVisible = false;
-
-                      _calendarIsVisable = true;
-                      _notesOnDayIsVisible = true;
-                      _calendarFormat = CalendarFormat.week;
-                    })
-                  },
-                ),
-                VerticalDivider(
-                  color: Colors.black,
-                  thickness: 2,
-                  width: 20,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-                Container(
-                  color: Colors.black,
-                  height: 20,
-                  width: 1,
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    primary:
-                        _monthHasBeenPressed ? Colors.black : Colors.blueGrey,
-                    textStyle: TextStyle(
-                      fontWeight: _monthHasBeenPressed
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      fontSize: 20,
                     ),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15.0),
-                      Text(
-                        'Month',
-                      ),
-                    ],
-                  ),
-                  onPressed: () => {
-                    setState(() {
-                      _monthHasBeenPressed = true;
-                      _weekHasBeenPressed = false;
-                      _dayHasBeenPressed = false;
-                      _dailyCalendarIsVisible = false;
-
-                      _calendarIsVisable = true;
-                      _notesOnDayIsVisible = true;
-                      _calendarFormat = CalendarFormat.month;
-                    })
-                  },
-                ),
-                VerticalDivider(
-                  color: Colors.black,
-                  thickness: 2,
-                  width: 20,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-                Container(
-                  color: Colors.black,
-                  height: 20,
-                  width: 1,
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    primary:
-                        _dayHasBeenPressed ? Colors.black : Colors.blueGrey,
-                    textStyle: TextStyle(
-                      fontWeight: _dayHasBeenPressed
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                      fontSize: 20,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Week',
+                        ),
+                      ],
                     ),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15.0),
-                      Text(
-                        'Day',
-                      ),
-                    ],
-                  ),
-                  onPressed: () => {
-                    setState(() {
-                      _dayHasBeenPressed = true;
-                      _dailyCalendarIsVisible = true;
-                      _monthHasBeenPressed = false;
-                      _weekHasBeenPressed = false;
+                    onPressed: () => {
+                      setState(() {
+                        _weekHasBeenPressed = true;
+                        _dayHasBeenPressed = false;
+                        _monthHasBeenPressed = false;
+                        _dailyCalendarIsVisible = false;
 
-                      _calendarIsVisable = false;
-                      _notesOnDayIsVisible = false;
-                    })
-                  },
-                ),
-              ],
+                        _calendarIsVisable = true;
+                        _notesOnDayIsVisible = true;
+                        _calendarFormat = CalendarFormat.week;
+                      })
+                    },
+                  ),
+                  VerticalDivider(
+                    color: Colors.black,
+                    thickness: 2,
+                    width: 20,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  Container(
+                    color: Colors.black,
+                    height: 20,
+                    width: 1,
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary:
+                          _monthHasBeenPressed ? Colors.black : Colors.blueGrey,
+                      textStyle: TextStyle(
+                        fontWeight: _monthHasBeenPressed
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        fontSize: 20,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15.0),
+                        Text(
+                          'Month',
+                        ),
+                      ],
+                    ),
+                    onPressed: () => {
+                      setState(() {
+                        _monthHasBeenPressed = true;
+                        _weekHasBeenPressed = false;
+                        _dayHasBeenPressed = false;
+                        _dailyCalendarIsVisible = false;
+
+                        _calendarIsVisable = true;
+                        _notesOnDayIsVisible = true;
+                        _calendarFormat = CalendarFormat.month;
+                      })
+                    },
+                  ),
+                  VerticalDivider(
+                    color: Colors.black,
+                    thickness: 2,
+                    width: 20,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  Container(
+                    color: Colors.black,
+                    height: 20,
+                    width: 1,
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary:
+                          _dayHasBeenPressed ? Colors.black : Colors.blueGrey,
+                      textStyle: TextStyle(
+                        fontWeight: _dayHasBeenPressed
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        fontSize: 20,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15.0),
+                        Text(
+                          'Day',
+                        ),
+                      ],
+                    ),
+                    onPressed: () => {
+                      setState(() {
+                        _generateDailyTiles();
+
+                        _dayHasBeenPressed = true;
+                        _dailyCalendarIsVisible = true;
+                        _monthHasBeenPressed = false;
+                        _weekHasBeenPressed = false;
+
+                        _calendarIsVisable = false;
+                        _notesOnDayIsVisible = false;
+                      })
+                    },
+                  ),
+                ],
+              ),
             ),
-            ),
+
             Visibility(
               visible: _calendarIsVisable,
               child: TableCalendar(
@@ -280,11 +331,13 @@ class CalendarState extends State<Calendar> {
                 selectedDayPredicate: (day) {
                   return isSameDay(calendarObserver.selectedDay, day);
                 },
-
+//-------------------------------------------------------------------------------------------
+                //This event loader is causing an error and slowing this whole thing down
                 eventLoader: (DateTime day) {
                   return calendarObserver
                       .loadEventsOfSelectedDay(day.toString().split(" ")[0]);
                 },
+                //-----------------------------------------------------------------------------------------
                 onDaySelected: (selectedDay, focusDay) {
                   _focusedDay = selectedDay;
                   print("onDaySelected selectedDay: $selectedDay");
@@ -326,8 +379,9 @@ class CalendarState extends State<Calendar> {
                       SliverFixedExtentList(
                         itemExtent: 50.0,
                         delegate: SliverChildBuilderDelegate(
-                          (context, index) => _buildTile(context, _days[index]),
-                          childCount: _days.length,
+                          (context, index) =>
+                              _buildTile(context, _DailyListTile[index]),
+                          childCount: _DailyListTile.length,
                         ),
                       ),
                     ],
@@ -347,28 +401,16 @@ class CalendarState extends State<Calendar> {
     );
   }
 
-  _buildTile(BuildContext context, date) {
-    //DateFormat format = new DateFormat("MMMM dd, yyyy");
-
-    var _day = DateTime.parse(date.toString()).day;
-    var _month = _months[DateTime.parse(date.toString()).month - 1];
-    var _year = DateTime.parse(date.toString()).year;
-    //_focusedDay=date;
-
-    date.compareTo(DateTime.now()) < 0 ? _dateColor = Colors.black12 : null;
-    date.compareTo(DateTime.now().subtract(const Duration(days: 1))) > 0
-        ? _dateColor = Colors.white
-        : null;
-
+  _buildTile(BuildContext context, _dailyTile) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
           child: Container(
             color: _dateColor,
-            child: ListTile(title: Text('$_month $_day $_year')),
+            child: _dailyTile,
           ),
-        )
+        ),
       ],
     );
   }
