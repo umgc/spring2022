@@ -129,6 +129,7 @@ class _SaveNoteState extends State<SaveNote> {
             String mDate = value.split(" ")[0];
             String mTime = value.split(" ")[1];
             noteObserver.setNewNoteEventDate(mDate);
+            noteObserver.setNewNoteEventTime(mTime);
           }
         },
         validator: (val) {
@@ -160,6 +161,7 @@ class _SaveNoteState extends State<SaveNote> {
           String mDate = value.split(" ")[0];
           String mTime = value.split(" ")[1];
           noteObserver.setNewNoteEventDate(mDate);
+          noteObserver.setNewNoteEventTime(mTime);
         }
       },
       validator: (val) {
