@@ -55,7 +55,7 @@ class HelpTable extends StatelessWidget {
 
       children: [
 //----------------------------------TASKS
-      SizedBox(height: 15.00),
+        SizedBox(height: 15.00),
         Text(
           'Help Topics',
           style: TextStyle(
@@ -111,9 +111,9 @@ class HelpTable extends StatelessWidget {
                     vertical: 4.0,
                   ),
                   decoration: BoxDecoration(
-                  //  border: Border.all(),
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: Colors.blue
+                    //  border: Border.all(),
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: Colors.blue
                   ),
                 ),
               ],
@@ -417,7 +417,7 @@ class HelpTable extends StatelessWidget {
 //                 ),
 //               ],
 //           );
- //         },
+        //         },
 //        ),
 
         //------------------------------------------------------------------------------------

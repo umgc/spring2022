@@ -84,7 +84,9 @@ class _MainNavigatorState extends State<MainNavigator> {
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle("Help");
+
       return Help();
+
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
