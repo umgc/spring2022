@@ -7,6 +7,7 @@ import 'package:untitled3/Observables/MicObservable.dart';
 import 'package:untitled3/Observables/OnboardObservable.dart';
 // Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:untitled3/Screens/HomePage.dart';
 import 'package:untitled3/Screens/Main.dart';
 // import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
 import 'package:untitled3/Screens/NotificationScreen.dart';
@@ -61,6 +62,7 @@ class _MyAppState extends State<MyApp> {
     return Observer(
         builder: (_) => MultiProvider(
                 providers: [
+                  Provider<MainNavigator>(create: (_)=> MainNavigator()),
                   Provider<NotificationObserver>(
                       create: (_) => NotificationObserver()),
                   Provider<OnboardObserver>(create: (_) => OnboardObserver()),
@@ -79,7 +81,7 @@ class _MyAppState extends State<MyApp> {
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
                   //to load original main screen set home to SplashScreen.dart()
-                  home: MainNavigator(),
+                  home: HomePage(),
                   localizationsDelegates: [
                     i18n,
                     GlobalMaterialLocalizations.delegate,

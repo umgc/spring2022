@@ -49,11 +49,13 @@ class _SplashScreenState extends State<SplashScreen>
             ..forward().whenComplete(() => Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Observer(
-                          builder: (_) =>
-                              (settingObserver.userSettings.isFirstRun == false)
-                                  ? MainNavigator()
-                                  : (OnBoardingScreen()))),
+                    builder: (context) => Observer(
+                      builder: (_) =>
+                          (settingObserver.userSettings.isFirstRun == false)
+                              ? MainNavigator()
+                              : (OnBoardingScreen()),
+                    ),
+                  ),
                 ));
         },
       ),

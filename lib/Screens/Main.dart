@@ -30,6 +30,7 @@ import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:untitled3/Screens/Tasks/tasks.dart';
+import 'package:untitled3/Screens/HomePage.dart';
 import 'dart:io';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
@@ -53,12 +54,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     return exitResult ?? false;
   }
 
-  Future<bool?> _showExitDialog(BuildContext context) async {
-    return await showDialog(
-      context: context,
-      builder: (context) => _buildExitDialog(context),
-    );
-  }
 
   AlertDialog _buildExitDialog(BuildContext context) {
     return AlertDialog(
@@ -208,6 +203,8 @@ class _MainNavigatorState extends State<MainNavigator> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
+            //removes the backbutton in the appbar
+            automaticallyImplyLeading: false,
             titleTextStyle: TextStyle(color: Colors.black),
             toolbarHeight: 50,
             centerTitle: true,
