@@ -1,31 +1,58 @@
 [
     {
-        "title":"How to create node manually",
+        "title":"TASK: Overview of Tasks",
         "videoUrl":"sample.com"
     },
 
     {
-        "title":"How to create node by voice",
+        "title":"TASK: How to create a Task",
         "videoUrl":"sample.com"
     },
     {
-        "title":"How to delete note",
+        "title":"TASK: How to edit a Task",
         "videoUrl":"sample.com"
     },
     {
-        "title":"How to edit note",
+        "title":"NOTES: Overview of Notes",
         "videoUrl":"sample.com"
     },
     {
-        "title":"How to search note",
+        "title":"NOTES: Other topics on Notes",
         "videoUrl":"sample.com"
     },
     {
-        "title":"How to change font size",
+        "title":"CALENDAR: Overview of Notes",
         "videoUrl":"sample.com"
     },
     {
-        "title":"How to set color theme",
+        "title":"CALENDAR: Other topics on Notes",
+        "videoUrl":"sample.com"
+    },
+
+    {
+        "title":"PROFILE: Overview of Notes",
+        "videoUrl":"sample.com"
+    },
+    {
+        "title":"PROFILE: Other topics on Notes",
+        "videoUrl":"sample.com"
+    },
+
+    {
+        "title":"SETTINGS: Overview of Notes",
+        "videoUrl":"sample.com"
+    },
+    {
+        "title":"SETTINGS: Other topics on Notes",
+        "videoUrl":"sample.com"
+    },
+
+    {
+        "title":"CHAT: Overview of Notes",
+        "videoUrl":"sample.com"
+    },
+    {
+        "title":"CHAT: Other topics on Notes",
         "videoUrl":"sample.com"
     }
 ]
