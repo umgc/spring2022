@@ -29,8 +29,13 @@ class _NotesOnDayState extends State<NotesOnDay> {
                   vertical: 3,
                 ),
                 decoration: BoxDecoration(
-                  border: Border.all(),
+                  color: Colors.lightBlue.shade50,
+                  border: Border.all(
+                      color: Colors.blueGrey,
+                      width: 1
+                  ),
                   borderRadius: BorderRadius.circular(12.0),
+
                 ),
                 child: ListTile(
                   //onTap: () => print('${value[index]}'),

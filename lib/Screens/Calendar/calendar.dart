@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:untitled3/Model/CalendarEvent.dart';
 import 'package:untitled3/Model/Note.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
@@ -27,8 +24,6 @@ bool _calendarBarIsVisible = true;
 var _calendarFormat = CalendarFormat.month;
 DateTime _focusedDay = DateTime.now();
 
-var _dateColor = Colors.white;
-
 DateTime startDate = _focusedDay.subtract(const Duration(days: 180));
 DateTime endDate = _focusedDay.add(const Duration(days: 180));
 
@@ -46,8 +41,8 @@ var _months = [
   'Nov',
   'Dec'
 ];
-List<ListTile> _DailyListTile = [];
-ListTile tempTile = ListTile();
+List<Container> _daysAndEvents = [];
+Container tempItem = Container();
 
 //--------------------------------------------------------------------------------
 
@@ -76,10 +71,19 @@ class CalendarState extends State<Calendar> {
       final List<TextNote> _allEvents = noteObserver.usersNotes;
       List<TextNote> _results = [];
       if ((value.isEmpty)) {
+        _monthHasBeenPressed = true;
+        _weekHasBeenPressed = false;
+        _dayHasBeenPressed = false;
         setState(() {
           _filteredNotesIsVisible = false;
           _calendarIsVisable = true;
           _calendarBarIsVisible = true;
+
+          _monthHasBeenPressed = true;
+          _weekHasBeenPressed = false;
+          _dayHasBeenPressed = false;
+
+          _calendarFormat = CalendarFormat.month;
         });
       } else {
         _results = _allEvents
@@ -90,51 +94,54 @@ class CalendarState extends State<Calendar> {
         setState(() {
           _matchedEvents = _results;
           _filteredNotesIsVisible = true;
-          _calendarIsVisable = false;
           _calendarBarIsVisible = false;
+          _calendarIsVisable = false;
+          _dailyCalendarIsVisible = false;
         });
       }
     }
 
     // This function is called to update the list of daily List tiles
     void _generateDailyTiles() {
+      //This for loop checks each day and builds the title for each listTitle
       for (var i = 0; i < _days.length; i++) {
         var _day = DateTime.parse(_days[i].toString()).day;
         var _month = _months[DateTime.parse(_days[i].toString()).month - 1];
         var _year = DateTime.parse(_days[i].toString()).year;
 
-        tempTile = ListTile(
-          title: Text('$_month $_day $_year'),
+        tempItem = Container(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "$_month $_day $_year",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ]),
         );
-        _DailyListTile.add(tempTile);
+        _daysAndEvents.add(tempItem);
 
         List _events = calendarObserver
             .loadEventsOfSelectedDay(_days[i].toString().split(" ")[0]);
 
+        //This for loop checks each date for events and adds them to the List of ListTiles
         for (var ii = 0; ii < _events.length; ii++) {
-          print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Re Ran Daily");
-
-          tempTile = ListTile(
-              title: Container(
-            height: 44,
-            margin: EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 1,
-            ),
+          //print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Re Ran Daily");
+          tempItem = Container(
             decoration: BoxDecoration(
-              color: Colors.lightBlue.shade500,
-              border: Border.all(),
+              color: Colors.lightBlue.shade50,
+              border: Border.all(color: Colors.blueGrey, width: 1),
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("\t${_events[ii]} \t at \t ${_events[ii].time}",
-                    textAlign: TextAlign.left),
-              ],
-            ),
-          ));
-          _DailyListTile.add(tempTile);
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("\t\t${_events[ii]} \t at \t ${_events[ii].time}")
+                ]),
+          );
+          _daysAndEvents.add(tempItem);
         }
       }
     }
@@ -166,7 +173,9 @@ class CalendarState extends State<Calendar> {
                             vertical: 4.0,
                           ),
                           decoration: BoxDecoration(
-                            border: Border.all(),
+                            color: Colors.lightBlue.shade50,
+                            border:
+                                Border.all(color: Colors.blueGrey, width: 1),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: new ListTile(
@@ -296,9 +305,8 @@ class CalendarState extends State<Calendar> {
                       ],
                     ),
                     onPressed: () => {
+                      _generateDailyTiles(),
                       setState(() {
-                        _generateDailyTiles();
-
                         _dayHasBeenPressed = true;
                         _dailyCalendarIsVisible = true;
                         _monthHasBeenPressed = false;
@@ -306,13 +314,12 @@ class CalendarState extends State<Calendar> {
 
                         _calendarIsVisable = false;
                         _notesOnDayIsVisible = false;
-                      })
+                      }),
                     },
                   ),
                 ],
               ),
             ),
-
             Visibility(
               visible: _calendarIsVisable,
               child: TableCalendar(
@@ -331,21 +338,29 @@ class CalendarState extends State<Calendar> {
                 selectedDayPredicate: (day) {
                   return isSameDay(calendarObserver.selectedDay, day);
                 },
-//-------------------------------------------------------------------------------------------
+                //-------------------------------------------------------------------------------------------
+
                 //This event loader is causing an error and slowing this whole thing down
                 eventLoader: (DateTime day) {
                   return calendarObserver
                       .loadEventsOfSelectedDay(day.toString().split(" ")[0]);
                 },
+
                 //-----------------------------------------------------------------------------------------
                 onDaySelected: (selectedDay, focusDay) {
                   _focusedDay = selectedDay;
                   print("onDaySelected selectedDay: $selectedDay");
                   //extract the date portion
                   calendarObserver.setSelectedDay(selectedDay);
-                  calendarObserver.loadEventsOfSelectedDay(
+                  var _events = calendarObserver.loadEventsOfSelectedDay(
                       selectedDay.toString().split(" ")[0]);
-
+                  if (_events.length > 0) {
+                    _calendarFormat = CalendarFormat.week;
+                    _weekHasBeenPressed = true;
+                    _dayHasBeenPressed = false;
+                    _monthHasBeenPressed = false;
+                  }
+                  ;
                   (context as Element).reassemble();
                 },
 
@@ -370,23 +385,22 @@ class CalendarState extends State<Calendar> {
             ),
             const SizedBox(height: 8.0),
             Visibility(
-                visible: _dailyCalendarIsVisible,
-                child: Expanded(
-                  child: CustomScrollView(
-                    controller: ScrollController(
-                        initialScrollOffset: 50 * _days.length / 2 - 50),
-                    slivers: <Widget>[
-                      SliverFixedExtentList(
-                        itemExtent: 50.0,
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) =>
-                              _buildTile(context, _DailyListTile[index]),
-                          childCount: _DailyListTile.length,
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+              visible: _dailyCalendarIsVisible,
+              child: Expanded(
+                  child: new ListView.builder(
+                itemCount: _daysAndEvents.length,
+                itemExtent: 50,
+                controller: ScrollController(
+                    initialScrollOffset: 50 * _days.length / 2 - 50),
+                itemBuilder: (context, index) => new Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 4.0,
+                    ),
+                    key: ValueKey(_daysAndEvents[index]),
+                    child: _daysAndEvents[index]),
+              )),
+            ),
             const SizedBox(height: 8.0),
             Visibility(
               visible: _notesOnDayIsVisible,
@@ -398,20 +412,6 @@ class CalendarState extends State<Calendar> {
           ],
         ),
       ),
-    );
-  }
-
-  _buildTile(BuildContext context, _dailyTile) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: Container(
-            color: _dateColor,
-            child: _dailyTile,
-          ),
-        ),
-      ],
     );
   }
 }

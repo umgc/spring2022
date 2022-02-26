@@ -39,7 +39,7 @@ abstract class _AbstractCalendarObserver with Store {
 
   @action
   List<CalenderEvent> loadEventsOfSelectedDay(String day) {
-    print("loadEventsOfSelectedDay: note.eventDate: SelectDay $day");
+    //print("loadEventsOfSelectedDay: note.eventDate: SelectDay $day");
     List<CalenderEvent> eventsOnDay = [];
     for (TextNote note in noteObserver!.usersNotes) {
       // print(
