@@ -7,6 +7,9 @@ import 'package:untitled3/Observables/SettingObservable.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import '../../Observables/NoteObservable.dart';
 
+bool _filteredNotesIsVisible = false;
+bool _unfilteredNotes = true;
+
 /// View Notes page
 class NoteTable extends StatefulWidget {
   final List<TextNote> usersNotes;
@@ -27,7 +30,6 @@ class _NoteTableState extends State<NoteTable> {
     super.initState();
   }
 
-  // void filterSearchResults(String query) {
   @override
   Widget build(BuildContext context) {
     // String noteDetailScreen =I18n.of(context)!.notesDetailScreenName;
@@ -46,6 +48,27 @@ class _NoteTableState extends State<NoteTable> {
     var rowHeight = (MediaQuery.of(context).size.height - 56) / 7;
     var noteWidth = MediaQuery.of(context).size.width * 0.35;
     print("My width is $noteWidth");
+    // This function is called whenever the text field changes
+    List<TextNote> filteredUsersNotes = [];
+    void _runFilter(String value) {
+      if ((value.isEmpty)) {
+        setState(() {
+          _filteredNotesIsVisible = false;
+          _unfilteredNotes = true;
+        });
+      } else {
+        // Refresh the UI
+        filteredUsersNotes = noteObserver.usersNotes
+            .where((element) =>
+                element.text.toLowerCase().contains(value.toLowerCase()))
+            .toList();
+        print("line 67 xxxxxxxxxxxxxxxx" + filteredUsersNotes.toString());
+        setState(() {
+          _filteredNotesIsVisible = true;
+          _unfilteredNotes = false;
+        });
+      }
+    }
 
     //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
     return SingleChildScrollView(
@@ -58,67 +81,68 @@ class _NoteTableState extends State<NoteTable> {
               hintText: '--Search For A Note--',
             ),
             onChanged: (value) {
-              setState(() {
-                NoteObserver().onSearchNote(value);
-              });
+              _runFilter(value);
             },
           ),
-          DataTable(
-              dataRowHeight: rowHeight,
-              headingRowHeight: 60,
-              columnSpacing: 30,
-              columns: const <DataColumn>[
-                DataColumn(
-                  label: Text(
-                    '',
-                    style: HEADER_TEXT_STYLE,
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'NOTE',
-                    style: HEADER_TEXT_STYLE,
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'CREATED',
-                    style: HEADER_TEXT_STYLE,
-                  ),
-                ),
-              ],
-              rows: List<DataRow>.generate(
-                widget.usersNotes.length,
-                (int index) => DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text("${(index + 1)}")),
-                    DataCell(
-                      Container(
-                          padding: EdgeInsets.all(10),
-                          width: noteWidth,
-                          child: Text(
-                            widget.usersNotes[index].localText,
-                            style: TEXT_STYLE,
-                          )),
-                      showEditIcon: true,
-                      onTap: () => {
-                        screenNav.changeScreen(MAIN_SCREENS.NOTE),
-                        noteObserver
-                            .setCurrNoteIdForDetails(
-                                widget.usersNotes[index].noteId)
-                            .then((value) => noteObserver
-                                .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
-                        if (widget.onListItemClickCallBackFn != null)
-                          {widget.onListItemClickCallBackFn!.call()}
-                      },
+          Visibility(
+            visible: _unfilteredNotes,
+            child: DataTable(
+                dataRowHeight: rowHeight,
+                headingRowHeight: 60,
+                columnSpacing: 30,
+                columns: const <DataColumn>[
+                  DataColumn(
+                    label: Text(
+                      '',
+                      style: HEADER_TEXT_STYLE,
                     ),
-                    DataCell(Text(timeago.format(
-                        widget.usersNotes[index].recordedTime,
-                        locale:
-                            settingObserver.userSettings.locale.languageCode))),
-                  ],
-                ),
-              )),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      'NOTE',
+                      style: HEADER_TEXT_STYLE,
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      'CREATED',
+                      style: HEADER_TEXT_STYLE,
+                    ),
+                  ),
+                ],
+                rows: List<DataRow>.generate(
+                  widget.usersNotes.length,
+                  (int index) => DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text("${(index + 1)}")),
+                      DataCell(
+                        Container(
+                            padding: EdgeInsets.all(10),
+                            width: noteWidth,
+                            child: Text(
+                              widget.usersNotes[index].localText,
+                              style: TEXT_STYLE,
+                            )),
+                        showEditIcon: true,
+                        onTap: () => {
+                          screenNav.changeScreen(MAIN_SCREENS.NOTE),
+                          noteObserver
+                              .setCurrNoteIdForDetails(
+                                  widget.usersNotes[index].noteId)
+                              .then((value) => noteObserver
+                                  .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
+                          if (widget.onListItemClickCallBackFn != null)
+                            {widget.onListItemClickCallBackFn!.call()}
+                        },
+                      ),
+                      DataCell(Text(timeago.format(
+                          widget.usersNotes[index].recordedTime,
+                          locale: settingObserver
+                              .userSettings.locale.languageCode))),
+                    ],
+                  ),
+                )),
+          ),
         ],
       ),
     );
