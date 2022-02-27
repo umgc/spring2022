@@ -51,7 +51,8 @@ dependencies:
   chat_bubbles: ^1.1.0
   dcdg: ^4.0.1
   sigv4: ^5.0.0
-
+  sqflite: ^2.0.2
+  toast: ^0.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -115,6 +116,7 @@ flutter:
   assets:
     - assets/help/example_help.mp4
     - assets/help/help_content.json
+    - assets/images/caregiver_patient_image.png
     - assets/images/mic.png
     - assets/images/Note.png
     - assets/images/Cloud.png
