@@ -14,6 +14,7 @@ import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/Utility/ThemeUtil.dart';
 import 'package:untitled3/generated/i18n.dart';
 import 'package:untitled3/Screens/Settings/Help.dart';
+import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
 import 'package:untitled3/Screens/Menu/Menu.dart';
@@ -116,6 +117,10 @@ class _MainNavigatorState extends State<MainNavigator> {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle("Tasks");
       return Tasks();
+    }
+    if (screen == MENU_SCREENS.USERPROFILE) {
+      screenNav.setTitle("User Profile");
+      return UserProfile();
     }
 
     //menu screens
