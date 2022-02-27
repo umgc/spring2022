@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:untitled3/Model/Note.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
@@ -88,7 +89,7 @@ class CalendarState extends State<Calendar> {
       } else {
         _results = _allEvents
             .where((event) =>
-                event.text.toLowerCase().contains(value.toLowerCase()))
+            event.text.toLowerCase().contains(value.toLowerCase()))
             .toList();
         // Refresh the UI
         setState(() {
@@ -165,31 +166,34 @@ class CalendarState extends State<Calendar> {
               child: Expanded(
                 child: _matchedEvents.isNotEmpty
                     ? new ListView.builder(
-                        itemCount: _matchedEvents.length,
-                        itemBuilder: (context, index) => new Container(
-                          key: ValueKey(_matchedEvents[index].noteId),
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 4.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.lightBlue.shade50,
-                            border:
-                                Border.all(color: Colors.blueGrey, width: 1),
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          child: new ListTile(
-                            //onTap: () => print('${value[index]}'),
-                            title: Text(
-                                "${_matchedEvents[index].text} \t at \t ${_matchedEvents[index].eventTime}",
-                                textAlign: TextAlign.center),
-                          ),
-                        ),
-                      )
+                  itemCount: _matchedEvents.length,
+                  itemBuilder: (context, index) => new Container(
+                    key: ValueKey(_matchedEvents[index].noteId),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 4.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue.shade50,
+                      border:
+                      Border.all(color: Colors.blueGrey, width: 1),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: new ListTile(
+                      //onTap: () => print('${value[index]}'),
+                      title: Text(
+                          "${_matchedEvents[index].text}",
+                          textAlign: TextAlign.center),
+                      subtitle: Text(
+                          " on ${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t at \t ${_matchedEvents[index].eventTime}",
+                          textAlign: TextAlign.center),
+                    ),
+                  ),
+                )
                     : const Text(
-                        'No results found',
-                        style: TextStyle(fontSize: 24),
-                      ),
+                  'No results found',
+                  style: TextStyle(fontSize: 24),
+                ),
               ),
             ),
             Visibility(
@@ -201,7 +205,7 @@ class CalendarState extends State<Calendar> {
                   TextButton(
                     style: TextButton.styleFrom(
                       primary:
-                          _weekHasBeenPressed ? Colors.black : Colors.blueGrey,
+                      _weekHasBeenPressed ? Colors.black : Colors.blueGrey,
                       textStyle: TextStyle(
                         fontWeight: _weekHasBeenPressed
                             ? FontWeight.bold
@@ -244,7 +248,7 @@ class CalendarState extends State<Calendar> {
                   TextButton(
                     style: TextButton.styleFrom(
                       primary:
-                          _monthHasBeenPressed ? Colors.black : Colors.blueGrey,
+                      _monthHasBeenPressed ? Colors.black : Colors.blueGrey,
                       textStyle: TextStyle(
                         fontWeight: _monthHasBeenPressed
                             ? FontWeight.bold
@@ -288,7 +292,7 @@ class CalendarState extends State<Calendar> {
                   TextButton(
                     style: TextButton.styleFrom(
                       primary:
-                          _dayHasBeenPressed ? Colors.black : Colors.blueGrey,
+                      _dayHasBeenPressed ? Colors.black : Colors.blueGrey,
                       textStyle: TextStyle(
                         fontWeight: _dayHasBeenPressed
                             ? FontWeight.bold
@@ -388,25 +392,25 @@ class CalendarState extends State<Calendar> {
               visible: _dailyCalendarIsVisible,
               child: Expanded(
                   child: new ListView.builder(
-                itemCount: _daysAndEvents.length,
-                itemExtent: 50,
-                controller: ScrollController(
-                    initialScrollOffset: 50 * _days.length / 2 - 50),
-                itemBuilder: (context, index) => new Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 4.0,
-                    ),
-                    key: ValueKey(_daysAndEvents[index]),
-                    child: _daysAndEvents[index]),
-              )),
+                    itemCount: _daysAndEvents.length,
+                    itemExtent: 50,
+                    controller: ScrollController(
+                        initialScrollOffset: 50 * _days.length / 2 - 50),
+                    itemBuilder: (context, index) => new Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 4.0,
+                        ),
+                        key: ValueKey(_daysAndEvents[index]),
+                        child: _daysAndEvents[index]),
+                  )),
             ),
             const SizedBox(height: 8.0),
             Visibility(
               visible: _notesOnDayIsVisible,
               child: Expanded(
                 child:
-                    NotesOnDay(), //This is the area below the calendar that shows the notes/reminders
+                NotesOnDay(), //This is the area below the calendar that shows the notes/reminders
               ),
             )
           ],
