@@ -10,8 +10,7 @@ class ContactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5.0),
-      child: Card(
+      margin: EdgeInsets.all(10.0),
         child:
         Row(
           children: <Widget>[
@@ -57,7 +56,6 @@ class ContactCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }
