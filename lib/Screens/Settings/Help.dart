@@ -65,6 +65,7 @@ class HelpTable extends StatelessWidget {
           ),
         ),
         ListView.builder(
+          physics: ScrollPhysics(),
           shrinkWrap: true,
           itemCount: helpItems.length,
           itemBuilder: (context, index) {
