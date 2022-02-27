@@ -13,33 +13,25 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(child: ProfileCard()),
-                //SECTION LINE DIVIDER
-                SizedBox(
-                  child: Divider(color: Colors.blueGrey),
-                ),
-                Expanded(child: ContactCard()),
-                //SECTION LINE DIVIDER
-                SizedBox(
-                  child: Divider(color: Colors.blueGrey),
-                ),
-                Expanded(child: CareTeamCard()),
-                //SECTION LINE DIVIDER
-                SizedBox(
-                  child: Divider(color: Colors.blueGrey),
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(child: ProfileCard()),
+          //SECTION LINE DIVIDER
+          SizedBox(
+            child: Divider(color: Colors.blueGrey),
+          ),
+          Expanded(child: ContactCard()),
+          //SECTION LINE DIVIDER
+          SizedBox(
+            child: Divider(color: Colors.blueGrey),
+          ),
+          Expanded(child: CareTeamCard()),
+          //SECTION LINE DIVIDER
+          SizedBox(
+            child: Divider(color: Colors.blueGrey),
+          ),
+        ],
       ),
     );
   }
