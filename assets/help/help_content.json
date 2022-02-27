@@ -22,38 +22,38 @@
     "videoUrl":"sample.com"
   },
   {
-    "title":"CALENDAR: Overview of Notes",
+    "title":"CALENDAR: Overview of Calendar",
     "videoUrl":"sample.com"
   },
   {
-    "title":"CALENDAR: Other topics on Notes",
-    "videoUrl":"sample.com"
-  },
-
-  {
-    "title":"PROFILE: Overview of Notes",
-    "videoUrl":"sample.com"
-  },
-  {
-    "title":"PROFILE: Other topics on Notes",
+    "title":"CALENDAR: Other topics on Calendar",
     "videoUrl":"sample.com"
   },
 
   {
-    "title":"SETTINGS: Overview of Notes",
+    "title":"PROFILE: Overview of Profile",
     "videoUrl":"sample.com"
   },
   {
-    "title":"SETTINGS: Other topics on Notes",
+    "title":"PROFILE: Other topics on Profile",
     "videoUrl":"sample.com"
   },
 
   {
-    "title":"CHAT: Overview of Notes",
+    "title":"SETTINGS: Overview of Settings",
     "videoUrl":"sample.com"
   },
   {
-    "title":"CHAT: Other topics on Notes",
+    "title":"SETTINGS: Other topics on Settings",
+    "videoUrl":"sample.com"
+  },
+
+  {
+    "title":"CHAT: Overview of Chat",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"CHAT: Other topics on Chat",
     "videoUrl":"sample.com"
   }
 ]
