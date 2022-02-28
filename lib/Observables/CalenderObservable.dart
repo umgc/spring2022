@@ -192,6 +192,7 @@ abstract class _AbstractCalendarObserver with Store {
 
   @action
   void dayView() {
+    calendarFormat = CalendarFormat.week;
     print("Day View Pressed");
     setWeekHasBeenPressed(false);
     setDayHasBeenPressed(true);

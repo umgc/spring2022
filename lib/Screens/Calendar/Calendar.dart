@@ -105,11 +105,14 @@ class CalendarState extends State<Calendar> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: new ListTile(
+
                           //onTap: () => print('${value[index]}'),
                           title: Text("${_matchedEvents[index].text}",
+                              style: TextStyle(color: Colors.black),
                               textAlign: TextAlign.center),
                           subtitle: Text(
-                              " on ${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t at \t ${_matchedEvents[index].eventTime}",
+                              "${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t at \t ${_matchedEvents[index].eventTime}",
+                              style: TextStyle(color: Colors.black),
                               textAlign: TextAlign.center),
                         ),
                       ),
@@ -148,14 +151,11 @@ class CalendarState extends State<Calendar> {
                 return isSameDay(calendarObserver.selectedDay, day);
               },
               //-------------------------------------------------------------------------------------------
-/*
                 //This event loader is causing an error and slowing this whole thing down
                 eventLoader: (DateTime day) {
                   return calendarObserver
                       .loadEventsOfSelectedDay(day.toString().split(" ")[0]);
                 },
-
- */
               //-----------------------------------------------------------------------------------------
               onDaySelected: (selectedDay, focusDay) {
                 _focusedDay = selectedDay;
