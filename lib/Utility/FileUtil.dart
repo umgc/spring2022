@@ -49,14 +49,14 @@ class FileUtil {
     try {
       var textNotesDirectory = await _getTextNotesDirectory();
       final File file = fileSystem.file('${textNotesDirectory.path}/$fileName');
-      print("readFile: filepath ${file.path}");
+      // print("readFile: filepath ${file.path}");
       //create file if it does not exist
       if (await file.exists() == false) {
         file.createSync(recursive: true);
       } else {
         data = file.readAsStringSync().trim();
       }
-      print("readFile: result data $data");
+      // print("readFile: result data $data");
     } catch (e) {
       print("ERROR-Couldn't read file: ${e.toString()}");
     }

@@ -96,21 +96,16 @@ abstract class _AbstractNoteObserver with Store {
 
   @action
   void setNotes(notes) {
-    print("set note to: ${notes}");
+    // print("set note to: $notes");
     usersNotes = notes;
-    print('From line 101 Xxxxxxxxxxxxxxxxxxxx' + usersNotes[1].toString());
   }
 
   @action
   List<TextNote> onSearchNote(String searchQuery) {
-    print(searchQuery.toLowerCase() +
-        ' from line 107 xxxxxxxxxxxxxxxxxxxxxxxxxxx');
     List<TextNote> filteredResult = usersNotes
         .where((element) =>
             element.text.toLowerCase().contains(searchQuery.toLowerCase()))
         .toList();
-    print(' from line 113 Xxxxxxxxxxxxxxxxxxxx' +
-        usersNotes[0].text.toLowerCase().contains(searchQuery).toString());
 
     return filteredResult;
   }

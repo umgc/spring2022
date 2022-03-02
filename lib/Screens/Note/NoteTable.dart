@@ -6,6 +6,7 @@ import 'package:untitled3/Observables/ScreenNavigator.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import '../../Observables/NoteObservable.dart';
+import 'package:untitled3/Services/NoteService.dart';
 
 bool _filteredNotesIsVisible = false;
 bool _unfilteredNotes = true;
@@ -47,19 +48,24 @@ class _NoteTableState extends State<NoteTable> {
     List<TextNote> filteredUsersNotes = [];
 
     void _runFilter(String value) {
-      if ((value.isEmpty)) {
+      if ((value.isEmpty || value == '')) {
+        noteObserver.changeScreen(NOTE_SCREENS.NOTE);
+        TextNoteService.loadNotes().then((notes) =>
+            {noteObserver.setNotes(notes), noteObserver.setCheckList(notes)});
+
         setState(() {
           _filteredNotesIsVisible = false;
           _unfilteredNotes = true;
         });
       } else {
         // Refresh the UI
+        noteObserver.changeScreen(NOTE_SCREENS.NOTE);
 
         filteredUsersNotes = noteObserver.usersNotes
             .where((element) =>
                 element.text.toLowerCase().contains(value.toLowerCase()))
             .toList();
-        print("line 67 xxxxxxxxxxxxxxxx" + filteredUsersNotes.toString());
+
         noteObserver.usersNotes = filteredUsersNotes;
         setState(() {
           _filteredNotesIsVisible = true;

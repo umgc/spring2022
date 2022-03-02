@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untitled3/Observables/NoteObservable.dart';
 import 'package:untitled3/Observables/ScreenNavigator.dart';
 import 'package:untitled3/Screens/Settings/Setting.dart';
 import 'package:untitled3/generated/i18n.dart';
@@ -22,6 +23,7 @@ class MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
+    final noteObserver = Provider.of<NoteObserver>(context, listen: false);
     final menuObserver = Provider.of<MenuObserver>(context);
     final screenNav = Provider.of<MainNavObserver>(context);
     return Observer(
@@ -54,7 +56,9 @@ class MenuState extends State<Menu> {
                                     ),
                                   ],
                                 ),
-                                onPressed: () {screenNav.changeScreen(MAIN_SCREENS.TASKS);},
+                                onPressed: () {
+                                  screenNav.changeScreen(MAIN_SCREENS.TASKS);
+                                },
                               ),
                             ),
                           ),
@@ -88,6 +92,7 @@ class MenuState extends State<Menu> {
                                 ),
                                 onPressed: () {
                                   screenNav.changeScreen(MAIN_SCREENS.NOTE);
+                                  noteObserver.changeScreen(NOTE_SCREENS.NOTE);
                                 },
                               ),
                             ),
