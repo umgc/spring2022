@@ -82,5 +82,6 @@
     "startDate": "开始日期",
     "selectDate": "选择日期",
     "enterTime": "输入时间",
-    "clearSelection": "清空选项"
+    "clearSelection": "清空选项",
+    "enableNotifications": "启用通知"
 }
