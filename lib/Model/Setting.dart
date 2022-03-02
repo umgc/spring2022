@@ -92,8 +92,8 @@ class Setting {
                         "menuFontSize": "${this.menuFontSize.toString()}",
                         "minutesBeforeNoteNotifications": "${this.minutesBeforeNoteNotifications.toString()}",
                         "minutesBeforeTaskNotifications": "${this.minutesBeforeTaskNotifications.toString()}",
-                        "enableNotesNotifications": "${this.enableNotesNotifications.toString()}",
-                        "enableTasksNotifications": "${this.enableTasksNotifications.toString()}" }
+                        "enableNotesNotifications": ${this.enableNotesNotifications},
+                        "enableTasksNotifications": ${this.enableTasksNotifications} }
                         """;
 
     return jsonStr;

@@ -8,15 +8,10 @@ import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
 import 'dart:math' as math;
 
+import '../../Observables/ScreenNavigator.dart';
+
 List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
-List<String> minutesBeforeNotification = [
-  '1',
-  '2',
-  '3',
-  '5',
-  '10',
-  '30'
-]; // can add padding to keep dropdown menu on screen
+List<String> minutesBeforeNotification = ['1', '2', '3', '5', '10', '30'];
 List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
 
 List<String> daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
@@ -31,8 +26,8 @@ class Settings extends StatefulWidget {
 class _SettingState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
+    final screenNav = Provider.of<MainNavObserver>(context);
     final settingObserver = Provider.of<SettingObserver>(context);
-
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
 
     fontSizeToDisplayName(FontSize fontSize) {
@@ -85,7 +80,7 @@ class _SettingState extends State<Settings> {
                  */
                   Row(
                     children: [
-                      Text('Notes',
+                      Text(I18n.of(context)!.notesScreenName,
                           style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -101,7 +96,8 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Enable Notifications',
+                    //'Enable Notifications',
+                    I18n.of(context)!.enableNotifications,
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -127,7 +123,8 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Minutes Before Notification',
+                    //'Minutes Before Notification',
+                    I18n.of(context)!.minutesBeforeNotification,
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -151,7 +148,6 @@ class _SettingState extends State<Settings> {
                         settingObserver.userSettings
                             .minutesBeforeNoteNotifications = newValue!;
 
-                        ///Maybe dont need a save icon, just a reset
                       });
                     },
 
@@ -177,14 +173,15 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Days To Keep Notes',
+                    I18n.of(context)!.daysToKeepNotes,
+                    //'Days To Keep Notes',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   DropdownButton<String>(
-                    alignment: Alignment.center,
+                    alignment: Alignment.center, /// This may need to be changed to new variable.*****************
                     value: settingObserver.userSettings.daysToKeepFiles,
                     items: daysToKeepFilesOptions
                         .map<DropdownMenuItem<String>>((String value) {
@@ -196,9 +193,9 @@ class _SettingState extends State<Settings> {
                     onChanged: (String? newValue) {
                       setState(() {
                         settingObserver.userSettings.daysToKeepFiles =
-                            newValue!;
+                            newValue!;/// This may need to be changed to new variable.*****************
 
-                        ///null check
+                        //null check
                       });
                     },
                   ),
@@ -214,7 +211,8 @@ class _SettingState extends State<Settings> {
                 children: <Widget>[
                   Row(
                     children: [
-                      Text('Tasks',
+                      Text(I18n.of(context)!.tasks,
+                          //'Tasks',
                           style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -230,7 +228,8 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Enable Notifications',
+                    I18n.of(context)!.enableNotifications,
+                    //'Enable Notifications',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -256,7 +255,8 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Minutes Before Notification',
+                    I18n.of(context)!.minutesBeforeNotification,
+                    //'Minutes Before Notification',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -292,7 +292,8 @@ class _SettingState extends State<Settings> {
                 children: <Widget>[
                   Row(
                     children: [
-                      Text('App Settings',
+                      Text(I18n.of(context)!.appSettings,
+                          //'App Settings',
                           style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -338,21 +339,13 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Language',
+                    I18n.of(context)!.language,
+                    //'Language',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-
-                  ///specific predefined parts are translated???
-                  // Text(
-                  //   I18n.of(context)!.cancel,
-                  //   //locale: settingObserver.userSettings.locale,
-                  //   style: Theme.of(context).textTheme.bodyText1,
-                  // ),
-
-                  ///
 
                   // Text(I18n.of(context)!.language,
                   //     style: Theme.of(context).textTheme.bodyText2),
@@ -412,11 +405,11 @@ class _SettingState extends State<Settings> {
                 ],
               ),
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Theme',
+                    I18n.of(context)!.theme,
+                    //'Theme',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
@@ -434,11 +427,7 @@ class _SettingState extends State<Settings> {
                     }).toList(),
                     onChanged: (AppTheme? newValue) {
                       setState(() {
-
-                        settingObserver.userSettings.appTheme = newValue!;///???????????????????
-                        print('What themes?');
-
-                        ///remove after testing
+                        settingObserver.userSettings.appTheme = newValue!;
                       });
                     },
                   ),
@@ -447,215 +436,50 @@ class _SettingState extends State<Settings> {
               addTopDivider(),
               addBotDivider(),
 
-              /**
-             * Triggers section of the screen
-             */
+              /// Caregiver Mode Button
               Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Triggers',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[800])),
-                    ],
-                  ),
-                ],
-              ),
-
-              /**
-             * Invisible Box for spacing
-             */
-              SizedBox(
-                height: 12.0,
-              ),
-
-              /**
-             * Start Recording Trigger
-             */
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Start Recording',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 3.0,
-              ),
-              Container(
-                height: 35.0,
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    hintText: 'Placeholder text.',
-                    hintStyle: TextStyle(color: Colors.black),
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                  ),
-                  onChanged: (value) {
-                    // onChanged: (Locale? newLocale) {
-                    //   setState(() {
-                    //     if (newLocale != null) {
-                    //       settingObserver.userSettings.locale = newLocale;
-                    //     }
-                    //   });
-                    // },
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                    screenNav.changeScreen(MAIN_SCREENS.MENU);///////////////////////////////put new screen
                   },
-                ),
-              ),
-
-              /**
-             * Invisible Box for spacing.
-             */
-              SizedBox(
-                height: 12.0,
-              ),
-
-              /**
-             * Stop Recording Trigger
-             */
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Stop Recording',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                      child: Text(
+                          'Enable Caregiver Mode',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                        color: Colors.black
+                      ),
+                      ),
+                    style: TextButton.styleFrom(
+                      elevation: 1.0,
+                      alignment: Alignment.center,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0),
+                        ),
+                      ),
+                      backgroundColor: Colors.grey[400],
                     ),
                   ),
+
                 ],
               ),
-              SizedBox(
-                height: 3.0,
-              ),
-              Container(
-                height: 35.0,
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    hintText: 'Placeholder text.',
-                    hintStyle: TextStyle(color: Colors.black),
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                  ),
-                  onChanged: (value) {},
-                ),
-              ),
 
-              /**
-             * Invisible Box for spacing
-             */
-              SizedBox(
-                height: 12.0,
-              ),
-
-              /**
-             * Playback Notes Trigger
-             */
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Playback Notes',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 3.0,
-              ),
-              Container(
-                height: 35.0,
-                child: TextField(
-                  style: TextStyle(color: Colors.black),
-                  decoration: InputDecoration(
-                    hintText: 'Placeholder text.',
-                    hintStyle: TextStyle(color: Colors.black),
-                    filled: true,
-                    fillColor: Colors.grey[300],
-                  ),
-                  onChanged: (value) {
-                    //print(settingObserver.userSettings);
-                  },
-                ),
-              ),
-
-              //end Playback Notes section
-
-              SizedBox(
-                height: 20,
-              ),
-              /**
-             * for testing functionality*********************************************************************
-             */
-//             Text(I18n.of(context)!.daysToKeepNotes,
-//                 style: Theme.of(context).textTheme.bodyText2),
-//             Padding(
-//               padding: EdgeInsets.fromLTRB(1.0, 2.0, 3.0, 4.0),
-//               child: Container(
-//                 width: 60,
-//                 height: 40,
-//                 padding: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-//                 decoration: BoxDecoration(
-//                   border: Border.all(color: Colors.black, width: 1),
-//                 ),
-//                 child: DropdownButton(
-//                   onTap: () => print('tap tap'),
-//                   hint: Text(
-//                     I18n.of(context)!.promptNoteDeletionTimeline,
-//                     style: Theme.of(context).textTheme.bodyText1,
-//                   ),
-//                   icon: Icon(
-// // Add this
-//                     Icons.edit_sharp, // Add this
-//                     color: Colors.blue, // Add this
-//                   ),
-//                   value: settingObserver.userSettings.daysToKeepFiles,
-//                   onChanged: (String? newValue) {
-//                     setState(() {
-//                      // settingObserver.userSettings.daysToKeepFiles =
-//                     //      newValue ?? DEFAULT_DAYS_TO_KEEP_FILES;
-//                     });
-//                   },
-//                   isExpanded: true,
-//                   underline: SizedBox(),
-//
-//                   style: Theme.of(context).textTheme.bodyText1,
-//                   items: daysToKeepFilesOptions.map((valueItem) {
-//                     return DropdownMenuItem(
-//                         value: valueItem, child: Text((valueItem)));
-//                   }).toList(),
-//
-//                 ),
-//               ),
-//             ),
-
-              /***********************************************************************
-             * for testing functionality
-             */
+              addTopDivider(),
+              addBotDivider(),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
+                  /// Cancel Button
                   GestureDetector(
                       onTap: () {
-                        final screenNav =
-                            Provider.of<MenuObserver>(context, listen: false);
-                        screenNav.changeScreen(MENU_SCREENS.MENU);
+                        // final screenNav =
+                        //     Provider.of<MenuObserver>(context, listen: false);
+                        // screenNav.changeScreen(MENU_SCREENS.MENU);
+                        screenNav.changeScreen(MAIN_SCREENS.MENU);
                       },
                       child: Column(
                         children: [
@@ -671,8 +495,10 @@ class _SettingState extends State<Settings> {
                             style: Theme.of(context).textTheme.bodyText1,
                           )
                         ],
-                      )),
-//SAVE BUTTON
+                      )
+                  ),
+
+                  ///SAVE BUTTON
                   GestureDetector(
                       onTap: () {
                         settingObserver.saveSetting();
@@ -691,7 +517,10 @@ class _SettingState extends State<Settings> {
                             style: Theme.of(context).textTheme.bodyText1,
                           )
                         ],
-                      )),
+                      )
+                  ),
+
+                  /// Reset Button
                   GestureDetector(
                     onTap: () {
                       Setting setting = settingObserver.userSettings;

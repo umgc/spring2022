@@ -82,5 +82,6 @@
     "startDate": "Data de início",
     "selectDate": "Selecione a data",
     "enterTime": "Digite o tempo",
-    "clearSelection": "Seleção clara"
+    "clearSelection": "Seleção clara",
+    "enableNotifications": "Ativar notificações"
 }
