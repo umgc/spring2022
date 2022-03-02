@@ -140,13 +140,13 @@ abstract class _AbstractNoteObserver with Store {
 
   @action
   void setNewNoteEventDate(String value) {
-    print("setNewNoteEventDate: setting new Note date $value");
+    // print("setNewNoteEventDate: setting new Note date $value");
     newNoteEventDate = value;
   }
 
   @action
   void setNewNoteEventTime(String value) {
-    print("setNewNoteEventTime: setting new Note time $value");
+    // print("setNewNoteEventTime: setting new Note time $value");
     newNoteEventTime = value;
   }
 }
