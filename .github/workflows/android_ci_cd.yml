@@ -57,7 +57,7 @@ jobs:
     needs: [build_android]
     steps:
       - name: Checkout code
-      uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Decrypt and Unzip File
         run: |
           gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.KEYS_SECRET_PASSPHRASE }}" --output creds.zip creds.zip.gpg
