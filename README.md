@@ -3,7 +3,7 @@
 ![N|Solid](https://github.com/drewnicolette/test123/blob/main/umgc3.jpg?raw=true)
 
 ## Description
-MemorEz is a mobile application to assist people with short-term memory loss.
+MemorEz is a mobile application to assist people with short-term memory loss...
 
 ## Teams
 FlutteringMind\
