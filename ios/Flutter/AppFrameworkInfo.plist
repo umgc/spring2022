@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>The app uses speech to text input to capture notes, this requires microphone access</string>
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>The app uses speech to text input to capture notes, this requires speech recognition use</string>
   <key>CFBundleDevelopmentRegion</key>
   <string>en</string>
   <key>CFBundleExecutable</key>

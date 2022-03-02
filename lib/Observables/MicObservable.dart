@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:intl/date_symbols.dart';
 import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:translator/translator.dart';
 import 'package:untitled3/Model/NLUAction.dart';
@@ -22,6 +24,9 @@ part 'MicObservable.g.dart';
  * - Bubble buttons are responsive.
  *
  */
+
+//print("XXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxx $messageInputText");
+
 class MicObserver = _AbstractMicObserver with _$MicObserver;
 
 abstract class _AbstractMicObserver with Store {
@@ -99,11 +104,15 @@ abstract class _AbstractMicObserver with Store {
     if (micIsExpectedToListen == false) {
       micIsExpectedToListen = true;
       _listen(micIsExpectedToListen);
+      print("XXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxx ");
+
     } else {
       micIsExpectedToListen = false;
+
       _speech.stop();
-      systemUserMessage.clear();
-      clearMsgTextInput();
+      //systemUserMessage.clear();
+      // clearMsgTextInput();
+
       //Reset all values on stopping
     }
   }
@@ -145,7 +154,7 @@ abstract class _AbstractMicObserver with Store {
           "addFollowUpMessage: Still waiting user to respond to the previous followup message");
 
       //call the listener function
-      //_listen(micIsExpectedToListen);
+      _listen(micIsExpectedToListen);
       return;
     }
     VoiceOverTextService.speakOutLoud(message, locale!.languageCode.toString());
@@ -190,13 +199,13 @@ abstract class _AbstractMicObserver with Store {
   }
 
   /*
-   * 
+   *
    * fufillNLUTask: As its name implies, it recieves an NLURespons
    *  message object and process it based on its actionType
    */
   @action
   Future<void> fufillNLUTask(NLUResponse nluResponse) async {
-    //final noteObserver = Provider.of<NoteObserver>(context);
+    // final noteObserver = Provider.of<NoteObserver>(context);
     print("Processing NLU message with action type ${nluResponse.actionType}");
     MainNavObserver resolvedMainNav = (mainNavObserver as MainNavObserver);
 
@@ -222,12 +231,12 @@ abstract class _AbstractMicObserver with Store {
           case "trigger":
             resolvedMainNav.changeScreen(MENU_SCREENS.TRIGGER);
             break;
-          //case "profile":
-          //resolvedMainNav.changeScreen(MENU_SCREENS.PROFILE);
-          // break;
-          //case "security":
-          //  resolvedMainNav.changeScreen(MENU_SCREENS.SECURITY);
-          // break;
+        //case "profile":
+        //resolvedMainNav.changeScreen(MENU_SCREENS.PROFILE);
+        // break;
+        //case "security":
+        //  resolvedMainNav.changeScreen(MENU_SCREENS.SECURITY);
+        // break;
           case "calendar":
             resolvedMainNav.changeScreen(MAIN_SCREENS.CALENDAR);
             break;
@@ -241,21 +250,21 @@ abstract class _AbstractMicObserver with Store {
         break;
 
       case ActionType.USER_LOCATION:
-        //get the user current location
-        //inform the user.
-        //Follow up if the user needs additional help
+      //get the user current location
+      //inform the user.
+      //Follow up if the user needs additional help
 
         break;
       case ActionType.APP_HELP:
-        //Open the help instructions
-        //(mainNavObserver as MainNavObserver).changeScreen(MAIN_SCREENS.CALENDAR)
+      //Open the help instructions
+      //(mainNavObserver as MainNavObserver).changeScreen(MAIN_SCREENS.CALENDAR)
         break;
 
-      //we probably don't need this
+    //we probably don't need this
       case ActionType.CREATE_NOTE:
 
-        //ask user if they will like the note create for the event.
-        //Pre-followup
+      //ask user if they will like the note create for the event.
+      //Pre-followup
         print(
             " case ActionType.CREATE_NOTE: expectingUserFollowupResponse $expectingUserFollowupResponse");
 
@@ -273,6 +282,7 @@ abstract class _AbstractMicObserver with Store {
           if (messageInputText.contains(i18n!.yes)) {
             //create note
             _createNote(nluResponse);
+
             //FollowUpMessage
             //addSystemMessage("An event has been created to 'eventType' on 'eventTime'");
           }
@@ -283,11 +293,11 @@ abstract class _AbstractMicObserver with Store {
 
         break;
       case ActionType.NOTFOUND:
-        break;
+      // break;
 
       case ActionType.ANSWER:
-        //display the text from NLU
-        //and follow up with
+      //display the text from NLU
+      //and follow up with
         print("Case ActionType.ANSWER: ${nluResponse.state}");
         if (locale != Locale("en", "US")) {
           GoogleTranslator translator = GoogleTranslator();
@@ -332,19 +342,19 @@ abstract class _AbstractMicObserver with Store {
 
     switch (followUpType) {
       case FollowUpTypes.NLU_FOLLOWUP:
-        //Call the NLU service with user response to process the information
-        //pass response from the NLU to fufillNLUTask
+      //Call the NLU service with user response to process the information
+      //pass response from the NLU to fufillNLUTask
         await nluLibService
             .getNLUResponse(userSelection, "en-US")
             .then((value) => {
-                  print(
-                      "processFollowups: response from NLU ${(value as NLUResponse).actionType}"),
-                  fufillNLUTask(value),
-                });
+          print(
+              "processFollowups: response from NLU ${(value as NLUResponse).actionType}"),
+          fufillNLUTask(value),
+        });
         break;
 
       case FollowUpTypes.CREATE_NOTE:
-        //call the create event service
+      //call the create event service
 
         addUserMessage(userSelection);
 
@@ -366,10 +376,10 @@ abstract class _AbstractMicObserver with Store {
           //idealy, it will be more accurate to wait for the readtime of the previous statement.
           Timer(
               Duration(seconds: 3),
-              () => {
-                    addFollowUpMessage(
-                        i18n!.willNotCreateNote, [], FollowUpTypes.NEED_HELP)
-                  });
+                  () => {
+                addFollowUpMessage(
+                    i18n!.willNotCreateNote, [], FollowUpTypes.NEED_HELP)
+              });
         }
         break;
       case FollowUpTypes.NEED_HELP:
@@ -412,10 +422,10 @@ abstract class _AbstractMicObserver with Store {
     }
 
     note.eventDate =
-        ((nluResponse.eventDate != null) ? nluResponse.eventDate : "")!;
+    ((nluResponse.eventDate != null) ? nluResponse.eventDate : "")!;
 
     note.eventTime =
-        ((nluResponse.eventTime != null) ? nluResponse.eventTime : "")!;
+    ((nluResponse.eventTime != null) ? nluResponse.eventTime : "")!;
     note.isCheckList = (nluResponse.recurringType != null);
 
     if ((nluResponse.recurringType != null)) {
@@ -428,8 +438,8 @@ abstract class _AbstractMicObserver with Store {
 
     //Note has been created.
     //addSystemMessage(nluResponse);
-    addFollowUpMessage('${i18n!.createdTheFollowingNote} "${note.localText}"', [],
-        FollowUpTypes.NO_ACTION);
+    addFollowUpMessage('${i18n!.createdTheFollowingNote} "${note.localText}"',
+        [], FollowUpTypes.NO_ACTION);
     //FollowUpMessage
     //addSystemMessage("Is there anything I can help you with?");
   }
@@ -442,11 +452,13 @@ abstract class _AbstractMicObserver with Store {
     print('_onDone: micIsExpectedToListen $micIsExpectedToListen');
 
     if (status == "done") {
+
       //if messageInputText is populated (user's voice was captured), call the NLU
       if (messageInputText.isNotEmpty) {
         addUserMessage(messageInputText);
         if (locale != Locale("en", "US")) {
           GoogleTranslator translator = GoogleTranslator();
+
           messageInputText = await TranslationService.translate(
               textToTranslate: messageInputText,
               translator: translator,
@@ -455,10 +467,11 @@ abstract class _AbstractMicObserver with Store {
         await nluLibService
             .getNLUResponse(messageInputText, "en-US")
             .then((value) => {
-                  print(
-                      "_onDone: response from NLU ${(value as NLUResponse).toJson()}"),
-                  fufillNLUTask(value),
-                });
+          print(
+              "xxxxx_onDone: response from NLU ${(value as NLUResponse).toJson()}"),
+          fufillNLUTask(value),
+          print(" oooooooooo ----- >>>>> message Input text $messageInputText"),
+        });
         micIsExpectedToListen = false;
         messageInputText = "";
       }
@@ -471,16 +484,17 @@ abstract class _AbstractMicObserver with Store {
    * Note that this function is first call in the _listen() and by it calling _listen() results
    * to recursive calls.
    */
-  void _onError(status) async {
-    print('_onError: onStatus: $status');
-    //Re-initiate speech service on error
-    micIsExpectedToListen = false;
-
-    //_restartListening();
-  }
+  // void _onError(status) async {
+  //   print('_onError: onStatus: $status');
+  //   //Re-initiate speech service on error
+  //   micIsExpectedToListen = false;
+  //
+  //   //_restartListening();
+  // }
 
   _getLocaleId() async {
     var locales = await _speech.locales();
+
     if (locale == Locale("zh", "CN")) {
       return locales
           .firstWhere((element) => element.localeId == 'cmn_CN')
@@ -491,9 +505,12 @@ abstract class _AbstractMicObserver with Store {
           .firstWhere((element) => element.localeId == 'ar_EG')
           .localeId;
     }
+
     return locales
+
         .firstWhere((element) => element.localeId == locale.toString())
         .localeId;
+
   }
 
   /*
@@ -503,24 +520,38 @@ abstract class _AbstractMicObserver with Store {
    * _onErro - called if an error occurs during the listening process.
    *
    */
+
   Future<void> _listen(micIsExpectedToListen) async {
+
     bool available = await _speech.initialize(
+
       onStatus: (val) => _onDone(val),
-      onError: (val) => _onError(val),
+      // onError: (val) => _onError(val),
     );
 
     print("available $available");
     if (available) {
-      final selectedLocaleId = await _getLocaleId();
+
+      final selectedLocaleId = locale.toString();
+
+      //final selectedLocaleId = "en_us";
+
       _speech.listen(
+
         localeId: selectedLocaleId,
         //listenFor: Duration(minutes: 15),
+
         onResult: (val) => {
+
           setVoiceMsgTextInput(val.recognizedWords),
+
           if (val.hasConfidenceRating && val.confidence > 0)
             speechConfidence = val.confidence
+
         },
+
       );
+
     }
   }
 }
@@ -534,6 +565,6 @@ class AppMessage {
 
   AppMessage(
       {this.message = "Is there anything else I can help you with?",
-      this.responsOptions = const ["Yes", "No"],
-      this.followupType = FollowUpTypes.NEED_HELP});
+        this.responsOptions = const ["Yes", "No"],
+        this.followupType = FollowUpTypes.NEED_HELP});
 }

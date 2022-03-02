@@ -82,5 +82,6 @@
     "startDate": "تاريخ البدء",
     "selectDate": "حدد تاريخ",
     "enterTime": "أدخل الوقت",
-    "clearSelection": "التحديد الواضح"
+    "clearSelection": "التحديد الواضح",
+    "enableNotifications": "تمكين الإخطارات"
 }

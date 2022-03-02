@@ -1,8 +1,8 @@
-# Main Branch Codeowners
+# Development Branch Codeowners
 # The CODEOWNERS file will be used to define individuals or teams that are responsible for code in the @umgc/Spring2022 repository.
 
-# Any change in the @umgc/Spring2022 repo will require approval from @drewnicolette and @robertwrenjr
-* @drewnicolette @robertwrenjr
+# Any change in the @umgc/Spring2022 repo will require approval from @Daryle and @Tomentosa
+* @Daryle @Tomentosa
 
 
 # Any change inside the `/dso` directory
