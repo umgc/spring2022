@@ -57,7 +57,7 @@ class TextNote {
 
   factory TextNote.fromJson(dynamic jsonObj) {
     TextNote note = TextNote();
-    print("extracting jsonObj $jsonObj");
+    // print("extracting jsonObj $jsonObj");
     note.noteId = jsonObj['noteId'];
     note.recordedTime = DateTime.parse(jsonObj['recordedTime']);
     note.language = jsonObj['language'];

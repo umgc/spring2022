@@ -10,7 +10,6 @@ class HelpContent {
   String title = "";
   String videoUrl = "";
 
-
   String toJson() {
     String jsonStr = """ {"title": "${this.title}",
                         "videoUrl": "${this.videoUrl}"}""";
@@ -19,7 +18,7 @@ class HelpContent {
 
   factory HelpContent.fromJson(dynamic jsonObj) {
     HelpContent helpContent = HelpContent();
-    print("extracting jsonObj $jsonObj");
+    // print("extracting jsonObj $jsonObj");
     helpContent.title = jsonObj['title'];
     helpContent.videoUrl = jsonObj['videoUrl'];
     return helpContent;
