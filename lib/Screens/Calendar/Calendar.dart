@@ -61,7 +61,7 @@ class CalendarState extends State<Calendar> {
       } else {
         _results = _allEvents
             .where((event) =>
-                event.text.toLowerCase().contains(value.toLowerCase()))
+                event.text.toLowerCase().contains(value.toLowerCase()) && event.eventDate.isEmpty==false )
             .toList();
         // Refresh the UI
         setState(() {
