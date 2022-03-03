@@ -6,7 +6,7 @@ enum FontSize {
   LARGE,
 }
 
-enum AppTheme { BLUE, PINK }
+enum AppTheme { BLUE, PINK } /// prob needs to be changed
 
 fontSizeStringToEnum(String fontSizeString) {
   switch (fontSizeString) {
@@ -19,7 +19,7 @@ fontSizeStringToEnum(String fontSizeString) {
   }
 }
 
-appThemeStringToEnum(String appTheme) {
+appThemeStringToEnum(String appTheme) { ///needs to be changed with appTheme
   switch (appTheme) {
     case 'AppTheme.BLUE':
       return AppTheme.BLUE;
@@ -40,11 +40,22 @@ const DEFAULT_IS_FIRST_RUN = true;
 
 const DEFAULT_ENABLE_VOICE_OVER_TEXT = true;
 
+const DEFAULT_MINUTES_BEFORE_NOTE_NOTIFICATIONS = "3";
+
+const DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS = "1";
+
+const DEFAULT_ENABLE_NOTES_NOTIFICATIONS = true;
+
+const DEFAULT_ENABLE_TASKS_NOTIFICATIONS = true;
+
+const DEFAULT_ENABLE_CAREGIVER_MODE = false;
+
 
 /// Defines the settings object
 class Setting {
-  /// days to keep files before clearing them
-  String daysToKeepFiles = DEFAULT_DAYS_TO_KEEP_FILES;
+
+  // days to keep files before clearing them
+  String daysToKeepFiles = DEFAULT_DAYS_TO_KEEP_FILES; /// Is this the same as Notes?
 
   //bool to track if the app is newly installed
   bool isFirstRun = DEFAULT_IS_FIRST_RUN;
@@ -52,7 +63,7 @@ class Setting {
   // language of preference
   Locale locale = DEFAULT_LOCALE;
 
-  /// path to the wake word file
+  //path to the wake word file
   bool enableVoiceOverText = DEFAULT_ENABLE_VOICE_OVER_TEXT;
 
   FontSize noteFontSize = DEFAULT_FONT_SIZE;
@@ -60,6 +71,13 @@ class Setting {
 
   AppTheme appTheme = DEFAULT_APP_THEME;
 
+  String minutesBeforeNoteNotifications = DEFAULT_MINUTES_BEFORE_NOTE_NOTIFICATIONS;
+
+  String minutesBeforeTaskNotifications = DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS;
+
+  bool enableNotesNotifications = DEFAULT_ENABLE_NOTES_NOTIFICATIONS;
+
+  bool enableTasksNotifications = DEFAULT_ENABLE_TASKS_NOTIFICATIONS;
 
   /// Constructor takes all properties as params
   Setting();
@@ -71,7 +89,11 @@ class Setting {
                         "enableVoiceOverText": ${this.enableVoiceOverText},
                         "appTheme": "${this.appTheme.toString()}",
                         "noteFontSize": "${this.noteFontSize.toString()}",
-                        "menuFontSize": "${this.menuFontSize.toString()}" }
+                        "menuFontSize": "${this.menuFontSize.toString()}",
+                        "minutesBeforeNoteNotifications": "${this.minutesBeforeNoteNotifications.toString()}",
+                        "minutesBeforeTaskNotifications": "${this.minutesBeforeTaskNotifications.toString()}",
+                        "enableNotesNotifications": ${this.enableNotesNotifications},
+                        "enableTasksNotifications": ${this.enableTasksNotifications} }
                         """;
 
     return jsonStr;
@@ -93,6 +115,10 @@ class Setting {
       setting.noteFontSize = fontSizeStringToEnum(jsonObj['noteFontSize']) ?? DEFAULT_FONT_SIZE;
       setting.menuFontSize = fontSizeStringToEnum(jsonObj['menuFontSize']) ?? DEFAULT_FONT_SIZE;
       setting.appTheme = appThemeStringToEnum(jsonObj['appTheme'] ?? DEFAULT_APP_THEME);
+      setting.minutesBeforeNoteNotifications = jsonObj['minutesBeforeNoteNotification'] ?? DEFAULT_MINUTES_BEFORE_NOTE_NOTIFICATIONS;
+      setting.minutesBeforeTaskNotifications = jsonObj['minutesBeforeTaskNotification'] ?? DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS;
+      setting.enableNotesNotifications = jsonObj['enableNotesNotifications'] ?? DEFAULT_ENABLE_NOTES_NOTIFICATIONS;
+      setting.enableTasksNotifications = jsonObj['enableTasksNotifications'] ?? DEFAULT_ENABLE_TASKS_NOTIFICATIONS;
     }
 
     return setting;

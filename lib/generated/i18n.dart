@@ -194,6 +194,18 @@ class I18n implements WidgetsLocalizations {
 	String get enterTime => "Enter Time";
 	/// "Clear Selection"
 	String get clearSelection => "Clear Selection";
+	/// "Enable Notifications"
+	String get enableNotifications => "Enable Notifications";
+
+	String get minutesBeforeNotification => "Minutes Before Notifications";
+
+	String get appSettings => "App Settings";
+
+	String get tasks => "Tasks";
+
+	String get fontSize => "Font Size";
+
+	//********************************************************************es
 	/// "Ayuda"
 	String get helpScreen => "Ayuda";
 	/// "Palabras Claves"
@@ -452,7 +464,25 @@ class _I18n_es_US extends I18n {
 	/// "Selección clara"
 	@override
 	String get clearSelection => "Selección clara";
-}
+	/// "Enable Notifications
+	@override
+	String get enableNotifications => "Permitir Notificaciones";
+
+	@override
+	String get minutesBeforeNotification => "Minutos antes de las notificaciones";
+
+	@override
+	String get appSettings => "Ajustes de Aplicacion";
+
+	@override
+	String get tasks => "Tareas";
+
+	@override
+	String get fontSize => "Tamaño de fuente";
+
+} // end es
+
+//****************************************************************************pt
 class _I18n_pt_BR extends I18n {
   const _I18n_pt_BR();
   @override
@@ -709,7 +739,24 @@ class _I18n_pt_BR extends I18n {
 	/// "Seleção clara"
 	@override
 	String get clearSelection => "Seleção clara";
-}
+	/// "Enable Notifications
+	@override
+	String get enableNotifications => "Ativar notificações";
+
+	@override
+	String get minutesBeforeNotification => "Minutos antes das notificações";
+
+	@override
+	String get appSettings => "Configurações do aplicativo";
+
+	@override
+	String get tasks => "Tarefas";
+
+	@override
+	String get fontSize => "Tamanho da fonte";
+} // end pt
+
+//****************************************************************************cn
 class _I18n_zh_CN extends I18n {
   const _I18n_zh_CN();
   @override
@@ -966,7 +1013,24 @@ class _I18n_zh_CN extends I18n {
 	/// "清空选项"
 	@override
 	String get clearSelection => "清空选项";
-}
+	/// ""
+  @override
+	String get enableNotifications => "启用通知";
+
+  @override
+	String get minutesBeforeNotification => "通知前几分钟";
+
+  @override
+	String get appSettings => "应用设置";
+
+	@override
+	String get tasks => "任务";
+
+	@override
+	String get fontSize => "字体大小";
+} // end cn
+
+//****************************************************************************ar
 class _I18n_ar_SY extends I18n {
   const _I18n_ar_SY();
   @override
@@ -1223,7 +1287,24 @@ class _I18n_ar_SY extends I18n {
 	/// "التحديد الواضح"
 	@override
 	String get clearSelection => "التحديد الواضح";
-}
+
+	@override
+	String get enableNotifications => "تمكين الإخطارات";
+
+	@override
+	String get minutesBeforeNotification => "دقائق قبل الإخطارات";
+
+	@override
+	String get appSettings => "إعدادات التطبيقات";
+
+	@override
+	String get tasks => "مهام";
+
+	@override
+	String get fontSize => "حجم الخط";
+} // end ar
+
+
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocalizations> {
   const GeneratedLocalizationsDelegate();
   List<Locale> get supportedLocales {

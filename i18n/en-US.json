@@ -80,5 +80,8 @@
     "startDate": "Start Date",
     "selectDate": "Select Date",
     "enterTime": "Enter Time",
-    "clearSelection": "Clear Selection"
+    "clearSelection": "Clear Selection",
+    "enableNotifications" : "Enable Notifications",
+    "minutesBeforeNotifications": "Minutes Before Notifications",
+    "daysToKeepNotes": "Days to Keep Notes"
 }

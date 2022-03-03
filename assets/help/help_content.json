@@ -1,31 +1,59 @@
-[
-    {
-        "title":"How to create node manually",
-        "videoUrl":"sample.com"
-    },
 
-    {
-        "title":"How to create node by voice",
-        "videoUrl":"sample.com"
-    },
-    {
-        "title":"How to delete note",
-        "videoUrl":"sample.com"
-    },
-    {
-        "title":"How to edit note",
-        "videoUrl":"sample.com"
-    },
-    {
-        "title":"How to search note",
-        "videoUrl":"sample.com"
-    },
-    {
-        "title":"How to change font size",
-        "videoUrl":"sample.com"
-    },
-    {
-        "title":"How to set color theme",
-        "videoUrl":"sample.com"
-    }
+[
+  {
+    "title":"TASK: Overview of Tasks",
+    "videoUrl":"sample.com"
+  },
+
+  {
+    "title":"TASK: How to create a Task",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"TASK: How to edit a Task",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"NOTES: Overview of Notes",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"NOTES: Other topics on Notes",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"CALENDAR: Overview of Calendar",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"CALENDAR: Other topics on Calendar",
+    "videoUrl":"sample.com"
+  },
+
+  {
+    "title":"PROFILE: Overview of Profile",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"PROFILE: Other topics on Profile",
+    "videoUrl":"sample.com"
+  },
+
+  {
+    "title":"SETTINGS: Overview of Settings",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"SETTINGS: Other topics on Settings",
+    "videoUrl":"sample.com"
+  },
+
+  {
+    "title":"CHAT: Overview of Chat",
+    "videoUrl":"sample.com"
+  },
+  {
+    "title":"CHAT: Other topics on Chat",
+    "videoUrl":"sample.com"
+  }
 ]

@@ -159,7 +159,9 @@ class MenuState extends State<Menu> {
                                     ),
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
+                                },
                               ),
                             ),
                           ),
