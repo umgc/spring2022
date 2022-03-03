@@ -111,7 +111,7 @@ class CalendarState extends State<Calendar> {
                               style: TextStyle(color: Colors.black),
                               textAlign: TextAlign.center),
                           subtitle: Text(
-                              "${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t at \t ${_matchedEvents[index].eventTime}",
+                              "${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t }",
                               style: TextStyle(color: Colors.black),
                               textAlign: TextAlign.center),
                         ),

@@ -125,15 +125,19 @@ class _SaveNoteState extends State<SaveNote> {
           if (noteObserver.newNoteIsCheckList == true ||
               this.isCheckListEvent == true) {
             noteObserver.setNewNoteEventTime(value);
+            print("128XXXXXXX$value");
+
           } else {
             String mDate = value.split(" ")[0];
             String mTime = value.split(" ")[1];
             noteObserver.setNewNoteEventDate(mDate);
             noteObserver.setNewNoteEventTime(mTime);
+            print("135XXXXXXX${mDate}, ${mTime}");
+
           }
         },
         validator: (val) {
-          print(val);
+          print("140XXXXXXX$val");
           return null;
         },
         onSaved: (val) => print("onSaved $val"),
@@ -157,11 +161,15 @@ class _SaveNoteState extends State<SaveNote> {
         if (noteObserver.newNoteIsCheckList == true ||
             this.isCheckListEvent == true) {
           noteObserver.setNewNoteEventTime(value);
+          print("163XXXXXXX$value");
+
         } else {
+
           String mDate = value.split(" ")[0];
           String mTime = value.split(" ")[1];
           noteObserver.setNewNoteEventDate(mDate);
           noteObserver.setNewNoteEventTime(mTime);
+          print("172XXXXXXX${mDate}, ${mTime}");
         }
       },
       validator: (val) {

@@ -141,12 +141,14 @@ abstract class _AbstractNoteObserver with Store {
   @action
   void setNewNoteEventDate(String value) {
     print("setNewNoteEventDate: setting new Note date $value");
-    newNoteEventDate = value;
+    value.length==0 ? value = "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}":
+    newNoteEventTime = value;
   }
 
   @action
   void setNewNoteEventTime(String value) {
     print("setNewNoteEventTime: setting new Note time $value");
+    value.length==0 ? value = "${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}":
     newNoteEventTime = value;
   }
 }
