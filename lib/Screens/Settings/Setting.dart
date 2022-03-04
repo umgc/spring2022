@@ -519,7 +519,7 @@ class _SettingState extends State<Settings> {
                                       color: Colors.red,
                                     )),
                                 Text(
-                                  'Exit',
+                                  'Exit Caregiver Mode',
                                   style: TextStyle(fontSize: 14),
                                 )
                               ],
