@@ -322,12 +322,11 @@ class _SettingState extends State<Settings> {
                 height: 10.0,
               ),
 
-              /// Not sure what options we are including for font
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Font Size',
+                    I18n.of(context)!.fontSize,
                     style: TextStyle(
                       fontSize: _bodyFontSize,
                       fontWeight: FontWeight.bold,
@@ -469,60 +468,64 @@ class _SettingState extends State<Settings> {
               addBotDivider(),
 
               /// Caregiver Mode Button
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 11),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        // screenNav.changeScreen(MAIN_SCREENS
-                        //     .MENU); ///////////////////////////////put new screen
-                        careMode = true;
-                        screenNav.changeScreen(MENU_SCREENS.SETTING);
-                      },
-                      child: Text(
-                        'Enable Caregiver Mode',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: _bodyFontSize,
-                            color: Colors.black),
-                      ),
-                      style: TextButton.styleFrom(
-                        elevation: 1.0,
-                        alignment: Alignment.center,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(12.0),
-                          ),
+                    if (!careMode) ...[
+                      TextButton(
+                        onPressed: () {
+                          // screenNav.changeScreen(MAIN_SCREENS
+                          //     .MENU); ///////////////////////////////put new screen
+                          careMode = true;
+                          screenNav.changeScreen(MENU_SCREENS.SETTING);
+                        },
+                        child: Text(
+                          'Enable Caregiver Mode',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: _bodyFontSize,
+                              color: Colors.black),
                         ),
-                        backgroundColor: Colors.grey[400],
+                        style: TextButton.styleFrom(
+                          elevation: 1.0,
+                          alignment: Alignment.center,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                          ),
+                          backgroundColor: Colors.grey[400],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                      child: GestureDetector(
-                          onTap: () {
-                            careMode = false;
-                            screenNav.changeScreen(MENU_SCREENS.SETTING);
-                          },
-                          child: Column(
-                            children: [
-                              Transform.rotate(
-                                  angle: 180 * math.pi / 180,
-                                  child: Icon(
-                                    Icons.exit_to_app_rounded,
-                                    size: 10.0,
-                                    color: Colors.red,
-                                  )),
-                              Text(
-                                'Exit',
-                                style: TextStyle(
-                                    fontSize: 14),
-                              )
-                            ],
-                          )),
-                    ),
+                    ],
+                    if (careMode) ...[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                        child: GestureDetector(
+                            onTap: () {
+                              careMode = false;
+                              screenNav.changeScreen(MENU_SCREENS.SETTING);
+                            },
+                            child: Column(
+                              children: [
+                                Transform.rotate(
+                                    angle: 180 * math.pi / 180,
+                                    child: Icon(
+                                      Icons.exit_to_app_rounded,
+                                      size: 10.0,
+                                      color: Colors.red,
+                                    )),
+                                Text(
+                                  'Exit',
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
+                            )),
+                      ),
+                    ],
                   ],
                 ),
               ),
