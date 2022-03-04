@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
 import 'package:untitled3/Observables/CheckListObservable.dart';
@@ -12,6 +13,7 @@ import 'package:untitled3/Screens/Main.dart';
 // import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
 import 'package:untitled3/Screens/NotificationScreen.dart';
 import 'package:untitled3/Screens/Onboarding/Boarding.dart';
+import 'package:untitled3/utils/user_preferences.dart';
 import 'Screens/Splash/SplashScreen.dart';
 import 'Utility/FontUtil.dart';
 import 'Utility/ThemeUtil.dart';
@@ -25,7 +27,15 @@ import 'package:untitled3/Observables/NotificationObservable.dart';
 import 'package:dcdg/dcdg.dart';
 import 'package:untitled3/Observables/TasksObservable.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  await UserPreferences.init();
+
   runApp(MyApp());
 }
 
@@ -81,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
                   //to load original main screen set home to SplashScreen.dart()
-                  home: HomePage(),
+                  home: MainNavigator(),
                   localizationsDelegates: [
                     i18n,
                     GlobalMaterialLocalizations.delegate,

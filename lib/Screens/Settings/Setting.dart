@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled3/Model/Setting.dart';
 import 'package:untitled3/Observables/MenuObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
+import 'package:untitled3/Screens/LoginPage.dart';
 import 'package:untitled3/Services/LocaleService.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
@@ -442,7 +443,9 @@ class _SettingState extends State<Settings> {
                 children: [
                   TextButton(
                       onPressed: () {
-                    screenNav.changeScreen(MAIN_SCREENS.MENU);///////////////////////////////put new screen
+                        screenNav.changeScreen(MENU_SCREENS.LOGIN);
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (_) => LoginForm()));
                   },
                       child: Text(
                           'Enable Caregiver Mode',

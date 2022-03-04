@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled3/Comm/comHelper.dart';
 import 'package:untitled3/Comm/genLoginSignupHeader.dart';
 import 'package:untitled3/Comm/genTextFormField.dart';
@@ -9,6 +10,11 @@ import 'package:untitled3/Screens/CreateAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:untitled3/Screens/UpdateAdmin.dart';
+
+import '../Observables/ScreenNavigator.dart';
+import '../Observables/SettingObservable.dart';
+import '../Utility/Constant.dart';
+import '../generated/i18n.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -40,7 +46,7 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
-  login() async {
+  _login() async {
     String uid = 'Admin';
     String passwd = _conPassword.text;
 
@@ -53,6 +59,7 @@ class _LoginFormState extends State<LoginForm> {
         setSP(userData!).whenComplete(
               () {
             userData != null
+
                 ? Navigator.push(
                 context, MaterialPageRoute(builder: (_) => HomeForm2()))
                 : alertDialog(context, "Error: Please try again");
@@ -76,62 +83,94 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final screenNav = Provider.of<MainNavObserver>(context);
+    final settingObserver = Provider.of<SettingObserver>(context);
+    final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 50.00,),
-                genLoginSignupHeader('Caregiver Login'),
-                getTextFormField(
-                  controller: _conPassword,
-                  icon: Icons.lock,
-                  hintName: 'Password',
-                  isObscureText: true,
-                ),
-                Container(
-                  margin: EdgeInsets.all(30.0),
-                  width: double.infinity,
-                  child: FlatButton(
-                    child: Text(
-                      'Login',
-                      style: TextStyle(color: Colors.white),
+    _login() async {
+      String uid = 'Admin';
+      String passwd = _conPassword.text;
+
+      if (uid.isEmpty) {
+        alertDialog(context, "Please Enter User ID");
+      } else if (passwd.isEmpty) {
+        alertDialog(context, "Please Enter Password");
+      } else {
+        await dbHelper.getLoginUser(uid, passwd).then((userData) {
+          setSP(userData!).whenComplete(
+                () {
+              userData != null
+                  ? screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER)
+                  : alertDialog(context, "Error: Please try again");
+            },
+          );
+        }).catchError((error) {
+          print(error);
+          alertDialog(context, "Error: Login Fail");
+        });
+      }
+    }
+
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 50.00,),
+                    genLoginSignupHeader('Caregiver Login'),
+                    getTextFormField(
+                      controller: _conPassword,
+                      icon: Icons.lock,
+                      hintName: 'Password',
+                      isObscureText: true,
                     ),
-                    onPressed: login,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Color(0xFF0D47A1),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
+                    Container(
+                      margin: EdgeInsets.all(30.0),
+                      width: double.infinity,
+                      child: FlatButton(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed:
+                          _login
+
+
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF0D47A1),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Need to create an account?'),
+                          FlatButton(
+                            textColor: Color(0xFF0D47A1),
+                            child: Text('Create Caregiver'),
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) => SignupForm()));
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Need to create an account?'),
-                      FlatButton(
-                        textColor: Color(0xFF0D47A1),
-                        child: Text('Create Caregiver'),
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (_) => SignupForm()));
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

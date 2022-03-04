@@ -4,8 +4,6 @@ import 'package:untitled3/Screens/Profile/profile_constants.dart';
 
 class ProfileCard extends StatelessWidget {
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
