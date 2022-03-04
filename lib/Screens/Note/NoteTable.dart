@@ -7,6 +7,7 @@ import 'package:untitled3/Observables/SettingObservable.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import '../../Observables/NoteObservable.dart';
 import 'package:untitled3/Services/NoteService.dart';
+import 'package:intl/intl.dart';
 
 bool _filteredNotesIsVisible = false;
 bool _unfilteredNotes = true;
@@ -41,8 +42,8 @@ class _NoteTableState extends State<NoteTable> {
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 56) / 7;
-    var noteWidth = MediaQuery.of(context).size.width * 0.35;
+    var rowHeight = (MediaQuery.of(context).size.height - 56) / 8;
+    var noteWidth = MediaQuery.of(context).size.width * 0.87;
     print("My width is $noteWidth");
     // This function is called whenever the text field changes
     List<TextNote> filteredUsersNotes = [];
@@ -74,6 +75,19 @@ class _NoteTableState extends State<NoteTable> {
       }
     }
 
+    bool _checkboxToggle = false;
+    void _selectNotes(bool) {
+      //todo code here
+    }
+    void _deleteNoteButton() {
+      setState(() {
+        _checkboxToggle = true;
+        _selectNotes(true);
+        noteWidth = .35;
+      });
+      noteObserver.changeScreen(NOTE_SCREENS.NOTE);
+    }
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -87,123 +101,193 @@ class _NoteTableState extends State<NoteTable> {
               _runFilter(value);
             },
           ),
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue[800],
+              primary: Colors.white,
+              fixedSize: Size(noteWidth, 40.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0),
+              ),
+            ),
+            icon: Icon(
+              Icons.add,
+            ),
+            label: Text(
+              'Add Note',
+              style: TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              noteObserver.changeScreen(NOTE_SCREENS.ADD_NOTE);
+            },
+          ),
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white,
+              primary: Colors.red,
+              fixedSize: Size(noteWidth, 40.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: BorderSide(color: Colors.red)),
+            ),
+            icon: Icon(
+              Icons.delete,
+            ),
+            label: Text(
+              'Delete Note',
+              style: TextStyle(fontSize: 20),
+            ),
+            onPressed: () {
+              _deleteNoteButton();
+            },
+          ),
           Visibility(
             visible: _unfilteredNotes,
             child: DataTable(
-                dataRowHeight: rowHeight,
-                headingRowHeight: 60,
-                columnSpacing: 30,
-                columns: const <DataColumn>[
-                  DataColumn(
-                    label: Text(
-                      '',
-                      style: HEADER_TEXT_STYLE,
+              showCheckboxColumn: _checkboxToggle,
+              dataRowHeight: rowHeight,
+              headingRowHeight: 0,
+              columnSpacing: 30,
+              columns: const <DataColumn>[
+                DataColumn(
+                  label: SizedBox(
+                    height: 0,
+                  ),
+                ),
+                // DataColumn(
+                //   label: Text(
+                //     'NOTE',
+                //     style: HEADER_TEXT_STYLE,
+                //   ),
+                // ),
+                // DataColumn(
+                //   label: Text(
+                //     'CREATED',
+                //     style: HEADER_TEXT_STYLE,
+                //   ),
+                // ),
+              ],
+              rows: List<DataRow>.generate(
+                widget.usersNotes.length,
+                (int index) => DataRow(
+                  onSelectChanged: _selectNotes,
+                  cells: <DataCell>[
+                    // DataCell(Text("${(index + 1)}")),
+                    DataCell(
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            color: Colors.lightBlueAccent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          width: noteWidth,
+                          child: Text(
+                            widget.usersNotes[index].localText +
+                                '\n(' +
+                                widget.usersNotes[index].eventDate +
+                                ' ' +
+                                widget.usersNotes[index].eventTime +
+                                ')',
+                            style: TEXT_STYLE,
+                          )),
+                      onTap: () => {
+                        screenNav.changeScreen(MAIN_SCREENS.NOTE),
+                        noteObserver
+                            .setCurrNoteIdForDetails(
+                                widget.usersNotes[index].noteId)
+                            .then((value) => noteObserver
+                                .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
+                        if (widget.onListItemClickCallBackFn != null)
+                          {widget.onListItemClickCallBackFn!.call()}
+                      },
                     ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'NOTE',
-                      style: HEADER_TEXT_STYLE,
-                    ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'CREATED',
-                      style: HEADER_TEXT_STYLE,
-                    ),
-                  ),
-                ],
-                rows: List<DataRow>.generate(
-                  widget.usersNotes.length,
-                  (int index) => DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text("${(index + 1)}")),
-                      DataCell(
-                        Container(
-                            padding: EdgeInsets.all(10),
-                            width: noteWidth,
-                            child: Text(
-                              widget.usersNotes[index].localText,
-                              style: TEXT_STYLE,
-                            )),
-                        showEditIcon: true,
-                        onTap: () => {
-                          screenNav.changeScreen(MAIN_SCREENS.NOTE),
-                          noteObserver
-                              .setCurrNoteIdForDetails(
-                                  widget.usersNotes[index].noteId)
-                              .then((value) => noteObserver
-                                  .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
-                          if (widget.onListItemClickCallBackFn != null)
-                            {widget.onListItemClickCallBackFn!.call()}
-                        },
-                      ),
-                      DataCell(Text(timeago.format(
-                          widget.usersNotes[index].recordedTime,
-                          locale: settingObserver
-                              .userSettings.locale.languageCode))),
-                    ],
-                  ),
-                )),
+                    // DataCell(Text(timeago.format(
+                    //     widget.usersNotes[index].recordedTime,
+                    //     locale:
+                    //         settingObserver.userSettings.locale.languageCode))),
+                  ],
+                ),
+              ),
+            ),
           ),
           Visibility(
             visible: _filteredNotesIsVisible,
             child: DataTable(
-                dataRowHeight: rowHeight,
-                headingRowHeight: 60,
-                columnSpacing: 30,
-                columns: const <DataColumn>[
-                  DataColumn(
-                    label: Text(
-                      '',
-                      style: HEADER_TEXT_STYLE,
+              showCheckboxColumn: _checkboxToggle,
+              dataRowHeight: rowHeight,
+              headingRowHeight: 0,
+              columnSpacing: 30,
+              columns: const <DataColumn>[
+                DataColumn(
+                  label: SizedBox(
+                    height: 0,
+                  ),
+                ),
+                // DataColumn(
+                //   label: Text(
+                //     'NOTE',
+                //     style: HEADER_TEXT_STYLE,
+                //   ),
+                // ),
+                // DataColumn(
+                //   label: Text(
+                //     'CREATED',
+                //     style: HEADER_TEXT_STYLE,
+                //   ),
+                // ),
+              ],
+              rows: List<DataRow>.generate(
+                widget.usersNotes.length,
+                (int index) => DataRow(
+                  onSelectChanged: _selectNotes,
+                  cells: <DataCell>[
+                    // DataCell(Text("${(index + 1)}")),
+                    DataCell(
+                      Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            color: Colors.lightBlueAccent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          width: noteWidth,
+                          child: Text(
+                            widget.usersNotes[index].localText +
+                                '\n(' +
+                                widget.usersNotes[index].eventDate +
+                                ' ' +
+                                widget.usersNotes[index].eventTime +
+                                ')',
+                            style: TEXT_STYLE,
+                          )),
+                      onTap: () => {
+                        screenNav.changeScreen(MAIN_SCREENS.NOTE),
+                        noteObserver
+                            .setCurrNoteIdForDetails(
+                                widget.usersNotes[index].noteId)
+                            .then((value) => noteObserver
+                                .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
+                        if (widget.onListItemClickCallBackFn != null)
+                          {widget.onListItemClickCallBackFn!.call()}
+                      },
                     ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'NOTE',
-                      style: HEADER_TEXT_STYLE,
-                    ),
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'CREATED',
-                      style: HEADER_TEXT_STYLE,
-                    ),
-                  ),
-                ],
-                rows: List<DataRow>.generate(
-                  widget.usersNotes.length,
-                  (int index) => DataRow(
-                    cells: <DataCell>[
-                      DataCell(Text("${(index + 1)}")),
-                      DataCell(
-                        Container(
-                            padding: EdgeInsets.all(10),
-                            width: noteWidth,
-                            child: Text(
-                              widget.usersNotes[index].localText,
-                              style: TEXT_STYLE,
-                            )),
-                        showEditIcon: true,
-                        onTap: () => {
-                          screenNav.changeScreen(MAIN_SCREENS.NOTE),
-                          noteObserver
-                              .setCurrNoteIdForDetails(
-                                  widget.usersNotes[index].noteId)
-                              .then((value) => noteObserver
-                                  .changeScreen(NOTE_SCREENS.NOTE_DETAIL)),
-                          if (widget.onListItemClickCallBackFn != null)
-                            {widget.onListItemClickCallBackFn!.call()}
-                        },
-                      ),
-                      DataCell(Text(timeago.format(
-                          widget.usersNotes[index].recordedTime,
-                          locale: settingObserver
-                              .userSettings.locale.languageCode))),
-                    ],
-                  ),
-                )),
+                    // DataCell(Text(timeago.format(
+                    //     widget.usersNotes[index].recordedTime,
+                    //     locale:
+                    //         settingObserver.userSettings.locale.languageCode))),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
