@@ -82,10 +82,10 @@ class _NoteTableState extends State<NoteTable> {
     void _deleteNoteButton() {
       setState(() {
         _checkboxToggle = true;
-        _selectNotes(true);
+        _selectNotes(_checkboxToggle);
         noteWidth = .35;
       });
-      noteObserver.changeScreen(NOTE_SCREENS.NOTE);
+      // noteObserver.changeScreen(NOTE_SCREENS.NOTE);
     }
 
     return SingleChildScrollView(
