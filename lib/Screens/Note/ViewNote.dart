@@ -33,6 +33,7 @@ class _ViewNotesState extends State<ViewNotes> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: NoteTable(noteObserver.usersNotes, () => print("done")),
+
       // floatingActionButton: Padding(
       //     padding: EdgeInsets.only(left: 30),
       //     child: Row(

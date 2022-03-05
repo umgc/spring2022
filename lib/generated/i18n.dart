@@ -138,8 +138,8 @@ class I18n implements WidgetsLocalizations {
 	String get areYouSureYouWantToDelete => "Are you sure you want to delete this note?";
 	/// "Note Saved"
 	String get noteSaved => "Note Saved";
-	/// "Enter your note's text"
-	String get enterNoteText => "Enter your note's text";
+	/// "--Enter Note--"
+	String get enterNoteText => "--Enter Note--";
 	/// "Ok"
 	String get ok => "Ok";
 	/// "The note was save succeessfully."

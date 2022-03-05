@@ -42,6 +42,7 @@ class _NoteState extends State<Note> {
       case NOTE_SCREENS.NOTE_DETAIL:
         return SaveNote(
           viewExistingNote: true,
+          deleteButtonVisible: true,
         );
 
       default:
