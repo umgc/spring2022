@@ -8,6 +8,7 @@ import 'package:untitled3/Screens/HomePage.dart';
 import 'package:untitled3/Screens/LoginPage.dart';
 import 'package:untitled3/Screens/Main.dart';
 import 'package:untitled3/Screens/Profile/edit_profile_page.dart';
+import 'package:untitled3/Screens/Profile/profile_card.dart';
 import 'package:untitled3/Screens/Profile/profile_constants.dart';
 import 'package:untitled3/Screens/Profile/widget/button_widget.dart';
 import 'package:untitled3/utils/user_preferences.dart';
@@ -18,6 +19,8 @@ import 'package:untitled3/Model/UserModel.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
+import 'care_team_card.dart';
+import 'contact_card.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -64,11 +67,11 @@ class _ProfilePageState extends State<UserProfile> {
           physics: BouncingScrollPhysics(),
           children: [
             const SizedBox(height: 24),
-            buildProfileCard(user),
+            ProfileCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
-            buildContactCard(user),
+            ContactCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
-            buildCareTeamCard(user),
+            CareTeamCard(),
             const SizedBox(height: 24),
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
@@ -77,7 +80,8 @@ class _ProfilePageState extends State<UserProfile> {
                     child: ButtonWidget(
                       text: 'Edit',
                       onClicked: () {
-                        screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
+                        screenNav
+                            .changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
                       },
                     ),
                   )
@@ -88,8 +92,9 @@ class _ProfilePageState extends State<UserProfile> {
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
                 ? Container(
-              padding: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
-                  child: ButtonWidget(
+                    padding:
+                        const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                    child: ButtonWidget(
                       text: 'Logout',
                       onClicked: () {
                         removeSP("Admin");
@@ -99,150 +104,11 @@ class _ProfilePageState extends State<UserProfile> {
                             (Route<dynamic> route) => false);
                       },
                     ),
-                )
+                  )
                 : Text('')
           ],
         ),
       ),
     );
   }
-
-  Widget buildProfileCard(User user) => Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: 30, bottom: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('About Me', style: kSectionTitleTextStyle),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text('Name:', style: kLabelTextStyle),
-                  Text(user.name),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text('Date of Birth', style: kLabelTextStyle),
-                  Text(user.bday),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text('Phone Number', style: kLabelTextStyle),
-                  Text(user.phone),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(30.0),
-            alignment: Alignment.centerRight,
-            child: ProfileWidget(
-              imagePath: user.imagePath,
-              onClicked: () {
-                _conUserId.text == 'Admin'
-                    ? Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => EditProfilePage()))
-                    : Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => MainNavigator()));
-                setState(() {});
-              },
-            ),
-          ),
-        ],
-      );
-
-  Widget buildContactCard(User user) => Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: 30, bottom: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('Contacts', style: kSectionTitleTextStyle),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text('Contact 1', style: kLabelTextStyle),
-                  Text(user.cont1),
-                  Text(user.cont1ph),
-                  const SizedBox(height: 24),
-                  Text('Contact 2', style: kLabelTextStyle),
-                  Text(user.cont2),
-                  Text(user.cont2ph),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(30.0),
-            alignment: Alignment.centerRight,
-            child: ProfileWidget(
-              imagePath: user.imagePath2,
-              onClicked: () {
-                _conUserId.text == 'Admin'
-                    ? Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => EditProfilePage()))
-                    : Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => MainNavigator()));
-              },
-            ),
-          ),
-        ],
-      );
-
-  Widget buildCareTeamCard(User user) => Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: 30, bottom: 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('Care Team', style: kSectionTitleTextStyle),
-                  //SIZED BOX FOR SPACING
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Text('Provider 1', style: kLabelTextStyle),
-                  Text(user.prov1),
-                  Text(user.prov1ph),
-                  const SizedBox(height: 24),
-                  Text('Provider 2', style: kLabelTextStyle),
-                  Text(user.prov2),
-                  Text(user.prov2ph),
-                ],
-              ),
-            ),
-          ),
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(30.0),
-                alignment: Alignment.centerRight,
-                child: ProfileWidget(
-                  imagePath: user.imagePath3,
-                  onClicked: () {
-                    _conUserId.text == 'Admin'
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => EditProfilePage()))
-                        : Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => MainNavigator()));
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
 }
