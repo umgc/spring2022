@@ -34,7 +34,7 @@ abstract class _AbstractMainNavObserver with Store {
 
   @action
   void setTitle(String title) {
-    print("Change Screen tittle to: " + title);
+    print("Change Screen title to: " + title);
     screenTitle = title;
   }
 

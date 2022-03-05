@@ -137,7 +137,7 @@ class _SettingState extends State<Settings> {
                   children: <Widget>[
                     Text(
                       //'Minutes Before Notification',
-                      I18n.of(context)!.minutesBeforeNotification,
+                      I18n.of(context)!.minutesBeforeNotifications,
                       style: TextStyle(
                         fontSize: _bodyFontSize,
                         fontWeight: FontWeight.bold,
@@ -265,7 +265,7 @@ class _SettingState extends State<Settings> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      I18n.of(context)!.minutesBeforeNotification,
+                      I18n.of(context)!.minutesBeforeNotifications,
                       //'Minutes Before Notification',
                       style: TextStyle(
                         fontSize: _bodyFontSize,

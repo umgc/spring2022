@@ -83,5 +83,10 @@
     "selectDate": "Seleccione fecha",
     "enterTime": "Ingrese la hora",
     "clearSelection": "Selección clara",
-    "enableNotifications": "Permitir notificaciones"
+    "enableNotifications": "Permitir notificaciones",
+    "minutesBeforeNotifications": "Minutos antes de las notificaciones",
+    "daysToKeepNotes": "Días para guardar notas",
+    "tasks": "Tareas",
+    "fontSize": "Tamaño de fuente",
+    "appSettings": "Ajustes de Aplicacion"
 }

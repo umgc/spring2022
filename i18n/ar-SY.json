@@ -83,5 +83,10 @@
     "selectDate": "حدد تاريخ",
     "enterTime": "أدخل الوقت",
     "clearSelection": "التحديد الواضح",
-    "enableNotifications": "تمكين الإخطارات"
+    "enableNotifications": "تمكين الإخطارات",
+    "minutesBeforeNotifications": "دقائق قبل الإخطارات",
+    "daysToKeepNotes": "أيام لحفظ الملاحظات",
+    "tasks": "مهام",
+    "fontSize": "حجم الخط",
+    "appSettings": "إعدادات التطبيقات"
 }
