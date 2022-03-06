@@ -8,19 +8,20 @@ class HelpService {
 
   /// Save a text note file to local storage
   static Future<List<HelpContent>> loadHelpContent() async {
-    print("Loading help from file");
+    // print("Loading help from file");
     List<HelpContent> helpContent = [];
     try {
-      dynamic listExtract =  await rootBundle.loadString("$FILE_NAME").then((value) => jsonDecode(value));
+      dynamic listExtract = await rootBundle
+          .loadString("$FILE_NAME")
+          .then((value) => jsonDecode(value));
       for (var help in listExtract) {
-        print("Loading help from file $help");
+        // print("Loading help from file $help");
         helpContent.add(HelpContent.fromJson(help));
       }
-    } catch(exception) {
+    } catch (exception) {
       print("Exception occurred while loading help content");
       print("$exception");
     }
     return helpContent;
   }
-
 }

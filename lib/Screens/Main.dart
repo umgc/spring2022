@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled3/Observables/HelpObservable.dart';
 import 'package:untitled3/Observables/MicObservable.dart';
 import 'package:untitled3/Observables/NoteObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
+import 'package:untitled3/Screens/AdminPage.dart';
+import 'package:untitled3/Screens/LoginPage.dart';
 import 'package:untitled3/Screens/Mic/Mic.dart';
+import 'package:untitled3/Screens/Profile/edit_profile_page.dart';
 import '../../Observables/MenuObservable.dart';
 import 'package:untitled3/Screens/Note/Note.dart';
 import 'package:untitled3/Screens/Note/NoteSearchDelegate.dart';
@@ -14,6 +18,9 @@ import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/Utility/ThemeUtil.dart';
 import 'package:untitled3/generated/i18n.dart';
 import 'package:untitled3/Screens/Settings/Help.dart';
+import '../DatabaseHandler/DbHelper.dart';
+import '../Model/UserModel.dart';
+import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
 import 'package:untitled3/Screens/Menu/Menu.dart';
@@ -25,11 +32,12 @@ import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../Observables/ScreenNavigator.dart';
-import 'package:untitled3/Screens/Calendar/calendar.dart';
+import 'package:untitled3/Screens/Calendar/Calendar.dart';
 import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:untitled3/Screens/Tasks/tasks.dart';
+import 'package:untitled3/Screens/HomePage.dart';
 import 'dart:io';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
@@ -44,7 +52,7 @@ class MainNavigator extends StatefulWidget {
 
 class _MainNavigatorState extends State<MainNavigator> {
   int _currentIndex = 0;
-
+  Future<SharedPreferences> _pref = SharedPreferences.getInstance();
   Future<bool> _onWillPop(BuildContext context) async {
     bool? exitResult = await showDialog(
       context: context,
@@ -53,11 +61,28 @@ class _MainNavigatorState extends State<MainNavigator> {
     return exitResult ?? false;
   }
 
-  Future<bool?> _showExitDialog(BuildContext context) async {
-    return await showDialog(
-      context: context,
-      builder: (context) => _buildExitDialog(context),
-    );
+  late DbHelper dbHelper;
+  final _conUserId = TextEditingController();
+
+  UserModel? get userData => null;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+
+    dbHelper = DbHelper();
+  }
+
+  Future<void> getUserData() async {
+    final SharedPreferences sp = await _pref;
+    setState(() {
+      _conUserId.text = sp.getString("user_id")!;
+    });
+  }
+  Future setSP(UserModel user) async {
+    final SharedPreferences sp = await _pref;
+    sp.setString("user_id", 'Caregiver');
   }
 
   AlertDialog _buildExitDialog(BuildContext context) {
@@ -83,8 +108,10 @@ class _MainNavigatorState extends State<MainNavigator> {
 
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
-      screenNav.setTitle("Help Screen");
+      screenNav.setTitle("Help");
+
       return Help();
+
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -116,6 +143,24 @@ class _MainNavigatorState extends State<MainNavigator> {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle("Tasks");
       return Tasks();
+    }
+    if (screen == MENU_SCREENS.USERPROFILE) {
+      screenNav.setTitle("User Profile" );
+      return UserProfile();
+    }
+
+    if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
+      screenNav.setTitle("Edit Patient's Info" );
+      return EditProfilePage();
+    }
+
+    if (screen == MENU_SCREENS.LOGIN) {
+      screenNav.setTitle("Caregiver Login");
+      return LoginForm();
+    }
+    if (screen == CAREGIVER_SCREENS.CAREGIVER) {
+      screenNav.setTitle('Caregiver Screen');
+      return HomeForm2();
     }
 
     //menu screens
@@ -208,6 +253,8 @@ class _MainNavigatorState extends State<MainNavigator> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
+            //removes the backbutton in the appbar
+            automaticallyImplyLeading: false,
             titleTextStyle: TextStyle(color: Colors.black),
             toolbarHeight: 50,
             centerTitle: true,

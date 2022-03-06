@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:untitled3/Observables/CalenderObservable.dart';
 import 'package:untitled3/Observables/CheckListObservable.dart';
@@ -7,10 +8,12 @@ import 'package:untitled3/Observables/MicObservable.dart';
 import 'package:untitled3/Observables/OnboardObservable.dart';
 // Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:untitled3/Screens/HomePage.dart';
 import 'package:untitled3/Screens/Main.dart';
 // import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
 import 'package:untitled3/Screens/NotificationScreen.dart';
 import 'package:untitled3/Screens/Onboarding/Boarding.dart';
+import 'package:untitled3/utils/user_preferences.dart';
 import 'Screens/Splash/SplashScreen.dart';
 import 'Utility/FontUtil.dart';
 import 'Utility/ThemeUtil.dart';
@@ -24,7 +27,15 @@ import 'package:untitled3/Observables/NotificationObservable.dart';
 import 'package:dcdg/dcdg.dart';
 import 'package:untitled3/Observables/TasksObservable.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  await UserPreferences.init();
+
   runApp(MyApp());
 }
 
@@ -61,6 +72,7 @@ class _MyAppState extends State<MyApp> {
     return Observer(
         builder: (_) => MultiProvider(
                 providers: [
+                  Provider<MainNavigator>(create: (_)=> MainNavigator()),
                   Provider<NotificationObserver>(
                       create: (_) => NotificationObserver()),
                   Provider<OnboardObserver>(create: (_) => OnboardObserver()),

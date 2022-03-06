@@ -20,9 +20,13 @@ class HelpState extends State<Help> {
     final helpObserver = Provider.of<HelpObserver>(context);
     final MenuObserver menuObserver = Provider.of<MenuObserver>(context);
     final MainNavObserver navObserver = Provider.of<MainNavObserver>(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: HelpTable(helpObserver.helpItems, () => {"Displayed Help Content"}),
+    return Scaffold( body: SingleChildScrollView(
+      child: HelpTable(
+          helpObserver.helpItems,
+              (
+
+              ) => {"Displayed Help Content"}),
+
       // floatingActionButtonLocation:
       //         FloatingActionButtonLocation.startFloat,
       // floatingActionButton: FloatingActionButton(
@@ -32,6 +36,7 @@ class HelpState extends State<Help> {
       //         tooltip: I18n.of(context)!.back,
       //         child: Icon(Icons.arrow_back),
       //       )
+    )
     );
   }
 }
@@ -46,38 +51,382 @@ class HelpTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: helpItems.length,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 4.0,
+    return Column(
+
+      children: [
+//----------------------------------TASKS
+        SizedBox(height: 15.00),
+        Text(
+          'Help Topics',
+          style: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
           ),
-          decoration: BoxDecoration(
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: ListTile(
-              onTap: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => (VideoPlayerScreen(
-                              title: helpItems[index].title,
-                              videoUrl: "assets/help/example_help.mp4"))),
-                    )
-                  },
-              title: Text('${helpItems[index].title}',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  textAlign: TextAlign.center),
-              trailing: Icon(
-                Icons.play_arrow,
-                size: ICON_SIZE,
-              )),
-        );
-      },
+        ),
+        ListView.builder(
+          physics: ScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: helpItems.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Expanded(
+                        // child: Column(children: [
+                        // Container(height: 10.0),
+                        ListTile(
+                          //textColor: Colors.white,
+                            onTap: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => (VideoPlayerScreen(
+                                        title: helpItems[index].title,
+                                        videoUrl:
+                                        "assets/help/example_help.mp4"))),
+                              )
+                            },
+                            title: Text('${helpItems[index].title}',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18.0),
+                                //style: Theme.of(context).textTheme.bodyText1,
+                                textAlign: TextAlign.start),
+                            //tileColor: Colors.lightBlue[900],
+                            textColor: Colors.white,
+                            trailing: Icon(
+                              Icons.play_arrow,
+                              size: ICON_SIZE,
+                              color: Colors.white,
+                            )),
+                        // ]),
+
+                        // ),
+                      ]
+                  ),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 4.0,
+                  ),
+                  decoration: BoxDecoration(
+                    //  border: Border.all(),
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: Colors.blue
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+
+//------------------------NOTES ------------------------------------------------------------
+//         Text(
+//           'Notes',
+//           style: TextStyle(
+//             color: Colors.blue[700],
+//             fontSize: 30.0,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//         ListView.builder(
+//           shrinkWrap: true,
+//           itemCount: helpItems.length,
+//           itemBuilder: (context, index) {
+//             return Column(
+//               children: [
+//                 Container(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       ListTile(
+//                         //textColor: Colors.white,
+//                           onTap: () => {
+//                             Navigator.push(
+//                               context,
+//                               MaterialPageRoute(
+//                                   builder: (context) => (VideoPlayerScreen(
+//                                       title: helpItems[index].title,
+//                                       videoUrl:
+//                                       "assets/help/example_help.mp4"))),
+//                             )
+//                           },
+//                           title: Text('${helpItems[index].title}',
+//                               style: TextStyle(
+//                                   color: Colors.white, fontSize: 18.0),
+//                               //style: Theme.of(context).textTheme.bodyText1,
+//                               textAlign: TextAlign.start),
+//                           tileColor: Colors.lightBlue[900],
+//                           textColor: Colors.white,
+//                           trailing: Icon(
+//                             Icons.play_arrow,
+//                             size: ICON_SIZE,
+//                             color: Colors.white,
+//                           )),
+//                     ],
+//                   ),
+//                   margin: const EdgeInsets.symmetric(
+//                     horizontal: 12.0,
+//                     vertical: 4.0,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     border: Border.all(),
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                 ),
+//               ],
+//             );
+//           },
+//         ),
+//
+//
+// //---------------------------CALENDAR---------------------------------------------------------
+//
+//         Text(
+//           'Calendar',
+//           style: TextStyle(
+//             color: Colors.blue[700],
+//             fontSize: 30.0,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//         ListView.builder(
+//           shrinkWrap: true,
+//           itemCount: helpItems.length,
+//           itemBuilder: (context, index) {
+//             return Column(
+//               children: [
+//                 Container(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       ListTile(
+//                         //textColor: Colors.white,
+//                           onTap: () => {
+//                             Navigator.push(
+//                               context,
+//                               MaterialPageRoute(
+//                                   builder: (context) => (VideoPlayerScreen(
+//                                       title: helpItems[index].title,
+//                                       videoUrl:
+//                                       "assets/help/example_help.mp4"))),
+//                             )
+//                           },
+//                           title: Text('${helpItems[index].title}',
+//                               style: TextStyle(
+//                                   color: Colors.white, fontSize: 18.0),
+//                               //style: Theme.of(context).textTheme.bodyText1,
+//                               textAlign: TextAlign.start),
+//                           tileColor: Colors.lightBlue[900],
+//                           textColor: Colors.white,
+//                           trailing: Icon(
+//                             Icons.play_arrow,
+//                             size: ICON_SIZE,
+//                             color: Colors.white,
+//                           )),
+//                     ],
+//                   ),
+//                   margin: const EdgeInsets.symmetric(
+//                     horizontal: 12.0,
+//                     vertical: 4.0,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     border: Border.all(),
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                 ),
+//               ],
+//             );
+//           },
+//         ),
+//
+// //---------------------PROFILE---------------------------------------------------------------
+//
+//         Text(
+//           'Profile',
+//           style: TextStyle(
+//             color: Colors.blue[700],
+//             fontSize: 30.0,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//         ListView.builder(
+//           shrinkWrap: true,
+//           itemCount: helpItems.length,
+//           itemBuilder: (context, index) {
+//             return Column(
+//               children: [
+//                 Container(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       ListTile(
+//                         //textColor: Colors.white,
+//                           onTap: () => {
+//                             Navigator.push(
+//                               context,
+//                               MaterialPageRoute(
+//                                   builder: (context) => (VideoPlayerScreen(
+//                                       title: helpItems[index].title,
+//                                       videoUrl:
+//                                       "assets/help/example_help.mp4"))),
+//                             )
+//                           },
+//                           title: Text('${helpItems[index].title}',
+//                               style: TextStyle(
+//                                   color: Colors.white, fontSize: 18.0),
+//                               //style: Theme.of(context).textTheme.bodyText1,
+//                               textAlign: TextAlign.start),
+//                           tileColor: Colors.lightBlue[900],
+//                           textColor: Colors.white,
+//                           trailing: Icon(
+//                             Icons.play_arrow,
+//                             size: ICON_SIZE,
+//                             color: Colors.white,
+//                           )),
+//                     ],
+//                   ),
+//                   margin: const EdgeInsets.symmetric(
+//                     horizontal: 12.0,
+//                     vertical: 4.0,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     border: Border.all(),
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                 ),
+//               ],
+//             );
+//           },
+//         ),
+//
+// //----------------------------SETTINGS--------------------------------------------------------
+//
+//         Text(
+//           'Settings',
+//           style: TextStyle(
+//             color: Colors.blue[700],
+//             fontSize: 30.0,
+//             fontWeight: FontWeight.bold,
+//           ),
+//         ),
+//         ListView.builder(
+//           shrinkWrap: true,
+//           itemCount: helpItems.length,
+//           itemBuilder: (context, index) {
+//             return Column(
+//               children: [
+//                 Container(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       ListTile(
+//                         //textColor: Colors.white,
+//                           onTap: () => {
+//                             Navigator.push(
+//                               context,
+//                               MaterialPageRoute(
+//                                   builder: (context) => (VideoPlayerScreen(
+//                                       title: helpItems[index].title,
+//                                       videoUrl:
+//                                       "assets/help/example_help.mp4"))),
+//                             )
+//                           },
+//                           title: Text('${helpItems[index].title}',
+//                               style: TextStyle(
+//                                   color: Colors.white, fontSize: 18.0),
+//                               //style: Theme.of(context).textTheme.bodyText1,
+//                               textAlign: TextAlign.start),
+//                           tileColor: Colors.lightBlue[900],
+//                           textColor: Colors.white,
+//                           trailing: Icon(
+//                             Icons.play_arrow,
+//                             size: ICON_SIZE,
+//                             color: Colors.white,
+//                           )),
+//                     ],
+//                   ),
+//                   margin: const EdgeInsets.symmetric(
+//                     horizontal: 12.0,
+//                     vertical: 4.0,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     border: Border.all(),
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                 ),
+//               ],
+//             );
+//           },
+//         ),
+//
+//         //----------------------CHAT--------------------------------------------------------------
+//
+//         Text(
+//           'Chat',
+//           style: TextStyle(
+//             color: Colors.blue[700],
+//             fontSize: 30.0,
+//             fontWeight: FontWeight.bold,
+//           ), ),
+//         ListView.builder(
+//           shrinkWrap: true,
+//           itemCount: helpItems.length,
+//           itemBuilder: (context, index) {
+//             return Column(
+//               children: [
+//                 Container(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       ListTile(
+//                         //textColor: Colors.white,
+//                           onTap: () => {
+//                             Navigator.push(
+//                               context,
+//                               MaterialPageRoute(
+//                                   builder: (context) => (VideoPlayerScreen(
+//                                       title: helpItems[index].title,
+//                                       videoUrl:
+//                                       "assets/help/example_help.mp4"))),
+//                             )
+//                           },
+//                           title: Text('${helpItems[index].title}',
+//                               style: TextStyle(
+//                                   color: Colors.white, fontSize: 18.0),
+//                               //style: Theme.of(context).textTheme.bodyText1,
+//                               textAlign: TextAlign.start),
+//                           tileColor: Colors.lightBlue[900],
+//                           textColor: Colors.white,
+//                           trailing: Icon(
+//                             Icons.play_arrow,
+//                             size: ICON_SIZE,
+//                             color: Colors.white,
+//                           )),
+//                     ],
+//                   ),
+//                   margin: const EdgeInsets.symmetric(
+//                     horizontal: 12.0,
+//                     vertical: 4.0,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     border: Border.all(),
+//                     borderRadius: BorderRadius.circular(12.0),
+//                   ),
+//                 ),
+//               ],
+//           );
+        //         },
+//        ),
+
+        //------------------------------------------------------------------------------------
+
+
+      ],
+
     );
+    //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
   }
 }

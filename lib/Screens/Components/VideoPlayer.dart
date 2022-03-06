@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
+  //String tab;
   String title;
   String videoUrl;
   VideoPlayerScreen({Key? key, this.title="Memory Magic Preview", this.videoUrl=""}) : super(key: key);
@@ -15,9 +16,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   late ChewieController chewieController;
+  //late String tab;
   late String title;
   late String videoUrlpath;
-  _VideoPlayerScreenState(this.title, this.videoUrlpath);
+  _VideoPlayerScreenState( this.title, this.videoUrlpath);
 
   @override
   void initState() {
@@ -57,6 +59,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("${this.title}"),
+        //title: Text("${this.title}"),
       ),
       // Use a FutureBuilder to display a loading spinner while waiting for the
       // VideoPlayerController to finish initializing.
