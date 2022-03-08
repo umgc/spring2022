@@ -33,3 +33,5 @@ android/.*
 
 # Spring 2022 DevSecOps
 CODEOWNERS
+android/key.properties
+android/app/mysigningkey.jks
