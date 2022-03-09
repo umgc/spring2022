@@ -111,7 +111,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle("Help");
 
       return Help();
-
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -281,107 +280,91 @@ class _MainNavigatorState extends State<MainNavigator> {
               child: Center(
                   child: _changeScreen(
                       screenNav.currentScreen, screenNav.focusedNavBtn))),
-          bottomNavigationBar: BottomAppBar(
-            shape: CircularNotchedRectangle(),
-            notchMargin: 8.0,
-            clipBehavior: Clip.antiAlias,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.grey,
-                    width: 0.5,
-                  ),
-                ),
+          bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: screenNav.setFocusedBtn,
+              selectedItemColor: Colors.black,
+              unselectedItemColor: Colors.black,
+              unselectedLabelStyle: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
               ),
-              child: BottomNavigationBar(
-                  currentIndex: _currentIndex,
-                  onTap: screenNav.setFocusedBtn,
-                  selectedItemColor: Colors.black,
-                  unselectedItemColor: Colors.black,
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
+              selectedLabelStyle: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+              ),
+              // showUnselectedLabels: true,
+              // showSelectedLabels: true,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Container(
+                    child: Observer(
+                      builder: (_) => Container(
+                        child: new IconButton(
+                            icon: new Icon(Icons.home),
+                            color: (screenNav.focusedNavBtn == 0)
+                                ? Colors.white
+                                : Colors.black,
+                            iconSize: 40,
+                            onPressed: () {
+                              screenNav.changeScreen(MAIN_SCREENS.MENU);
+                              screenNav.setFocusedBtn(0);
+                              _currentIndex = 0;
+                              micObserver.micIsExpectedToListen = false;
+                            }),
+                      ),
+                    ),
                   ),
-                  selectedLabelStyle: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                  ),
-                  // showUnselectedLabels: true,
-                  // showSelectedLabels: true,
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: Container(
-                        child: Observer(
-                          builder: (_) => Container(
-                            child: new IconButton(
-                                icon: new Icon(Icons.home),
-                                color: (screenNav.focusedNavBtn == 0)
-                                    ? Colors.white
-                                    : Colors.black,
-                                iconSize: 40,
-                                onPressed: () {
-                                  screenNav.changeScreen(MAIN_SCREENS.MENU);
-                                  screenNav.setFocusedBtn(0);
-                                  _currentIndex = 0;
-                                  micObserver.micIsExpectedToListen = false;
-                                }),
-                          ),
+                  label: 'Menu',
+                  // label: I18n.of(context)!.notesScreenName,
+                ),
+                BottomNavigationBarItem(
+                    icon: Container(
+                      // constraints: BoxConstraints(),
+                      child: Observer(
+                        builder: (_) => AvatarGlow(
+                          endRadius: 29,
+                          animate: micObserver.micIsExpectedToListen,
+                          child: IconButton(
+                              icon: new Icon(Icons.mic),
+                              iconSize: 43,
+                              color: (screenNav.focusedNavBtn == 1)
+                                  ? Colors.white
+                                  : Colors.black,
+                              onPressed: () => {
+                                    _onClickMic(micObserver, screenNav),
+                                    screenNav.setFocusedBtn(1),
+                                    _currentIndex = 1,
+                                  }),
                         ),
                       ),
-                      label: 'Menu',
-                      // label: I18n.of(context)!.notesScreenName,
                     ),
-                    BottomNavigationBarItem(
-                        icon: Container(
-                          // constraints: BoxConstraints(),
-                          child: Observer(
-                            builder: (_) => AvatarGlow(
-                              endRadius: 29,
-                              animate: micObserver.micIsExpectedToListen,
-                              child: IconButton(
-                                  icon: new Icon(Icons.mic),
-                                  iconSize: 43,
-                                  color: (screenNav.focusedNavBtn == 1)
-                                      ? Colors.white
-                                      : Colors.black,
-                                  onPressed: () => {
-                                        _onClickMic(micObserver, screenNav),
-                                        screenNav.setFocusedBtn(1),
-                                        _currentIndex = 1,
-                                      }),
-                            ),
-                          ),
-                        ),
-                        label: 'Chat'),
+                    label: 'Chat'),
 
-                    // ),
-                    BottomNavigationBarItem(
-                      icon: Container(
-                        child: Observer(
-                          builder: (_) => Container(
-                            child: IconButton(
-                                icon: new Icon(Icons.help_outline),
-                                color: (screenNav.focusedNavBtn == 2)
-                                    ? Colors.white
-                                    : Colors.black,
-                                iconSize: 40,
-                                onPressed: () {
-                                  screenNav.changeScreen(MENU_SCREENS.HELP);
-                                  screenNav.setFocusedBtn(2);
-                                  _currentIndex = 2;
-                                  micObserver.micIsExpectedToListen = false;
-                                }),
-                          ),
-                        ),
+                // ),
+                BottomNavigationBarItem(
+                  icon: Container(
+                    child: Observer(
+                      builder: (_) => Container(
+                        child: IconButton(
+                            icon: new Icon(Icons.help_outline),
+                            color: (screenNav.focusedNavBtn == 2)
+                                ? Colors.white
+                                : Colors.black,
+                            iconSize: 40,
+                            onPressed: () {
+                              screenNav.changeScreen(MENU_SCREENS.HELP);
+                              screenNav.setFocusedBtn(2);
+                              _currentIndex = 2;
+                              micObserver.micIsExpectedToListen = false;
+                            }),
                       ),
-                      label: 'Help',
-                      // label: I18n.of(context)!.notesScreenName,
                     ),
-                  ]),
-            ),
-          ),
+                  ),
+                  label: 'Help',
+                  // label: I18n.of(context)!.notesScreenName,
+                ),
+              ]),
         ),
       ),
     );

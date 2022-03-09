@@ -30,41 +30,36 @@ class _ViewNotesState extends State<ViewNotes> {
     noteObserver.resetCurrNoteIdForDetails();
 
     //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
-    return  Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: NoteTable(noteObserver.usersNotes, () => print("done")),
-        floatingActionButton:
-          Padding(padding: EdgeInsets.only(left: 30), child:Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-
-            buildFloatingBtnCamera(noteObserver),
-
-            buildFloatingBtn(noteObserver),
-
-
-
-
-          ] ,)
-         )
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: NoteTable(noteObserver.usersNotes, () => print("done")),
+      // floatingActionButton: Padding(
+      //     padding: EdgeInsets.only(left: 30),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       children: [
+      //         // buildFloatingBtnCamera(noteObserver),
+      //
+      //         buildFloatingBtn(noteObserver),
+      //       ],
+      //     ))
     );
   }
 
   //Funtion retuns Floating button
   Widget buildFloatingBtn(NoteObserver noteObserver) {
     return FloatingActionButton(
-
       onPressed: () {
         noteObserver.changeScreen(NOTE_SCREENS.ADD_NOTE);
       },
       tooltip: I18n.of(context)!.addNote,
       child: Icon(Icons.add),
     );
-
   }
+
   Widget buildFloatingBtnCamera(NoteObserver noteObserver) {
     return FloatingActionButton(
-      onPressed:
-        noteObserver.getImage,
-
+      onPressed: noteObserver.getImage,
       child: Icon(Icons.camera_alt),
     );
   }
