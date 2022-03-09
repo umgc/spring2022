@@ -103,12 +103,14 @@ class _SaveNoteState extends State<SaveNote> {
     if (this.viewExistingNote == true) {
       return DateTimePicker(
         type: (isCheckList || this.isCheckListEvent == true)
-            ? DateTimePickerType.time
+            ? DateTimePickerType.dateTimeSeparate
             : DateTimePickerType.dateTimeSeparate,
         dateMask: 'd MMM, yyyy',
         initialValue: (noteObserver.newNoteIsCheckList == true ||
                 this.isCheckListEvent == true)
-            ? (noteObserver.currNoteForDetails!.eventTime)
+            ? (noteObserver.currNoteForDetails!.eventDate +
+                " " +
+                noteObserver.currNoteForDetails!.eventTime)
             : (noteObserver.currNoteForDetails!.eventDate +
                 " " +
                 noteObserver.currNoteForDetails!.eventTime),
@@ -181,8 +183,8 @@ class _SaveNoteState extends State<SaveNote> {
     if (noteObserver.currNoteForDetails != null) {
       noteId = noteObserver.currNoteForDetails!.noteId;
 
-      textController =
-          TextEditingController(text: noteObserver.currNoteForDetails!.localText);
+      textController = TextEditingController(
+          text: noteObserver.currNoteForDetails!.localText);
     }
 
     var padding = MediaQuery.of(context).size.width * 0.02;
@@ -216,7 +218,8 @@ class _SaveNoteState extends State<SaveNote> {
                   SizedBox(height: verticalColSpace),
 
                   //do not show if user chose to add checkList or modify and existing not to be a checklist
-                  _selectDate(noteObserver.newNoteIsCheckList, I18n.of(context), settingObserver.userSettings.locale),
+                  _selectDate(noteObserver.newNoteIsCheckList, I18n.of(context),
+                      settingObserver.userSettings.locale),
 
                   SizedBox(height: verticalColSpace),
 
