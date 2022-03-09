@@ -355,6 +355,7 @@ class _MainNavigatorState extends State<MainNavigator> {
         ),
         body: Container(
             //margin: const EdgeInsets.only(bottom: 30.0),
+            padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
             child: Center(
                 child: _changeScreen(
                     screenNav.currentScreen, screenNav.focusedNavBtn))),
