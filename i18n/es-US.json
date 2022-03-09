@@ -88,5 +88,8 @@
     "daysToKeepNotes": "Días para guardar notas",
     "tasks": "Tareas",
     "fontSize": "Tamaño de fuente",
-    "appSettings": "Ajustes de Aplicacion"
+    "appSettings": "Ajustes de Aplicacion",
+    "profile": "Perfil",
+    "chat": "Chat",
+    "helpTopics": "Temas de ayuda"
 }

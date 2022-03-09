@@ -204,6 +204,12 @@ class I18n implements WidgetsLocalizations {
 	String get fontSize => "Font Size";
 	/// "App Settings"
 	String get appSettings => "App Settings";
+	/// "Profile"
+	String get profile => "Profile";
+	/// "Chat"
+	String get chat => "Chat";
+	/// "Help Topics"
+	String get helpTopics => "Help Topics";
 	/// "Ayuda"
 	String get helpScreen => "Ayuda";
 	/// "Palabras Claves"
@@ -477,278 +483,15 @@ class _I18n_es_US extends I18n {
 	/// "Ajustes de Aplicacion"
 	@override
 	String get appSettings => "Ajustes de Aplicacion";
-}
-class _I18n_zh_CN extends I18n {
-  const _I18n_zh_CN();
-  @override
-  TextDirection get textDirection => TextDirection.ltr;
-	/// "家"
+	/// "Perfil"
 	@override
-	String get homeScreenName => "家";
-	/// "菜单"
+	String get profile => "Perfil";
+	/// "Chat"
 	@override
-	String get menuScreenName => "菜单";
-	/// "笔记"
+	String get chat => "Chat";
+	/// "Temas de ayuda"
 	@override
-	String get notesScreenName => "笔记";
-	/// "通知"
-	@override
-	String get notificationsScreenName => "通知";
-	/// "环境"
-	@override
-	String get settingScreenName => "环境";
-	/// "日历"
-	@override
-	String get calendarScreenName => "日历";
-	/// "麦克风"
-	@override
-	String get micButton => "麦克风";
-	/// "按录制"
-	@override
-	String get pressToRecord => "按录制";
-	/// "是的"
-	@override
-	String get yes => "是的";
-	/// "保存笔记"
-	@override
-	String get saveNote => "保存笔记";
-	/// "日期"
-	@override
-	String get date => "日期";
-	/// "笔记"
-	@override
-	String get note => "笔记";
-	/// "笔记详情"
-	@override
-	String get notesDetailScreenName => "笔记详情";
-	/// "添加注释"
-	@override
-	String get addNotesScreenName => "添加注释";
-	/// "清单"
-	@override
-	String get checklistScreenName => "清单";
-	/// "帮助"
-	@override
-	String get helpScreen => "帮助";
-	/// "扳机"
-	@override
-	String get triggerScreen => "扳机";
-	/// "同步到云端"
-	@override
-	String get syncToCloudScreen => "同步到云端";
-	/// "云设置"
-	@override
-	String get onboardCloudSetup => "云设置";
-	/// "允许"
-	@override
-	String get onboardPermissionSetup => "允许";
-	/// "选择语言"
-	@override
-	String get onboardLangSetup => "选择语言";
-	/// "介绍"
-	@override
-	String get walkthroughScreen => "介绍";
-	/// "您想设置一个云帐户吗？"
-	@override
-	String get cloudSetupPrompt => "您想设置一个云帐户吗？";
-	/// "不"
-	@override
-	String get no => "不";
-	/// "欢迎来到记忆魔法"
-	@override
-	String get welcome => "欢迎来到记忆魔法";
-	/// "后退"
-	@override
-	String get back => "后退";
-	/// "下一个"
-	@override
-	String get next => "下一个";
-	/// "请选择您的主要语言。"
-	@override
-	String get selectLanguage => "请选择您的主要语言。";
-	/// "语"
-	@override
-	String get language => "语";
-	/// "我们是否有权访问您的麦克风？"
-	@override
-	String get promptPermission => "我们是否有权访问您的麦克风？";
-	/// "为笔记选择字体大小"
-	@override
-	String get promptNoteFontSize => "为笔记选择字体大小";
-	/// "为菜单选择字体大小"
-	@override
-	String get promptMenuFontSize => "为菜单选择字体大小";
-	/// "选择笔记删除时间线"
-	@override
-	String get promptNoteDeletionTimeline => "选择笔记删除时间线";
-	/// "小的"
-	@override
-	String get small => "小的";
-	/// "中等的"
-	@override
-	String get medium => "中等的";
-	/// "大的"
-	@override
-	String get large => "大的";
-	/// "取消"
-	@override
-	String get cancel => "取消";
-	/// "节省"
-	@override
-	String get save => "节省";
-	/// "安全设定"
-	@override
-	String get securitySettings => "安全设定";
-	/// "注意：此权限将允许所有类型的语音交互。"
-	@override
-	String get permissionNote => "注意：此权限将允许所有类型的语音交互。";
-	/// "记笔记的天数"
-	@override
-	String get daysToKeepNotes => "记笔记的天数";
-	/// "注释字体大小"
-	@override
-	String get noteFontSize => "注释字体大小";
-	/// "菜单字体大小"
-	@override
-	String get menuFontSize => "菜单字体大小";
-	/// "帮助"
-	@override
-	String get help => "帮助";
-	/// "扳机"
-	@override
-	String get trigger => "扳机";
-	/// "同步到云端"
-	@override
-	String get syncToCloud => "同步到云端";
-	/// "加载中"
-	@override
-	String get loading => "加载中";
-	/// "编辑笔记"
-	@override
-	String get editNote => "编辑笔记";
-	/// "删除笔记"
-	@override
-	String get deleteNote => "删除笔记";
-	/// "确认笔记删除"
-	@override
-	String get confirmNoteDeletion => "确认笔记删除";
-	/// "你确定要删除这条笔记么？"
-	@override
-	String get areYouSureYouWantToDelete => "你确定要删除这条笔记么？";
-	/// "笔记已保存"
-	@override
-	String get noteSaved => "笔记已保存";
-	/// "输入笔记的文本"
-	@override
-	String get enterNoteText => "输入笔记的文本";
-	/// "好的"
-	@override
-	String get ok => "好的";
-	/// "笔记已成功保存。"
-	@override
-	String get noteSavedSuccess => "笔记已成功保存。";
-	/// "添加注释"
-	@override
-	String get addNote => "添加注释";
-	/// "您想发言还是写笔记？"
-	@override
-	String get speakOrWritePrompt => "您想发言还是写笔记？";
-	/// "选择应用主题"
-	@override
-	String get promptTheme => "选择应用主题";
-	/// "主题"
-	@override
-	String get theme => "主题";
-	/// "蓝色"
-	@override
-	String get blue => "蓝色";
-	/// "粉色的"
-	@override
-	String get pink => "粉色的";
-	/// "我怎么帮你"
-	@override
-	String get howCanIHelpYou => "我怎么帮你";
-	/// "打开笔记通知"
-	@override
-	String get turnOnNotesNotification => "打开笔记通知";
-	/// "开启活动前提醒"
-	@override
-	String get turnOnEventReminder => "开启活动前提醒";
-	/// "注意：提醒在活动开始前 15 分钟开始。"
-	@override
-	String get reminderStartTime => "注意：提醒在活动开始前 15 分钟开始。";
-	/// "活动通知"
-	@override
-	String get activitiesNotifications => "活动通知";
-	/// "打开每小时步行的通知"
-	@override
-	String get turnOnHourlyWalkNotification => "打开每小时步行的通知";
-	/// "打开每小时水的通知"
-	@override
-	String get turnOnHourlyWaterNotification => "打开每小时水的通知";
-	/// "打开浴室通知"
-	@override
-	String get turnOnBathroomNotification => "打开浴室通知";
-	/// "以下视频简要介绍了如何使用 Memory Magic App"
-	@override
-	String get walkthroughVideoLine => "以下视频简要介绍了如何使用 Memory Magic App";
-	/// "功能将受到限制，不允许访问您的麦克风。"
-	@override
-	String get micLimitedAccess => "功能将受到限制，不允许访问您的麦克风。";
-	/// "笔记通知"
-	@override
-	String get notesNotificiations => "笔记通知";
-	/// "设置"
-	@override
-	String get generalSettingsScreen => "设置";
-	/// "重启"
-	@override
-	String get resetSettings => "重启";
-	/// "设置"
-	@override
-	String get generalSetting => "设置";
-	/// "我应该创建一个笔记吗？"
-	@override
-	String get shouldICreateANote => "我应该创建一个笔记吗？";
-	/// "好的，我不会创建笔记。"
-	@override
-	String get willNotCreateNote => "好的，我不会创建笔记。";
-	/// "当然！我怎么帮你？"
-	@override
-	String get sureHowCanIHelp => "当然！我怎么帮你？";
-	/// "好的谢谢！再见。"
-	@override
-	String get thxBye => "好的谢谢！再见。";
-	/// "创建了以下注释："
-	@override
-	String get createdTheFollowingNote => "创建了以下注释：";
-	/// "开始日期"
-	@override
-	String get startDate => "开始日期";
-	/// "选择日期"
-	@override
-	String get selectDate => "选择日期";
-	/// "输入时间"
-	@override
-	String get enterTime => "输入时间";
-	/// "清空选项"
-	@override
-	String get clearSelection => "清空选项";
-	/// "启用通知"
-	@override
-	String get enableNotifications => "启用通知";
-	/// "通知前几分钟"
-	@override
-	String get minutesBeforeNotifications => "通知前几分钟";
-	/// "任务"
-	@override
-	String get tasks => "任务";
-	/// "字体大小"
-	@override
-	String get fontSize => "字体大小";
-	/// "应用设置"
-	@override
-	String get appSettings => "应用设置";
+	String get helpTopics => "Temas de ayuda";
 }
 class _I18n_pt_BR extends I18n {
   const _I18n_pt_BR();
@@ -1021,6 +764,296 @@ class _I18n_pt_BR extends I18n {
 	/// "Configurações do aplicativo"
 	@override
 	String get appSettings => "Configurações do aplicativo";
+	/// "Perfil"
+	@override
+	String get profile => "Perfil";
+	/// "bater papo"
+	@override
+	String get chat => "bater papo";
+	/// "Tópicos de ajuda"
+	@override
+	String get helpTopics => "Tópicos de ajuda";
+}
+class _I18n_zh_CN extends I18n {
+  const _I18n_zh_CN();
+  @override
+  TextDirection get textDirection => TextDirection.ltr;
+	/// "家"
+	@override
+	String get homeScreenName => "家";
+	/// "菜单"
+	@override
+	String get menuScreenName => "菜单";
+	/// "笔记"
+	@override
+	String get notesScreenName => "笔记";
+	/// "通知"
+	@override
+	String get notificationsScreenName => "通知";
+	/// "环境"
+	@override
+	String get settingScreenName => "环境";
+	/// "日历"
+	@override
+	String get calendarScreenName => "日历";
+	/// "麦克风"
+	@override
+	String get micButton => "麦克风";
+	/// "按录制"
+	@override
+	String get pressToRecord => "按录制";
+	/// "是的"
+	@override
+	String get yes => "是的";
+	/// "保存笔记"
+	@override
+	String get saveNote => "保存笔记";
+	/// "日期"
+	@override
+	String get date => "日期";
+	/// "笔记"
+	@override
+	String get note => "笔记";
+	/// "笔记详情"
+	@override
+	String get notesDetailScreenName => "笔记详情";
+	/// "添加注释"
+	@override
+	String get addNotesScreenName => "添加注释";
+	/// "清单"
+	@override
+	String get checklistScreenName => "清单";
+	/// "帮助"
+	@override
+	String get helpScreen => "帮助";
+	/// "扳机"
+	@override
+	String get triggerScreen => "扳机";
+	/// "同步到云端"
+	@override
+	String get syncToCloudScreen => "同步到云端";
+	/// "云设置"
+	@override
+	String get onboardCloudSetup => "云设置";
+	/// "允许"
+	@override
+	String get onboardPermissionSetup => "允许";
+	/// "选择语言"
+	@override
+	String get onboardLangSetup => "选择语言";
+	/// "介绍"
+	@override
+	String get walkthroughScreen => "介绍";
+	/// "您想设置一个云帐户吗？"
+	@override
+	String get cloudSetupPrompt => "您想设置一个云帐户吗？";
+	/// "不"
+	@override
+	String get no => "不";
+	/// "欢迎来到记忆魔法"
+	@override
+	String get welcome => "欢迎来到记忆魔法";
+	/// "后退"
+	@override
+	String get back => "后退";
+	/// "下一个"
+	@override
+	String get next => "下一个";
+	/// "请选择您的主要语言。"
+	@override
+	String get selectLanguage => "请选择您的主要语言。";
+	/// "语"
+	@override
+	String get language => "语";
+	/// "我们是否有权访问您的麦克风？"
+	@override
+	String get promptPermission => "我们是否有权访问您的麦克风？";
+	/// "为笔记选择字体大小"
+	@override
+	String get promptNoteFontSize => "为笔记选择字体大小";
+	/// "为菜单选择字体大小"
+	@override
+	String get promptMenuFontSize => "为菜单选择字体大小";
+	/// "选择笔记删除时间线"
+	@override
+	String get promptNoteDeletionTimeline => "选择笔记删除时间线";
+	/// "小的"
+	@override
+	String get small => "小的";
+	/// "中等的"
+	@override
+	String get medium => "中等的";
+	/// "大的"
+	@override
+	String get large => "大的";
+	/// "取消"
+	@override
+	String get cancel => "取消";
+	/// "节省"
+	@override
+	String get save => "节省";
+	/// "安全设定"
+	@override
+	String get securitySettings => "安全设定";
+	/// "注意：此权限将允许所有类型的语音交互。"
+	@override
+	String get permissionNote => "注意：此权限将允许所有类型的语音交互。";
+	/// "记笔记的天数"
+	@override
+	String get daysToKeepNotes => "记笔记的天数";
+	/// "注释字体大小"
+	@override
+	String get noteFontSize => "注释字体大小";
+	/// "菜单字体大小"
+	@override
+	String get menuFontSize => "菜单字体大小";
+	/// "帮助"
+	@override
+	String get help => "帮助";
+	/// "扳机"
+	@override
+	String get trigger => "扳机";
+	/// "同步到云端"
+	@override
+	String get syncToCloud => "同步到云端";
+	/// "加载中"
+	@override
+	String get loading => "加载中";
+	/// "编辑笔记"
+	@override
+	String get editNote => "编辑笔记";
+	/// "删除笔记"
+	@override
+	String get deleteNote => "删除笔记";
+	/// "确认笔记删除"
+	@override
+	String get confirmNoteDeletion => "确认笔记删除";
+	/// "你确定要删除这条笔记么？"
+	@override
+	String get areYouSureYouWantToDelete => "你确定要删除这条笔记么？";
+	/// "笔记已保存"
+	@override
+	String get noteSaved => "笔记已保存";
+	/// "输入笔记的文本"
+	@override
+	String get enterNoteText => "输入笔记的文本";
+	/// "好的"
+	@override
+	String get ok => "好的";
+	/// "笔记已成功保存。"
+	@override
+	String get noteSavedSuccess => "笔记已成功保存。";
+	/// "添加注释"
+	@override
+	String get addNote => "添加注释";
+	/// "您想发言还是写笔记？"
+	@override
+	String get speakOrWritePrompt => "您想发言还是写笔记？";
+	/// "选择应用主题"
+	@override
+	String get promptTheme => "选择应用主题";
+	/// "主题"
+	@override
+	String get theme => "主题";
+	/// "蓝色"
+	@override
+	String get blue => "蓝色";
+	/// "粉色的"
+	@override
+	String get pink => "粉色的";
+	/// "我怎么帮你"
+	@override
+	String get howCanIHelpYou => "我怎么帮你";
+	/// "打开笔记通知"
+	@override
+	String get turnOnNotesNotification => "打开笔记通知";
+	/// "开启活动前提醒"
+	@override
+	String get turnOnEventReminder => "开启活动前提醒";
+	/// "注意：提醒在活动开始前 15 分钟开始。"
+	@override
+	String get reminderStartTime => "注意：提醒在活动开始前 15 分钟开始。";
+	/// "活动通知"
+	@override
+	String get activitiesNotifications => "活动通知";
+	/// "打开每小时步行的通知"
+	@override
+	String get turnOnHourlyWalkNotification => "打开每小时步行的通知";
+	/// "打开每小时水的通知"
+	@override
+	String get turnOnHourlyWaterNotification => "打开每小时水的通知";
+	/// "打开浴室通知"
+	@override
+	String get turnOnBathroomNotification => "打开浴室通知";
+	/// "以下视频简要介绍了如何使用 Memory Magic App"
+	@override
+	String get walkthroughVideoLine => "以下视频简要介绍了如何使用 Memory Magic App";
+	/// "功能将受到限制，不允许访问您的麦克风。"
+	@override
+	String get micLimitedAccess => "功能将受到限制，不允许访问您的麦克风。";
+	/// "笔记通知"
+	@override
+	String get notesNotificiations => "笔记通知";
+	/// "设置"
+	@override
+	String get generalSettingsScreen => "设置";
+	/// "重启"
+	@override
+	String get resetSettings => "重启";
+	/// "设置"
+	@override
+	String get generalSetting => "设置";
+	/// "我应该创建一个笔记吗？"
+	@override
+	String get shouldICreateANote => "我应该创建一个笔记吗？";
+	/// "好的，我不会创建笔记。"
+	@override
+	String get willNotCreateNote => "好的，我不会创建笔记。";
+	/// "当然！我怎么帮你？"
+	@override
+	String get sureHowCanIHelp => "当然！我怎么帮你？";
+	/// "好的谢谢！再见。"
+	@override
+	String get thxBye => "好的谢谢！再见。";
+	/// "创建了以下注释："
+	@override
+	String get createdTheFollowingNote => "创建了以下注释：";
+	/// "开始日期"
+	@override
+	String get startDate => "开始日期";
+	/// "选择日期"
+	@override
+	String get selectDate => "选择日期";
+	/// "输入时间"
+	@override
+	String get enterTime => "输入时间";
+	/// "清空选项"
+	@override
+	String get clearSelection => "清空选项";
+	/// "启用通知"
+	@override
+	String get enableNotifications => "启用通知";
+	/// "通知前几分钟"
+	@override
+	String get minutesBeforeNotifications => "通知前几分钟";
+	/// "任务"
+	@override
+	String get tasks => "任务";
+	/// "字体大小"
+	@override
+	String get fontSize => "字体大小";
+	/// "应用设置"
+	@override
+	String get appSettings => "应用设置";
+	/// "轮廓"
+	@override
+	String get profile => "轮廓";
+	/// "聊天"
+	@override
+	String get chat => "聊天";
+	/// "帮助主题"
+	@override
+	String get helpTopics => "帮助主题";
 }
 class _I18n_ar_SY extends I18n {
   const _I18n_ar_SY();
@@ -1293,6 +1326,15 @@ class _I18n_ar_SY extends I18n {
 	/// "إعدادات التطبيقات"
 	@override
 	String get appSettings => "إعدادات التطبيقات";
+	/// "حساب تعريفي"
+	@override
+	String get profile => "حساب تعريفي";
+	/// "دردشة"
+	@override
+	String get chat => "دردشة";
+	/// "مواضيع التعليمات"
+	@override
+	String get helpTopics => "مواضيع التعليمات";
 }
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocalizations> {
   const GeneratedLocalizationsDelegate();

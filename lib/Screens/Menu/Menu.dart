@@ -158,8 +158,8 @@ class MenuState extends State<Menu> {
                                     FaIcon(FontAwesomeIcons.userAlt),
                                     SizedBox(width: 15.0),
                                     Text(
-                                      'PROFILE',
-                                      //I18n.of(context)!.pro
+                                      //'PROFILE',
+                                        I18n.of(context)!.profile.toUpperCase(),
                                     ),
                                   ],
                                 ),

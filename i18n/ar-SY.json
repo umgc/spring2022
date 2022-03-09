@@ -88,5 +88,8 @@
     "daysToKeepNotes": "أيام لحفظ الملاحظات",
     "tasks": "مهام",
     "fontSize": "حجم الخط",
-    "appSettings": "إعدادات التطبيقات"
+    "appSettings": "إعدادات التطبيقات",
+    "profile": "حساب تعريفي",
+    "chat": "دردشة",
+    "helpTopics": "مواضيع التعليمات"
 }

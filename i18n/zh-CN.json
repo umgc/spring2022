@@ -88,5 +88,8 @@
     "daysToKeepNotes": "记笔记的天数",
     "tasks": "任务",
     "fontSize": "字体大小",
-    "appSettings": "应用设置"
+    "appSettings": "应用设置",
+    "profile": "轮廓",
+    "chat": "聊天",
+    "helpTopics": "帮助主题"
 }
