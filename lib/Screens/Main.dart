@@ -34,6 +34,8 @@ import 'package:untitled3/Screens/Tasks/tasks.dart';
 import 'package:untitled3/Screens/HomePage.dart';
 import 'dart:io';
 
+import 'package:untitled3/Screens/Tasks/completeActiveHealthCheckTask.dart';
+
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// This is the stateful widget that the main application instantiates.
@@ -54,7 +56,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     );
     return exitResult ?? false;
   }
-
 
   AlertDialog _buildExitDialog(BuildContext context) {
     return AlertDialog(
@@ -82,7 +83,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle("Help");
 
       return Help();
-
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -113,7 +113,8 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle("Tasks");
-      return Tasks();
+      // return Tasks();
+      return ActiveHealthCheckTask();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
       screenNav.setTitle("User Profile");
