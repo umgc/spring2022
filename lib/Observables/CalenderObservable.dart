@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Model/CalendarEvent.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Model/CalendarEvent.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
 
 part 'CalenderObservable.g.dart';
 

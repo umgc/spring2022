@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/Model/NLUAction.dart';
+import 'package:memorez/Model/NLUAction.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:untitled3/Model/NLUState.dart';
+import 'package:memorez/Model/NLUState.dart';
 
 @JsonSerializable(nullable: true)
 class NLUResponse {

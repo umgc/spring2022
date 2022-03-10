@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled3/Model/LexResponse.dart';
-import 'package:untitled3/Model/NLUAction.dart';
-import 'package:untitled3/Model/NLUResponse.dart';
-import 'package:untitled3/Model/NLUState.dart';
+import 'package:memorez/Model/LexResponse.dart';
+import 'package:memorez/Model/NLUAction.dart';
+import 'package:memorez/Model/NLUResponse.dart';
+import 'package:memorez/Model/NLUState.dart';
 import 'LexService.dart';
-import 'package:untitled3/Model/Note.dart';
+import 'package:memorez/Model/Note.dart';
 import '../../NoteService.dart';
 import '../BertQA/BertQaService.dart';
 import 'package:geocoding/geocoding.dart';

@@ -5,17 +5,17 @@ import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:translator/translator.dart';
-import 'package:untitled3/Model/NLUAction.dart';
-import 'package:untitled3/Model/NLUResponse.dart';
-import 'package:untitled3/Model/NLUState.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Services/NLU/Bot/NLULibService.dart';
-import 'package:untitled3/Services/TranslationService.dart';
-import 'package:untitled3/Services/VoiceOverTextService.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/NLUAction.dart';
+import 'package:memorez/Model/NLUResponse.dart';
+import 'package:memorez/Model/NLUState.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Services/NLU/Bot/NLULibService.dart';
+import 'package:memorez/Services/TranslationService.dart';
+import 'package:memorez/Services/VoiceOverTextService.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/generated/i18n.dart';
 
 part 'MicObservable.g.dart';
 

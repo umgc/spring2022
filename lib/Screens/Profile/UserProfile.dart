@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled3/Model/user.dart';
-import 'package:untitled3/Screens/AdminPage.dart';
-import 'package:untitled3/Screens/HomePage.dart';
-import 'package:untitled3/Screens/LoginPage.dart';
-import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Screens/Profile/edit_profile_page.dart';
-import 'package:untitled3/Screens/Profile/profile_card.dart';
-import 'package:untitled3/Screens/Profile/profile_constants.dart';
-import 'package:untitled3/Screens/Profile/widget/button_widget.dart';
-import 'package:untitled3/utils/user_preferences.dart';
-import 'package:untitled3/Screens/Profile/widget/profile_widget.dart';
-import 'package:untitled3/DatabaseHandler/DbHelper.dart';
-import 'package:untitled3/Model/UserModel.dart';
+import 'package:memorez/Model/user.dart';
+import 'package:memorez/Screens/AdminPage.dart';
+import 'package:memorez/Screens/HomePage.dart';
+import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Screens/Profile/edit_profile_page.dart';
+import 'package:memorez/Screens/Profile/profile_card.dart';
+import 'package:memorez/Screens/Profile/profile_constants.dart';
+import 'package:memorez/Screens/Profile/widget/button_widget.dart';
+import 'package:memorez/utils/user_preferences.dart';
+import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
+import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/Model/UserModel.dart';
 
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
@@ -89,23 +89,6 @@ class _ProfilePageState extends State<UserProfile> {
 
             const SizedBox(height: 24),
 
-            //If admin, show edit, else stay the same
-            _conUserId.text == 'Admin'
-                ? Container(
-                    padding:
-                        const EdgeInsets.only(left: 30, right: 30, bottom: 30),
-                    child: ButtonWidget(
-                      text: 'Logout',
-                      onClicked: () {
-                        removeSP("Admin");
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (_) => MainNavigator()),
-                            (Route<dynamic> route) => false);
-                      },
-                    ),
-                  )
-                : Text('')
           ],
         ),
       ),

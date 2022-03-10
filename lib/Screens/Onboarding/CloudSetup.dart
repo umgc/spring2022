@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/OnboardObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';

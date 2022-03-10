@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled3/Services/LocaleService.dart';
-import 'package:untitled3/Services/VoiceOverTextService.dart';
-import 'package:untitled3/generated/i18n.dart';
-import 'package:untitled3/Observables/OnboardObservable.dart';
+import 'package:memorez/Services/LocaleService.dart';
+import 'package:memorez/Services/VoiceOverTextService.dart';
+import 'package:memorez/generated/i18n.dart';
+import 'package:memorez/Observables/OnboardObservable.dart';
 import 'package:provider/provider.dart';
 
 class SelectLanguageScreen extends StatefulWidget {

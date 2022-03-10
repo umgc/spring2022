@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/Utility/Constant.dart';
+import 'package:memorez/Utility/Constant.dart';
 
 part 'ScreenNavigator.g.dart';
 

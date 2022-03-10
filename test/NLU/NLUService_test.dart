@@ -2,13 +2,13 @@ import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:untitled3/Model/NLUAction.dart';
-import 'package:untitled3/Model/NLUResponse.dart';
-import 'package:untitled3/Services/NLU/BertQA/BertQaService.dart';
-import 'package:untitled3/Services/NLU/Bot/LexService.dart';
+import 'package:memorez/Model/NLUAction.dart';
+import 'package:memorez/Model/NLUResponse.dart';
+import 'package:memorez/Services/NLU/BertQA/BertQaService.dart';
+import 'package:memorez/Services/NLU/Bot/LexService.dart';
 import 'dart:convert';
 import 'NLUService_test.mocks.dart';
-import 'package:untitled3/Services/NLU/Bot/NLULibService.dart';
+import 'package:memorez/Services/NLU/Bot/NLULibService.dart';
 
 
 @GenerateMocks([BertQAService, LexService])

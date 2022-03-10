@@ -1,12 +1,12 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:untitled3/Comm/comHelper.dart';
-import 'package:untitled3/Comm/genTextFormField.dart';
-import 'package:untitled3/DatabaseHandler/DbHelper.dart';
-import 'package:untitled3/Model/UserModel.dart';
-import 'package:untitled3/Screens/HomePage.dart';
-import 'package:untitled3/Screens/LoginPage.dart';
+import 'package:memorez/Comm/comHelper.dart';
+import 'package:memorez/Comm/genTextFormField.dart';
+import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/Model/UserModel.dart';
+import 'package:memorez/Screens/HomePage.dart';
+import 'package:memorez/Screens/LoginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateAdmin extends StatefulWidget {
@@ -106,9 +106,6 @@ class _HomeFormState extends State<UpdateAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Update Admin'),
-      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -175,7 +172,7 @@ class _HomeFormState extends State<UpdateAdmin> {
                       onPressed: delete,
                     ),
                     decoration: BoxDecoration(
-                      color: Color(0xFF0D47A1),
+                      color: Colors.red,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),

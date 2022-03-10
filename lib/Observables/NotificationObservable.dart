@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/Screens/NotificationScreen.dart';
+import 'package:memorez/Screens/NotificationScreen.dart';
 
 part 'NotificationObservable.g.dart';
 

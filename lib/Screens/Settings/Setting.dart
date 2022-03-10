@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Setting.dart';
-import 'package:untitled3/Observables/MenuObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Services/LocaleService.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/Setting.dart';
+import 'package:memorez/Observables/MenuObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Services/LocaleService.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/generated/i18n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
+import '../../DatabaseHandler/DbHelper.dart';
+import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 
 List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
@@ -26,11 +29,44 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingState extends State<Settings> {
+  // is caregiver loggedin?
+
+  final _pref = SharedPreferences.getInstance();
+
+  late DbHelper dbHelper;
+  var _conUserId = TextEditingController();
+
+  UserModel? get userData => null;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+
+    dbHelper = DbHelper();
+
+  }
+
+  Future<void> getUserData() async {
+    final SharedPreferences sp = await _pref;
+
+    setState(() {
+      _conUserId.text = sp.getString("user_id")!;
+      _conUserId.text == 'Admin'? careMode = true : careMode = false;
+    });
+  }
+
+  void removeSP(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("user_id");
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenNav = Provider.of<MainNavObserver>(context);
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
+    _conUserId.text == 'Admin'? careMode = true : careMode = false;
 
     ///Helper method to convert theme names from all caps to normal text.
     _themeToDisplayName(AppTheme appTheme) {
@@ -472,24 +508,31 @@ class _SettingState extends State<Settings> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 11),
                 child: Row(
+
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (!careMode) ...[
+               _conUserId.text != 'Admin'?
                       TextButton(
                         onPressed: () {
                           // screenNav.changeScreen(MAIN_SCREENS
                           //     .MENU); ///////////////////////////////put new screen
+                          // careMode = true;
+                          // screenNav.changeScreen(MENU_SCREENS.SETTING);
                           careMode = true;
-                          screenNav.changeScreen(MENU_SCREENS.SETTING);
+                          screenNav.changeScreen(MENU_SCREENS.LOGIN);
+
                         },
+
                         child: Text(
                           'Enable Caregiver Mode',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: _bodyFontSize,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
+
                         style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(15.0),
                           elevation: 1.0,
                           alignment: Alignment.center,
                           shape: const RoundedRectangleBorder(
@@ -497,35 +540,61 @@ class _SettingState extends State<Settings> {
                               Radius.circular(12.0),
                             ),
                           ),
-                          backgroundColor: Colors.grey[400],
+                          backgroundColor: Color(0xFF0D47A1),
+                        ),
+                      ):
+
+                      TextButton(
+                        onPressed: () {
+                          // screenNav.changeScreen(MAIN_SCREENS
+                          //     .MENU); ///////////////////////////////put new screen
+                          // careMode = true;
+                          // screenNav.changeScreen(MENU_SCREENS.SETTING);
+                          careMode = true;
+                          screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
+
+                        },
+                        child: Text(
+                          'Update Caregiver',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: _bodyFontSize,
+                              color: Colors.white),
+                        ),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.all(15.0),
+                          elevation: 1.0,
+                          alignment: Alignment.center,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                          ),
+                          backgroundColor: Color(0xFF0D47A1),
                         ),
                       ),
-                    ],
-                    if (careMode) ...[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                        child: GestureDetector(
-                            onTap: () {
-                              careMode = false;
-                              screenNav.changeScreen(MENU_SCREENS.SETTING);
-                            },
-                            child: Column(
-                              children: [
-                                Transform.rotate(
-                                    angle: 180 * math.pi / 180,
-                                    child: Icon(
-                                      Icons.exit_to_app_rounded,
-                                      size: 10.0,
-                                      color: Colors.red,
-                                    )),
-                                Text(
-                                  'Exit Caregiver Mode',
-                                  style: TextStyle(fontSize: 14),
-                                )
-                              ],
-                            )),
-                      ),
-                    ],
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                      //   child: GestureDetector(
+                      //       onTap: () {
+                      //         careMode = false;
+                      //         screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
+                      //       },
+                      //       child: Column(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.supervised_user_circle,
+                      //             size: 40.0,
+                      //             color: Colors.red,
+                      //           ),
+                      //           Text(
+                      //             'Update Caregiver',
+                      //             style: TextStyle(fontSize: 14),
+                      //           )
+                      //         ],
+                      //       )),
+                      // ),
+
                   ],
                 ),
               ),

@@ -1,4 +1,4 @@
-package com.example.untitled3
+package com.example.memorez
 
 import io.flutter.embedding.android.FlutterActivity
 
