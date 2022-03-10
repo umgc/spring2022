@@ -52,7 +52,8 @@ class MenuState extends State<Menu> {
                                     FaIcon(FontAwesomeIcons.bars),
                                     SizedBox(width: 15.0),
                                     Text(
-                                      'TASKS',
+                                      // 'TASKS',
+                                        I18n.of(context)!.tasks.toUpperCase(),
                                     ),
                                   ],
                                 ),
@@ -86,7 +87,8 @@ class MenuState extends State<Menu> {
                                     FaIcon(FontAwesomeIcons.solidStickyNote),
                                     SizedBox(width: 15.0),
                                     Text(
-                                      'NOTES',
+                                      //'NOTES',
+                                        I18n.of(context)!.notesScreenName.toUpperCase(),
                                     ),
                                   ],
                                 ),
@@ -121,7 +123,8 @@ class MenuState extends State<Menu> {
                                     FaIcon(FontAwesomeIcons.calendar),
                                     SizedBox(width: 15.0),
                                     Text(
-                                      'CALENDAR',
+                                      //'CALENDAR',
+                                        I18n.of(context)!.calendarScreenName.toUpperCase(),
                                     ),
                                   ],
                                 ),
@@ -155,7 +158,8 @@ class MenuState extends State<Menu> {
                                     FaIcon(FontAwesomeIcons.userAlt),
                                     SizedBox(width: 15.0),
                                     Text(
-                                      'PROFILE',
+                                      //'PROFILE',
+                                        I18n.of(context)!.profile.toUpperCase(),
                                     ),
                                   ],
                                 ),
@@ -189,7 +193,8 @@ class MenuState extends State<Menu> {
                                     FaIcon(FontAwesomeIcons.cog),
                                     SizedBox(width: 15.0),
                                     Text(
-                                      'SETTINGS',
+                                      //'SETTINGS',
+                                      I18n.of(context)!.generalSetting.toUpperCase(),
                                     ),
                                   ],
                                 ),

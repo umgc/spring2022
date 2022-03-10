@@ -182,7 +182,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
     if (screen == MENU_SCREENS.SETTING) {
       //screenNav.setTitle(I18n.of(context)!.settingScreenName);
-      screenNav.setTitle("Settings");
+      screenNav.setTitle(I18n.of(context)!.generalSetting);
       return Settings();
     }
 

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:untitled3/Model/Setting.dart';
 import 'package:untitled3/Observables/MenuObservable.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Screens/LoginPage.dart';
 import 'package:untitled3/Services/LocaleService.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
@@ -12,10 +11,12 @@ import 'dart:math' as math;
 import '../../Observables/ScreenNavigator.dart';
 
 List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
-List<String> minutesBeforeNotification = ['1', '2', '3', '5', '10', '30'];
+List<String> _minutesBeforeNotification = ['1', '2', '3', '5', '10', '30'];
 List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
 
-List<String> daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
+List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
+
+bool careMode = false;
 
 /// days to keep Notes???
 
@@ -31,8 +32,25 @@ class _SettingState extends State<Settings> {
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
 
-    fontSizeToDisplayName(FontSize fontSize) {
-      switch (fontSize) {
+    ///Helper method to convert theme names from all caps to normal text.
+    _themeToDisplayName(AppTheme appTheme) {
+      switch (appTheme) {
+        case AppTheme.BLUE:
+          {
+            return I18n.of(context)!.blue;
+          }
+        case AppTheme.PINK:
+          {
+            return I18n.of(context)!.pink;
+          }
+        default:
+          throw new UnimplementedError('not implemented');
+      }
+    }
+
+    ///Helper method to convert font size names from all caps to normal text.
+    _fontToDisplayName(FontSize fontName) {
+      switch (fontName) {
         case FontSize.SMALL:
           {
             return I18n.of(context)!.small;
@@ -50,22 +68,15 @@ class _SettingState extends State<Settings> {
       }
     }
 
-    themeToDisplayName(AppTheme appTheme) {
-      switch (appTheme) {
-        case AppTheme.BLUE:
-          {
-            return I18n.of(context)!.blue;
-          }
-        case AppTheme.PINK:
-          {
-            return I18n.of(context)!.pink;
-          }
-        default:
-          throw new UnimplementedError('not implemented');
-      }
-    }
+    /// Font size of section headers
+    double _sectionFontSize =
+        (Theme.of(context).textTheme.bodyText1?.fontSize)! * 1.4;
 
-    final ICON_SIZE = 40.00;
+    /// Font size of body text
+    double? _bodyFontSize = Theme.of(context).textTheme.bodyText1?.fontSize;
+
+    /// Size of the Cancel, Save, and Reset icons.
+    final double _iconSize = 40.00;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -74,218 +85,221 @@ class _SettingState extends State<Settings> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  /**
-                 * Notes section
-                 */
-                  Row(
-                    children: [
-                      Text(I18n.of(context)!.notesScreenName,
+              if (careMode) ...[
+                Row(
+                  children: <Widget>[
+                    /// Notes Section
+                    Row(
+                      children: [
+                        Text(
+                          I18n.of(context)!.notesScreenName,
                           style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[800])),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.0, //for spacing
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    //'Enable Notifications',
-                    I18n.of(context)!.enableNotifications,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                            //fontSize: getSize2(),
+                            fontSize: _sectionFontSize,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue[800],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Switch(
-                    value:
-                        settingObserver.userSettings.enableNotesNotifications,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        settingObserver.userSettings.enableNotesNotifications =
-                            newValue;
-                      });
-                    },
-                    inactiveThumbColor: Colors.blue,
-                    inactiveTrackColor: Colors.grey,
-                    activeTrackColor: Colors.green,
-                    activeColor: Colors.blue,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    //'Minutes Before Notification',
-                    I18n.of(context)!.minutesBeforeNotification,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0, //for spacing
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      //'Enable Notifications',
+                      I18n.of(context)!.enableNotifications,
+                      style: TextStyle(
+                          fontSize: _bodyFontSize, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  DropdownButton<String>(
-                    alignment: Alignment.center,
-                    value: settingObserver
-                        .userSettings.minutesBeforeNoteNotifications,
-
-                    /// the default or saved value
-                    items: minutesBeforeNotification
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        settingObserver.userSettings
-                            .minutesBeforeNoteNotifications = newValue!;
-
-                      });
-                    },
-
-                    // items: supportedLocales.map((valueItem) {
-                    //   return DropdownMenuItem(
-                    //       value: valueItem,
-                    //       child: Text((LocaleService.getDisplayLanguage(
-                    //           valueItem.languageCode)["name"])
-                    //       )
-                    //   );
-                    // }).toList(),
-                    // onChanged: (Locale? newLocale) {
-                    //   setState(() {
-                    //     if (newLocale != null) {
-                    //       settingObserver.userSettings.locale = newLocale;
-                    //     }
-                    //   });
-                    // },
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    I18n.of(context)!.daysToKeepNotes,
-                    //'Days To Keep Notes',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                    Switch(
+                      value:
+                          settingObserver.userSettings.enableNotesNotifications,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          settingObserver
+                              .userSettings.enableNotesNotifications = newValue;
+                        });
+                      },
+                      inactiveThumbColor: Colors.blue,
+                      inactiveTrackColor: Colors.grey,
+                      activeTrackColor: Colors.green,
+                      activeColor: Colors.blue,
                     ),
-                  ),
-                  DropdownButton<String>(
-                    alignment: Alignment.center, /// This may need to be changed to new variable.*****************
-                    value: settingObserver.userSettings.daysToKeepFiles,
-                    items: daysToKeepFilesOptions
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        settingObserver.userSettings.daysToKeepFiles =
-                            newValue!;/// This may need to be changed to new variable.*****************
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      //'Minutes Before Notification',
+                      I18n.of(context)!.minutesBeforeNotifications,
+                      style: TextStyle(
+                        fontSize: _bodyFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      alignment: Alignment.center,
+                      value: settingObserver
+                          .userSettings.minutesBeforeNoteNotifications,
 
-                        //null check
-                      });
-                    },
-                  ),
-                ],
-              ),
-              addTopDivider(),
-              addBotDivider(),
+                      /// the default or saved value
+                      items: _minutesBeforeNotification
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              fontSize: _bodyFontSize,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          settingObserver.userSettings
+                              .minutesBeforeNoteNotifications = newValue!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      I18n.of(context)!.daysToKeepNotes,
+                      //'Days To Keep Notes',
+                      style: TextStyle(
+                        fontSize: _bodyFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      alignment: Alignment.center,
 
-              /**
+                      /// This may need to be changed to new variable.*****************
+                      value: settingObserver.userSettings.daysToKeepFiles,
+                      items: _daysToKeepFilesOptions
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              fontSize: _bodyFontSize,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          settingObserver.userSettings.daysToKeepFiles =
+                              newValue!;
+
+                          /// This may need to be changed to new variable.*****************
+
+                          //null check
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                addTopDivider(),
+                addBotDivider(),
+
+                /**
              * Tasks section
              */
-              Row(
-                children: <Widget>[
-                  Row(
-                    children: [
-                      Text(I18n.of(context)!.tasks,
-                          //'Tasks',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue[800])),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    I18n.of(context)!.enableNotifications,
-                    //'Enable Notifications',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                Row(
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        Text(I18n.of(context)!.tasks,
+                            //'Tasks',
+                            style: TextStyle(
+                                fontSize: _sectionFontSize,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue[800])),
+                      ],
                     ),
-                  ),
-                  Switch(
-                    value:
-                        settingObserver.userSettings.enableTasksNotifications,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        settingObserver.userSettings.enableTasksNotifications =
-                            newValue;
-                      });
-                    },
-                    inactiveThumbColor: Colors.blue,
-                    inactiveTrackColor: Colors.grey,
-                    activeTrackColor: Colors.green,
-                    activeColor: Colors.blue,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    I18n.of(context)!.minutesBeforeNotification,
-                    //'Minutes Before Notification',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      I18n.of(context)!.enableNotifications,
+                      //'Enable Notifications',
+                      style: TextStyle(
+                        fontSize: _bodyFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  DropdownButton<String>(
-                    alignment: Alignment.center,
-                    value: settingObserver
-                        .userSettings.minutesBeforeTaskNotifications,
-                    items: minutesBeforeNotification
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        settingObserver.userSettings
-                            .minutesBeforeTaskNotifications = newValue!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              addTopDivider(),
-              addBotDivider(),
-
+                    Switch(
+                      value:
+                          settingObserver.userSettings.enableTasksNotifications,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          settingObserver
+                              .userSettings.enableTasksNotifications = newValue;
+                        });
+                      },
+                      inactiveThumbColor: Colors.blue,
+                      inactiveTrackColor: Colors.grey,
+                      activeTrackColor: Colors.green,
+                      activeColor: Colors.blue,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      I18n.of(context)!.minutesBeforeNotifications,
+                      //'Minutes Before Notification',
+                      style: TextStyle(
+                        fontSize: _bodyFontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      alignment: Alignment.center,
+                      value: settingObserver
+                          .userSettings.minutesBeforeTaskNotifications,
+                      items: _minutesBeforeNotification
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              fontSize: _bodyFontSize,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          settingObserver.userSettings
+                              .minutesBeforeTaskNotifications = newValue!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                addTopDivider(),
+                addBotDivider(),
+              ],
               /**
              * App Settings Section
              */
@@ -296,7 +310,8 @@ class _SettingState extends State<Settings> {
                       Text(I18n.of(context)!.appSettings,
                           //'App Settings',
                           style: TextStyle(
-                              fontSize: 20.0,
+                              //fontSize: 20.0,
+                              fontSize: _sectionFontSize,
                               fontWeight: FontWeight.bold,
                               color: Colors.blue[800])),
                     ],
@@ -307,14 +322,13 @@ class _SettingState extends State<Settings> {
                 height: 10.0,
               ),
 
-              /// Not sure what options we are including for font
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Font Size',
+                    I18n.of(context)!.fontSize,
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: _bodyFontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -325,7 +339,12 @@ class _SettingState extends State<Settings> {
                         .map<DropdownMenuItem<FontSize>>((FontSize value) {
                       return DropdownMenuItem<FontSize>(
                         value: value,
-                        child: Text(value.name),
+                        child: Text(
+                          _fontToDisplayName(value),
+                          style: TextStyle(
+                            fontSize: _bodyFontSize,
+                          ),
+                        ),
                       );
                     }).toList(),
                     onChanged: (FontSize? newValue) {
@@ -343,7 +362,7 @@ class _SettingState extends State<Settings> {
                     I18n.of(context)!.language,
                     //'Language',
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: _bodyFontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -391,9 +410,15 @@ class _SettingState extends State<Settings> {
                     value: settingObserver.userSettings.locale,
                     items: supportedLocales.map((valueItem) {
                       return DropdownMenuItem(
-                          value: valueItem,
-                          child: Text((LocaleService.getDisplayLanguage(
-                              valueItem.languageCode)["name"])));
+                        value: valueItem,
+                        child: Text(
+                          (LocaleService.getDisplayLanguage(
+                              valueItem.languageCode)["name"]),
+                          style: TextStyle(
+                            fontSize: _bodyFontSize,
+                          ),
+                        ),
+                      );
                     }).toList(),
                     onChanged: (Locale? newLocale) {
                       setState(() {
@@ -412,7 +437,7 @@ class _SettingState extends State<Settings> {
                     I18n.of(context)!.theme,
                     //'Theme',
                     style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: _bodyFontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -423,7 +448,12 @@ class _SettingState extends State<Settings> {
                         .map<DropdownMenuItem<AppTheme>>((AppTheme value) {
                       return DropdownMenuItem<AppTheme>(
                         value: value,
-                        child: Text(value.name),
+                        child: Text(
+                          _themeToDisplayName(value),
+                          style: TextStyle(
+                            fontSize: _bodyFontSize,
+                          ),
+                        ),
                       );
                     }).toList(),
                     onChanged: (AppTheme? newValue) {
@@ -438,44 +468,74 @@ class _SettingState extends State<Settings> {
               addBotDivider(),
 
               /// Caregiver Mode Button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        screenNav.changeScreen(MENU_SCREENS.LOGIN);
-                        // Navigator.push(context,
-                        //     MaterialPageRoute(builder: (_) => LoginForm()));
-                  },
-                      child: Text(
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 11),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (!careMode) ...[
+                      TextButton(
+                        onPressed: () {
+                          // screenNav.changeScreen(MAIN_SCREENS
+                          //     .MENU); ///////////////////////////////put new screen
+                          careMode = true;
+                          screenNav.changeScreen(MENU_SCREENS.SETTING);
+                        },
+                        child: Text(
                           'Enable Caregiver Mode',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        color: Colors.black
-                      ),
-                      ),
-                    style: TextButton.styleFrom(
-                      elevation: 1.0,
-                      alignment: Alignment.center,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12.0),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: _bodyFontSize,
+                              color: Colors.black),
+                        ),
+                        style: TextButton.styleFrom(
+                          elevation: 1.0,
+                          alignment: Alignment.center,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                          ),
+                          backgroundColor: Colors.grey[400],
                         ),
                       ),
-                      backgroundColor: Colors.grey[400],
-                    ),
-                  ),
-
-                ],
+                    ],
+                    if (careMode) ...[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                        child: GestureDetector(
+                            onTap: () {
+                              careMode = false;
+                              screenNav.changeScreen(MENU_SCREENS.SETTING);
+                            },
+                            child: Column(
+                              children: [
+                                Transform.rotate(
+                                    angle: 180 * math.pi / 180,
+                                    child: Icon(
+                                      Icons.exit_to_app_rounded,
+                                      size: 10.0,
+                                      color: Colors.red,
+                                    )),
+                                Text(
+                                  'Exit Caregiver Mode',
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
+                            )),
+                      ),
+                    ],
+                  ],
+                ),
               ),
 
               addTopDivider(),
               addBotDivider(),
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-
                   /// Cancel Button
                   GestureDetector(
                       onTap: () {
@@ -490,16 +550,17 @@ class _SettingState extends State<Settings> {
                               angle: 180 * math.pi / 180,
                               child: Icon(
                                 Icons.exit_to_app_rounded,
-                                size: ICON_SIZE,
+                                size: _iconSize,
                                 color: Colors.red,
                               )),
                           Text(
                             I18n.of(context)!.cancel,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: TextStyle(
+                                fontSize: _bodyFontSize,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
-                      )
-                  ),
+                      )),
 
                   ///SAVE BUTTON
                   GestureDetector(
@@ -512,16 +573,17 @@ class _SettingState extends State<Settings> {
                         children: [
                           Icon(
                             Icons.save,
-                            size: ICON_SIZE,
+                            size: _iconSize,
                             color: Colors.green,
                           ),
                           Text(
                             I18n.of(context)!.save,
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: TextStyle(
+                                fontSize: _bodyFontSize,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
-                      )
-                  ),
+                      )),
 
                   /// Reset Button
                   GestureDetector(
@@ -540,12 +602,14 @@ class _SettingState extends State<Settings> {
                       children: [
                         Icon(
                           Icons.restore,
-                          size: ICON_SIZE,
+                          size: _iconSize,
                           color: Colors.blueAccent,
                         ),
                         Text(
                           I18n.of(context)!.resetSettings,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: TextStyle(
+                              fontSize: _bodyFontSize,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),

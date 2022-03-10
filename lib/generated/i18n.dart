@@ -196,16 +196,20 @@ class I18n implements WidgetsLocalizations {
 	String get clearSelection => "Clear Selection";
 	/// "Enable Notifications"
 	String get enableNotifications => "Enable Notifications";
-
-	String get minutesBeforeNotification => "Minutes Before Notifications";
-
-	String get appSettings => "App Settings";
-
+	/// "Minutes Before Notifications"
+	String get minutesBeforeNotifications => "Minutes Before Notifications";
+	/// "Tasks"
 	String get tasks => "Tasks";
-
+	/// "Font Size"
 	String get fontSize => "Font Size";
-
-	//********************************************************************es
+	/// "App Settings"
+	String get appSettings => "App Settings";
+	/// "Profile"
+	String get profile => "Profile";
+	/// "Chat"
+	String get chat => "Chat";
+	/// "Help Topics"
+	String get helpTopics => "Help Topics";
 	/// "Ayuda"
 	String get helpScreen => "Ayuda";
 	/// "Palabras Claves"
@@ -332,9 +336,9 @@ class _I18n_es_US extends I18n {
 	/// "NOTA: Este permiso permitirá todo tipo de interacción de voz."
 	@override
 	String get permissionNote => "NOTA: Este permiso permitirá todo tipo de interacción de voz.";
-	/// "Días para tomar notas"
+	/// "Días para guardar notas"
 	@override
-	String get daysToKeepNotes => "Días para tomar notas";
+	String get daysToKeepNotes => "Días para guardar notas";
 	/// "Tamaño de fuente de nota"
 	@override
 	String get noteFontSize => "Tamaño de fuente de nota";
@@ -464,25 +468,31 @@ class _I18n_es_US extends I18n {
 	/// "Selección clara"
 	@override
 	String get clearSelection => "Selección clara";
-	/// "Enable Notifications
+	/// "Permitir notificaciones"
 	@override
-	String get enableNotifications => "Permitir Notificaciones";
-
+	String get enableNotifications => "Permitir notificaciones";
+	/// "Minutos antes de las notificaciones"
 	@override
-	String get minutesBeforeNotification => "Minutos antes de las notificaciones";
-
-	@override
-	String get appSettings => "Ajustes de Aplicacion";
-
+	String get minutesBeforeNotifications => "Minutos antes de las notificaciones";
+	/// "Tareas"
 	@override
 	String get tasks => "Tareas";
-
+	/// "Tamaño de fuente"
 	@override
 	String get fontSize => "Tamaño de fuente";
-
-} // end es
-
-//****************************************************************************pt
+	/// "Ajustes de Aplicacion"
+	@override
+	String get appSettings => "Ajustes de Aplicacion";
+	/// "Perfil"
+	@override
+	String get profile => "Perfil";
+	/// "Chat"
+	@override
+	String get chat => "Chat";
+	/// "Temas de ayuda"
+	@override
+	String get helpTopics => "Temas de ayuda";
+}
 class _I18n_pt_BR extends I18n {
   const _I18n_pt_BR();
   @override
@@ -607,9 +617,9 @@ class _I18n_pt_BR extends I18n {
 	/// "NOTA: Esta permissão permitirá todos os tipos de interação por voz."
 	@override
 	String get permissionNote => "NOTA: Esta permissão permitirá todos os tipos de interação por voz.";
-	/// "Dias para fazer anotações"
+	/// "Dias para manter notas"
 	@override
-	String get daysToKeepNotes => "Dias para fazer anotações";
+	String get daysToKeepNotes => "Dias para manter notas";
 	/// "Tamanho da fonte da nota"
 	@override
 	String get noteFontSize => "Tamanho da fonte da nota";
@@ -739,24 +749,31 @@ class _I18n_pt_BR extends I18n {
 	/// "Seleção clara"
 	@override
 	String get clearSelection => "Seleção clara";
-	/// "Enable Notifications
+	/// "Ativar notificações"
 	@override
 	String get enableNotifications => "Ativar notificações";
-
+	/// "Minutos antes das notificações"
 	@override
-	String get minutesBeforeNotification => "Minutos antes das notificações";
-
-	@override
-	String get appSettings => "Configurações do aplicativo";
-
+	String get minutesBeforeNotifications => "Minutos antes das notificações";
+	/// "Tarefas"
 	@override
 	String get tasks => "Tarefas";
-
+	/// "Tamanho da fonte"
 	@override
 	String get fontSize => "Tamanho da fonte";
-} // end pt
-
-//****************************************************************************cn
+	/// "Configurações do aplicativo"
+	@override
+	String get appSettings => "Configurações do aplicativo";
+	/// "Perfil"
+	@override
+	String get profile => "Perfil";
+	/// "bater papo"
+	@override
+	String get chat => "bater papo";
+	/// "Tópicos de ajuda"
+	@override
+	String get helpTopics => "Tópicos de ajuda";
+}
 class _I18n_zh_CN extends I18n {
   const _I18n_zh_CN();
   @override
@@ -1013,24 +1030,31 @@ class _I18n_zh_CN extends I18n {
 	/// "清空选项"
 	@override
 	String get clearSelection => "清空选项";
-	/// ""
-  @override
+	/// "启用通知"
+	@override
 	String get enableNotifications => "启用通知";
-
-  @override
-	String get minutesBeforeNotification => "通知前几分钟";
-
-  @override
-	String get appSettings => "应用设置";
-
+	/// "通知前几分钟"
+	@override
+	String get minutesBeforeNotifications => "通知前几分钟";
+	/// "任务"
 	@override
 	String get tasks => "任务";
-
+	/// "字体大小"
 	@override
 	String get fontSize => "字体大小";
-} // end cn
-
-//****************************************************************************ar
+	/// "应用设置"
+	@override
+	String get appSettings => "应用设置";
+	/// "轮廓"
+	@override
+	String get profile => "轮廓";
+	/// "聊天"
+	@override
+	String get chat => "聊天";
+	/// "帮助主题"
+	@override
+	String get helpTopics => "帮助主题";
+}
 class _I18n_ar_SY extends I18n {
   const _I18n_ar_SY();
   @override
@@ -1155,9 +1179,9 @@ class _I18n_ar_SY extends I18n {
 	/// "ملاحظة: سيسمح هذا الإذن بجميع أنواع التفاعل الصوتي."
 	@override
 	String get permissionNote => "ملاحظة: سيسمح هذا الإذن بجميع أنواع التفاعل الصوتي.";
-	/// "أيام للاحتفاظ بالملاحظات"
+	/// "أيام لحفظ الملاحظات"
 	@override
-	String get daysToKeepNotes => "أيام للاحتفاظ بالملاحظات";
+	String get daysToKeepNotes => "أيام لحفظ الملاحظات";
 	/// "لاحظ حجم الخط"
 	@override
 	String get noteFontSize => "لاحظ حجم الخط";
@@ -1287,24 +1311,31 @@ class _I18n_ar_SY extends I18n {
 	/// "التحديد الواضح"
 	@override
 	String get clearSelection => "التحديد الواضح";
-
+	/// "تمكين الإخطارات"
 	@override
 	String get enableNotifications => "تمكين الإخطارات";
-
+	/// "دقائق قبل الإخطارات"
 	@override
-	String get minutesBeforeNotification => "دقائق قبل الإخطارات";
-
-	@override
-	String get appSettings => "إعدادات التطبيقات";
-
+	String get minutesBeforeNotifications => "دقائق قبل الإخطارات";
+	/// "مهام"
 	@override
 	String get tasks => "مهام";
-
+	/// "حجم الخط"
 	@override
 	String get fontSize => "حجم الخط";
-} // end ar
-
-
+	/// "إعدادات التطبيقات"
+	@override
+	String get appSettings => "إعدادات التطبيقات";
+	/// "حساب تعريفي"
+	@override
+	String get profile => "حساب تعريفي";
+	/// "دردشة"
+	@override
+	String get chat => "دردشة";
+	/// "مواضيع التعليمات"
+	@override
+	String get helpTopics => "مواضيع التعليمات";
+}
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocalizations> {
   const GeneratedLocalizationsDelegate();
   List<Locale> get supportedLocales {
