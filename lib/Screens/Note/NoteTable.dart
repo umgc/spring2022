@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Utility/Constant.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Utility/Constant.dart';
 import '../../Observables/NoteObservable.dart';
-import 'package:untitled3/Services/NoteService.dart';
+import 'package:memorez/Services/NoteService.dart';
 import 'package:intl/intl.dart';
 
 bool _filteredNotesIsVisible = false;

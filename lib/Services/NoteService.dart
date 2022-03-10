@@ -1,4 +1,4 @@
-import 'package:untitled3/Utility/EncryptionUtil.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 
 import '../Model/Note.dart';
 import '../Utility/FileUtil.dart';

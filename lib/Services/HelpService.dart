@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:untitled3/Model/Help.dart';
+import 'package:memorez/Model/Help.dart';
 
 class HelpService {
   static const String FILE_NAME = "assets/help/help_content.json";

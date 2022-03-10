@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/Comm/comHelper.dart';
-import 'package:untitled3/Comm/genLoginSignupHeader.dart';
-import 'package:untitled3/Comm/genTextFormField.dart';
-import 'package:untitled3/DatabaseHandler/DbHelper.dart';
-import 'package:untitled3/Model/UserModel.dart';
-import 'package:untitled3/Screens/HomePage.dart';
-import 'package:untitled3/Screens/LoginPage.dart';
+import 'package:memorez/Comm/comHelper.dart';
+import 'package:memorez/Comm/genLoginSignupHeader.dart';
+import 'package:memorez/Comm/genTextFormField.dart';
+import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/Model/UserModel.dart';
+import 'package:memorez/Screens/HomePage.dart';
+import 'package:memorez/Screens/LoginPage.dart';
 
 import '../DatabaseHandler/DbHelper.dart';
 

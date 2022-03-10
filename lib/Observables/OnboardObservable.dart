@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/generated/i18n.dart';
-import 'package:untitled3/Screens/Onboarding/Permission.dart';
+import 'package:memorez/generated/i18n.dart';
+import 'package:memorez/Screens/Onboarding/Permission.dart';
 part 'OnboardObservable.g.dart';
 
 

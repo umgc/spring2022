@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Setting.dart';
-import 'package:untitled3/Observables/OnboardObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Screens/Home.dart';
-import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Screens/Onboarding/CloudSetup.dart';
-import 'package:untitled3/Screens/Onboarding/Permission.dart';
-import 'package:untitled3/Screens/Onboarding/SelectLanguage.dart';
-import 'package:untitled3/Screens/Onboarding/Walkthrough.dart';
+import 'package:memorez/Model/Setting.dart';
+import 'package:memorez/Observables/OnboardObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Screens/Home.dart';
+import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Screens/Onboarding/CloudSetup.dart';
+import 'package:memorez/Screens/Onboarding/Permission.dart';
+import 'package:memorez/Screens/Onboarding/SelectLanguage.dart';
+import 'package:memorez/Screens/Onboarding/Walkthrough.dart';
 
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/generated/i18n.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override

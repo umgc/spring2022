@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled3/Model/user.dart';
+import 'package:memorez/Model/user.dart';
 
 class UserPreferences {
   static late SharedPreferences _preferences;

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Help.dart';
-import 'package:untitled3/Observables/HelpObservable.dart';
-import 'package:untitled3/Observables/MenuObservable.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Screens/Components/VideoPlayer.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/Help.dart';
+import 'package:memorez/Observables/HelpObservable.dart';
+import 'package:memorez/Observables/MenuObservable.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Screens/Components/VideoPlayer.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/generated/i18n.dart';
 
 import '../../Observables/SettingObservable.dart';
 

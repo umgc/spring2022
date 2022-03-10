@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled3/DatabaseHandler/DbHelper.dart';
-import 'package:untitled3/Model/UserModel.dart';
-import 'package:untitled3/Model/user.dart';
-import 'package:untitled3/Screens/Profile/profile_constants.dart';
-import 'package:untitled3/Screens/Profile/widget/profile_widget.dart';
-import 'package:untitled3/utils/user_preferences.dart';
+import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/Model/UserModel.dart';
+import 'package:memorez/Model/user.dart';
+import 'package:memorez/Screens/Profile/profile_constants.dart';
+import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
+import 'package:memorez/utils/user_preferences.dart';
 
 import '../Main.dart';
 import 'edit_profile_page.dart';

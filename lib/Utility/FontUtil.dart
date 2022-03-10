@@ -1,4 +1,4 @@
-import 'package:untitled3/Model/Setting.dart';
+import 'package:memorez/Model/Setting.dart';
 
 double fontSizeToPixelMap(FontSize fontSize, bool smaller) {
   double multiplier = smaller ? .8 : 1;

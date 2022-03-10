@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Screens/Settings/Setting.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Screens/Settings/Setting.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/MenuObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../Utility/Constant.dart';
-import 'package:untitled3/Screens/Settings/Trigger.dart';
-import 'package:untitled3/Screens/Settings/Help.dart';
-import 'package:untitled3/Screens/Settings/SyncToCloud.dart';
-import 'package:untitled3/Screens/Main.dart';
+import 'package:memorez/Screens/Settings/Trigger.dart';
+import 'package:memorez/Screens/Settings/Help.dart';
+import 'package:memorez/Screens/Settings/SyncToCloud.dart';
+import 'package:memorez/Screens/Main.dart';
 
 class Menu extends StatefulWidget {
   @override

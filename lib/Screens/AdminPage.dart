@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Comm/comHelper.dart';
-import 'package:untitled3/Comm/genTextFormField.dart';
-import 'package:untitled3/DatabaseHandler/DbHelper.dart';
-import 'package:untitled3/Model/UserModel.dart';
-import 'package:untitled3/Screens/LoginPage.dart';
-import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Screens/UpdateAdmin.dart';
+import 'package:memorez/Comm/comHelper.dart';
+import 'package:memorez/Comm/genTextFormField.dart';
+import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/Model/UserModel.dart';
+import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:untitled3/Screens/AllAccessPage.dart';
+// import 'package:memorez/Screens/AllAccessPage.dart';
 
 import '../Observables/ScreenNavigator.dart';
 import '../Observables/SettingObservable.dart';
