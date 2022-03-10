@@ -15,6 +15,7 @@ import '../Observables/ScreenNavigator.dart';
 import '../Observables/SettingObservable.dart';
 import '../Utility/Constant.dart';
 import '../generated/i18n.dart';
+import 'Main.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -57,11 +58,10 @@ class _LoginFormState extends State<LoginForm> {
     } else {
       await dbHelper.getLoginUser(uid, passwd).then((userData) {
         setSP(userData!).whenComplete(
-              () {
+          () {
             userData != null
-
                 ? Navigator.push(
-                context, MaterialPageRoute(builder: (_) => HomeForm2()))
+                    context, MaterialPageRoute(builder: (_) => HomeForm2()))
                 : alertDialog(context, "Error: Please try again");
           },
         );
@@ -78,7 +78,6 @@ class _LoginFormState extends State<LoginForm> {
     sp.setString("user_id", user.user_id);
     sp.setString("phone", user.phone);
     sp.setString("password", user.password);
-
   }
 
   @override
@@ -98,9 +97,12 @@ class _LoginFormState extends State<LoginForm> {
       } else {
         await dbHelper.getLoginUser(uid, passwd).then((userData) {
           setSP(userData!).whenComplete(
-                () {
+            () {
               userData != null
-                  ? screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER)
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => MainNavigator()),
+                    )
                   : alertDialog(context, "Error: Please try again");
             },
           );
@@ -111,66 +113,63 @@ class _LoginFormState extends State<LoginForm> {
       }
     }
 
-    return Builder(
-      builder: (context) {
-        return Scaffold(
-
-          body: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 50.00,),
-                    genLoginSignupHeader('Caregiver Login'),
-                    getTextFormField(
-                      controller: _conPassword,
-                      icon: Icons.lock,
-                      hintName: 'Password',
-                      isObscureText: true,
-                    ),
-                    Container(
-                      margin: EdgeInsets.all(30.0),
-                      width: double.infinity,
-                      child: FlatButton(
+    return Builder(builder: (context) {
+      return Scaffold(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50.00,
+                  ),
+                  genLoginSignupHeader('Caregiver Login'),
+                  getTextFormField(
+                    controller: _conPassword,
+                    icon: Icons.lock,
+                    hintName: 'Password',
+                    isObscureText: true,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(30.0),
+                    width: double.infinity,
+                    child: FlatButton(
                         child: Text(
                           'Login',
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed:
-                          _login
-
-
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF0D47A1),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
+                        onPressed: _login),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0D47A1),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Need to create an account?'),
-                          FlatButton(
-                            textColor: Color(0xFF0D47A1),
-                            child: Text('Create Caregiver'),
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) => SignupForm()));
-                            },
-                          )
-                        ],
-                      ),
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Need to create an account?'),
+                        FlatButton(
+                          textColor: Color(0xFF0D47A1),
+                          child: Text('Create Caregiver'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => SignupForm()));
+                          },
+                        )
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }
