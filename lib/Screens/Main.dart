@@ -74,7 +74,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     setState(() {
       _conUserId.text = sp.getString("user_id")!;
       weWantToSeeConUserId = _conUserId.text;
-      print("line 81 xxxxxx" + weWantToSeeConUserId);
+      // print("line 81 xxxxxx" + weWantToSeeConUserId);
       if (_conUserId.text == "Admin") {
         adminModeEnabled = true;
       } else {
@@ -97,11 +97,11 @@ class _MainNavigatorState extends State<MainNavigator> {
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: Text('No'),
+          child: Text(I18n.of(context)!.no),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: Text('Yes'),
+          child: Text(I18n.of(context)!.yes),
         ),
       ],
     );
@@ -113,7 +113,7 @@ class _MainNavigatorState extends State<MainNavigator> {
 
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
-      screenNav.setTitle("Help");
+      screenNav.setTitle(I18n.of(context)!.help);
 
       return Help();
     }
@@ -123,7 +123,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
     if (screen == MAIN_SCREENS.HOME || index == 1) {
       // screenNav.setTitle(I18n.of(context)!.homeScreenName);
-      screenNav.setTitle("Chat");
+      screenNav.setTitle(I18n.of(context)!.chat);
       return SpeechScreen();
     }
     if (screen == MAIN_SCREENS.CALENDAR) {
@@ -136,7 +136,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
     if (screen == MAIN_SCREENS.NOTE) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
-      screenNav.setTitle("Notes");
+      screenNav.setTitle(I18n.of(context)!.notesScreenName);
       return Note();
     }
     if (screen == MAIN_SCREENS.NOTIFICATION) {
@@ -145,16 +145,16 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
-      screenNav.setTitle("Tasks");
+      screenNav.setTitle(I18n.of(context)!.tasks);
       return Tasks();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
-      screenNav.setTitle("User Profile");
+      screenNav.setTitle(I18n.of(context)!.profile);
       return UserProfile();
     }
 
     if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
-      screenNav.setTitle("Edit Patient's Info");
+      screenNav.setTitle(I18n.of(context)!.editpatientinformation);
       return EditProfilePage();
     }
 
@@ -394,7 +394,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                     ),
                   ),
                 ),
-                label: 'Menu',
+                label: I18n.of(context)!.menuScreenName,
                 // label: I18n.of(context)!.notesScreenName,
               ),
               BottomNavigationBarItem(
@@ -418,7 +418,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                       ),
                     ),
                   ),
-                  label: 'Chat'),
+                  label: I18n.of(context)!.chat),
 
               // ),
               BottomNavigationBarItem(
@@ -440,7 +440,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                     ),
                   ),
                 ),
-                label: 'Help',
+                label: I18n.of(context)!.help,
                 // label: I18n.of(context)!.notesScreenName,
               ),
             ]),

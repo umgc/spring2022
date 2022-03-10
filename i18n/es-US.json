@@ -91,5 +91,6 @@
     "appSettings": "Ajustes de Aplicacion",
     "profile": "Perfil",
     "chat": "Chat",
-    "helpTopics": "Temas de ayuda"
+    "helpTopics": "Temas de ayuda",
+    "editpatientinformation": "Editar información del paciente"
 }
