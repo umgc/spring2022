@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'TasksObservable.dart';
+part of 'TaskObservable.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,14 @@ part of 'TasksObservable.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$TasksObserver on _AbstractTasksObserver, Store {
-  final _$currentScreenAtom =
-      Atom(name: '_AbstractTasksObserver.currentScreen');
+mixin _$TaskObserver on _AbstractTaskObserver, Store {
+  final _$currentScreenAtom = Atom(name: '_AbstractTaskObserver.currentScreen');
+
+  @override
+  File? get _image {
+    _$_imageAtom.reportRead();
+    return super._image;
+  }
 
   @override
   String get currentScreen {

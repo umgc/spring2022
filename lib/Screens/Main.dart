@@ -42,6 +42,8 @@ import 'package:memorez/Screens/Tasks/tasks.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'dart:io';
 
+import 'package:memorez/Screens/Tasks/completeActiveHealthCheckTask.dart';
+
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// This is the stateful widget that the main application instantiates.
@@ -91,6 +93,14 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   int _currentIndex = 0;
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    bool? exitResult = await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+    return exitResult ?? false;
+  }
+
   AlertDialog _buildExitDialog(BuildContext context) {
     return AlertDialog(
       title: const Text('Please confirm'),
@@ -117,6 +127,7 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.help);
 
       return Help();
+
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -147,7 +158,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle(I18n.of(context)!.tasks);
-      return Tasks();
+      return ActiveHealthCheckTask();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.profile);
@@ -248,7 +259,6 @@ class _MainNavigatorState extends State<MainNavigator> {
   Widget build(BuildContext context) {
     final micObserver = Provider.of<MicObserver>(context);
     final screenNav = Provider.of<MainNavObserver>(context);
-    screenNav.changeScreen(MAIN_SCREENS.MENU);
     final settingObserver = Provider.of<SettingObserver>(context);
     HelpObserver helpObserver = Provider.of<HelpObserver>(context);
     helpObserver.loadHelpCotent();

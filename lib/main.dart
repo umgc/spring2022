@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
     return Observer(
         builder: (_) => MultiProvider(
                 providers: [
-                  Provider<MainNavigator>(create: (_)=> MainNavigator()),
+                  Provider<MainNavigator>(create: (_) => MainNavigator()),
                   Provider<NotificationObserver>(
                       create: (_) => NotificationObserver()),
                   Provider<OnboardObserver>(create: (_) => OnboardObserver()),
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                   Provider<CheckListObserver>(
                       create: (_) => CheckListObserver()),
                   Provider<HelpObserver>(create: (_) => HelpObserver()),
-                  Provider<TasksObserver>(create: (_) => TasksObserver())
+                  Provider<TaskObserver>(create: (_) => TaskObserver())
                 ],
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
