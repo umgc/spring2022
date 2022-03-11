@@ -39,11 +39,33 @@ class TextTask {
 
   ///Task Type
   String taskType = "defaultType";
+  DateTime sendTaskDateTime = DateTime.now();
+  String responseText = '';
+  bool isReoccuring = false;
+  String firstHealthCheckMood = '';
+  String secondHealthCheckMood = '';
+  String name = '';
+  String description = '';
+  String icon = '';
+  String iconColor = '';
+  bool isResponseRequired = false;
 
   String toJson() {
     String jsonStr = """ {
                         "taskId": "${this.taskId}",
                         "taskType": "${this.taskType}",
+                        "sendTaskDateTime": "${this.sendTaskDateTime}",
+                        "responseText":"${this.responseText}",
+                        "isReoccuring":"${this.isReoccuring}",
+                        
+                        "firstHealthCheckMood":"${this.firstHealthCheckMood}",
+                        "secondHealthCheckMood":"${this.secondHealthCheckMood}",
+                        "name":"${this.name}",
+                        "description":"${this.description}",
+                        "icon":"${this.icon}",
+                        "iconColor":"${this.iconColor}",
+                        "isResponseRequired":"${this.isResponseRequired}",
+                        
                         "recordedTime": "${this.recordedTime}",
                         "language": "${this.language}",
                         "recurrentType": "${this.recurrentType}",
@@ -63,6 +85,17 @@ class TextTask {
     print("extracting jsonObj $jsonObj");
     task.taskId = jsonObj['taskId'];
     task.taskType = jsonObj['taskType'];
+    task.sendTaskDateTime = jsonObj['sendTaskDateTime'];
+    task.responseText = jsonObj['responseText'];
+    task.isReoccuring = jsonObj['isReoccuring'];
+    task.firstHealthCheckMood = jsonObj['firstHealthCheckMood'];
+    task.secondHealthCheckMood = jsonObj['secondHealthCheckMood'];
+    task.name = jsonObj['name'];
+    task.description = jsonObj['description'];
+    task.icon = jsonObj['icon'];
+    task.iconColor = jsonObj['iconColor'];
+    task.isResponseRequired = jsonObj['isResponseRequired'];
+
     task.recordedTime = DateTime.parse(jsonObj['recordedTime']);
     task.language = jsonObj['language'];
     task.isCheckList = jsonObj['isCheckList'];

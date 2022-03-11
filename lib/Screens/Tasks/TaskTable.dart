@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiver/iterables.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
 import 'package:untitled3/Model/Task.dart';
@@ -37,7 +38,7 @@ class TaskTable extends StatelessWidget {
           columns: const <DataColumn>[
             DataColumn(
               label: Text(
-                '',
+                'Type',
                 style: HEADER_TEXT_STYLE,
               ),
             ),
@@ -58,15 +59,15 @@ class TaskTable extends StatelessWidget {
             usersTasks.length,
             (int index) => DataRow(
               cells: <DataCell>[
-                DataCell(Text("${(index + 1)}")),
+                DataCell(Text(usersTasks[index].taskType)),
                 DataCell(
                   Container(
-                      padding: EdgeInsets.all(10),
-                      width: noteWidth,
+                      // padding: EdgeInsets.all(10),
+                      // width: noteWidth,
                       child: Text(
-                        usersTasks[index].localText,
-                        style: TEXT_STYLE,
-                      )),
+                    usersTasks[index].text,
+                    style: TEXT_STYLE,
+                  )),
                   showEditIcon: true,
                   onTap: () => {
                     screenNav.changeScreen(MAIN_SCREENS.TASKS),
