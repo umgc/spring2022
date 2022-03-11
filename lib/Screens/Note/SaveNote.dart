@@ -409,7 +409,7 @@ class _SaveNoteState extends State<SaveNote> {
       content: NotificationContent(
           id: 1,
           channelKey: 'key1',
-          title: 'Remainder',
+          title: 'Reminder',
           body: _body
       ),
      schedule:  NotificationCalendar.fromDate(date: dateTime.subtract(Duration(minutes: int.parse(settingObserver.userSettings.minutesBeforeNoteNotifications)))),
