@@ -19,7 +19,7 @@ class TaskTable extends StatelessWidget {
     final screenNav = Provider.of<MainNavObserver>(context);
 
     final taskObserver = Provider.of<TaskObserver>(context);
-    taskObserver.resetCurrNoteIdForDetails();
+    taskObserver.resetCurrTaskIdForDetails();
 
     final settingObserver = Provider.of<SettingObserver>(context);
 

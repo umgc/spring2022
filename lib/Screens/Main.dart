@@ -30,11 +30,11 @@ import 'package:untitled3/Screens/Calendar/Calendar.dart';
 import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:untitled3/Screens/Tasks/tasks.dart';
+// import 'package:untitled3/Screens/Tasks/tasks.dart';
 import 'package:untitled3/Screens/HomePage.dart';
 import 'dart:io';
 
-import 'package:untitled3/Screens/Tasks/completeActiveHealthCheckTask.dart';
+import '../Screens/Tasks/Task.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -114,7 +114,7 @@ class _MainNavigatorState extends State<MainNavigator> {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle("Tasks");
       // return Tasks();
-      return ActiveHealthCheckTask();
+      return Task();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
       screenNav.setTitle("User Profile");

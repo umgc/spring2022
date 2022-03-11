@@ -89,7 +89,7 @@ abstract class _AbstractTaskObserver with Store {
   }
 
   @action
-  resetCurrNoteIdForDetails() async {
+  resetCurrTaskIdForDetails() async {
     currTaskForDetails = null;
     setNewTaskAIsCheckList(false);
     setNewTaskEventDate("");
@@ -133,7 +133,7 @@ abstract class _AbstractTaskObserver with Store {
   }
 
   /*
-  * Actions for creating new notes
+  * Actions for creating new Tasks
   */
   @action
   void setNewTaskAIsCheckList(bool value) {
