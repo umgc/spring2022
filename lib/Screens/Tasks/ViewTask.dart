@@ -33,7 +33,6 @@ class _ViewTasksState extends State<ViewTasks> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildFloatingBtnCamera(taskObserver),
                 buildFloatingBtn(taskObserver),
               ],
             )));
@@ -47,13 +46,6 @@ class _ViewTasksState extends State<ViewTasks> {
       },
       tooltip: I18n.of(context)!.addNote,
       child: Icon(Icons.add),
-    );
-  }
-
-  Widget buildFloatingBtnCamera(TaskObserver taskObserver) {
-    return FloatingActionButton(
-      onPressed: taskObserver.getImage,
-      child: Icon(Icons.camera_alt),
     );
   }
 }
