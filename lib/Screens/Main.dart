@@ -42,7 +42,7 @@ import 'package:memorez/Screens/Tasks/tasks.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'dart:io';
 
-import 'package:memorez/Screens/Tasks/completeActiveHealthCheckTask.dart';
+import '../Screens/Tasks/Task.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -158,7 +158,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle(I18n.of(context)!.tasks);
-      return ActiveHealthCheckTask();
+      return Task();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.profile);

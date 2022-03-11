@@ -165,13 +165,13 @@ mixin _$TaskObserver on _AbstractTaskObserver, Store {
         .run(() => super.setCurrTaskIdForDetails(taskId));
   }
 
-  final _$resetCurrNoteIdForDetailsAsyncAction =
-      AsyncAction('_AbstractTaskObserver.resetCurrNoteIdForDetails');
+  final _$resetCurrTaskIdForDetailsAsyncAction =
+      AsyncAction('_AbstractTaskObserver.resetCurrTaskIdForDetails');
 
   @override
-  Future resetCurrNoteIdForDetails() {
-    return _$resetCurrNoteIdForDetailsAsyncAction
-        .run(() => super.resetCurrNoteIdForDetails());
+  Future resetCurrTaskIdForDetails() {
+    return _$resetCurrTaskIdForDetailsAsyncAction
+        .run(() => super.resetCurrTaskIdForDetails());
   }
 
   final _$_AbstractTaskObserverActionController =

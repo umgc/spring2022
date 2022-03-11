@@ -37,8 +37,13 @@ class TextTask {
   /// Date of event
   String eventTime = "";
 
+  ///Task Type
+  String taskType = "defaultType";
+
   String toJson() {
-    String jsonStr = """ {"noteId": "${this.taskId}",
+    String jsonStr = """ {
+                        "taskId": "${this.taskId}",
+                        "taskType": "${this.taskType}",
                         "recordedTime": "${this.recordedTime}",
                         "language": "${this.language}",
                         "recurrentType": "${this.recurrentType}",
@@ -56,7 +61,8 @@ class TextTask {
   factory TextTask.fromJson(dynamic jsonObj) {
     TextTask task = TextTask();
     print("extracting jsonObj $jsonObj");
-    task.taskId = jsonObj['noteId'];
+    task.taskId = jsonObj['taskId'];
+    task.taskType = jsonObj['taskType'];
     task.recordedTime = DateTime.parse(jsonObj['recordedTime']);
     task.language = jsonObj['language'];
     task.isCheckList = jsonObj['isCheckList'];

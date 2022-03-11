@@ -22,12 +22,8 @@ class _ViewTasksState extends State<ViewTasks> {
 
   @override
   Widget build(BuildContext context) {
-    // String noteDetailScreen =I18n.of(context)!.notesDetailScreenName;
-    // String addNoteScreen =I18n.of(context)!.addNotesScreenName;
-    // String noteScreen =I18n.of(context)!.notesScreenName;
-
     final taskObserver = Provider.of<TaskObserver>(context);
-    taskObserver.resetCurrNoteIdForDetails();
+    taskObserver.resetCurrTaskIdForDetails();
 
     return Scaffold(
         resizeToAvoidBottomInset: false,

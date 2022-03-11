@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Screens/Note/ViewNote.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
@@ -26,13 +25,11 @@ class _TaskState extends State<Task> {
     return Scaffold(
       key: viewTasksScaffoldKey,
       body: Observer(builder: (_) => _changeScreen(taskObserver.currentScreen)),
-
-      ///floatingActionButton: buildFloatingBtn(noteObserver)
     );
   }
 
   Widget _changeScreen(TASK_SCREENS screen) {
-    print("Changing Note screen to $screen");
+    print("---Tasks/Task.dart Line 35--- Changing Task screen to $screen");
 
     switch (screen) {
       case TASK_SCREENS.ADD_TASK:
