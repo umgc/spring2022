@@ -9,6 +9,8 @@ import 'package:untitled3/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'TaskTable.dart';
 
+import 'package:untitled3/Model/Task.dart';
+
 final viewTasksScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// View Tasks page
@@ -27,7 +29,13 @@ class _ViewTasksState extends State<ViewTasks> {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: TaskTable(taskObserver.usersTask, () => print("done")),
+        body: Column(
+          children: [
+            TaskTable(taskObserver.usersTask, () => print("done")),
+            // Text('Completed Tasks'),
+            // TaskTable(inActiveUserTasks, () => print("done"))
+          ],
+        ),
         floatingActionButton: Padding(
             padding: EdgeInsets.only(left: 30),
             child: Row(

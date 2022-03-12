@@ -46,9 +46,10 @@ class TextTask {
   String secondHealthCheckMood = '';
   String name = '';
   String description = '';
-  String icon = '';
+  String icon = 'walking';
   String iconColor = '';
   bool isResponseRequired = false;
+  bool isTaskCompleted = false;
 
   String toJson() {
     String jsonStr = """ {
@@ -57,7 +58,7 @@ class TextTask {
                         "sendTaskDateTime": "${this.sendTaskDateTime}",
                         "responseText":"${this.responseText}",
                         "isReoccuring":"${this.isReoccuring}",
-                        
+                        "isTaskCompleted" :"${this.isTaskCompleted}",
                         "firstHealthCheckMood":"${this.firstHealthCheckMood}",
                         "secondHealthCheckMood":"${this.secondHealthCheckMood}",
                         "name":"${this.name}",
@@ -95,6 +96,7 @@ class TextTask {
     task.icon = jsonObj['icon'];
     task.iconColor = jsonObj['iconColor'];
     task.isResponseRequired = jsonObj['isResponseRequired'];
+    task.isTaskCompleted = jsonObj['isTaskCompleted'];
 
     task.recordedTime = DateTime.parse(jsonObj['recordedTime']);
     task.language = jsonObj['language'];
