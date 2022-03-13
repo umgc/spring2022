@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled3/Screens/Tasks/TaskHealthCheck.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'SaveTask.dart';
 import 'viewTask.dart';
+import 'TaskDetails.dart';
 
 final viewTasksScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -36,8 +38,16 @@ class _TaskState extends State<Task> {
         return SaveTask();
 
       case TASK_SCREENS.TASK_DETAIL:
-        return SaveTask(
-          viewExistingTask: true,
+        return TaskDetails(
+          readOnly: true,
+        );
+      case TASK_SCREENS.TASK_COMPLETE_ACTIVITY:
+        return TaskDetails(
+          readOnly: false,
+        );
+      case TASK_SCREENS.TASK_COMPLETE_HEALTH_CHECK:
+        return TaskHealthCheck(
+          readOnly: false,
         );
 
       default:

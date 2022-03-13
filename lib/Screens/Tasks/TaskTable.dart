@@ -40,11 +40,15 @@ class TaskTable extends StatelessWidget {
 
     for (var i = 0; i < taskObserver.usersTask.length; i++) {
       if (taskObserver.usersTask[i].isTaskCompleted) {
-        print('---line 45 active ' + i.toString());
+        print('---line 45 inactive ' + i.toString());
         inActiveUserTasks.add(taskObserver.usersTask[i]);
       } else {
-        print('---line 45 inactive ' + i.toString());
-        activeUserTasks.add(taskObserver.usersTask[i]);
+        print('---line 45 active ' + i.toString());
+
+        if (taskObserver.usersTask[i].sendTaskDateTime
+            .isBefore(DateTime.now())) {
+          activeUserTasks.add(taskObserver.usersTask[i]);
+        }
       }
       ;
     }
@@ -74,14 +78,15 @@ class TaskTable extends StatelessWidget {
                       child: InkWell(
                           //This runs when double tapping an Active Task
                           onTap: () {
+                            print('task id: ' + activeUserTasks[index].taskId);
                             taskObserver
                                 .setCurrTaskIdForDetails(
                                     activeUserTasks[index].taskId)
-                                .then((value) => taskObserver
-                                    .changeScreen(TASK_SCREENS.TASK_DETAIL));
-                            if (onListItemClickCallBackFn != null) {
-                              onListItemClickCallBackFn!.call();
-                            }
+                                .then((value) => taskObserver.changeScreen(
+                                    TASK_SCREENS.TASK_COMPLETE_ACTIVITY));
+                            // if (onListItemClickCallBackFn != null) {
+                            //   onListItemClickCallBackFn!.call();
+                            // }
                           },
                           child: Container(
                               width: MediaQuery.of(context).size.width,
@@ -103,7 +108,7 @@ class TaskTable extends StatelessWidget {
                                             .iconColor)),
                                     Text(
                                       '   ' +
-                                          activeUserTasks.elementAt(index).text,
+                                          activeUserTasks.elementAt(index).name,
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontWeight: FontWeight.bold,
@@ -128,66 +133,58 @@ class TaskTable extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       child: InkWell(
-                          //This runs when double tapping an Active Task
-                          onDoubleTap: () {
-                            // setState(() {
-                            //
-                            //   _completeTasks.add(_toDoTasks.elementAt(index));
-                            //   _toDoTasks.remove(_toDoTasks.elementAt(index));
-                            //
-                            // });
-                          },
-                          child: Visibility(
-                            visible: inActiveUserTasks
-                                .elementAt(index)
-                                .sendTaskDateTime
-                                .isAfter(DateTime.now()),
-                            child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.all(5.0),
-                                decoration: BoxDecoration(
-                                    //color: setBackgroundColor(index),
-                                    border: Border.all(color: Colors.blue),
-                                    color: Colors.blueGrey[100],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                child: Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Row(children: <Widget>[
-                                      FaIcon(
-                                          getIcon(inActiveUserTasks
-                                              .elementAt(index)
-                                              .icon),
-                                          color: getIconColor(inActiveUserTasks
-                                              .elementAt(index)
-                                              .iconColor)),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            inActiveUserTasks
-                                                .elementAt(index)
-                                                .text,
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.lightBlue[900]),
-                                          ),
-                                          Text(
-                                            inActiveUserTasks
-                                                .elementAt(index)
-                                                .text,
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontSize: 20.0,
-                                              // fontWeight: FontWeight.bold,
-                                              // color: Colors.lightBlue[900],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ]))),
-                          )));
+                    //This runs when double tapping an Active Task
+                    onTap: () {
+                      taskObserver
+                          .setCurrTaskIdForDetails(
+                              inActiveUserTasks[index].taskId)
+                          .then((value) => taskObserver
+                              .changeScreen(TASK_SCREENS.TASK_DETAIL));
+                      if (onListItemClickCallBackFn != null) {
+                        onListItemClickCallBackFn!.call();
+                      }
+                    },
+                    child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            //color: setBackgroundColor(index),
+                            border: Border.all(color: Colors.blue),
+                            color: Colors.blueGrey[100],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Row(children: <Widget>[
+                              FaIcon(
+                                  getIcon(
+                                      inActiveUserTasks.elementAt(index).icon),
+                                  color: getIconColor(inActiveUserTasks
+                                      .elementAt(index)
+                                      .iconColor)),
+                              Column(
+                                children: [
+                                  Text(
+                                    inActiveUserTasks.elementAt(index).name,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.lightBlue[900]),
+                                  ),
+                                  Text(
+                                    inActiveUserTasks.elementAt(index).text,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 20.0,
+                                      // fontWeight: FontWeight.bold,
+                                      // color: Colors.lightBlue[900],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ]))),
+                  ));
                 })
           ])
 
