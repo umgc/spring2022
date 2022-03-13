@@ -240,6 +240,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
               onChanged: (prov2ph) => user = user.copy(prov2ph: prov2ph),
             ),
             const SizedBox(height: 24),
+
+            //Transportation
+            Text('Transportation',
+                style: kSectionTitleTextStyle, textAlign: TextAlign.center),
+            SizedBox(
+              height: 24,
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Transportation 1',
+              text: user.trans1,
+              maxLines: 1,
+              onChanged: (trans1) => user = user.copy(trans1: trans1),
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Transportation 1 Phone',
+              text: user.trans1ph,
+              maxLines: 1,
+              onChanged: (trans1ph) => user = user.copy(trans1ph: trans1ph),
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Transportation 2',
+              text: user.trans2,
+              maxLines: 1,
+              onChanged: (trans2) => user = user.copy(trans2: trans2),
+            ),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              label: 'Transportation 2 Phone',
+              text: user.trans2ph,
+              maxLines: 1,
+              onChanged: (trans2ph) => user = user.copy(trans2ph: trans2ph),
+            ),
+            const SizedBox(height: 24),
+
             ButtonWidget(
               text: 'Save',
               onClicked: () {

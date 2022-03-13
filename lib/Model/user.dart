@@ -13,6 +13,10 @@ class User {
   final String prov1ph;
   final String prov2;
   final String prov2ph;
+  final String trans1;
+  final String trans1ph;
+  final String trans2;
+  final String trans2ph;
 
   const User({
     required this.imagePath,
@@ -29,6 +33,10 @@ class User {
     required this.prov1ph,
     required this.prov2,
     required this.prov2ph,
+    required this.trans1,
+    required this.trans1ph,
+    required this.trans2,
+    required this.trans2ph,
 
   });
 
@@ -47,6 +55,10 @@ class User {
     String? prov1ph,
     String? prov2,
     String? prov2ph,
+    String? trans1,
+    String? trans1ph,
+    String? trans2,
+    String? trans2ph,
 
   }) =>
       User(
@@ -64,6 +76,10 @@ class User {
         prov1ph : prov1ph ?? this.prov1ph,
         prov2 : prov2 ?? this.prov2,
         prov2ph : prov2ph ?? this.prov2ph,
+        trans1 : trans1 ?? this.trans1,
+        trans1ph: trans1ph ?? this.trans1ph,
+        trans2 : trans2 ?? this.trans2,
+        trans2ph : trans2ph ?? this.trans2ph,
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -80,7 +96,11 @@ class User {
       prov1: json['prov1'],
       prov1ph: json['prov1ph'],
       prov2: json['prov2'],
-      prov2ph: json['prov2ph']
+      prov2ph: json['prov2ph'],
+      trans1: json['trans1'],
+      trans1ph: json['trans1ph'],
+      trans2: json['trans2'],
+      trans2ph: json['trans2ph'],
 
   );
 
@@ -99,5 +119,9 @@ class User {
     'prov1ph' : prov1ph,
     'prov2' : prov2,
     'prov2ph' : prov2ph,
+    'trans1' : trans1,
+    'trans1ph' : trans1ph,
+    'trans2' : trans2,
+    'trans2ph' : trans2ph,
   };
 }

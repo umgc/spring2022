@@ -64,7 +64,7 @@ class _UserProfileState extends State<ProfileCard> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text('Name:', style: kLabelTextStyle),
+                  Text('Name', style: kLabelTextStyle),
                   Text(user.name),
                   SizedBox(
                     height: 20.0,
