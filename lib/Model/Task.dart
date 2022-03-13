@@ -40,12 +40,12 @@ class TextTask {
   ///Task Type
   String taskType = "defaultType";
   DateTime sendTaskDateTime = DateTime.now();
-  String responseText = '';
+  String responseText = 'test Response';
   bool isReoccuring = false;
   String firstHealthCheckMood = '';
   String secondHealthCheckMood = '';
-  String name = '';
-  String description = '';
+  String name = 'testName' + DateTime.now().toString();
+  String description = 'Test Description';
   String icon = 'tooth';
   String iconColor = 'purple';
   bool isResponseRequired = false;

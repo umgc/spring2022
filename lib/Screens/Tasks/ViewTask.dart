@@ -52,7 +52,7 @@ class _ViewTasksState extends State<ViewTasks> {
       onPressed: () {
         taskObserver.changeScreen(TASK_SCREENS.ADD_TASK);
       },
-      tooltip: I18n.of(context)!.addNote,
+      tooltip: 'Add Task',
       child: Icon(Icons.add),
     );
   }

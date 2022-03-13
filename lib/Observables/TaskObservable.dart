@@ -81,9 +81,9 @@ abstract class _AbstractTaskObserver with Store {
     for (TextTask task in usersTask) {
       if (task.taskId == taskId) {
         currTaskForDetails = task;
-        newTaskEventDate = task.eventDate;
-        newTaskEventTime = task.eventTime;
-        newTaskIsCheckList = task.isCheckList;
+        // newTaskEventDate = task.eventDate;
+        // newTaskEventTime = task.eventTime;
+        // newTaskIsCheckList = task.isCheckList;
       }
     }
   }
@@ -150,5 +150,15 @@ abstract class _AbstractTaskObserver with Store {
   void setNewTaskEventTime(String value) {
     print("setNewTaskEventTime: setting new Task time $value");
     newTaskEventTime = value;
+  }
+
+  @action
+  void completeTask(TextTask task) {
+    print("Marking Task Complete: ${task.taskId}");
+    //remove from state
+    usersTask.remove(task);
+    task.isTaskCompleted = true;
+    usersTask.add(task);
+    TextTaskService.persistTasks(usersTask);
   }
 }
