@@ -73,19 +73,20 @@ class TaskTable extends StatelessWidget {
                   return Container(
                       child: InkWell(
                           //This runs when double tapping an Active Task
-                          onDoubleTap: () {
-                            // setState(() {
-                            //
-                            //   _completeTasks.add(_toDoTasks.elementAt(index));
-                            //   _toDoTasks.remove(_toDoTasks.elementAt(index));
-                            //
-                            // });
+                          onTap: () {
+                            taskObserver
+                                .setCurrTaskIdForDetails(
+                                    activeUserTasks[index].taskId)
+                                .then((value) => taskObserver
+                                    .changeScreen(TASK_SCREENS.TASK_DETAIL));
+                            if (onListItemClickCallBackFn != null) {
+                              onListItemClickCallBackFn!.call();
+                            }
                           },
                           child: Container(
                               width: MediaQuery.of(context).size.width,
                               margin: EdgeInsets.all(5.0),
                               decoration: BoxDecoration(
-                                  //color: setBackgroundColor(index),
                                   border: Border.all(color: Colors.blue),
                                   color: Colors.lightBlue[100],
                                   borderRadius:
@@ -97,7 +98,9 @@ class TaskTable extends StatelessWidget {
                                         getIcon(activeUserTasks
                                             .elementAt(index)
                                             .icon),
-                                        color: Colors.lightBlue[900]),
+                                        color: getIconColor(activeUserTasks
+                                            .elementAt(index)
+                                            .iconColor)),
                                     Text(
                                       '   ' +
                                           activeUserTasks.elementAt(index).text,
@@ -134,47 +137,57 @@ class TaskTable extends StatelessWidget {
                             //
                             // });
                           },
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                  //color: setBackgroundColor(index),
-                                  border: Border.all(color: Colors.blue),
-                                  color: Colors.blueGrey[100],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Padding(
-                                  padding: EdgeInsets.all(15.0),
-                                  child: Row(children: <Widget>[
-                                    FaIcon(
-                                        getIcon(inActiveUserTasks
-                                            .elementAt(index)
-                                            .icon),
-                                        color: Colors.lightBlue[900]),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          inActiveUserTasks
+                          child: Visibility(
+                            visible: inActiveUserTasks
+                                .elementAt(index)
+                                .sendTaskDateTime
+                                .isAfter(DateTime.now()),
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.all(5.0),
+                                decoration: BoxDecoration(
+                                    //color: setBackgroundColor(index),
+                                    border: Border.all(color: Colors.blue),
+                                    color: Colors.blueGrey[100],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Padding(
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Row(children: <Widget>[
+                                      FaIcon(
+                                          getIcon(inActiveUserTasks
                                               .elementAt(index)
-                                              .text,
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.lightBlue[900]),
-                                        ),
-                                        Text(
-                                          '01/05/2021 10:05 AM',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: 20.0,
-                                            // fontWeight: FontWeight.bold,
-                                            // color: Colors.lightBlue[900],
+                                              .icon),
+                                          color: getIconColor(inActiveUserTasks
+                                              .elementAt(index)
+                                              .iconColor)),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            inActiveUserTasks
+                                                .elementAt(index)
+                                                .text,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.lightBlue[900]),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ])))));
+                                          Text(
+                                            inActiveUserTasks
+                                                .elementAt(index)
+                                                .text,
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              // fontWeight: FontWeight.bold,
+                                              // color: Colors.lightBlue[900],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ]))),
+                          )));
                 })
           ])
 
@@ -295,8 +308,90 @@ class TaskTable extends StatelessWidget {
 
 IconData getIcon(String inputIconLabel) {
   IconData result = FontAwesomeIcons.globe;
-  if (inputIconLabel == 'walking') {
-    result = FontAwesomeIcons.walking;
+  switch (inputIconLabel) {
+    case 'walking':
+      {
+        result = FontAwesomeIcons.walking;
+      }
+      break;
+
+    case 'utensils':
+      {
+        result = FontAwesomeIcons.utensils;
+      }
+      break;
+    case 'medkit':
+      {
+        result = FontAwesomeIcons.medkit;
+      }
+      break;
+    case 'capsules':
+      {
+        result = FontAwesomeIcons.capsules;
+      }
+      break;
+    case 'tooth':
+      {
+        result = FontAwesomeIcons.tooth;
+      }
+      break;
+    case 'envelope':
+      {
+        result = FontAwesomeIcons.envelope;
+      }
+      break;
+    case 'tshirt':
+      {
+        result = FontAwesomeIcons.tshirt;
+      }
+      break;
+
+    default:
+      {
+        result = FontAwesomeIcons.walking;
+      }
+      break;
   }
+
+  return result;
+}
+
+MaterialColor getIconColor(String inputIconLabel) {
+  MaterialColor result = Colors.blueGrey;
+  switch (inputIconLabel) {
+    case 'blueGrey':
+      {
+        result = Colors.blueGrey;
+      }
+      break;
+
+    case 'green':
+      {
+        result = Colors.green;
+      }
+      break;
+    case 'purple':
+      {
+        result = Colors.purple;
+      }
+      break;
+    case 'deepOrange':
+      {
+        result = Colors.deepOrange;
+      }
+      break;
+    case 'pink':
+      {
+        result = Colors.pink;
+      }
+      break;
+
+    default:
+      {
+        result = Colors.blueGrey;
+      }
+      break;
+  }
+
   return result;
 }
