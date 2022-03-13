@@ -48,7 +48,7 @@ class _SaveTaskState extends State<SaveTask> {
 
   void _showToast() {
     Fluttertoast.showToast(
-        msg: I18n.of(context)!.noteSaved,
+        msg: "Task Created",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.green,

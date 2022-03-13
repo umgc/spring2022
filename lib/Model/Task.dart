@@ -46,8 +46,8 @@ class TextTask {
   String secondHealthCheckMood = '';
   String name = '';
   String description = '';
-  String icon = 'walking';
-  String iconColor = '';
+  String icon = 'tooth';
+  String iconColor = 'purple';
   bool isResponseRequired = false;
   bool isTaskCompleted = false;
 
