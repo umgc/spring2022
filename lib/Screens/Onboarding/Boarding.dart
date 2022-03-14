@@ -13,6 +13,8 @@ import 'package:memorez/Screens/Onboarding/Walkthrough.dart';
 
 import 'package:memorez/generated/i18n.dart';
 
+import '../CreateAdmin.dart';
+
 class OnBoardingScreen extends StatefulWidget {
   @override
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
@@ -49,7 +51,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       case 1:
         return PermissionScreen();
       case 2:
-        return CloudSetupScreen();
+        return SignupForm();
       default:
         return WalkthroughScreen();
     }

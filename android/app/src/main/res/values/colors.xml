@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!-- Modify this file to customize your launch splash screen -->
+<resources>
+    <color name="background_color">
+        #47718C
+    </color>
+</resources>

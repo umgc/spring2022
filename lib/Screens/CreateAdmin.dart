@@ -6,12 +6,15 @@ import 'package:memorez/DatabaseHandler/DbHelper.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:provider/provider.dart';
 
 import '../DatabaseHandler/DbHelper.dart';
 
 class SignupForm extends StatefulWidget {
   @override
   _SignupFormState createState() => _SignupFormState();
+
 }
 
 class _SignupFormState extends State<SignupForm> {
@@ -22,6 +25,7 @@ class _SignupFormState extends State<SignupForm> {
   final _conPassword = TextEditingController();
   final _conCPassword = TextEditingController();
   var dbHelper;
+  bool isFirstRun=true;
 
   @override
   void initState() {
@@ -46,12 +50,6 @@ class _SignupFormState extends State<SignupForm> {
         await dbHelper.saveData(uModel).then((userData) {
           alertDialog(context, "Successfully Saved");
 
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => HomePage()),
-                  (Route<dynamic> route) => true);
-
-
         }).catchError((error) {
           print('YYYYYYYYY $error');
 
@@ -63,10 +61,14 @@ class _SignupFormState extends State<SignupForm> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    isFirstRun = settingObserver.userSettings.isFirstRun;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-      ),
+
+      //appBar: AppBar(
+      //  title: Text(''),
+      //),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -122,22 +124,25 @@ class _SignupFormState extends State<SignupForm> {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Already have an account? '),
-                        FlatButton(
-                          textColor: Color(0xFF0D47A1),
-                          child: Text('Sign In'),
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(builder: (_) => LoginForm()),
-                                    (Route<dynamic> route) => true);
-                          },
-                        )
-                      ],
+                  Visibility(
+                    visible: !isFirstRun,
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Already have an account? '),
+                          FlatButton(
+                            textColor: Color(0xFF0D47A1),
+                            child: Text('Sign In'),
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => LoginForm()),
+                                      (Route<dynamic> route) => true);
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
