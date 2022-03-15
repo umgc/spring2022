@@ -158,6 +158,8 @@ abstract class _AbstractTaskObserver with Store {
     //remove from state
     usersTask.remove(task);
     task.isTaskCompleted = true;
+    task.completedTaskDateTime = DateTime.now();
+    print('******** task Observable line 162*****' + task.name);
     usersTask.add(task);
     TextTaskService.persistTasks(usersTask);
   }
