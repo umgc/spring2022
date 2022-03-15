@@ -194,6 +194,31 @@ class _SaveTaskState extends State<SaveTask> {
                         border: OutlineInputBorder(),
                         hintText: I18n.of(context)!.enterNoteText),
                   ),
+                  DropdownButton<String>(
+                    value: _newTask.taskType,
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _newTask.taskType = newValue!;
+                        if (_newTask.taskType == 'Health Check') {
+                          _newTask.icon = 'medkit';
+                          _newTask.iconColor = 'red';
+                        }
+                      });
+                    },
+                    items: <String>['Activity', 'Health Check', 'defaultType']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
                   SizedBox(height: verticalColSpace),
 
                   //only show check box if the user is edititing not
@@ -283,7 +308,7 @@ class _SaveTaskState extends State<SaveTask> {
       this._newTask.taskId = (taskObserver.currTaskForDetails != null)
           ? taskObserver.currTaskForDetails!.taskId
           : TextTask().taskId;
-      this._newTask.text = textController.text;
+      this._newTask.name = textController.text;
       this._newTask.localText = textController.text;
       this._newTask.eventTime = taskObserver.newTaskEventTime;
       this._newTask.eventDate = taskObserver.newTaskEventDate;

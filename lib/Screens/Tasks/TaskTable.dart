@@ -108,7 +108,21 @@ class TaskTable extends StatelessWidget {
                                             .iconColor)),
                                     Text(
                                       '   ' +
-                                          activeUserTasks.elementAt(index).name,
+                                          activeUserTasks
+                                              .elementAt(index)
+                                              .name
+                                              .substring(
+                                                  0,
+                                                  activeUserTasks
+                                                              .elementAt(index)
+                                                              .name
+                                                              .length <
+                                                          25
+                                                      ? activeUserTasks
+                                                          .elementAt(index)
+                                                          .name
+                                                          .length
+                                                      : 25),
                                       style: TextStyle(
                                           fontSize: 20.0,
                                           fontWeight: FontWeight.bold,
@@ -165,7 +179,21 @@ class TaskTable extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                    inActiveUserTasks.elementAt(index).name,
+                                    inActiveUserTasks
+                                        .elementAt(index)
+                                        .name
+                                        .substring(
+                                            0,
+                                            inActiveUserTasks
+                                                        .elementAt(index)
+                                                        .name
+                                                        .length <
+                                                    24
+                                                ? inActiveUserTasks
+                                                    .elementAt(index)
+                                                    .name
+                                                    .length
+                                                : 24),
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontSize: 20.0,
@@ -173,7 +201,11 @@ class TaskTable extends StatelessWidget {
                                         color: Colors.lightBlue[900]),
                                   ),
                                   Text(
-                                    inActiveUserTasks.elementAt(index).text,
+                                    inActiveUserTasks
+                                        .elementAt(index)
+                                        .completedTaskDateTime
+                                        .toString()
+                                        .substring(0, 16),
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: 20.0,
@@ -186,119 +218,7 @@ class TaskTable extends StatelessWidget {
                             ]))),
                   ));
                 })
-          ])
-
-      //   DataTable(
-      //       dataRowHeight: rowHeight,
-      //       headingRowHeight: 60,
-      //       columns: const <DataColumn>[
-      //         DataColumn(
-      //           label: Text(
-      //             'Type',
-      //             style: HEADER_TEXT_STYLE,
-      //           ),
-      //         ),
-      //         DataColumn(
-      //           label: Text(
-      //             'Task',
-      //             style: HEADER_TEXT_STYLE,
-      //           ),
-      //         ),
-      //         DataColumn(
-      //           label: Text(
-      //             'CREATED',
-      //             style: HEADER_TEXT_STYLE,
-      //           ),
-      //         ),
-      //       ],
-      //       rows: List<DataRow>.generate(
-      //         activeUserTasks.length,
-      //         (int index) => DataRow(
-      //           cells: <DataCell>[
-      //             DataCell(Text(activeUserTasks[index].taskType)),
-      //             DataCell(
-      //               Container(
-      //                   // padding: EdgeInsets.all(10),
-      //                   // width: noteWidth,
-      //                   child: Text(
-      //                 activeUserTasks[index].text,
-      //                 style: TEXT_STYLE,
-      //               )),
-      //               showEditIcon: true,
-      //               onTap: () => {
-      //                 screenNav.changeScreen(MAIN_SCREENS.TASKS),
-      //                 taskObserver
-      //                     .setCurrTaskIdForDetails(usersTasks[index].taskId)
-      //                     .then((value) => taskObserver
-      //                         .changeScreen(TASK_SCREENS.TASK_DETAIL)),
-      //                 if (onListItemClickCallBackFn != null)
-      //                   {onListItemClickCallBackFn!.call()}
-      //               },
-      //             ),
-      //             DataCell(Text(timeago.format(
-      //                 activeUserTasks[index].recordedTime,
-      //                 locale:
-      //                     settingObserver.userSettings.locale.languageCode))),
-      //           ],
-      //         ),
-      //       )),
-      //
-      // SingleChildScrollView(
-      //     child: DataTable(
-      //         dataRowHeight: rowHeight,
-      //         headingRowHeight: 60,
-      //         columns: const <DataColumn>[
-      //           DataColumn(
-      //             label: Text(
-      //               'Type',
-      //               style: HEADER_TEXT_STYLE,
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Task',
-      //               style: HEADER_TEXT_STYLE,
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'CREATED',
-      //               style: HEADER_TEXT_STYLE,
-      //             ),
-      //           ),
-      //         ],
-      //         rows: List<DataRow>.generate(
-      //           inActiveUserTasks.length,
-      //           (int index) => DataRow(
-      //             cells: <DataCell>[
-      //               DataCell(Text(inActiveUserTasks[index].taskType)),
-      //               DataCell(
-      //                 Container(
-      //                     // padding: EdgeInsets.all(10),
-      //                     // width: noteWidth,
-      //                     child: Text(
-      //                   inActiveUserTasks[index].text,
-      //                   style: TEXT_STYLE,
-      //                 )),
-      //                 showEditIcon: true,
-      //                 onTap: () => {
-      //                   screenNav.changeScreen(MAIN_SCREENS.TASKS),
-      //                   taskObserver
-      //                       .setCurrTaskIdForDetails(usersTasks[index].taskId)
-      //                       .then((value) => taskObserver
-      //                           .changeScreen(TASK_SCREENS.TASK_DETAIL)),
-      //                   if (onListItemClickCallBackFn != null)
-      //                     {onListItemClickCallBackFn!.call()}
-      //                 },
-      //               ),
-      //               DataCell(Text(timeago.format(
-      //                   inActiveUserTasks[index].recordedTime,
-      //                   locale: settingObserver
-      //                       .userSettings.locale.languageCode))),
-      //             ],
-      //           ),
-      //         )))
-      ,
+          ]),
     );
   }
 }
@@ -380,6 +300,11 @@ MaterialColor getIconColor(String inputIconLabel) {
     case 'pink':
       {
         result = Colors.pink;
+      }
+      break;
+    case 'red':
+      {
+        result = Colors.red;
       }
       break;
 

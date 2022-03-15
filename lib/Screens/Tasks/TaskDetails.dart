@@ -1,13 +1,10 @@
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Task.dart';
 import 'package:untitled3/Observables/SettingObservable.dart';
 import 'package:untitled3/Services/TaskService.dart';
 import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/Utility/FontUtil.dart';
 import 'package:untitled3/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'dart:math' as math;
@@ -32,30 +29,16 @@ class _TaskDetails extends State<TaskDetails> {
   bool readOnly;
 
   var textController = TextEditingController();
-  TextTask _newTask = TextTask();
-  _TaskDetails({this.readOnly = false}) {
-    //this.navScreenObs = navScreenObs;
-  }
+  _TaskDetails({this.readOnly = false}) {}
 
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
-    final settingObserver = Provider.of<SettingObserver>(context);
-    String taskId = "";
-    //VIEW_Task MODE: Populated the details of the targeted Tasks into the UI
-    if (taskObserver.currTaskForDetails != null) {
-      taskId = taskObserver.currTaskForDetails!.taskId;
 
+    if (taskObserver.currTaskForDetails != null) {
       textController = TextEditingController(
           text: taskObserver.currTaskForDetails!.localText);
     }
-
-    // var padding = MediaQuery.of(context).size.width * 0.02;
-
-    // var verticalColSpace = MediaQuery.of(context).size.width * 0.1;
-
-    // var fontSize =
-    // fontSizeToPixelMap(settingObserver.userSettings.noteFontSize, false);
 
     const ICON_SIZE = 80.00;
     return Scaffold(
@@ -79,19 +62,6 @@ class _TaskDetails extends State<TaskDetails> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(), hintText: "tbd line 73"),
               ),
-              // SizedBox(height: verticalColSpace),
-
-              //only show check box if the user is edititing not
-              // if (taskId.isEmpty) _checkBox(fontSize),
-
-              // SizedBox(height: verticalColSpace),
-
-              //do not show if user chose to add checkList or modify and existing not to be a checklist
-              // _selectDate(taskObserver.newTaskIsCheckList, I18n.of(context),
-              //     settingObserver.userSettings.locale),
-
-              // SizedBox(height: verticalColSpace),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -164,63 +134,19 @@ class _TaskDetails extends State<TaskDetails> {
               )
             ],
           )),
-          //bottomNavigationBar: BottomBar(3),
         ));
   }
 
   _onComplete(TaskObserver taskObserver) {
-    if (textController.text.length > 0) {
-      print("Marking Task Complete: ${taskObserver.currTaskForDetails}");
-      this._newTask.taskId = (taskObserver.currTaskForDetails != null)
-          ? taskObserver.currTaskForDetails!.taskId
-          : TextTask().taskId;
-      // this._newTask.text = textController.text;
-      // this._newTask.localText = textController.text;
-      // this._newTask.eventTime = taskObserver.newTaskEventTime;
-      // this._newTask.eventDate = taskObserver.newTaskEventDate;
-      // this._newTask.isCheckList = taskObserver.newTaskIsCheckList;
-
-      taskObserver.deleteTask(taskObserver.currTaskForDetails);
-      print('line 184' + _newTask.toString());
-      taskObserver.completeTask(_newTask);
-      Fluttertoast.showToast(
-          msg: "Task Completed",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          timeInSecForIosWeb: 4);
-      taskObserver.changeScreen(TASK_SCREENS.TASK);
-    }
-  }
-
-  _onSave(TaskObserver taskObserver) {
-    if (textController.text.length > 0) {
-      print(
-          "taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
-      this._newTask.taskId = (taskObserver.currTaskForDetails != null)
-          ? taskObserver.currTaskForDetails!.taskId
-          : TextTask().taskId;
-      this._newTask.text = textController.text;
-      this._newTask.localText = textController.text;
-      this._newTask.eventTime = taskObserver.newTaskEventTime;
-      this._newTask.eventDate = taskObserver.newTaskEventDate;
-      this._newTask.isCheckList = taskObserver.newTaskIsCheckList;
-      if (taskObserver.newTaskIsCheckList == true) {
-        this._newTask.recurrentType = "daily";
-      }
-
-      taskObserver.deleteTask(taskObserver.currTaskForDetails);
-      taskObserver.addTask(_newTask);
-      Fluttertoast.showToast(
-          msg: "Task Created",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          timeInSecForIosWeb: 4);
-      taskObserver.changeScreen(TASK_SCREENS.TASK);
-    }
+    taskObserver.completeTask(taskObserver.currTaskForDetails!);
+    Fluttertoast.showToast(
+        msg: "Task Completed",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        timeInSecForIosWeb: 4);
+    taskObserver.changeScreen(TASK_SCREENS.TASK);
   }
 }
 
