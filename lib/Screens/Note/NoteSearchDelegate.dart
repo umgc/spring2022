@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
 
 import 'NoteTable.dart';
 

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:untitled3/Model/CalendarEvent.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/CalenderObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
+import 'package:memorez/Model/CalendarEvent.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/CalenderObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Screens/Calendar/CalendarFormatBar.dart';
+import 'package:memorez/Screens/Calendar/CalendarFormatBar.dart';
 
 final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -61,7 +61,7 @@ class CalendarState extends State<Calendar> {
       } else {
         _results = _allEvents
             .where((event) =>
-                event.text.toLowerCase().contains(value.toLowerCase()))
+                event.text.toLowerCase().contains(value.toLowerCase())&& event.eventDate.isEmpty==false)
             .toList();
         // Refresh the UI
         setState(() {

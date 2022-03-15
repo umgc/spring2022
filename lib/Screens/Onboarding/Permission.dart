@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Services/VoiceOverTextService.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Services/VoiceOverTextService.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/OnboardObservable.dart';
 import 'package:permission_handler/permission_handler.dart';
 

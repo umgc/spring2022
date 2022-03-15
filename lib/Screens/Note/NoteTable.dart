@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Utility/Constant.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Utility/Constant.dart';
 import '../../Observables/NoteObservable.dart';
-import 'package:untitled3/Services/NoteService.dart';
+import 'package:memorez/Services/NoteService.dart';
 import 'package:intl/intl.dart';
 
 bool _filteredNotesIsVisible = false;
@@ -79,14 +79,15 @@ class _NoteTableState extends State<NoteTable> {
     void _selectNotes(bool) {
       //todo code here
     }
-    void _deleteNoteButton() {
-      setState(() {
-        _checkboxToggle = true;
-        _selectNotes(true);
-        noteWidth = .35;
-      });
-      noteObserver.changeScreen(NOTE_SCREENS.NOTE);
-    }
+    // void _deleteNoteButton() {
+    //   setState(() {
+    //     _checkboxToggle = true;
+    //
+    //     noteWidth = .35;
+    //     print(_checkboxToggle);
+    //   });
+    //   noteObserver.changeScreen(NOTE_SCREENS.NOTE);
+    // }
 
     return SingleChildScrollView(
       child: Column(
@@ -121,26 +122,30 @@ class _NoteTableState extends State<NoteTable> {
               noteObserver.changeScreen(NOTE_SCREENS.ADD_NOTE);
             },
           ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white,
-              primary: Colors.red,
-              fixedSize: Size(noteWidth, 40.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Colors.red)),
-            ),
-            icon: Icon(
-              Icons.delete,
-            ),
-            label: Text(
-              'Delete Note',
-              style: TextStyle(fontSize: 20),
-            ),
-            onPressed: () {
-              _deleteNoteButton();
-            },
-          ),
+          // TextButton.icon(
+          //   style: TextButton.styleFrom(
+          //     backgroundColor: Colors.white,
+          //     primary: Colors.red,
+          //     fixedSize: Size(noteWidth, 40.0),
+          //     shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(18.0),
+          //         side: BorderSide(color: Colors.red)),
+          //   ),
+          //   icon: Icon(
+          //     Icons.delete,
+          //   ),
+          //   label: Text(
+          //     'Delete Note',
+          //     style: TextStyle(fontSize: 20),
+          //   ),
+          //   onPressed: () {
+          //     setState(() {
+          //      // _deleteNoteButton();
+          //     });
+          //
+          //
+          //   },
+          // ),
           Visibility(
             visible: _unfilteredNotes,
             child: DataTable(

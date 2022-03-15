@@ -1,30 +1,41 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:untitled3/Observables/CalenderObservable.dart';
-import 'package:untitled3/Observables/CheckListObservable.dart';
-import 'package:untitled3/Observables/HelpObservable.dart';
-import 'package:untitled3/Observables/MicObservable.dart';
-import 'package:untitled3/Observables/OnboardObservable.dart';
+import 'package:memorez/Observables/CalenderObservable.dart';
+import 'package:memorez/Observables/CheckListObservable.dart';
+import 'package:memorez/Observables/HelpObservable.dart';
+import 'package:memorez/Observables/MicObservable.dart';
+import 'package:memorez/Observables/OnboardObservable.dart';
 // Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:untitled3/Screens/HomePage.dart';
-import 'package:untitled3/Screens/Main.dart';
-// import 'package:untitled3/Screens/Menu/main_menu_screen.dart';
-import 'package:untitled3/Screens/NotificationScreen.dart';
-import 'package:untitled3/Screens/Onboarding/Boarding.dart';
+import 'package:memorez/Screens/HomePage.dart';
+import 'package:memorez/Screens/Main.dart';
+// import 'package:memorez/Screens/Menu/main_menu_screen.dart';
+import 'package:memorez/Screens/NotificationScreen.dart';
+import 'package:memorez/Screens/Onboarding/Boarding.dart';
+import 'package:memorez/utils/user_preferences.dart';
 import 'Screens/Splash/SplashScreen.dart';
 import 'Utility/FontUtil.dart';
 import 'Utility/ThemeUtil.dart';
 import 'generated/i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Observables/MenuObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Observables/NotificationObservable.dart';
+import 'package:memorez/Observables/MenuObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Observables/NotificationObservable.dart';
 import 'package:dcdg/dcdg.dart';
-import 'package:untitled3/Observables/TasksObservable.dart';
+import 'package:memorez/Observables/TasksObservable.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  await UserPreferences.init();
 
 void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +59,7 @@ void main() async  {
       AwesomeNotifications().requestPermissionToSendNotifications();
     }
   });
+  
   runApp(MyApp());
 }
 
@@ -103,7 +115,7 @@ class _MyAppState extends State<MyApp> {
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
                   //to load original main screen set home to SplashScreen.dart()
-                  home: HomePage(),
+                  home: MainNavigator(),
                   localizationsDelegates: [
                     i18n,
                     GlobalMaterialLocalizations.delegate,

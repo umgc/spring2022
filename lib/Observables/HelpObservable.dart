@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/Model/Help.dart';
-import 'package:untitled3/Services/HelpService.dart';
+import 'package:memorez/Model/Help.dart';
+import 'package:memorez/Services/HelpService.dart';
 part 'HelpObservable.g.dart';
 
 class HelpObserver = _AbstractHelpObserver with _$HelpObserver;

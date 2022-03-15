@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Services/NoteService.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/Utility/FontUtil.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Services/NoteService.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/Utility/FontUtil.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/NoteObservable.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
@@ -135,7 +135,7 @@ class _SaveNoteState extends State<SaveNote> {
     if (this.viewExistingNote == true) {
       return DateTimePicker(
         type: (isCheckList || this.isCheckListEvent == true)
-            ? DateTimePickerType.time
+            ? DateTimePickerType.dateTimeSeparate
             : DateTimePickerType.dateTimeSeparate,
         dateMask: 'd MMM, yyyy',
         initialValue: (noteObserver.newNoteIsCheckList == true ||

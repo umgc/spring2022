@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Screens/Onboarding/Boarding.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Screens/Onboarding/Boarding.dart';
 import '../Main.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -3,9 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:untitled3/Observables/CheckListObservable.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
+import 'package:memorez/Observables/CheckListObservable.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
 
 class Checklist extends StatefulWidget {
   @override
