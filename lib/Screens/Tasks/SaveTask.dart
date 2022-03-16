@@ -30,6 +30,11 @@ class SaveTask extends StatefulWidget {
 }
 
 class _SaveTaskState extends State<SaveTask> {
+  String selectedIcon = '';
+  String selectedIconColor = '';
+  String enteredTaskName = '';
+  String enteredTaskDescription = '';
+
   //Index of stepper
   static int _stepIndex = 0;
   //Initial value for dropdown list
@@ -209,6 +214,10 @@ class _SaveTaskState extends State<SaveTask> {
                       const BoxConstraints.tightFor(width: 400, height: 70),
                   child: OutlinedButton.icon(
                       onPressed: () {
+                        setState(() {
+                          selectedIcon = 'walking';
+                        });
+
                         if (_stepIndex < (getSteps().length - 1)) {
                           //VALIDATE
                           _stepIndex += 1;
@@ -232,6 +241,11 @@ class _SaveTaskState extends State<SaveTask> {
                       const BoxConstraints.tightFor(width: 400, height: 70),
                   child: OutlinedButton.icon(
                       onPressed: () {
+                        setState(() {
+                          selectedIcon = 'medkit';
+                        });
+                        print('line 243 icon state:' + selectedIcon);
+
                         if (_stepIndex < (getSteps().length - 1)) {
                           //VALIDATE
                           _stepIndex += 1;
@@ -766,7 +780,7 @@ class _SaveTaskState extends State<SaveTask> {
                   ),
                   IconButton(
                       onPressed: () {
-                        print('-------Line 769');
+                        print('-------Line 769' + selectedIcon);
                         _onSave(taskObserver);
                         print('line 771');
                       },
@@ -955,6 +969,8 @@ class _SaveTaskState extends State<SaveTask> {
       this._newTask.recurrentType = "daily";
     }
 
+    this._newTask.icon = selectedIcon;
+    print('---line 962 icon' + selectedIcon);
     taskObserver.deleteTask(taskObserver.currTaskForDetails);
     taskObserver.addTask(_newTask);
     _showToast();
