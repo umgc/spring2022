@@ -23,7 +23,7 @@ class I18n implements WidgetsLocalizations {
   }
 
   static const GeneratedLocalizationsDelegate delegate =
-      GeneratedLocalizationsDelegate();
+  GeneratedLocalizationsDelegate();
 
   /// function to be invoked when changing the language
   static LocaleChangeCallback? onLocaleChanged;
@@ -1357,194 +1357,9 @@ class _I18n_zh_CN extends I18n {
 
   /// "打开每小时步行的通知"
   @override
-  TextDirection get textDirection => TextDirection.ltr;
-	/// "Home"
-	String get homeScreenName => "Home";
-	/// "Menu"
-	String get menuScreenName => "Menu";
-	/// "Notes"
-	String get notesScreenName => "Notes";
-	/// "Notifications"
-	String get notificationsScreenName => "Notifications";
-	/// "Setting"
-	String get settingScreenName => "Setting";
-	/// "Calendar"
-	String get calendarScreenName => "Calendar";
-	/// "Mic"
-	String get micButton => "Mic";
-	/// "Press to Record"
-	String get pressToRecord => "Press to Record";
-	/// "Yes"
-	String get yes => "Yes";
-	/// "Save Note"
-	String get saveNote => "Save Note";
-	/// "Date"
-	String get date => "Date";
-	/// "Note"
-	String get note => "Note";
-	/// "Notes Details"
-	String get notesDetailScreenName => "Notes Details";
-	/// "Add Notes"
-	String get addNotesScreenName => "Add Notes";
-	/// "Checklist"
-	String get checklistScreenName => "Checklist";
-	/// "Help"
-	String get help => "Help";
-	/// "Trigger"
-	String get trigger => "Trigger";
-	/// "Sync to Cloud"
-	String get syncToCloudScreen => "Sync to Cloud";
-	/// "Settings"
-	String get generalSettingsScreen => "Settings";
-	/// "Cloud Setup"
-	String get onboardCloudSetup => "Cloud Setup";
-	/// "Permission"
-	String get onboardPermissionSetup => "Permission";
-	/// "Select Language"
-	String get onboardLangSetup => "Select Language";
-	/// "Introduction"
-	String get walkthroughScreen => "Introduction";
-	/// "Would you like to setup a cloud account?"
-	String get cloudSetupPrompt => "Would you like to setup a cloud account?";
-	/// "No"
-	String get no => "No";
-	/// "Welcome to Memory Magic"
-	String get welcome => "Welcome to Memory Magic";
-	/// "Back"
-	String get back => "Back";
-	/// "Next"
-	String get next => "Next";
-	/// "Please select your primary language."
-	String get selectLanguage => "Please select your primary language.";
-	/// "Language"
-	String get language => "Language";
-	/// "Do we have permission to access your microphone and resources?"
-	String get promptPermission => "Do we have permission to access your microphone and resources?";
-	/// "Select App Theme"
-	String get promptTheme => "Select App Theme";
-	/// "Select Font Size for Notes"
-	String get promptNoteFontSize => "Select Font Size for Notes";
-	/// "Select Font Size for Menu"
-	String get promptMenuFontSize => "Select Font Size for Menu";
-	/// "Select Note Deletion Timeline"
-	String get promptNoteDeletionTimeline => "Select Note Deletion Timeline";
-	/// "Small"
-	String get small => "Small";
-	/// "Medium"
-	String get medium => "Medium";
-	/// "Large"
-	String get large => "Large";
-	/// "Cancel"
-	String get cancel => "Cancel";
-	/// "Save"
-	String get save => "Save";
-	/// "Security Settings"
-	String get securitySettings => "Security Settings";
-	/// "Reset"
-	String get resetSettings => "Reset";
-	/// "NOTE: This permission will allow all types of voice interaction."
-	String get permissionNote => "NOTE: This permission will allow all types of voice interaction.";
-	/// "Days to Keep Notes"
-	String get daysToKeepNotes => "Days to Keep Notes";
-	/// "Note Font Size"
-	String get noteFontSize => "Note Font Size";
-	/// "Menu Font Size"
-	String get menuFontSize => "Menu Font Size";
-	/// "Sync to Cloud"
-	String get syncToCloud => "Sync to Cloud";
-	/// "Settings"
-	String get generalSetting => "Settings";
-	/// "Loading"
-	String get loading => "Loading";
-	/// "Edit Note"
-	String get editNote => "Edit Note";
-	/// "Delete Note"
-	String get deleteNote => "Delete Note";
-	/// "Confirm Note Deletion"
-	String get confirmNoteDeletion => "Confirm Note Deletion";
-	/// "Are you sure you want to delete this note?"
-	String get areYouSureYouWantToDelete => "Are you sure you want to delete this note?";
-	/// "Note Saved"
-	String get noteSaved => "Note Saved";
-	/// "--Enter Note--"
-	String get enterNoteText => "--Enter Note--";
-	/// "Ok"
-	String get ok => "Ok";
-	/// "The note was save succeessfully."
-	String get noteSavedSuccess => "The note was save succeessfully.";
-	/// "Add Note"
-	String get addNote => "Add Note";
-	/// "Would you like to Speak or Write a note?"
-	String get speakOrWritePrompt => "Would you like to Speak or Write a note?";
-	/// "Theme"
-	String get theme => "Theme";
-	/// "Blue"
-	String get blue => "Blue";
-	/// "Pink"
-	String get pink => "Pink";
-	/// "How Can I Help You?"
-	String get howCanIHelpYou => "How Can I Help You?";
-	/// "Turn on Notifications for Notes"
-	String get turnOnNotesNotification => "Turn on Notifications for Notes";
-	/// "Turn on Reminder before an Event"
-	String get turnOnEventReminder => "Turn on Reminder before an Event";
-	/// "Note: The reminder starts 15 minutes before the event."
-	String get reminderStartTime => "Note: The reminder starts 15 minutes before the event.";
-	/// "Activities Notifications"
-	String get activitiesNotifications => "Activities Notifications";
-	/// "Notes Notifications"
-	String get notesNotificiations => "Notes Notifications";
-	/// "Turn on Notification for hourly Walk"
-	String get turnOnHourlyWalkNotification => "Turn on Notification for hourly Walk";
-	/// "Turn on Notification for hourly Water"
-	String get turnOnHourlyWaterNotification => "Turn on Notification for hourly Water";
-	/// "Turn on Notification for Bathroom"
-	String get turnOnBathroomNotification => "Turn on Notification for Bathroom";
-	/// "Here is a video to a brief walkthrough of how to use Memory Magic App"
-	String get walkthroughVideoLine => "Here is a video to a brief walkthrough of how to use Memory Magic App";
-	/// "Features will be limited without allowing access to your microphone."
-	String get micLimitedAccess => "Features will be limited without allowing access to your microphone.";
-	/// "Should I create a note?"
-	String get shouldICreateANote => "Should I create a note?";
-	/// "Ok, I will not create a note."
-	String get willNotCreateNote => "Ok, I will not create a note.";
-	/// "Sure! How can I help you?"
-	String get sureHowCanIHelp => "Sure! How can I help you?";
-	/// "Ok, thank you! Bye Bye."
-	String get thxBye => "Ok, thank you! Bye Bye.";
-	/// "Created the following note:"
-	String get createdTheFollowingNote => "Created the following note:";
-	/// "Start Date"
-	String get startDate => "Start Date";
-	/// "Select Date"
-	String get selectDate => "Select Date";
-	/// "Enter Time"
-	String get enterTime => "Enter Time";
-	/// "Clear Selection"
-	String get clearSelection => "Clear Selection";
-	/// "Enable Notifications"
-	String get enableNotifications => "Enable Notifications";
+  String get turnOnHourlyWalkNotification => "打开每小时步行的通知";
 
-	String get minutesBeforeNotification => "Minutes Before Notifications";
-
-	String get appSettings => "App Settings";
-
-	String get tasks => "Tasks";
-
-	String get fontSize => "Font Size";
-
-	//********************************************************************es
-	/// "Ayuda"
-	String get helpScreen => "Ayuda";
-	/// "Palabras Claves"
-	String get triggerScreen => "Palabras Claves";
-}
-class _I18n_en_US extends I18n {
-  const _I18n_en_US();
-}
-class _I18n_es_US extends I18n {
-  const _I18n_es_US();
-
+  /// "打开每小时水的通知"
   @override
   String get turnOnHourlyWaterNotification => "打开每小时水的通知";
 
@@ -2053,7 +1868,7 @@ class GeneratedLocalizationsDelegate
     I18n._shouldReload = false;
     final String lang = I18n._locale != null ? I18n._locale.toString() : "";
     final String languageCode =
-        I18n._locale != null ? I18n._locale!.languageCode : "";
+    I18n._locale != null ? I18n._locale!.languageCode : "";
     if ("en_US" == lang) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_en_US());
     } else if ("es_US" == lang) {
