@@ -12,6 +12,8 @@ import 'package:untitled3/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'dart:math' as math;
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// Save Task page
@@ -28,6 +30,16 @@ class SaveTask extends StatefulWidget {
 }
 
 class _SaveTaskState extends State<SaveTask> {
+  //Index of stepper
+  static int _stepIndex = 0;
+  //Initial value for dropdown list
+  String colorDropdownValue = 'Select Icon Color';
+  //This was done to get an unfilled button
+  responseText? _textReponse = responseText.start;
+  responseSchedule? _scheduleReponse = responseSchedule.start;
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+
   /// Text task service to use for I/O operations against local system
   final TextTaskService textTaskService = new TextTaskService();
   bool isCheckListEvent;
@@ -162,6 +174,630 @@ class _SaveTaskState extends State<SaveTask> {
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final settingObserver = Provider.of<SettingObserver>(context);
+
+    List<Step> getSteps() => [
+          // Screen 1
+          Step(
+            state: _stepIndex <= 0 ? StepState.editing : StepState.complete,
+            isActive: _stepIndex >= 0,
+            title: const Text(
+              'Task Type',
+              style: TextStyle(fontSize: 12),
+            ),
+            content:
+                // Padding(
+                // padding: const EdgeInsets.symmetric(vertical: 16.0),
+                // child:
+                Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                    child: const Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Send A New Task | Reminder',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+                const SizedBox(
+                    height: 55.0, child: Text('\n Select Task Type')),
+                Container(
+                  constraints:
+                      const BoxConstraints.tightFor(width: 400, height: 70),
+                  child: OutlinedButton.icon(
+                      onPressed: () {
+                        if (_stepIndex < (getSteps().length - 1)) {
+                          //VALIDATE
+                          _stepIndex += 1;
+                        }
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.walking,
+                        size: 40,
+                        color: Colors.green,
+                      ),
+                      label: const Text(
+                        '\t\t\t\t\t\t\t\t Send A task for the patient \n \t\t\t\t\t\t\t to review',
+                        style: TextStyle(color: Colors.black),
+                      )),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  constraints:
+                      const BoxConstraints.tightFor(width: 400, height: 70),
+                  child: OutlinedButton.icon(
+                      onPressed: () {
+                        if (_stepIndex < (getSteps().length - 1)) {
+                          //VALIDATE
+                          _stepIndex += 1;
+                        }
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.clinicMedical,
+                        size: 40,
+                        color: Colors.red,
+                      ),
+                      label: const Text(
+                        '\t\t\t\t\t\t\t\t Send A task for the patient \n \t\t\t\t\t\t\t to perform an action',
+                        style: TextStyle(color: Colors.black),
+                      )),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+              ],
+            ),
+          ),
+
+          // Screen 2
+          Step(
+            state: _stepIndex <= 1 ? StepState.editing : StepState.complete,
+            isActive: _stepIndex >= 1,
+            title: const Text(
+              'Details',
+              style: TextStyle(fontSize: 12),
+            ),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                    child: const Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Send A New Task | Activity',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+                const SizedBox(height: 15.0),
+
+                Container(
+                    child: const Align(
+                  heightFactor: 1.5,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Name*',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+
+                Container(
+                  child: TextFormField(
+                    // initialValue: 'Name',
+                    // onEditingComplete: ,
+                    cursorColor: Colors.blue,
+                    textInputAction: TextInputAction.continueAction,
+                    decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      labelText: 'Name ',
+                      border: OutlineInputBorder(),
+                      // errorText: 'Error message',
+                      // suffixIcon: Icon(
+                      //   Icons.error,
+                      // ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 10.0),
+
+                Container(
+                    child: const Align(
+                  heightFactor: 1.5,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Description*',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+
+                Container(
+                  child: TextFormField(
+                    // initialValue: 'Name',
+                    // onEditingComplete: ,
+                    cursorColor: Colors.blue,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 5,
+                    maxLength: 150,
+                    textInputAction: TextInputAction.done,
+                    decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      labelText: 'Description',
+                      border: OutlineInputBorder(),
+
+                      // errorText: 'Error message',
+                      // suffixIcon: Icon(
+                      //   Icons.error,
+                      // ),
+                    ),
+                  ),
+                ),
+
+                Container(
+                    child: const Align(
+                  heightFactor: 1.5,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Icon*',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+
+                // First row of buttons
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        width: 90,
+                        height: 50,
+                        child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    color: Colors.blue, width: 2.0)),
+                            child: const Icon(
+                              FontAwesomeIcons.walking,
+                              color: Colors.black,
+                            )),
+                        padding: EdgeInsets.zero,
+                      ),
+
+                      // ElevatedButton.icon(onPressed: controlsDetails.onStepContinue,
+                      //     icon: const Icon(Icons.add_circle_outline,),
+                      //     label: const Text('New Task'),
+                      //     style: ElevatedButton.styleFrom(
+                      //         primary: Colors.blue,
+                      //         side: const BorderSide(color: Colors.blue, width: 2.0),
+                      //         minimumSize: const Size(400, 35),
+                      //         shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(18.0)
+                      //         )
+                      //     )
+                      //
+                      // )
+
+                      Container(
+                        width: 90,
+                        height: 50,
+                        child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    color: Colors.blue, width: 2.0)),
+                            child: const Icon(
+                              FontAwesomeIcons.utensils,
+                              color: Colors.black,
+                            )),
+                        padding: EdgeInsets.zero,
+                      ),
+
+                      Container(
+                        width: 90,
+                        height: 50,
+                        child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    color: Colors.blue, width: 2.0)),
+                            child: const Icon(
+                              FontAwesomeIcons.prescriptionBottle,
+                              color: Colors.black,
+                            )),
+                        padding: EdgeInsets.zero,
+                      ),
+                    ]),
+
+                const SizedBox(height: 8.0),
+
+                // Second row of buttons
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: 90,
+                        height: 50,
+                        child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    color: Colors.blue, width: 2.0)),
+                            child: const Icon(
+                              FontAwesomeIcons.tooth,
+                              color: Colors.black,
+                            )),
+                        padding: EdgeInsets.zero,
+                      ),
+                      Container(
+                        width: 90,
+                        height: 50,
+                        child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    color: Colors.blue, width: 2.0)),
+                            child: const Icon(
+                              FontAwesomeIcons.envelope,
+                              color: Colors.black,
+                            )),
+                        padding: EdgeInsets.zero,
+                      ),
+                      Container(
+                        width: 90,
+                        height: 50,
+                        child: OutlinedButton(
+                            onPressed: () {},
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    color: Colors.blue, width: 2.0)),
+                            child: const Icon(
+                              FontAwesomeIcons.tshirt,
+                              color: Colors.black,
+                            )),
+                        padding: EdgeInsets.zero,
+                      ),
+                    ]),
+
+                const SizedBox(height: 10.0),
+
+                Container(
+                    child: const Align(
+                  heightFactor: 1.5,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Icon Color',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+
+                const SizedBox(height: 8),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                        child: SizedBox(
+                            width: 325,
+                            child: DropdownButtonFormField<String>(
+                              decoration: const InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                              ),
+                              value: colorDropdownValue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              elevation: 2,
+                              style: const TextStyle(color: Colors.black),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  colorDropdownValue = newValue!;
+                                });
+                              },
+                              items: <String>[
+                                'Select Icon Color',
+                                'Blue',
+                                'Red',
+                                'Green',
+                                'Yellow',
+                                'Purple',
+                                'Grey',
+                                'Black'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            )))
+                  ],
+                ),
+
+                const SizedBox(height: 10),
+
+                // Text Radio Buttons
+
+                Container(
+                    child: const Align(
+                  heightFactor: .5,
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Text Response Required*',
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromRGBO(46, 89, 132, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      //Text Yes Radio button
+                      Container(
+                          child: SizedBox(
+                        width: 150,
+                        child: RadioListTile<responseText>(
+                          title: const Text(
+                            'Yes',
+                            textAlign: TextAlign.start,
+                          ),
+                          toggleable: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: .5),
+                          value: responseText.Yes,
+                          groupValue: _textReponse,
+                          onChanged: (responseText? value) {
+                            //This will hid keyboard when selected
+                            FocusScope.of(context).unfocus();
+
+                            setState(() {
+                              _textReponse = value;
+                            });
+                          },
+                        ),
+                      )),
+
+                      //Text No Radio button
+                      Container(
+                          child: SizedBox(
+                        width: 150,
+                        child: RadioListTile<responseText>(
+                          title: const Text(
+                            'No',
+                            textAlign: TextAlign.left,
+                          ),
+                          toggleable: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: .5),
+                          value: responseText.No,
+                          groupValue: _textReponse,
+                          onChanged: (responseText? value) {
+                            setState(() {
+                              _textReponse = value;
+                            });
+                          },
+                        ),
+                      )),
+                    ]),
+              ],
+            ),
+          ),
+
+          //Screen 3
+          Step(
+            state: StepState.complete,
+            isActive: _stepIndex >= 2,
+            title: const Text(
+              'Schedule',
+              style: TextStyle(fontSize: 12),
+            ),
+            content: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    child: const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Send A New Task | Schedule',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromRGBO(46, 89, 132, 1),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  Container(
+                      child: const Align(
+                    heightFactor: .5,
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Schedule*',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Color.fromRGBO(46, 89, 132, 1),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )),
+
+                  // Schedule Ratio Buttons: Screen 3
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        //Schedule Now Radio button
+                        Container(
+                            child: SizedBox(
+                          width: 150,
+                          child: RadioListTile<responseSchedule>(
+                            title: const Text(
+                              'Now',
+                              textAlign: TextAlign.start,
+                            ),
+                            toggleable: true,
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: .5),
+                            value: responseSchedule.Now,
+                            groupValue: _scheduleReponse,
+                            onChanged: (responseSchedule? value) {
+                              //This will hide keyboard when selected
+                              FocusScope.of(context).unfocus();
+
+                              setState(() {
+                                _scheduleReponse = value;
+                              });
+                            },
+                          ),
+                        )),
+
+                        //Schedule Future Radio button
+                        Container(
+                            child: SizedBox(
+                          width: 150,
+                          child: RadioListTile<responseSchedule>(
+                            title: const Text(
+                              'Future',
+                              textAlign: TextAlign.left,
+                            ),
+                            toggleable: true,
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: .5),
+                            value: responseSchedule.Future,
+                            groupValue: _scheduleReponse,
+                            onChanged: (responseSchedule? value) {
+                              setState(() {
+                                _scheduleReponse = value;
+                              });
+                            },
+                          ),
+                        )),
+                      ]),
+
+                  Container(
+                      child: const Align(
+                    heightFactor: 1.5,
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'When to send task*',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Color.fromRGBO(46, 89, 132, 1),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )),
+                  Container(
+                      child:
+                          //DATE CALENDAR
+
+                          TextFormField(
+                    readOnly: true,
+                    controller: _dateController,
+                    decoration: const InputDecoration(
+                      labelText: 'Date',
+                      suffixIcon: Icon(FontAwesomeIcons.calendarDay),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      border: OutlineInputBorder(),
+                    ),
+                    onTap: () async {
+                      await showDatePicker(
+                        context: context,
+                        confirmText: 'SET DATE',
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2030),
+                      ).then((selectedDate) {
+                        if (selectedDate != null) {
+                          _dateController.text =
+                              '${selectedDate.month.toString()}/${selectedDate.day.toString()}/${selectedDate.year.toString()}';
+                        }
+                      });
+                    },
+                  )),
+
+                  const SizedBox(height: 20),
+
+                  Container(
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: _timeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Time',
+                        suffixIcon: Icon(FontAwesomeIcons.solidClock),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        border: OutlineInputBorder(),
+                      ),
+                      onTap: () async {
+                        await showTimePicker(
+                          context: context,
+                          confirmText: 'SET TIME',
+                          initialTime: TimeOfDay.now(),
+                          initialEntryMode: TimePickerEntryMode.dial,
+                        ).then((selectedTime) {
+                          if (selectedTime != null) {
+                            _timeController.text =
+                                '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        print('-------Line 769');
+                        _onSave(taskObserver);
+                        print('line 771');
+                      },
+                      icon: Icon(FontAwesomeIcons.save))
+                ]),
+          ),
+
+          // This is in case we want to add a complete step at the end of the process
+          // Step(
+          //   state: StepState.complete,
+          //   isActive: _stepIndex >= 3,
+          //   title: const Text('Confirm',style: TextStyle(fontSize: 11),),
+          //   content: const Text('Confirm Task',
+          //     textAlign: TextAlign.left,
+          //     style: TextStyle(fontSize: 20, color: Color.fromRGBO(46, 89, 132, 1),
+          //         fontWeight: FontWeight.bold),),
+          // ),
+        ];
+
+    void onStepContinue() {
+      if (_stepIndex < (getSteps().length - 1)) {
+        //VALIDATE
+        _stepIndex += 1;
+      } else {
+        // This will place the steps in a continous loop esle to provide confirmations
+        // setState(() {
+        // _stepIndex = 0;
+        // });
+      }
+    }
+
     String taskId = "";
     //VIEW_Task MODE: Populated the details of the targeted Tasks into the UI
     if (taskObserver.currTaskForDetails != null) {
@@ -180,148 +816,151 @@ class _SaveTaskState extends State<SaveTask> {
 
     const ICON_SIZE = 80.00;
     return Scaffold(
-        key: saveTaskScaffoldKey,
-        body: Observer(
-          builder: (context) => SingleChildScrollView(
-              padding: EdgeInsets.all(padding),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: textController,
-                    maxLines: 5,
-                    style: TextStyle(fontSize: fontSize),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: I18n.of(context)!.enterNoteText),
-                  ),
-                  DropdownButton<String>(
-                    value: _newTask.taskType,
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
-                    ),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _newTask.taskType = newValue!;
-                        if (_newTask.taskType == 'Health Check') {
-                          _newTask.icon = 'medkit';
-                          _newTask.iconColor = 'red';
-                        }
-                      });
-                    },
-                    items: <String>['Activity', 'Health Check', 'defaultType']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: verticalColSpace),
-
-                  //only show check box if the user is edititing not
-                  if (taskId.isEmpty) _checkBox(fontSize),
-
-                  SizedBox(height: verticalColSpace),
-
-                  //do not show if user chose to add checkList or modify and existing not to be a checklist
-                  _selectDate(taskObserver.newTaskIsCheckList, I18n.of(context),
-                      settingObserver.userSettings.locale),
-
-                  SizedBox(height: verticalColSpace),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            taskObserver.changeScreen(TASK_SCREENS.TASK);
-                            taskObserver.setCurrTaskIdForDetails(null);
-                          },
-                          child: Column(
-                            children: [
-                              Transform.rotate(
-                                  angle: 180 * math.pi / 180,
-                                  child: Icon(
-                                    Icons.exit_to_app_rounded,
-                                    size: ICON_SIZE,
-                                    color: Colors.amber,
-                                  )),
-                              Text(
-                                I18n.of(context)!.cancel,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            _onSave(taskObserver);
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.save,
-                                size: ICON_SIZE,
-                                color: Colors.green,
-                              ),
-                              Text(
-                                I18n.of(context)!.saveNote,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          )),
-                      if (taskObserver.currTaskForDetails != null)
-                        GestureDetector(
-                            onTap: () {
-                              //popup confirmation view
-                              taskObserver
-                                  .deleteTask(taskObserver.currTaskForDetails);
-                              taskObserver.changeScreen(TASK_SCREENS.TASK);
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.delete_forever,
-                                  size: ICON_SIZE,
-                                  color: Colors.red,
-                                ),
-                                Text(
-                                  I18n.of(context)!.deleteNote,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ],
-                            ))
-                    ],
-                  )
-                ],
-              )),
-          //bottomNavigationBar: BottomBar(3),
-        ));
+      key: saveTaskScaffoldKey,
+      body: Stepper(
+        type: StepperType.horizontal,
+        controlsBuilder: controlsBuilder,
+        currentStep: _stepIndex,
+        steps: getSteps(),
+        onStepTapped: onStepTapped,
+        onStepCancel: onStepCancel,
+        onStepContinue: onStepContinue,
+      ),
+      //     Observer(
+      //   builder: (context) => SingleChildScrollView(
+      //       padding: EdgeInsets.all(padding),
+      //       child: Column(
+      //         children: [
+      //           TextField(
+      //             controller: textController,
+      //             maxLines: 5,
+      //             style: TextStyle(fontSize: fontSize),
+      //             decoration: InputDecoration(
+      //                 border: OutlineInputBorder(),
+      //                 hintText: I18n.of(context)!.enterNoteText),
+      //           ),
+      //           DropdownButton<String>(
+      //             value: _newTask.taskType,
+      //             elevation: 16,
+      //             style: const TextStyle(color: Colors.deepPurple),
+      //             underline: Container(
+      //               height: 2,
+      //               color: Colors.deepPurpleAccent,
+      //             ),
+      //             onChanged: (String? newValue) {
+      //               setState(() {
+      //                 _newTask.taskType = newValue!;
+      //                 if (_newTask.taskType == 'Health Check') {
+      //                   _newTask.icon = 'medkit';
+      //                   _newTask.iconColor = 'red';
+      //                 }
+      //               });
+      //             },
+      //             items: <String>['Activity', 'Health Check', 'defaultType']
+      //                 .map<DropdownMenuItem<String>>((String value) {
+      //               return DropdownMenuItem<String>(
+      //                 value: value,
+      //                 child: Text(value),
+      //               );
+      //             }).toList(),
+      //           ),
+      //           _selectDate(taskObserver.newTaskIsCheckList, I18n.of(context),
+      //               settingObserver.userSettings.locale),
+      //           Row(
+      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //             children: [
+      //               //Cancel Btn
+      //               GestureDetector(
+      //                   onTap: () {
+      //                     taskObserver.changeScreen(TASK_SCREENS.TASK);
+      //                     taskObserver.setCurrTaskIdForDetails(null);
+      //                   },
+      //                   child: Column(
+      //                     children: [
+      //                       Transform.rotate(
+      //                           angle: 180 * math.pi / 180,
+      //                           child: Icon(
+      //                             Icons.exit_to_app_rounded,
+      //                             size: ICON_SIZE,
+      //                             color: Colors.amber,
+      //                           )),
+      //                       Text(
+      //                         I18n.of(context)!.cancel,
+      //                         style: Theme.of(context).textTheme.bodyText1,
+      //                       ),
+      //                     ],
+      //                   )),
+      //               //Save Btn
+      //               GestureDetector(
+      //                   onTap: () {
+      //                     _onSave(taskObserver);
+      //                   },
+      //                   child: Column(
+      //                     children: [
+      //                       Icon(
+      //                         Icons.save,
+      //                         size: ICON_SIZE,
+      //                         color: Colors.green,
+      //                       ),
+      //                       Text(
+      //                         I18n.of(context)!.saveNote,
+      //                         style: Theme.of(context).textTheme.bodyText1,
+      //                       ),
+      //                     ],
+      //                   )),
+      //               //Delete Btn
+      //               if (taskObserver.currTaskForDetails != null)
+      //                 GestureDetector(
+      //                     onTap: () {
+      //                       //popup confirmation view
+      //                       taskObserver
+      //                           .deleteTask(taskObserver.currTaskForDetails);
+      //                       taskObserver.changeScreen(TASK_SCREENS.TASK);
+      //                     },
+      //                     child: Column(
+      //                       children: [
+      //                         Icon(
+      //                           Icons.delete_forever,
+      //                           size: ICON_SIZE,
+      //                           color: Colors.red,
+      //                         ),
+      //                         Text(
+      //                           I18n.of(context)!.deleteNote,
+      //                           style: Theme.of(context).textTheme.bodyText1,
+      //                         ),
+      //                       ],
+      //                     ))
+      //             ],
+      //           )
+      //         ],
+      //       )),
+      //   //bottomNavigationBar: BottomBar(3),
+      // ),
+    );
   }
 
   _onSave(TaskObserver taskObserver) {
-    if (textController.text.length > 0) {
-      print(
-          "taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
-      this._newTask.taskId = (taskObserver.currTaskForDetails != null)
-          ? taskObserver.currTaskForDetails!.taskId
-          : TextTask().taskId;
-      this._newTask.name = textController.text;
-      this._newTask.localText = textController.text;
-      this._newTask.eventTime = taskObserver.newTaskEventTime;
-      this._newTask.eventDate = taskObserver.newTaskEventDate;
-      this._newTask.isCheckList = taskObserver.newTaskIsCheckList;
-      if (taskObserver.newTaskIsCheckList == true) {
-        this._newTask.recurrentType = "daily";
-      }
-
-      taskObserver.deleteTask(taskObserver.currTaskForDetails);
-      taskObserver.addTask(_newTask);
-      _showToast();
-      taskObserver.changeScreen(TASK_SCREENS.TASK);
+    // if (textController.text.length > 0) {
+    print(
+        "taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
+    this._newTask.taskId = (taskObserver.currTaskForDetails != null)
+        ? taskObserver.currTaskForDetails!.taskId
+        : TextTask().taskId;
+    this._newTask.name = textController.text;
+    this._newTask.localText = textController.text;
+    this._newTask.eventTime = taskObserver.newTaskEventTime;
+    this._newTask.eventDate = taskObserver.newTaskEventDate;
+    this._newTask.isCheckList = taskObserver.newTaskIsCheckList;
+    if (taskObserver.newTaskIsCheckList == true) {
+      this._newTask.recurrentType = "daily";
     }
+
+    taskObserver.deleteTask(taskObserver.currTaskForDetails);
+    taskObserver.addTask(_newTask);
+    _showToast();
+    taskObserver.changeScreen(TASK_SCREENS.TASK);
+    // }
+    print('kkkkkkkkkkkkkkkk: line 962');
   }
 
   /// Show a dialog message confirming task was saved
@@ -350,4 +989,81 @@ class _SaveTaskState extends State<SaveTask> {
       },
     );
   }
+
+  Widget controlsBuilder(
+      BuildContext context, ControlsDetails controlsDetails) {
+    return Padding(
+      // This is the padding around the continue, cancel, and back buttons
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          if (_stepIndex == 1)
+            (OutlinedButton(
+                onPressed: controlsDetails.onStepContinue,
+                child: const Text('Continue'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    side: const BorderSide(color: Colors.blue, width: 2.0),
+                    minimumSize: const Size(400, 35),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0)))))
+          else if (_stepIndex == 2)
+            (OutlinedButton(
+                onPressed: () {
+                  print('================line 978');
+                  // _onSave(taskObserver);
+                },
+                child: const Text('Send Task'),
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    side: const BorderSide(color: Colors.blue, width: 2.0),
+                    minimumSize: const Size(400, 35),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0))))),
+
+          // This function needs to return the home screen of tasks on the admin profile
+          OutlinedButton(
+              onPressed: controlsDetails.onStepCancel,
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.red),
+              ),
+              style: OutlinedButton.styleFrom(
+                  primary: Colors.red,
+                  side: const BorderSide(color: Colors.red, width: 2.0),
+                  minimumSize: const Size(400, 35),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)))),
+
+          if (_stepIndex != 0)
+            TextButton(
+              onPressed: controlsDetails.onStepCancel,
+              child: const Text(
+                'Back',
+                style: TextStyle(color: Colors.blueAccent),
+              ),
+            )
+        ],
+      ),
+    );
+  }
+
+  void onStepTapped(int index) {
+    setState(() {
+      _stepIndex = index;
+    });
+  }
+
+  void onStepCancel() {
+    if (_stepIndex > 0) {
+      setState(() {
+        _stepIndex -= 1;
+      });
+    }
+  }
 }
+
+//enum for Text Response, Schedule
+enum responseText { start, Yes, No }
+enum responseSchedule { start, Now, Future }
