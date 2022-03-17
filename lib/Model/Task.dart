@@ -40,7 +40,7 @@ class TextTask {
   ///Task Type
   String taskType = "defaultType";
   DateTime sendTaskDateTime = DateTime.now();
-  String responseText = 'test Response';
+  String responseText = '';
   bool isReoccuring = false;
   String firstHealthCheckMood = '';
   String secondHealthCheckMood = '';

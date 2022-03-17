@@ -65,7 +65,7 @@ class TaskTable extends StatelessWidget {
               child: Text(
                 'Active Tasks',
                 style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.lightBlue[900]),
               ),
@@ -76,14 +76,22 @@ class TaskTable extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       child: InkWell(
-                          //This runs when double tapping an Active Task
                           onTap: () {
                             print('task id: ' + activeUserTasks[index].taskId);
-                            taskObserver
-                                .setCurrTaskIdForDetails(
-                                    activeUserTasks[index].taskId)
-                                .then((value) => taskObserver.changeScreen(
-                                    TASK_SCREENS.TASK_COMPLETE_ACTIVITY));
+                            if (activeUserTasks[index].taskType == 'Activity') {
+                              taskObserver
+                                  .setCurrTaskIdForDetails(
+                                      activeUserTasks[index].taskId)
+                                  .then((value) => taskObserver.changeScreen(
+                                      TASK_SCREENS.TASK_COMPLETE_ACTIVITY));
+                            } else {
+                              taskObserver
+                                  .setCurrTaskIdForDetails(
+                                      activeUserTasks[index].taskId)
+                                  .then((value) => taskObserver.changeScreen(
+                                      TASK_SCREENS.TASK_COMPLETE_HEALTH_CHECK));
+                            }
+
                             // if (onListItemClickCallBackFn != null) {
                             //   onListItemClickCallBackFn!.call();
                             // }
