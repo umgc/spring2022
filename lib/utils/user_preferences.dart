@@ -25,7 +25,12 @@ class UserPreferences {
       prov1: 'Not Assigned',
       prov1ph: 'na',
       prov2: 'Not Assigned',
-      prov2ph: 'na'
+      prov2ph: 'na',
+      trans1: 'Not Assigned',
+      trans1ph: 'na',
+      trans2: 'Not Assigned',
+      trans2ph: 'na',
+
   );
 
   static Future init() async =>
