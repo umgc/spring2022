@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,
                   //to load original main screen set home to SplashScreen.dart()
-                  home: OnBoardingScreen(),
+                  home: SplashScreen(),
                   localizationsDelegates: [
                     i18n,
                     GlobalMaterialLocalizations.delegate,
