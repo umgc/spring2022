@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
@@ -77,57 +78,73 @@ class _SignupFormState extends State<SignupForm> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  genLoginSignupHeader('Setup Caregiver'),
-                  // getTextFormField(
-                  //     controller: _conUserId,
-                  //     icon: Icons.person,
-                  //     hintName: 'User ID'),
-                  SizedBox(height: 10.0),
-                  getTextFormField(
-                      controller: _conPhone,
-                      icon: Icons.phone,
-                      inputType: TextInputType.phone,
-                      hintName: 'Phone Number'),
-                  // SizedBox(height: 10.0),
-                  // getTextFormField(
-                  //     controller: _conEmail,
-                  //     icon: Icons.email,
-                  //     inputType: TextInputType.emailAddress,
-                  //     hintName: 'Email'),
-                  SizedBox(height: 10.0),
-                  getTextFormField(
-                    controller: _conPassword,
-                    icon: Icons.lock,
-                    hintName: 'Password',
-                    isObscureText: true,
-                  ),
-                  SizedBox(height: 10.0),
-                  getTextFormField(
-                    controller: _conCPassword,
-                    icon: Icons.lock,
-                    hintName: 'Confirm Password',
-                    isObscureText: true,
-                  ),
                   ValueListenableBuilder<bool>(
-                      valueListenable: submitButtonVisibility,
-                      builder: (context, value, _) => Visibility(
-                          visible: value,
-                          child: Container(
-                            margin: EdgeInsets.all(30.0),
-                            width: double.infinity,
-                            child: TextButton(
-                              child: Text(
-                                'Signup',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: signUp,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF0D47A1),
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
+                    valueListenable: submitButtonVisibility,
+                    builder: (context, value, _) => Visibility(
+                      visible: !value,
+                      child: Lottie.asset(
+                        'assets/lottie/done.json',
+                        repeat: false,
+                      ),
+                    ),
+                  ),
+
+                  ValueListenableBuilder<bool>(
+                  valueListenable: submitButtonVisibility,
+                  builder: (context, value, _) => Visibility(
+                  visible: value,
+                  child: Column(
+                    children: [
+                      genLoginSignupHeader('Setup Caregiver'),
+                      // getTextFormField(
+                      //     controller: _conUserId,
+                      //     icon: Icons.person,
+                      //     hintName: 'User ID'),
+                      SizedBox(height: 10.0),
+                      getTextFormField(
+                          controller: _conPhone,
+                          icon: Icons.phone,
+                          inputType: TextInputType.phone,
+                          hintName: 'Phone Number'),
+                      // SizedBox(height: 10.0),
+                      // getTextFormField(
+                      //     controller: _conEmail,
+                      //     icon: Icons.email,
+                      //     inputType: TextInputType.emailAddress,
+                      //     hintName: 'Email'),
+                      SizedBox(height: 10.0),
+                      getTextFormField(
+                        controller: _conPassword,
+                        icon: Icons.lock,
+                        hintName: 'Password',
+                        isObscureText: true,
+                      ),
+                      SizedBox(height: 10.0),
+                      getTextFormField(
+                        controller: _conCPassword,
+                        icon: Icons.lock,
+                        hintName: 'Confirm Password',
+                        isObscureText: true,
+                      ),
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: TextButton(
+                          child: Text(
+                            'Signup',
+                            style: TextStyle(color: Colors.white),
                           ),
-                        )),
+                          onPressed: signUp,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0D47A1),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  )),
+
                   Visibility(
                     visible: !isFirstRun,
                     child: Container(
