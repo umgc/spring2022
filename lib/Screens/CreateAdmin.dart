@@ -14,7 +14,6 @@ import '../DatabaseHandler/DbHelper.dart';
 class SignupForm extends StatefulWidget {
   @override
   _SignupFormState createState() => _SignupFormState();
-
 }
 
 class _SignupFormState extends State<SignupForm> {
@@ -25,7 +24,8 @@ class _SignupFormState extends State<SignupForm> {
   final _conPassword = TextEditingController();
   final _conCPassword = TextEditingController();
   var dbHelper;
-  bool isFirstRun=true;
+  bool isFirstRun = true;
+  ValueNotifier<bool> submitButtonVisibility = ValueNotifier(true);
 
   @override
   void initState() {
@@ -49,11 +49,11 @@ class _SignupFormState extends State<SignupForm> {
         print('XXXXXXXXXXX ${uModel.phone}');
         await dbHelper.saveData(uModel).then((userData) {
           alertDialog(context, "Successfully Saved");
-
+          submitButtonVisibility.value = false;
         }).catchError((error) {
           print('YYYYYYYYY $error');
-
           alertDialog(context, "Error: Admin already exist, pls log in");
+          submitButtonVisibility.value = false;
         });
       }
     }
@@ -65,7 +65,6 @@ class _SignupFormState extends State<SignupForm> {
     isFirstRun = settingObserver.userSettings.isFirstRun;
 
     return Scaffold(
-
       //appBar: AppBar(
       //  title: Text(''),
       //),
@@ -109,21 +108,26 @@ class _SignupFormState extends State<SignupForm> {
                     hintName: 'Confirm Password',
                     isObscureText: true,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Signup',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: signUp,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0D47A1),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
+                  ValueListenableBuilder<bool>(
+                      valueListenable: submitButtonVisibility,
+                      builder: (context, value, _) => Visibility(
+                          visible: value,
+                          child: Container(
+                            margin: EdgeInsets.all(30.0),
+                            width: double.infinity,
+                            child: TextButton(
+                              child: Text(
+                                'Signup',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: signUp,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xFF0D47A1),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        )),
                   Visibility(
                     visible: !isFirstRun,
                     child: Container(
@@ -137,8 +141,9 @@ class _SignupFormState extends State<SignupForm> {
                             onPressed: () {
                               Navigator.pushAndRemoveUntil(
                                   context,
-                                  MaterialPageRoute(builder: (_) => LoginForm()),
-                                      (Route<dynamic> route) => true);
+                                  MaterialPageRoute(
+                                      builder: (_) => LoginForm()),
+                                  (Route<dynamic> route) => true);
                             },
                           )
                         ],

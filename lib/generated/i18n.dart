@@ -123,7 +123,7 @@ class I18n implements WidgetsLocalizations {
   String get selectLanguage => "Please select your primary language.";
 
   /// "Language"
-  String get language => "Language";
+  String get language => "Language ";
 
   /// "Do we have permission to access your microphone and resources?"
   String get promptPermission =>

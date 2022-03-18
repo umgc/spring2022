@@ -36,9 +36,13 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
               )),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 22.0, 275.0, 8.0),
-          child: Text(I18n.of(context)!.language,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          padding: EdgeInsets.fromLTRB(0.0, 22.0, 50, 8.0),
+          child: Row(
+            children: [
+              Text(I18n.of(context)!.language,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(3),
