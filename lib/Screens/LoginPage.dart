@@ -15,6 +15,7 @@ import '../Observables/ScreenNavigator.dart';
 import '../Observables/SettingObservable.dart';
 import '../Utility/Constant.dart';
 import '../generated/i18n.dart';
+import '../main.dart';
 import 'Main.dart';
 
 class LoginForm extends StatefulWidget {
@@ -61,7 +62,7 @@ class _LoginFormState extends State<LoginForm> {
           () {
             userData != null
                 ? Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => HomeForm2()))
+                    context, MaterialPageRoute(builder: (_) => MyApp()))
                 : alertDialog(context, "Error: Please try again");
           },
         );
@@ -85,33 +86,6 @@ class _LoginFormState extends State<LoginForm> {
     final screenNav = Provider.of<MainNavObserver>(context);
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
-
-    // _login() async {
-    //   String uid = 'Admin';
-    //   String passwd = _conPassword.text;
-    //
-    //   if (uid.isEmpty) {
-    //     alertDialog(context, "Please Enter User ID");
-    //   } else if (passwd.isEmpty) {
-    //     alertDialog(context, "Please Enter Password");
-    //   } else {
-    //     await dbHelper.getLoginUser(uid, passwd).then((userData) {
-    //       setSP(userData!).whenComplete(
-    //         () {
-    //           userData != null
-    //               ? Navigator.push(
-    //                   context,
-    //                   MaterialPageRoute(builder: (_) => MainNavigator()),
-    //                 )
-    //               : alertDialog(context, "Error: Please try again");
-    //         },
-    //       );
-    //     }).catchError((error) {
-    //       print(error);
-    //       alertDialog(context, "Error: Login Fail");
-    //     });
-    //   }
-    // }
 
     return Builder(builder: (context) {
       return Scaffold(
