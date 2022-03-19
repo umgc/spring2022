@@ -16,13 +16,15 @@ import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/DatabaseHandler/DbHelper.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/transportation_card.dart';
-import 'package:memorez/Screens/Profile/medications_card.dart';
+import 'package:memorez/Screens/Profile/add_medication_card.dart';
+
 
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
 import 'care_team_card.dart';
 import 'contact_card.dart';
+import 'medication_card.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -76,7 +78,7 @@ class _ProfilePageState extends State<UserProfile> {
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             TransportationCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
-            MedicationsCard(),
+            MedicationCard(),
             const SizedBox(height: 24),
 
             //If admin, show edit, else stay the same
