@@ -20,12 +20,30 @@ class MedicationCard extends StatefulWidget {
 }
 
 class _MedicationCardState extends State<MedicationCard> {
+  //this code checks for admin mode
+  late DbHelper dbHelper;
+  final _pref = SharedPreferences.getInstance();
+  var _conUserId = TextEditingController();
+  UserModel? get userData => null;
+
+  Future<void> getUserData() async {
+    final SharedPreferences sp = await _pref;
+
+    setState(() {
+      _conUserId.text = sp.getString("user_id")!;
+    });
+  }
+
   Future<List<Medication>>? _medicationList;
 
   @override
   void initState() {
     super.initState();
     _updateMedicationList();
+
+    //this initializes the admin mode check information
+    getUserData();
+    dbHelper = DbHelper();
   }
 
   _updateMedicationList() {
@@ -48,18 +66,23 @@ class _MedicationCardState extends State<MedicationCard> {
                 medication.dose!,
                 style: kSubText,
               ),
-              trailing: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => AddMedicationCard(
-                          updateMedicationList: _updateMedicationList,
-                          medication: medication),
-                    ),
-                  );
-                },
+              trailing:
+
+              Visibility(
+                visible: _conUserId.text == 'Admin',
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => AddMedicationCard(
+                            updateMedicationList: _updateMedicationList,
+                            medication: medication),
+                      ),
+                    );
+                  },
+                ),
               )),
           Divider()
         ],
@@ -69,6 +92,8 @@ class _MedicationCardState extends State<MedicationCard> {
 
   @override
   Widget build(BuildContext context) {
+    print('xxxxxxxxxxxxxxxxxx${_conUserId.text}');
+
     return Row(
       children: [
         FutureBuilder(
@@ -104,24 +129,27 @@ class _MedicationCardState extends State<MedicationCard> {
                                   height: 10.0,
 
                                 ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.blueAccent,
-                                    onPrimary: Colors.white,
-                                    fixedSize: const Size(20,20),
-                                    shape: const CircleBorder(),
-                                  ),
-                                  onPressed: () => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => AddMedicationCard(
-                                            updateMedicationList:
-                                                _updateMedicationList),
-                                      ),
+                                Visibility(
+                                  visible: _conUserId.text == 'Admin',
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.blueAccent,
+                                      onPrimary: Colors.white,
+                                      fixedSize: const Size(20,20),
+                                      shape: const CircleBorder(),
                                     ),
-                                  },
-                                  child: Icon(Icons.add),
+                                    onPressed: () => {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => AddMedicationCard(
+                                              updateMedicationList:
+                                                  _updateMedicationList),
+                                        ),
+                                      ),
+                                    },
+                                    child: Icon(Icons.add),
+                                  ),
                                 ),
                               ],
                             ),
