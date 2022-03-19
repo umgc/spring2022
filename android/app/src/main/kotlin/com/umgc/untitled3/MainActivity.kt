@@ -1,4 +1,4 @@
-package com.example.memorez
+package com.umgc.memorez
 
 import io.flutter.embedding.android.FlutterActivity
 
