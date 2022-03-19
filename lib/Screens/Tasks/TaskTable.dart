@@ -33,27 +33,20 @@ class TaskTable extends StatelessWidget {
 
     var rowHeight = (MediaQuery.of(context).size.height - 56) / 5;
     var noteWidth = MediaQuery.of(context).size.width * 0.35;
-    print("My width is $noteWidth");
-    print('---line 35 no tasks ' + taskObserver.usersTask.length.toString());
+
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];
 
     for (var i = 0; i < taskObserver.usersTask.length; i++) {
       if (taskObserver.usersTask[i].isTaskCompleted) {
-        print('---line 45 inactive ' + i.toString());
         inActiveUserTasks.add(taskObserver.usersTask[i]);
       } else {
-        print('---line 45 active ' + i.toString());
-
         if (taskObserver.usersTask[i].sendTaskDateTime
             .isBefore(DateTime.now())) {
           activeUserTasks.add(taskObserver.usersTask[i]);
         }
       }
-      ;
     }
-
-    print('---line 52 no tasks ' + inActiveUserTasks.length.toString());
 
     return SingleChildScrollView(
       child: Column(
