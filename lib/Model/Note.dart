@@ -54,7 +54,7 @@ class TextNote {
                         "isFavorite": ${this.isFavorite},
                         "eventDate": "${this.eventDate}",
                         "eventTime": "${this.eventTime}",
-                        "notification": "${this.notification}"
+                        "notification": ${this.notification}
                         }""";
     return jsonStr;
   }
@@ -73,7 +73,7 @@ class TextNote {
     note.isFavorite = jsonObj['isFavorite'];
     note.eventDate = jsonObj['eventDate'] ?? "";
     note.eventTime = jsonObj['eventTime'] ?? "";
-    note.notification = jsonObj['notification']?? "";
+    note.notification = jsonObj['notification'];
     return note;
   }
 
