@@ -14,6 +14,7 @@ import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/Screens/Profile/widget/textfield_widget.dart';
 import 'package:path/path.dart';
 
+import '../../Comm/comHelper.dart';
 import '../../Observables/ScreenNavigator.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -246,6 +247,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
                 UserPreferences.setUser(user);
                 UserPreferences.getUser();
+                alertDialog(context, "Updated User Profile");
               },
             ),
           ],
