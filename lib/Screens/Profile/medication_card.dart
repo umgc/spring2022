@@ -53,8 +53,10 @@ class _MedicationCardState extends State<MedicationCard> {
   }
 
   Widget buildMedication(Medication medication) {
+
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25),
+
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           ListTile(
@@ -97,8 +99,10 @@ class _MedicationCardState extends State<MedicationCard> {
     return Row(
       children: [
         FutureBuilder(
+
             future: _medicationList,
             builder: (context, snapshot) {
+
               if (!snapshot.hasData) {
                 return Center(
                   child: CircularProgressIndicator(),
@@ -107,14 +111,17 @@ class _MedicationCardState extends State<MedicationCard> {
 
               return Expanded(
                 child: ListView.builder(
+
                   shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(vertical: 60.0),
+                  physics: const ClampingScrollPhysics(),
+                  // padding: EdgeInsets.symmetric(vertical: 15.0),
                   itemCount: 1 + (snapshot.data as List<Medication>).length,
                   itemBuilder: (BuildContext context, int index) {
+
                     if (index == 0) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 20.0, horizontal: 40.0),
+                            vertical: 10.0, horizontal: 25.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -158,7 +165,9 @@ class _MedicationCardState extends State<MedicationCard> {
                       );
                     }
                     return buildMedication(
+
                         (snapshot.data as List<Medication>)[index - 1]);
+
                   },
                 ),
               );
