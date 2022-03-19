@@ -81,19 +81,7 @@ class _UserProfileState extends State<TransportationCard> {
           Container(
             padding: EdgeInsets.all(30.0),
             alignment: Alignment.centerRight,
-            // child: ProfileWidget(
-            //
-            //   imagePath: user.imagePath3,
-            //   onClicked: () {
-            //     _conUserId.text == 'Admin'
-            //         ? Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (_) => EditProfilePage()))
-            //         : Navigator.push(context,
-            //         MaterialPageRoute(builder: (_) => MainNavigator()));
-            //   },
-            // ),
+
           ),
         ],
       ),
