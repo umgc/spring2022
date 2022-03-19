@@ -34,6 +34,7 @@ class _SaveTaskState extends State<SaveTask> {
   String selectedIconColor = '';
   String enteredTaskName = '';
   String enteredTaskDescription = '';
+  String selectedTaskType = '';
 
   //Index of stepper
   static int _stepIndex = 0;
@@ -243,6 +244,7 @@ class _SaveTaskState extends State<SaveTask> {
                       onPressed: () {
                         setState(() {
                           selectedIcon = 'medkit';
+                          selectedTaskType = 'Health Check';
                         });
                         print('line 243 icon state:' + selectedIcon);
 
@@ -968,7 +970,8 @@ class _SaveTaskState extends State<SaveTask> {
     if (taskObserver.newTaskIsCheckList == true) {
       this._newTask.recurrentType = "daily";
     }
-
+    this._newTask.iconColor = 'green';
+    this._newTask.taskType = selectedTaskType;
     this._newTask.icon = selectedIcon;
     print('---line 962 icon' + selectedIcon);
     taskObserver.deleteTask(taskObserver.currTaskForDetails);
