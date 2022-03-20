@@ -26,12 +26,10 @@ class TaskTable extends StatelessWidget {
     final taskObserver = Provider.of<TaskObserver>(context);
     taskObserver.resetCurrTaskIdForDetails();
 
-    final settingObserver = Provider.of<SettingObserver>(context);
-
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 56) / 5;
+    var rowHeight = (MediaQuery.of(context).size.height - 350) / 2;
     var noteWidth = MediaQuery.of(context).size.width * 0.35;
 
     List<TextTask> activeUserTasks = <TextTask>[];
@@ -48,199 +46,211 @@ class TaskTable extends StatelessWidget {
       }
     }
 
-    return SingleChildScrollView(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                'Active Tasks',
-                style: TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.lightBlue[900]),
+    return Column(
+      children: [
+        Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  'Active Tasks',
+                  style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.lightBlue[900]),
+                ),
               ),
-            ),
-            Container(
-              height: 300,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: activeUserTasks.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        child: InkWell(
-                            onTap: () {
-                              print(
-                                  'task id: ' + activeUserTasks[index].taskId);
-                              if (activeUserTasks[index].taskType ==
-                                  'Activity') {
-                                taskObserver
-                                    .setCurrTaskIdForDetails(
-                                        activeUserTasks[index].taskId)
-                                    .then((value) => taskObserver.changeScreen(
-                                        TASK_SCREENS.TASK_COMPLETE_ACTIVITY));
-                              } else {
-                                taskObserver
-                                    .setCurrTaskIdForDetails(
-                                        activeUserTasks[index].taskId)
-                                    .then((value) => taskObserver.changeScreen(
-                                        TASK_SCREENS
-                                            .TASK_COMPLETE_HEALTH_CHECK));
-                              }
+              Container(
+                height: rowHeight,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: activeUserTasks.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          child: InkWell(
+                              onTap: () {
+                                print('task id: ' +
+                                    activeUserTasks[index].taskId);
+                                if (activeUserTasks[index].taskType ==
+                                    'Activity') {
+                                  taskObserver
+                                      .setCurrTaskIdForDetails(
+                                          activeUserTasks[index].taskId)
+                                      .then((value) =>
+                                          taskObserver.changeScreen(TASK_SCREENS
+                                              .TASK_COMPLETE_ACTIVITY));
+                                } else {
+                                  taskObserver
+                                      .setCurrTaskIdForDetails(
+                                          activeUserTasks[index].taskId)
+                                      .then((value) =>
+                                          taskObserver.changeScreen(TASK_SCREENS
+                                              .TASK_COMPLETE_HEALTH_CHECK));
+                                }
 
-                              // if (onListItemClickCallBackFn != null) {
-                              //   onListItemClickCallBackFn!.call();
-                              // }
-                            },
-                            child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.all(5.0),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.blue),
-                                    color: Colors.lightBlue[100],
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                child: Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Row(children: <Widget>[
-                                      FaIcon(
-                                          getIcon(activeUserTasks
-                                              .elementAt(index)
-                                              .icon),
-                                          color: getIconColor(activeUserTasks
-                                              .elementAt(index)
-                                              .iconColor)),
-                                      Text('   '),
+                                // if (onListItemClickCallBackFn != null) {
+                                //   onListItemClickCallBackFn!.call();
+                                // }
+                              },
+                              child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.all(5.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.blue),
+                                      color: Colors.lightBlue[100],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Padding(
+                                      padding: EdgeInsets.all(15.0),
+                                      child: Row(children: <Widget>[
+                                        FaIcon(
+                                            getIcon(activeUserTasks
+                                                .elementAt(index)
+                                                .icon),
+                                            color: getIconColor(activeUserTasks
+                                                .elementAt(index)
+                                                .iconColor)),
+                                        Text('   '),
+                                        Text(
+                                          activeUserTasks
+                                                      .elementAt(index)
+                                                      .taskType ==
+                                                  'Health Check'
+                                              ? 'Health Check'
+                                              : activeUserTasks
+                                                  .elementAt(index)
+                                                  .name
+                                                  .substring(
+                                                      0,
+                                                      activeUserTasks
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .name
+                                                                  .length <
+                                                              25
+                                                          ? activeUserTasks
+                                                              .elementAt(index)
+                                                              .name
+                                                              .length
+                                                          : 25),
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.lightBlue[900]),
+                                        )
+                                      ])))));
+                    }),
+              ),
+            ]),
+        Visibility(
+          visible: taskObserver.careGiverModeEnabled,
+          child: Column(
+            children: [
+              const Divider(thickness: 5, color: Colors.grey),
+              Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  'Completed Tasks',
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.lightBlue[900]),
+                ),
+              ),
+              Container(
+                height: rowHeight,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: inActiveUserTasks.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          child: InkWell(
+                        //This runs when double tapping an Active Task
+                        onTap: () {
+                          taskObserver
+                              .setCurrTaskIdForDetails(
+                                  inActiveUserTasks[index].taskId)
+                              .then((value) => taskObserver
+                                  .changeScreen(TASK_SCREENS.TASK_DETAIL));
+                          if (onListItemClickCallBackFn != null) {
+                            onListItemClickCallBackFn!.call();
+                          }
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                                //color: setBackgroundColor(index),
+                                border: Border.all(color: Colors.blue),
+                                color: Colors.blueGrey[100],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: Row(children: <Widget>[
+                                  FaIcon(
+                                      getIcon(inActiveUserTasks
+                                          .elementAt(index)
+                                          .icon),
+                                      color: getIconColor(inActiveUserTasks
+                                          .elementAt(index)
+                                          .iconColor)),
+                                  Text('   '),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
                                       Text(
-                                        activeUserTasks
+                                        inActiveUserTasks
                                                     .elementAt(index)
                                                     .taskType ==
                                                 'Health Check'
                                             ? 'Health Check'
-                                            : activeUserTasks
+                                            : inActiveUserTasks
                                                 .elementAt(index)
                                                 .name
                                                 .substring(
                                                     0,
-                                                    activeUserTasks
+                                                    inActiveUserTasks
                                                                 .elementAt(
                                                                     index)
                                                                 .name
                                                                 .length <
-                                                            25
-                                                        ? activeUserTasks
+                                                            24
+                                                        ? inActiveUserTasks
                                                             .elementAt(index)
                                                             .name
                                                             .length
-                                                        : 25),
+                                                        : 24),
                                         style: TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.lightBlue[900]),
-                                      )
-                                    ])))));
-                  }),
-            ),
-            const Divider(thickness: 5, color: Colors.grey),
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                'Completed Tasks',
-                style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.lightBlue[900]),
-              ),
-            ),
-            Container(
-              height: 200,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: inActiveUserTasks.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        child: InkWell(
-                      //This runs when double tapping an Active Task
-                      onTap: () {
-                        taskObserver
-                            .setCurrTaskIdForDetails(
-                                inActiveUserTasks[index].taskId)
-                            .then((value) => taskObserver
-                                .changeScreen(TASK_SCREENS.TASK_DETAIL));
-                        if (onListItemClickCallBackFn != null) {
-                          onListItemClickCallBackFn!.call();
-                        }
-                      },
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                              //color: setBackgroundColor(index),
-                              border: Border.all(color: Colors.blue),
-                              color: Colors.blueGrey[100],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Row(children: <Widget>[
-                                FaIcon(
-                                    getIcon(inActiveUserTasks
-                                        .elementAt(index)
-                                        .icon),
-                                    color: getIconColor(inActiveUserTasks
-                                        .elementAt(index)
-                                        .iconColor)),
-                                Text('   '),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      inActiveUserTasks
-                                                  .elementAt(index)
-                                                  .taskType ==
-                                              'Health Check'
-                                          ? 'Health Check'
-                                          : inActiveUserTasks
-                                              .elementAt(index)
-                                              .name
-                                              .substring(
-                                                  0,
-                                                  inActiveUserTasks
-                                                              .elementAt(index)
-                                                              .name
-                                                              .length <
-                                                          24
-                                                      ? inActiveUserTasks
-                                                          .elementAt(index)
-                                                          .name
-                                                          .length
-                                                      : 24),
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.lightBlue[900]),
-                                    ),
-                                    Text(
-                                      inActiveUserTasks
-                                          .elementAt(index)
-                                          .completedTaskDateTime
-                                          .toString()
-                                          .substring(0, 16),
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        // fontWeight: FontWeight.bold,
-                                        // color: Colors.lightBlue[900],
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ]))),
-                    ));
-                  }),
-            )
-          ]),
+                                      Text(
+                                        inActiveUserTasks
+                                            .elementAt(index)
+                                            .completedTaskDateTime
+                                            .toString()
+                                            .substring(0, 16),
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          // fontWeight: FontWeight.bold,
+                                          // color: Colors.lightBlue[900],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ]))),
+                      ));
+                    }),
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

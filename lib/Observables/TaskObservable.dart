@@ -46,6 +46,8 @@ abstract class _AbstractTaskObserver with Store {
 
   @observable
   String newTaskEventTime = "";
+  @observable
+  bool careGiverModeEnabled = false;
 
   @action
   Future getImage() async {
@@ -150,6 +152,18 @@ abstract class _AbstractTaskObserver with Store {
   void setNewTaskEventTime(String value) {
     print("setNewTaskEventTime: setting new Task time $value");
     newTaskEventTime = value;
+  }
+
+  @action
+  void enableCaregiverMode() {
+    print("Task Observable: Enabling Care Giver Mode");
+    careGiverModeEnabled = true;
+  }
+
+  @action
+  void disableCaregiverMode() {
+    print("Task Observable: Disabling Care Giver Mode");
+    careGiverModeEnabled = false;
   }
 
   @action

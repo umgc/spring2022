@@ -15,7 +15,6 @@ import 'dart:math' as math;
 
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 
-/// Save Task page
 class TaskHealthCheck extends StatefulWidget {
   bool readOnly;
 
