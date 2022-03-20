@@ -52,13 +52,13 @@ class _SaveTaskState extends State<SaveTask> {
   bool _envelopeFlag = true;
   bool _tshirtFlag = true;
 
-  void unPressButtons(){
+  void unPressButtons() {
     _walkingFlag = true;
-     _utensilFlag = true;
-     _capsulesFlag = true;
-     _toothFlag = true;
-     _envelopeFlag = true;
-     _tshirtFlag = true;
+    _utensilFlag = true;
+    _capsulesFlag = true;
+    _toothFlag = true;
+    _envelopeFlag = true;
+    _tshirtFlag = true;
   }
 
   //Index of stepper
@@ -612,7 +612,7 @@ class _SaveTaskState extends State<SaveTask> {
                   children: <Widget>[
                     Container(
                         child: SizedBox(
-                            width: 325,
+                            width: MediaQuery.of(context).size.width - 50,
                             child: DropdownButtonFormField<String>(
                               decoration: const InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -827,10 +827,8 @@ class _SaveTaskState extends State<SaveTask> {
                         )),
                       ]),
 
-
                   Visibility(
-                    visible: _scheduleReponse==responseSchedule.Future,
-
+                    visible: _scheduleReponse == responseSchedule.Future,
                     child: Container(
                         child: const Align(
                       heightFactor: 1.5,
@@ -846,7 +844,7 @@ class _SaveTaskState extends State<SaveTask> {
                   ),
 
                   Visibility(
-                    visible:  _scheduleReponse==responseSchedule.Future,
+                    visible: _scheduleReponse == responseSchedule.Future,
                     child: Container(
                         child:
                             //DATE CALENDAR
@@ -887,7 +885,7 @@ class _SaveTaskState extends State<SaveTask> {
                   const SizedBox(height: 20),
 
                   Visibility(
-                    visible:  _scheduleReponse==responseSchedule.Future,
+                    visible: _scheduleReponse == responseSchedule.Future,
                     child: Container(
                       child: TextFormField(
                         readOnly: true,
@@ -924,14 +922,6 @@ class _SaveTaskState extends State<SaveTask> {
                       ),
                     ),
                   ),
-
-                  IconButton(
-                      onPressed: () {
-                        print('-------Line 769' + selectedIcon);
-                        _onSave(taskObserver);
-                        print('line 771');
-                      },
-                      icon: Icon(FontAwesomeIcons.save))
                 ]),
           ),
 
@@ -1188,8 +1178,9 @@ class _SaveTaskState extends State<SaveTask> {
           else if (_stepIndex == 2)
             (OutlinedButton(
                 onPressed: () {
+                  _stepIndex = 0;
+                  _onSave(taskObserver);
                   print('================line 978');
-                  // _onSave(taskObserver);
                 },
                 child: const Text('Send Task'),
                 style: ElevatedButton.styleFrom(
@@ -1204,6 +1195,7 @@ class _SaveTaskState extends State<SaveTask> {
               onPressed: () {
                 taskObserver.changeScreen(TASK_SCREENS.TASK);
                 controlsDetails.onStepCancel;
+                _stepIndex = 0;
               },
               child: const Text(
                 'Cancel',
