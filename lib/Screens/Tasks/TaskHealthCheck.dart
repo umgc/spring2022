@@ -16,7 +16,7 @@ import 'dart:math' as math;
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 
 class TaskHealthCheck extends StatefulWidget {
-  bool readOnly;
+  final bool readOnly;
 
   TaskHealthCheck({this.readOnly = false}) {}
 
@@ -34,13 +34,10 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
 
   /// Text task service to use for I/O operations against local system
   final TextTaskService textTaskService = new TextTaskService();
-  bool readOnly;
 
   var textController = TextEditingController();
-
-  _TaskHealthCheck({this.readOnly = false}) {
-    //this.navScreenObs = navScreenObs;
-  }
+  final bool readOnly;
+  _TaskHealthCheck({this.readOnly = false}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -55,425 +52,439 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
           text: taskObserver.currTaskForDetails!.responseText);
     }
 
-    // var padding = MediaQuery.of(context).size.width * 0.02;
-
-    // var verticalColSpace = MediaQuery.of(context).size.width * 0.1;
-
-    // var fontSize =
-    // fontSizeToPixelMap(settingObserver.userSettings.noteFontSize, false);
-
     const ICON_SIZE = 80.00;
     return Scaffold(
         key: saveTaskScaffoldKey,
         body: Observer(
           builder: (context) => SingleChildScrollView(
               // padding: EdgeInsets.all(10),
-              child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text(
-                  'How are you feeling?',
-                  style: TextStyle(
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue[900]),
-                ),
-              ),
-              Text('Let the staff know how you are doing',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    // fontWeight: FontWeight.bold,
-                    // color: Colors.lightBlue[900]),
-                  )),
-              Visibility(
-                visible: screen == '1',
-                child: Row(
-                  children: [
-                    Card(
-                      shadowColor: Colors.blueGrey[900],
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 125,
-                            height: 125,
-                            child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    screen = '2';
-                                    firstSelection = 'Bad';
-                                  });
-                                },
-                                icon: Icon(
-                                  FontAwesomeIcons.solidAngry,
-                                  color: Colors.red,
-                                  size: 80.0,
-                                )),
-                          ),
-                          Text(
-                            'Bad',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                    Card(
-                      shadowColor: Colors.blueGrey[900],
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 125,
-                            height: 125,
-                            child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    screen = '2';
-                                    firstSelection = 'Okay';
-                                  });
-                                },
-                                icon: Icon(
-                                  FontAwesomeIcons.meh,
-                                  color: Colors.blue,
-                                  size: 80.0,
-                                )),
-                          ),
-                          Text(
-                            'Okay',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                    Card(
-                      shadowColor: Colors.blueGrey[900],
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: 125,
-                            height: 125,
-                            child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    screen = '2';
-                                    firstSelection = 'Great';
-                                    _onSave(taskObserver);
-                                  });
-                                },
-                                icon: Icon(
-                                  FontAwesomeIcons.grin,
-                                  color: Colors.green,
-                                  size: 80.0,
-                                )),
-                          ),
-                          Text(
-                            'Great',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: screen == '2',
-                child: Column(
-                  children: [
-                    Row(
+              child: readOnly
+                  ? Column(
+                      children: [Text("Test Read Only")],
+                    )
+                  : Column(
                       children: [
-                        Card(
-                          shadowColor: Colors.blueGrey[900],
-                          color: secondSelection == 'Sad'
-                              ? Colors.blueGrey[200]
-                              : null,
-                          child: Column(
+                        Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            'How are you feeling?',
+                            style: TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.lightBlue[900]),
+                          ),
+                        ),
+                        Text('Let the staff know how you are doing',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              // fontWeight: FontWeight.bold,
+                              // color: Colors.lightBlue[900]),
+                            )),
+                        Visibility(
+                          visible: screen == '1',
+                          child: Row(
                             children: [
-                              SizedBox(
-                                width: 125,
-                                height: 125,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        secondSelection = 'Sad';
-                                        if (description != '') {
-                                          showCompleteBtn = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.sadCry,
-                                      size: 80.0,
-                                    )),
+                              Card(
+                                shadowColor: Colors.blueGrey[900],
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 125,
+                                      height: 125,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              screen = '2';
+                                              firstSelection = 'Bad';
+                                            });
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.solidAngry,
+                                            color: Colors.red,
+                                            size: 80.0,
+                                          )),
+                                    ),
+                                    Text(
+                                      'Bad',
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text(
-                                'Sad',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              )
+                              Card(
+                                shadowColor: Colors.blueGrey[900],
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 125,
+                                      height: 125,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              screen = '2';
+                                              firstSelection = 'Okay';
+                                            });
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.meh,
+                                            color: Colors.blue,
+                                            size: 80.0,
+                                          )),
+                                    ),
+                                    Text(
+                                      'Okay',
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Card(
+                                shadowColor: Colors.blueGrey[900],
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 125,
+                                      height: 125,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              screen = '2';
+                                              firstSelection = 'Great';
+                                              _onSave(taskObserver);
+                                            });
+                                          },
+                                          icon: Icon(
+                                            FontAwesomeIcons.grin,
+                                            color: Colors.green,
+                                            size: 80.0,
+                                          )),
+                                    ),
+                                    Text(
+                                      'Great',
+                                      style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        Card(
-                          shadowColor: Colors.blueGrey[900],
-                          color: secondSelection == 'Angry'
-                              ? Colors.blueGrey[200]
-                              : null,
+                        Visibility(
+                          visible: screen == '2',
                           child: Column(
                             children: [
-                              SizedBox(
-                                width: 125,
-                                height: 125,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        secondSelection = 'Angry';
-                                        if (description != '') {
-                                          showCompleteBtn = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.frown,
-                                      size: 80.0,
-                                    )),
+                              Row(
+                                children: [
+                                  Card(
+                                    shadowColor: Colors.blueGrey[900],
+                                    color: secondSelection == 'Sad'
+                                        ? Colors.blueGrey[200]
+                                        : null,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 125,
+                                          height: 125,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  secondSelection = 'Sad';
+                                                  if (description != '') {
+                                                    showCompleteBtn = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                FontAwesomeIcons.sadCry,
+                                                size: 80.0,
+                                              )),
+                                        ),
+                                        Text(
+                                          'Sad',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Card(
+                                    shadowColor: Colors.blueGrey[900],
+                                    color: secondSelection == 'Angry'
+                                        ? Colors.blueGrey[200]
+                                        : null,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 125,
+                                          height: 125,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  secondSelection = 'Angry';
+                                                  if (description != '') {
+                                                    showCompleteBtn = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                FontAwesomeIcons.frown,
+                                                size: 80.0,
+                                              )),
+                                        ),
+                                        Text(
+                                          'Angry',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Card(
+                                    shadowColor: Colors.blueGrey[900],
+                                    color: secondSelection == 'Pain'
+                                        ? Colors.blueGrey[200]
+                                        : null,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 125,
+                                          height: 125,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  secondSelection = 'Pain';
+                                                  if (description != '') {
+                                                    showCompleteBtn = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                FontAwesomeIcons.sadTear,
+                                                size: 80.0,
+                                              )),
+                                        ),
+                                        Text(
+                                          'Pain',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                'Angry',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                        Card(
-                          shadowColor: Colors.blueGrey[900],
-                          color: secondSelection == 'Pain'
-                              ? Colors.blueGrey[200]
-                              : null,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 125,
-                                height: 125,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        secondSelection = 'Pain';
-                                        if (description != '') {
-                                          showCompleteBtn = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.sadTear,
-                                      size: 80.0,
-                                    )),
+                              Row(
+                                children: [
+                                  Card(
+                                    shadowColor: Colors.blueGrey[900],
+                                    color: secondSelection == 'Confused'
+                                        ? Colors.blueGrey[200]
+                                        : null,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 125,
+                                          height: 125,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  secondSelection = 'Confused';
+                                                  if (description != '') {
+                                                    showCompleteBtn = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                FontAwesomeIcons.dizzy,
+                                                size: 80.0,
+                                              )),
+                                        ),
+                                        Text(
+                                          'Confused',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Card(
+                                    shadowColor: Colors.blueGrey[900],
+                                    color: secondSelection == 'Tired'
+                                        ? Colors.blueGrey[200]
+                                        : null,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 125,
+                                          height: 125,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  secondSelection = 'Tired';
+                                                  if (description != '') {
+                                                    showCompleteBtn = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                FontAwesomeIcons.tired,
+                                                size: 80.0,
+                                              )),
+                                        ),
+                                        Text(
+                                          'Tired',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Card(
+                                    shadowColor: Colors.blueGrey[900],
+                                    color: secondSelection == 'None'
+                                        ? Colors.blueGrey[200]
+                                        : null,
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 125,
+                                          height: 125,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  secondSelection = 'None';
+                                                  if (description != '') {
+                                                    showCompleteBtn = true;
+                                                  }
+                                                });
+                                              },
+                                              icon: Icon(
+                                                FontAwesomeIcons.questionCircle,
+                                                size: 80.0,
+                                              )),
+                                        ),
+                                        Text(
+                                          'None',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                'Pain',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Card(
-                          shadowColor: Colors.blueGrey[900],
-                          color: secondSelection == 'Confused'
-                              ? Colors.blueGrey[200]
-                              : null,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 125,
-                                height: 125,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        secondSelection = 'Confused';
-                                        if (description != '') {
-                                          showCompleteBtn = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.dizzy,
-                                      size: 80.0,
-                                    )),
-                              ),
-                              Text(
-                                'Confused',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                        Card(
-                          shadowColor: Colors.blueGrey[900],
-                          color: secondSelection == 'Tired'
-                              ? Colors.blueGrey[200]
-                              : null,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 125,
-                                height: 125,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        secondSelection = 'Tired';
-                                        if (description != '') {
-                                          showCompleteBtn = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.tired,
-                                      size: 80.0,
-                                    )),
-                              ),
-                              Text(
-                                'Tired',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                        Card(
-                          shadowColor: Colors.blueGrey[900],
-                          color: secondSelection == 'None'
-                              ? Colors.blueGrey[200]
-                              : null,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 125,
-                                height: 125,
-                                child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        secondSelection = 'None';
-                                        if (description != '') {
-                                          showCompleteBtn = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.questionCircle,
-                                      size: 80.0,
-                                    )),
-                              ),
-                              Text(
-                                'None',
-                                style: TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    TextField(
-                      maxLines: 3,
-                      style: TextStyle(fontSize: 30),
-                      decoration: InputDecoration(hintText: "--Description--"),
-                      onChanged: (text) {
-                        description = text;
-                        print('description: ' + description);
-                        setState(() {
-                          if (secondSelection != '') {
-                            showCompleteBtn = true;
-                          }
-                        });
+                              TextField(
+                                maxLines: 3,
+                                style: TextStyle(fontSize: 30),
+                                decoration: InputDecoration(
+                                    hintText: "--Description--"),
+                                onChanged: (text) {
+                                  description = text;
+                                  print('description: ' + description);
+                                  setState(() {
+                                    if (secondSelection != '') {
+                                      showCompleteBtn = true;
+                                    }
+                                  });
 
-                        print('showComplete ' + showCompleteBtn.toString());
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () {
-                        taskObserver.changeScreen(TASK_SCREENS.TASK);
-                        taskObserver.setCurrTaskIdForDetails(null);
-                      },
-                      child: Column(
-                        children: [
-                          Transform.rotate(
-                            angle: 180 * math.pi / 180,
-                            child: Icon(
-                              Icons.exit_to_app_rounded,
-                              size: ICON_SIZE,
-                              color: Colors.amber,
-                            ),
+                                  print('showComplete ' +
+                                      showCompleteBtn.toString());
+                                },
+                              ),
+                            ],
                           ),
-                          Text(
-                            I18n.of(context)!.cancel,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      _onSave(taskObserver);
-                    },
-                    child: Visibility(
-                      visible: showCompleteBtn,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.arrowAltCircleRight,
-                              size: ICON_SIZE,
-                              color: Colors.green,
-                            ),
-                            Text(
-                              'Complete Task',
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ],
                         ),
-                      ),
-                    ),
-                  ),
-                  if (false)
-                    GestureDetector(
-                        onTap: () {
-                          //popup confirmation view
-                          taskObserver
-                              .deleteTask(taskObserver.currTaskForDetails);
-                          taskObserver.changeScreen(TASK_SCREENS.TASK);
-                        },
-                        child: Column(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.delete_forever,
-                              size: ICON_SIZE,
-                              color: Colors.red,
+                            GestureDetector(
+                                onTap: () {
+                                  taskObserver.changeScreen(TASK_SCREENS.TASK);
+                                  taskObserver.setCurrTaskIdForDetails(null);
+                                },
+                                child: Column(
+                                  children: [
+                                    Transform.rotate(
+                                      angle: 180 * math.pi / 180,
+                                      child: Icon(
+                                        Icons.exit_to_app_rounded,
+                                        size: ICON_SIZE,
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                    Text(
+                                      I18n.of(context)!.cancel,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ],
+                                )),
+                            GestureDetector(
+                              onTap: () {
+                                _onSave(taskObserver);
+                              },
+                              child: Visibility(
+                                visible: showCompleteBtn,
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.arrowAltCircleRight,
+                                        size: ICON_SIZE,
+                                        color: Colors.green,
+                                      ),
+                                      Text(
+                                        'Complete Task',
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                            Text(
-                              I18n.of(context)!.deleteNote,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
+                            if (false)
+                              GestureDetector(
+                                  onTap: () {
+                                    //popup confirmation view
+                                    taskObserver.deleteTask(
+                                        taskObserver.currTaskForDetails);
+                                    taskObserver
+                                        .changeScreen(TASK_SCREENS.TASK);
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        Icons.delete_forever,
+                                        size: ICON_SIZE,
+                                        color: Colors.red,
+                                      ),
+                                      Text(
+                                        I18n.of(context)!.deleteNote,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                      ),
+                                    ],
+                                  ))
                           ],
-                        ))
-                ],
-              )
-            ],
-          )),
+                        )
+                      ],
+                    )),
           //bottomNavigationBar: BottomBar(3),
         ));
   }
