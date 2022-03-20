@@ -15,6 +15,8 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/DatabaseHandler/DbHelper.dart';
 import 'package:memorez/Model/UserModel.dart';
+import 'package:memorez/Screens/Profile/transportation_card.dart';
+import 'package:memorez/Screens/Profile/medications_card.dart';
 
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
@@ -71,7 +73,12 @@ class _ProfilePageState extends State<UserProfile> {
             ContactCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             CareTeamCard(),
+            const SizedBox(child: Divider(color: Colors.blueGrey)),
+            TransportationCard(),
+            const SizedBox(child: Divider(color: Colors.blueGrey)),
+            MedicationsCard(),
             const SizedBox(height: 24),
+
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
                 ? Container(
