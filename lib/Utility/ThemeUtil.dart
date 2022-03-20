@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/Model/Setting.dart';
+import 'package:memorez/Model/Setting.dart';
 
 Color themeToColor(AppTheme theme) {
   switch (theme) {

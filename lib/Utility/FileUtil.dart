@@ -3,7 +3,7 @@ import 'package:file/file.dart';
 import 'package:file/local.dart';
 import 'dart:convert';
 
-import 'package:untitled3/Utility/EncryptionUtil.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 
 class FileUtil {
   /// The file system to use for all I/O operations. Generally LocalFileSystem()
@@ -49,14 +49,14 @@ class FileUtil {
     try {
       var textNotesDirectory = await _getTextNotesDirectory();
       final File file = fileSystem.file('${textNotesDirectory.path}/$fileName');
-      print("readFile: filepath ${file.path}");
+      // print("readFile: filepath ${file.path}");
       //create file if it does not exist
       if (await file.exists() == false) {
         file.createSync(recursive: true);
       } else {
         data = file.readAsStringSync().trim();
       }
-      print("readFile: result data $data");
+      // print("readFile: result data $data");
     } catch (e) {
       print("ERROR-Couldn't read file: ${e.toString()}");
     }

@@ -1,4 +1,6 @@
 PODS:
+  - awesome_notifications (0.0.2):
+    - Flutter
   - camera (0.0.1):
     - Flutter
   - device_info_plus (0.0.1):
@@ -48,6 +50,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - awesome_notifications (from `.symlinks/plugins/awesome_notifications/ios`)
   - camera (from `.symlinks/plugins/camera/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
@@ -76,6 +79,8 @@ SPEC REPOS:
     - Try
 
 EXTERNAL SOURCES:
+  awesome_notifications:
+    :path: ".symlinks/plugins/awesome_notifications/ios"
   camera:
     :path: ".symlinks/plugins/camera/ios"
   device_info_plus:
@@ -118,6 +123,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock/ios"
 
 SPEC CHECKSUMS:
+  awesome_notifications: 74462bc8e68b11f8235d78422266886759e9da61
   camera: 9993f92f2c793e87b65e35f3a23c70582afb05b1
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
@@ -142,6 +148,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 3dffd8c48b531d21ec0ec153c22dc8e3a6223bc9
 
 COCOAPODS: 1.11.2

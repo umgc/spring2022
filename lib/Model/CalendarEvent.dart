@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_statements
 
-import 'package:untitled3/Utility/CalendarUtility.dart';
+import 'package:memorez/Utility/CalendarUtility.dart';
 
 class CalenderEvent extends Event {
   String title;

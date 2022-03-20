@@ -39,6 +39,9 @@ class TextNote {
   /// Date of event
   String eventTime = "";
 
+  ///Notification for event
+  bool notification = true;
+
   String toJson() {
     String jsonStr = """ {"noteId": "${this.noteId}",
                         "recordedTime": "${this.recordedTime}",
@@ -50,14 +53,15 @@ class TextNote {
                         "localText": "${this.localText}",
                         "isFavorite": ${this.isFavorite},
                         "eventDate": "${this.eventDate}",
-                        "eventTime": "${this.eventTime}"
+                        "eventTime": "${this.eventTime}",
+                        "notification": ${this.notification}
                         }""";
     return jsonStr;
   }
 
   factory TextNote.fromJson(dynamic jsonObj) {
     TextNote note = TextNote();
-    print("extracting jsonObj $jsonObj");
+    // print("extracting jsonObj $jsonObj");
     note.noteId = jsonObj['noteId'];
     note.recordedTime = DateTime.parse(jsonObj['recordedTime']);
     note.language = jsonObj['language'];
@@ -69,6 +73,7 @@ class TextNote {
     note.isFavorite = jsonObj['isFavorite'];
     note.eventDate = jsonObj['eventDate'] ?? "";
     note.eventTime = jsonObj['eventTime'] ?? "";
+    note.notification = jsonObj['notification'];
     return note;
   }
 

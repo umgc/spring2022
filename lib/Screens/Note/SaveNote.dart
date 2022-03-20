@@ -1,16 +1,17 @@
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Services/NoteService.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/Utility/FontUtil.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Services/NoteService.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/Utility/FontUtil.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/NoteObservable.dart';
-import 'dart:math' as math;
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 final saveNoteScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -18,13 +19,18 @@ final saveNoteScaffoldKey = GlobalKey<ScaffoldState>();
 class SaveNote extends StatefulWidget {
   bool isCheckListEvent;
   bool viewExistingNote;
+  bool deleteButtonVisible;
 
-  SaveNote({this.isCheckListEvent = false, this.viewExistingNote = false}) {}
+  SaveNote(
+      {this.isCheckListEvent = false,
+      this.viewExistingNote = false,
+      this.deleteButtonVisible = false}) {}
 
   @override
   State<SaveNote> createState() => _SaveNoteState(
       isCheckListEvent: this.isCheckListEvent,
-      viewExistingNote: this.viewExistingNote);
+      viewExistingNote: this.viewExistingNote,
+      deleteButtonVisible: this.deleteButtonVisible);
 }
 
 class _SaveNoteState extends State<SaveNote> {
@@ -32,11 +38,16 @@ class _SaveNoteState extends State<SaveNote> {
   final TextNoteService textNoteService = new TextNoteService();
   bool isCheckListEvent;
   bool viewExistingNote;
+  String _reminderNotification = "Yes";
+  bool deleteButtonVisible;
 
   var textController = TextEditingController();
   TextNote _newNote = TextNote();
+
   _SaveNoteState(
-      {this.isCheckListEvent = false, this.viewExistingNote = false}) {
+      {this.isCheckListEvent = false,
+      this.viewExistingNote = false,
+      this.deleteButtonVisible = false}) {
     //this.navScreenObs = navScreenObs;
   }
 
@@ -57,38 +68,58 @@ class _SaveNoteState extends State<SaveNote> {
   }
 
   //ref: https://api.flutter.dev/flutter/material/Checkbox-class.html
-  Widget _checkBox(fontSize) {
-    final noteObserver = Provider.of<NoteObserver>(context);
-
-    Color getColor(Set<MaterialState> states) {
-      return Colors.blue;
-    }
-
-    return CheckboxListTile(
-      title: Text("Make this a daily activity",
-          style: TextStyle(fontSize: fontSize)),
-      checkColor: Colors.white,
-      activeColor: Colors.blue,
-      value: (noteObserver.newNoteIsCheckList),
-      onChanged: (bool? value) {
-        print("Checkbox onChanged $value");
-        noteObserver.setNewNoteAIsCheckList(value!);
-      },
+  Widget _checkBox() {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: _myRadioButton(
+                        value: "No",
+                        title: "Yes",
+                        onChanged: (newValue) =>
+                            setState(() => _reminderNotification = newValue),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: _myRadioButton(
+                        value: "Yes",
+                        title: "No",
+                        onChanged: (newValue) =>
+                            setState(() => _reminderNotification = newValue),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
-    //Row(
-    //   children: [
-    //     Text("Make this a daily activity"),
-    //     Checkbox(
-    //       checkColor: Colors.white,
-    //       fillColor: MaterialStateProperty.resolveWith(getColor),
-    //       value: noteObserver.newNoteIsCheckList,
-    //       onChanged: (bool? value) {
-    //         print("Checkbox onChanged $value");
-    //         noteObserver.setNewNoteAIsCheckList(value!);
-    //       },
-    //     )
-    //   ],
-    // );
+  }
+
+  Widget _myRadioButton(
+      {required String title,
+      required String value,
+      required Function onChanged}) {
+    return RadioListTile(
+      value: value,
+      groupValue: _reminderNotification,
+      onChanged: (newValue) =>
+          setState(() => _reminderNotification = newValue.toString()),
+      title: Text(title),
+      activeColor: Colors.black,
+      selected: false,
+    );
   }
 
   //ref: https://pub.dev/packages/date_time_picker
@@ -103,7 +134,7 @@ class _SaveNoteState extends State<SaveNote> {
     if (this.viewExistingNote == true) {
       return DateTimePicker(
         type: (isCheckList || this.isCheckListEvent == true)
-            ? DateTimePickerType.time
+            ? DateTimePickerType.dateTimeSeparate
             : DateTimePickerType.dateTimeSeparate,
         dateMask: 'd MMM, yyyy',
         initialValue: (noteObserver.newNoteIsCheckList == true ||
@@ -115,8 +146,8 @@ class _SaveNoteState extends State<SaveNote> {
         firstDate: DateTime.now(),
         lastDate: DateTime(2100),
         icon: Icon(Icons.event),
-        dateLabelText: dateLabelText,
-        timeLabelText: timeLabelText,
+        //  dateLabelText: dateLabelText,
+        //   timeLabelText: timeLabelText,
         selectableDayPredicate: (date) {
           return true;
         },
@@ -181,8 +212,8 @@ class _SaveNoteState extends State<SaveNote> {
     if (noteObserver.currNoteForDetails != null) {
       noteId = noteObserver.currNoteForDetails!.noteId;
 
-      textController =
-          TextEditingController(text: noteObserver.currNoteForDetails!.localText);
+      textController = TextEditingController(
+          text: noteObserver.currNoteForDetails!.localText);
     }
 
     var padding = MediaQuery.of(context).size.width * 0.02;
@@ -192,104 +223,117 @@ class _SaveNoteState extends State<SaveNote> {
     var fontSize =
         fontSizeToPixelMap(settingObserver.userSettings.noteFontSize, false);
 
-    const ICON_SIZE = 80.00;
+    var noteWidth = MediaQuery.of(context).size.width * 0.87;
+
     return Scaffold(
-        key: saveNoteScaffoldKey,
-        body: Observer(
-          builder: (context) => SingleChildScrollView(
-              padding: EdgeInsets.all(padding),
-              child: Column(
+      key: saveNoteScaffoldKey,
+      body: Observer(
+        builder: (context) => SingleChildScrollView(
+          padding: EdgeInsets.all(padding),
+          child: Column(
+            children: [
+              TextField(
+                controller: textController,
+                maxLines: 5,
+                style: TextStyle(fontSize: fontSize),
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: I18n.of(context)!.enterNoteText),
+              ),
+              SizedBox(height: verticalColSpace),
+              _selectDate(noteObserver.newNoteIsCheckList, I18n.of(context),
+                  settingObserver.userSettings.locale),
+              Container(
+                  padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                      'Setting a date and time will add the note to your calendar',
+                      style: TextStyle(fontSize: 12, color: Colors.black54))),
+              Container(
+                  padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+                  alignment: Alignment.centerLeft,
+                  child: Text('Send Reminder Notification?',
+                      style: TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold))),
+              _checkBox(),
+              SizedBox(height: verticalColSpace),
+              Column(
                 children: [
-                  TextField(
-                    controller: textController,
-                    maxLines: 5,
-                    style: TextStyle(fontSize: fontSize),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: I18n.of(context)!.enterNoteText),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      primary: Colors.black54,
+                      fixedSize: Size(noteWidth, 40.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.black12)),
+                    ),
+                    icon: Icon(
+                      Icons.keyboard_return,
+                    ),
+                    label: Text(
+                      'BACK TO NOTES',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      noteObserver.changeScreen(NOTE_SCREENS.NOTE);
+                    },
                   ),
-                  SizedBox(height: verticalColSpace),
-
-                  //only show check box if the user is edititing not
-                  if (noteId.isEmpty) _checkBox(fontSize),
-
-                  SizedBox(height: verticalColSpace),
-
-                  //do not show if user chose to add checkList or modify and existing not to be a checklist
-                  _selectDate(noteObserver.newNoteIsCheckList, I18n.of(context), settingObserver.userSettings.locale),
-
-                  SizedBox(height: verticalColSpace),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            noteObserver.changeScreen(NOTE_SCREENS.NOTE);
-                            noteObserver.setCurrNoteIdForDetails(null);
-                          },
-                          child: Column(
-                            children: [
-                              Transform.rotate(
-                                  angle: 180 * math.pi / 180,
-                                  child: Icon(
-                                    Icons.exit_to_app_rounded,
-                                    size: ICON_SIZE,
-                                    color: Colors.amber,
-                                  )),
-                              Text(
-                                I18n.of(context)!.cancel,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            _onSave(noteObserver);
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.save,
-                                size: ICON_SIZE,
-                                color: Colors.green,
-                              ),
-                              Text(
-                                I18n.of(context)!.saveNote,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          )),
-                      if (noteObserver.currNoteForDetails != null)
-                        GestureDetector(
-                            onTap: () {
-                              //popup confirmation view
-                              noteObserver
-                                  .deleteNote(noteObserver.currNoteForDetails);
-                              noteObserver.changeScreen(NOTE_SCREENS.NOTE);
-                            },
-                            child: Column(
-                              children: [
-                                Icon(
-                                  Icons.delete_forever,
-                                  size: ICON_SIZE,
-                                  color: Colors.red,
-                                ),
-                                Text(
-                                  I18n.of(context)!.deleteNote,
-                                  style: Theme.of(context).textTheme.bodyText1,
-                                ),
-                              ],
-                            ))
-                    ],
-                  )
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      primary: Colors.blueAccent,
+                      fixedSize: Size(noteWidth, 40.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.blueAccent)),
+                    ),
+                    icon: Icon(
+                      Icons.save,
+                    ),
+                    label: Text(
+                      'SAVE NOTE',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      _onSave(noteObserver, settingObserver);
+                    },
+                  ),
+                  Visibility(
+                    visible: deleteButtonVisible,
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        primary: Colors.redAccent,
+                        fixedSize: Size(noteWidth, 40.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.redAccent)),
+                      ),
+                      icon: Icon(
+                        Icons.delete,
+                      ),
+                      label: Text(
+                        'REMOVE NOTE',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {
+                        noteObserver
+                            .deleteNote(noteObserver.currNoteForDetails);
+                        noteObserver.changeScreen(NOTE_SCREENS.NOTE);
+                      },
+                    ),
+                  ),
                 ],
-              )),
-          //bottomNavigationBar: BottomBar(3),
-        ));
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
-  _onSave(NoteObserver noteObserver) {
+  _onSave(NoteObserver noteObserver, SettingObserver settingObserver) {
     if (textController.text.length > 0) {
       print(
           "noteObserver.currNoteForDetails: ${noteObserver.currNoteForDetails}");
@@ -304,7 +348,19 @@ class _SaveNoteState extends State<SaveNote> {
       if (noteObserver.newNoteIsCheckList == true) {
         this._newNote.recurrentType = "daily";
       }
-
+      if (_reminderNotification == "No") {
+        this._newNote.notification = false;
+      }
+      if (_reminderNotification == 'Yes') {
+        DateTime dateTime =
+            DateTime.parse(_newNote.eventDate + " " + _newNote.eventTime);
+        var _body = _newNote.text +
+            "\n" +
+            _newNote.eventDate +
+            " at " +
+            _newNote.eventTime;
+        notify(_body, dateTime, settingObserver);
+      }
       noteObserver.deleteNote(noteObserver.currNoteForDetails);
       noteObserver.addNote(_newNote);
       _showToast();
@@ -336,6 +392,18 @@ class _SaveNoteState extends State<SaveNote> {
       builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  void notify(
+      var _body, DateTime dateTime, SettingObserver settingObserver) async {
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: 1, channelKey: 'key1', title: 'Reminder', body: _body),
+      schedule: NotificationCalendar.fromDate(
+          date: dateTime.subtract(Duration(
+              minutes: int.parse(settingObserver
+                  .userSettings.minutesBeforeNoteNotifications)))),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/Utility/Constant.dart';
+import 'package:memorez/Utility/Constant.dart';
 import '../Model/Note.dart';
 import '../Services/NoteService.dart';
 import 'package:share_plus/share_plus.dart';
@@ -46,9 +46,9 @@ abstract class _AbstractNoteObserver with Store {
   String newNoteEventTime = "";
 
   @action
-  Future getImage() async{
+  Future getImage() async {
     final image = await imagePicker.getImage(source: ImageSource.camera);
-    _image =File(image!.path);
+    _image = File(image!.path);
     Share.shareFiles([image.path]);
   }
 
@@ -96,7 +96,7 @@ abstract class _AbstractNoteObserver with Store {
 
   @action
   void setNotes(notes) {
-    print("set note to: ${notes}");
+    // print("set note to: $notes");
     usersNotes = notes;
   }
 
@@ -140,13 +140,13 @@ abstract class _AbstractNoteObserver with Store {
 
   @action
   void setNewNoteEventDate(String value) {
-    print("setNewNoteEventDate: setting new Note date $value");
+    // print("setNewNoteEventDate: setting new Note date $value");
     newNoteEventDate = value;
   }
 
   @action
   void setNewNoteEventTime(String value) {
-    print("setNewNoteEventTime: setting new Note time $value");
+    // print("setNewNoteEventTime: setting new Note time $value");
     newNoteEventTime = value;
   }
 }

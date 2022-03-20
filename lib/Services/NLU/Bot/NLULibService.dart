@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:untitled3/Model/LexResponse.dart';
-import 'package:untitled3/Model/NLUAction.dart';
-import 'package:untitled3/Model/NLUResponse.dart';
-import 'package:untitled3/Model/NLUState.dart';
+import 'package:memorez/Model/LexResponse.dart';
+import 'package:memorez/Model/NLUAction.dart';
+import 'package:memorez/Model/NLUResponse.dart';
+import 'package:memorez/Model/NLUState.dart';
 import 'LexService.dart';
-import 'package:untitled3/Model/Note.dart';
+import 'package:memorez/Model/Note.dart';
 import '../../NoteService.dart';
 import '../BertQA/BertQaService.dart';
 import 'package:geocoding/geocoding.dart';
@@ -15,7 +15,8 @@ import 'package:location/location.dart' as Location;
 class NLULibService {
   late final BertQAService bertQAService;
   late final LexService lexService;
-  static const String FallbackResponse = "Sorry I'm not able to understand Daryle.";
+  static const String FallbackResponse =
+      "Sorry I'm not able to understand Daryle.";
   static const String AppHelp = "AppHelp";
   static const String AppNav = "AppNav";
   static const String SearchNotes = "SearchNotes";
@@ -45,7 +46,6 @@ class NLULibService {
   NLULibService() {
     lexService = LexService();
     bertQAService = BertQAService();
-
   }
 
   NLULibService.fromtest(LexService _lexService, BertQAService _bertQAService) {
@@ -54,7 +54,6 @@ class NLULibService {
   }
 
   Future<String> getNLUResponseUITest(String text) async {
-
     NLUResponse nluResponse = (await getNLUResponse(text, DefaultLocale));
     String response = nluResponse.toJson().toString();
     print(response);
@@ -63,12 +62,11 @@ class NLULibService {
   }
 
   Future<NLUResponse> getNLUResponse(String inputText, String locale) async {
-
     NLUResponse? nluResponse;
 
     String sessionId = getSessionId();
-    Map<String, dynamic> lexResponse = await lexService.getLexResponse(
-        text: inputText,  locale: locale);
+    Map<String, dynamic> lexResponse =
+        await lexService.getLexResponse(text: inputText, locale: locale);
     if (lexResponse[InterpretationsJsonStr] != null) {
       var lexResponseObj = LexResponse.fromJson(lexResponse);
       if (lexResponseObj != null) {
@@ -113,7 +111,6 @@ class NLULibService {
               intentName == Goodbye) {
             nluResponse = getChitChatResponse(
                 lexResponseObj, currentState, inputText, outputText);
-
           } else {
             nluResponse = (await getSearchNoteResponse(inputText));
           }
@@ -157,7 +154,7 @@ class NLULibService {
       } else {
         for (int i = 0; i < lexResponseObj.interpretations.length; i++) {
           Interpretations interpretations =
-          lexResponseObj.interpretations.elementAt(i);
+              lexResponseObj.interpretations.elementAt(i);
           if (interpretations != null &&
               interpretations.intent != null &&
               interpretations.nluConfidence != null &&
@@ -189,9 +186,7 @@ class NLULibService {
           }
         }
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
 
     return outputText;
   }
@@ -922,7 +917,7 @@ class NLULibService {
       case "annual":
         return " every year";
       default:
-        return " "+recurrence;
+        return " " + recurrence;
     }
   }
 

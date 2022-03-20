@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Services/NoteService.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Services/NoteService.dart';
 part 'CheckListObservable.g.dart';
 
 class CheckListObserver = _AbstractCheckListObserver with _$CheckListObserver;

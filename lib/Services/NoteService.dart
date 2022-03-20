@@ -1,4 +1,4 @@
-import 'package:untitled3/Utility/EncryptionUtil.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 
 import '../Model/Note.dart';
 import '../Utility/FileUtil.dart';
@@ -17,13 +17,12 @@ class TextNoteService {
     List<TextNote> userTextNotes = [];
     try {
       dynamic listExtract =
-      await FileUtil.readJson(FILE_NAME).then((value) => value);
+          await FileUtil.readJson(FILE_NAME).then((value) => value);
       for (var note in listExtract) {
-        print("Loading notes from file $note");
+        // print("Loading notes from file $note");
         userTextNotes.add(TextNote.fromJson(note));
       }
-    } catch(Exception) {
-    }
+    } catch (Exception) {}
     return userTextNotes;
   }
 

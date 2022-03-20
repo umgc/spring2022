@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Observables/CalenderObservable.dart';
+import 'package:memorez/Observables/CalenderObservable.dart';
 
 class calendarFormatBar extends StatefulWidget {
   const calendarFormatBar({Key? key}) : super(key: key);
