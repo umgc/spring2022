@@ -260,96 +260,79 @@ class _MainNavigatorState extends State<MainNavigator> {
           //removes the backbutton in the appbar
           automaticallyImplyLeading: false,
           titleTextStyle: TextStyle(color: Colors.black),
-          toolbarHeight: adminModeEnabled ? 90 : 50,
+          toolbarHeight: 50,
           centerTitle: true,
-          title: Column(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                //mainAxisAlignment:MainAxisAlignment.end,
-                children: [
-                  Observer(
-                      builder: (_) => Text(
-                            '${screenNav.screenTitle}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          )),
-                ],
+              Observer(
+                  builder: (_) => Text(
+                        '${screenNav.screenTitle}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
               ),
-              Row(
-                children: [
-                  Visibility(
-                    visible: adminModeEnabled,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.red[200],
-                              border: Border.all(color: Colors.black26),
-                            ),
-                            child: Row(
+              Visibility(
+                visible: adminModeEnabled,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.red[200],
+                          border: Border.all(color: Colors.black26),
+                        ),
+                        child: Row(
+                          children: [
+                            Row(
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, right: 5.0),
-                                          child: Icon(
-                                            Icons.warning,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                        Text(
-                                          ' Admin mode enabled!',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5, right: 8.0),
-                                      child: TextButton(
-                                        child: Text(
-                                          'DISABLE',
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            removeSP("Admin");
-                                            adminModeEnabled = false;
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                            Colors.lightBlueAccent,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 5.0),
+                                  child: Icon(
+                                    Icons.warning,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, right: 1.0),
+                                  child: TextButton(
+                                    child: Text(
+                                      'Exit CareGiver',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        removeSP("Admin");
+                                        adminModeEnabled = false;
+                                      });
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                        Colors.lightBlueAccent,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ),

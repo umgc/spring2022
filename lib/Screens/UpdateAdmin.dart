@@ -7,7 +7,10 @@ import 'package:memorez/DatabaseHandler/DbHelper.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/Main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 class UpdateAdmin extends StatefulWidget {
   @override
@@ -59,7 +62,7 @@ class _HomeFormState extends State<UpdateAdmin> {
           updateSP(user, true).whenComplete(() {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (_) => HomePage()),
+                MaterialPageRoute(builder: (_) => MyApp()),
                     (Route<dynamic> route) => false);
           });
         } else {

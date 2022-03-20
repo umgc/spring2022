@@ -154,7 +154,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.redAccent[100],
+                            backgroundColor: Colors.blueAccent,
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),
@@ -189,7 +189,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.purpleAccent,
+                            backgroundColor: Colors.deepPurple,
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),

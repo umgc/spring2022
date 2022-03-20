@@ -121,21 +121,24 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                   Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Need to create an account?'),
-                        FlatButton(
-                          textColor: Color(0xFF0D47A1),
-                          child: Text('Create Caregiver'),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => SignupForm()));
-                          },
-                        )
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Need to create an account?'),
+                          FlatButton(
+                            textColor: Color(0xFF0D47A1),
+                            child: Text('Create Caregiver'),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => SignupForm()));
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
