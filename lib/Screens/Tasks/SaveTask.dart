@@ -1141,6 +1141,8 @@ class _SaveTaskState extends State<SaveTask> {
 
   Widget controlsBuilder(
       BuildContext context, ControlsDetails controlsDetails) {
+    final taskObserver = Provider.of<TaskObserver>(context);
+
     return Padding(
       // This is the padding around the continue, cancel, and back buttons
       padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -1173,7 +1175,10 @@ class _SaveTaskState extends State<SaveTask> {
 
           // This function needs to return the home screen of tasks on the admin profile
           OutlinedButton(
-              onPressed: controlsDetails.onStepCancel,
+              onPressed: () {
+                taskObserver.changeScreen(TASK_SCREENS.TASK);
+                controlsDetails.onStepCancel;
+              },
               child: const Text(
                 'Cancel',
                 style: TextStyle(color: Colors.red),
