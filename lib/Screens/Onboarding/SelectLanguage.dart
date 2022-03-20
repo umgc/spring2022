@@ -28,6 +28,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
         body: Column(
       children: [
         Container(
+          alignment: Alignment.center,
           padding: EdgeInsets.fromLTRB(15, 20, 20, 20),
           child: Text(I18n.of(context)!.selectLanguage,
               style: TextStyle(
@@ -36,9 +37,14 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
               )),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 22.0, 275.0, 8.0),
-          child: Text(I18n.of(context)!.language,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          padding: EdgeInsets.fromLTRB(0.0, 22.0, 0, 8.0),
+          child: Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(I18n.of(context)!.language,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(3),

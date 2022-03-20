@@ -47,7 +47,6 @@ class _ProfilePageState extends State<UserProfile> {
 
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
-
     setState(() {
       _conUserId.text = sp.getString("user_id")!;
     });

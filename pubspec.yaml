@@ -129,6 +129,7 @@ flutter:
     - assets/NLU/lite-model_mobilebert_1_metadata_1.tflite
     - assets/NLU/Lex_Credentials.xml
     - assets/lottie/animation.json
+    - assets/lottie/done.json
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
