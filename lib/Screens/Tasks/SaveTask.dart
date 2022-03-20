@@ -795,6 +795,7 @@ class _SaveTaskState extends State<SaveTask> {
                               FocusScope.of(context).unfocus();
 
                               setState(() {
+                                print('xxxxxxxxxxxxxxxxxxx$value');
                                 _scheduleReponse = value;
                                 selectedDate = DateTime.now().day.toString();
                               });
@@ -826,7 +827,10 @@ class _SaveTaskState extends State<SaveTask> {
                         )),
                       ]),
 
+
                   Visibility(
+                    visible: _scheduleReponse==responseSchedule.Future,
+
                     child: Container(
                         child: const Align(
                       heightFactor: 1.5,
@@ -841,79 +845,86 @@ class _SaveTaskState extends State<SaveTask> {
                     )),
                   ),
 
-                  Container(
-                      child:
-                          //DATE CALENDAR
+                  Visibility(
+                    visible:  _scheduleReponse==responseSchedule.Future,
+                    child: Container(
+                        child:
+                            //DATE CALENDAR
 
-                          TextFormField(
-                    readOnly: true,
-                    controller: _dateController,
-                    onChanged: (valueDate) {
-                      setState(() {
-                        _dateController.text = valueDate;
-                        selectedDate = valueDate.toString();
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      labelText: 'Date',
-                      suffixIcon: Icon(FontAwesomeIcons.calendarDay),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      border: OutlineInputBorder(),
-                    ),
-                    onTap: () async {
-                      await showDatePicker(
-                        context: context,
-                        confirmText: 'SET DATE',
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2030),
-                      ).then((selectedDate) {
-                        if (selectedDate != null) {
-                          _dateController.text =
-                              '${selectedDate.month.toString()}/${selectedDate.day.toString()}/${selectedDate.year.toString()}';
-                        }
-                      });
-                    },
-                  )),
-
-                  const SizedBox(height: 20),
-
-                  Container(
-                    child: TextFormField(
+                            TextFormField(
                       readOnly: true,
-                      controller: _timeController,
-                      onChanged: (valueTime) {
-                        _timeController.text = valueTime;
-                        selectedDate = valueTime.toString();
+                      controller: _dateController,
+                      onChanged: (valueDate) {
+                        setState(() {
+                          _dateController.text = valueDate;
+                          selectedDate = valueDate.toString();
+                        });
                       },
                       decoration: const InputDecoration(
-                        labelText: 'Time',
-                        suffixIcon: Icon(FontAwesomeIcons.solidClock),
+                        labelText: 'Date',
+                        suffixIcon: Icon(FontAwesomeIcons.calendarDay),
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                         border: OutlineInputBorder(),
                       ),
                       onTap: () async {
-                        await showTimePicker(
+                        await showDatePicker(
                           context: context,
-                          confirmText: 'SET TIME',
-                          initialTime: TimeOfDay.now(),
-                          initialEntryMode: TimePickerEntryMode.dial,
-                        ).then((selectedTime) {
-                          if (selectedTime != null) {
-                            if (selectedTime.minute < 10) {
-                              _timeController.text =
-                                  '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
-                            } else {
-                              _timeController.text =
-                                  '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
-                            }
+                          confirmText: 'SET DATE',
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2030),
+                        ).then((selectedDate) {
+                          if (selectedDate != null) {
+                            _dateController.text =
+                                '${selectedDate.month.toString()}/${selectedDate.day.toString()}/${selectedDate.year.toString()}';
                           }
                         });
                       },
+                    )),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  Visibility(
+                    visible:  _scheduleReponse==responseSchedule.Future,
+                    child: Container(
+                      child: TextFormField(
+                        readOnly: true,
+                        controller: _timeController,
+                        onChanged: (valueTime) {
+                          _timeController.text = valueTime;
+                          selectedDate = valueTime.toString();
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Time',
+                          suffixIcon: Icon(FontAwesomeIcons.solidClock),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          border: OutlineInputBorder(),
+                        ),
+                        onTap: () async {
+                          await showTimePicker(
+                            context: context,
+                            confirmText: 'SET TIME',
+                            initialTime: TimeOfDay.now(),
+                            initialEntryMode: TimePickerEntryMode.dial,
+                          ).then((selectedTime) {
+                            if (selectedTime != null) {
+                              if (selectedTime.minute < 10) {
+                                _timeController.text =
+                                    '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
+                              } else {
+                                _timeController.text =
+                                    '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
+                              }
+                            }
+                          });
+                        },
+                      ),
                     ),
                   ),
+
                   IconButton(
                       onPressed: () {
                         print('-------Line 769' + selectedIcon);
