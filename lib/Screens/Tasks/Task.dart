@@ -73,7 +73,7 @@ class _TaskState extends State<Task> {
         return TaskHealthCheck(
           readOnly: false,
         );
-      case TASK_SCREENS.TASK_COMPLETE_HEALTH_CHECK:
+      case TASK_SCREENS.TASK_VIEW_COMPLETED_HEALTH_CHECK:
         return TaskHealthCheck(
           readOnly: true,
         );

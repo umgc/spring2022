@@ -30,7 +30,6 @@ class TaskTable extends StatelessWidget {
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
     var rowHeight = (MediaQuery.of(context).size.height - 350) / 2;
-    var noteWidth = MediaQuery.of(context).size.width * 0.35;
 
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];
@@ -172,8 +171,9 @@ class TaskTable extends StatelessWidget {
                           taskObserver
                               .setCurrTaskIdForDetails(
                                   inActiveUserTasks[index].taskId)
-                              .then((value) => taskObserver
-                                  .changeScreen(TASK_SCREENS.TASK_DETAIL));
+                              .then((value) => taskObserver.changeScreen(
+                                  TASK_SCREENS
+                                      .TASK_VIEW_COMPLETED_HEALTH_CHECK));
                           if (onListItemClickCallBackFn != null) {
                             onListItemClickCallBackFn!.call();
                           }
