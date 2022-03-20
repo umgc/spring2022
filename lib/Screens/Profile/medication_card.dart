@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
@@ -49,6 +49,8 @@ class _MedicationCardState extends State<MedicationCard> {
   _updateMedicationList() {
     setState(() {
       _medicationList = DatabaseHelper.instance.getMedicationList();
+
+
     });
   }
 
@@ -86,6 +88,7 @@ class _MedicationCardState extends State<MedicationCard> {
                   },
                 ),
               )),
+
           Divider()
         ],
       ),

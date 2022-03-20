@@ -11,7 +11,7 @@ import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
-import '../../DatabaseHandler/DbHelper.dart';
+import '../../DatabaseHandler/database_helper_profile.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 
