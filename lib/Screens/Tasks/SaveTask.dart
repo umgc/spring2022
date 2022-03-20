@@ -885,8 +885,13 @@ class _SaveTaskState extends State<SaveTask> {
                           initialEntryMode: TimePickerEntryMode.dial,
                         ).then((selectedTime) {
                           if (selectedTime != null) {
-                            _timeController.text =
-                                '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
+                            if(selectedTime.minute<10){
+                              _timeController.text =
+                              '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
+                            }else {
+                              _timeController.text =
+                                  '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
+                            }
                           }
                         });
                       },
