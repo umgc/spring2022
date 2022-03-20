@@ -7,53 +7,53 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
+import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/DatabaseHandler/database_helper.dart';
 
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
-class AddMedicationCard extends StatefulWidget {
-  final Function? updateMedicationList;
-  final Medication? medication;
+class AddAllergyCard extends StatefulWidget {
+  final Function? updateAllergyList;
+  final Allergy? allergy;
 
-  AddMedicationCard({this.updateMedicationList, this.medication});
+  AddAllergyCard({this.updateAllergyList, this.allergy});
 
   @override
   _UserProfileState createState() => _UserProfileState();
 }
 
-class _UserProfileState extends State<AddMedicationCard> {
+class _UserProfileState extends State<AddAllergyCard> {
   final _formKey = GlobalKey<FormState>();
 
-  String? _title = "";
-  String? _dose = "";
+  String? _allergy = "";
+  String? _reaction = "";
   TextEditingController _dateController = TextEditingController();
 
   _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print('$_title, $_dose');
+      print('$_allergy, $_reaction');
 
-      // Insert medication to Users Database
-      Medication medication = Medication(title: _title, dose: _dose);
-      if (widget.medication == null) {
-        medication.status = 0;
-        DatabaseHelper.instance.insertMedication(medication);
+      // Insert Allergy to Users Database
+      Allergy allergy = Allergy(allergy: _allergy, reaction: _reaction);
+      if (widget.allergy == null) {
+        allergy.status = 0;
+        DatabaseHelper.instance.insertAllergy(allergy);
       } else {
         // Update medication to Users Database
-        medication.id = widget.medication!.id;
-        medication.status = widget.medication!.status;
-        DatabaseHelper.instance.updateMedication(medication);
+        allergy.id = widget.allergy!.id;
+        DatabaseHelper.instance.updateAllergy(allergy);
       }
 
-      widget.updateMedicationList!();
+      widget.updateAllergyList!();
       Navigator.pop(context);
     }
   }
 
   _delete() {
-    DatabaseHelper.instance.deleteMedication(widget.medication!.id);
-    widget.updateMedicationList!();
+    DatabaseHelper.instance.deleteAllergy(widget.allergy!.id);
+    widget.updateAllergyList!();
     Navigator.pop(context);
   }
 
@@ -86,7 +86,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.medication == null ? 'Add Medication' : 'Update Medication',
+                  widget.allergy == null ? 'Add Allergy' : 'Update Allergy',
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -104,40 +104,9 @@ class _UserProfileState extends State<AddMedicationCard> {
                         child: TextFormField(
                           style: TextStyle(fontSize: 18),
                           decoration:
-                              widget.medication != null?
-                                  InputDecoration(
-                                    labelText: widget.medication?.title.toString(),
-                                    labelStyle: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0))):
+                          widget.allergy != null?
                           InputDecoration(
-                              labelText: 'Medication Name',
-                              labelStyle: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
-                          validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a medication name'
-                              : null,
-                          onSaved: (input) => _title = input,
-                          initialValue: _title,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: TextFormField(
-                          style: TextStyle(fontSize: 18),
-                          decoration:
-                          widget.medication != null?
-                          InputDecoration(
-                              labelText: widget.medication?.dose.toString(),
+                              labelText: widget.allergy?.allergy.toString(),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -146,7 +115,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Medication Dose',
+                              labelText: 'Allergy',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -155,10 +124,41 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter dose'
+                              ? 'Please enter an allergy'
                               : null,
-                          onSaved: (input) => _dose = input,
-                          initialValue: _dose,
+                          onSaved: (input) => _allergy = input,
+                          initialValue: _allergy,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: TextFormField(
+                          style: TextStyle(fontSize: 18),
+                          decoration:
+                          widget.allergy != null?
+                          InputDecoration(
+                              labelText: widget.allergy?.reaction.toString(),
+                              labelStyle: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0))):
+                          InputDecoration(
+                              labelText: 'Reaction',
+                              labelStyle: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0))),
+                          validator: (input) => input!.trim().isEmpty
+                              ? 'Please enter a reaction'
+                              : null,
+                          onSaved: (input) => _reaction = input,
+                          initialValue: _reaction,
                         ),
                       ),
 
@@ -172,7 +172,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.medication == null ? 'Add' : 'Update',
+                            widget.allergy == null ? 'Add' : 'Update',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -181,7 +181,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           ),
                         ),
                       ),
-                      widget.medication != null
+                      widget.allergy != null
                           ? Container(
                         margin:
                         EdgeInsets.symmetric(vertical: 20.0),

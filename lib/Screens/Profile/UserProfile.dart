@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/Profile/allergy_card.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,11 +20,13 @@ import 'package:memorez/Screens/Profile/transportation_card.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
 
 
+
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
 import 'care_team_card.dart';
 import 'contact_card.dart';
+import 'medical_history_card.dart';
 import 'medication_card.dart';
 
 class UserProfile extends StatefulWidget {
@@ -79,7 +82,10 @@ class _ProfilePageState extends State<UserProfile> {
             TransportationCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             MedicationCard(),
-            const SizedBox(height: 24),
+            const SizedBox(child: Divider(color: Colors.blueGrey)),
+            AllergyCard(),
+            const SizedBox(child: Divider(color: Colors.blueGrey)),
+            MedicalHistoryCard(),
 
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
