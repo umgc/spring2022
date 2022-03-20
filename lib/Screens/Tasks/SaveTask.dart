@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Task.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Services/TaskService.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/Utility/FontUtil.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/Task.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Services/TaskService.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/Utility/FontUtil.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'dart:math' as math;
 
