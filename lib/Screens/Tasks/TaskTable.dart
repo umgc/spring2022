@@ -33,27 +33,20 @@ class TaskTable extends StatelessWidget {
 
     var rowHeight = (MediaQuery.of(context).size.height - 56) / 5;
     var noteWidth = MediaQuery.of(context).size.width * 0.35;
-    print("My width is $noteWidth");
-    print('---line 35 no tasks ' + taskObserver.usersTask.length.toString());
+
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];
 
     for (var i = 0; i < taskObserver.usersTask.length; i++) {
       if (taskObserver.usersTask[i].isTaskCompleted) {
-        print('---line 45 inactive ' + i.toString());
         inActiveUserTasks.add(taskObserver.usersTask[i]);
       } else {
-        print('---line 45 active ' + i.toString());
-
         if (taskObserver.usersTask[i].sendTaskDateTime
             .isBefore(DateTime.now())) {
           activeUserTasks.add(taskObserver.usersTask[i]);
         }
       }
-      ;
     }
-
-    print('---line 52 no tasks ' + inActiveUserTasks.length.toString());
 
     return SingleChildScrollView(
       child: Column(
@@ -70,74 +63,86 @@ class TaskTable extends StatelessWidget {
                     color: Colors.lightBlue[900]),
               ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: activeUserTasks.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                      child: InkWell(
-                          onTap: () {
-                            print('task id: ' + activeUserTasks[index].taskId);
-                            if (activeUserTasks[index].taskType == 'Activity') {
-                              taskObserver
-                                  .setCurrTaskIdForDetails(
-                                      activeUserTasks[index].taskId)
-                                  .then((value) => taskObserver.changeScreen(
-                                      TASK_SCREENS.TASK_COMPLETE_ACTIVITY));
-                            } else {
-                              taskObserver
-                                  .setCurrTaskIdForDetails(
-                                      activeUserTasks[index].taskId)
-                                  .then((value) => taskObserver.changeScreen(
-                                      TASK_SCREENS.TASK_COMPLETE_HEALTH_CHECK));
-                            }
+            Container(
+              height: 300,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: activeUserTasks.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        child: InkWell(
+                            onTap: () {
+                              print(
+                                  'task id: ' + activeUserTasks[index].taskId);
+                              if (activeUserTasks[index].taskType ==
+                                  'Activity') {
+                                taskObserver
+                                    .setCurrTaskIdForDetails(
+                                        activeUserTasks[index].taskId)
+                                    .then((value) => taskObserver.changeScreen(
+                                        TASK_SCREENS.TASK_COMPLETE_ACTIVITY));
+                              } else {
+                                taskObserver
+                                    .setCurrTaskIdForDetails(
+                                        activeUserTasks[index].taskId)
+                                    .then((value) => taskObserver.changeScreen(
+                                        TASK_SCREENS
+                                            .TASK_COMPLETE_HEALTH_CHECK));
+                              }
 
-                            // if (onListItemClickCallBackFn != null) {
-                            //   onListItemClickCallBackFn!.call();
-                            // }
-                          },
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.blue),
-                                  color: Colors.lightBlue[100],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Padding(
-                                  padding: EdgeInsets.all(15.0),
-                                  child: Row(children: <Widget>[
-                                    FaIcon(
-                                        getIcon(activeUserTasks
-                                            .elementAt(index)
-                                            .icon),
-                                        color: getIconColor(activeUserTasks
-                                            .elementAt(index)
-                                            .iconColor)),
-                                    Text(
-                                      '   ' +
-                                          activeUserTasks
+                              // if (onListItemClickCallBackFn != null) {
+                              //   onListItemClickCallBackFn!.call();
+                              // }
+                            },
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.all(5.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.blue),
+                                    color: Colors.lightBlue[100],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Padding(
+                                    padding: EdgeInsets.all(15.0),
+                                    child: Row(children: <Widget>[
+                                      FaIcon(
+                                          getIcon(activeUserTasks
                                               .elementAt(index)
-                                              .name
-                                              .substring(
-                                                  0,
-                                                  activeUserTasks
-                                                              .elementAt(index)
-                                                              .name
-                                                              .length <
-                                                          25
-                                                      ? activeUserTasks
-                                                          .elementAt(index)
-                                                          .name
-                                                          .length
-                                                      : 25),
-                                      style: TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.lightBlue[900]),
-                                    )
-                                  ])))));
-                }),
+                                              .icon),
+                                          color: getIconColor(activeUserTasks
+                                              .elementAt(index)
+                                              .iconColor)),
+                                      Text('   '),
+                                      Text(
+                                        activeUserTasks
+                                                    .elementAt(index)
+                                                    .taskType ==
+                                                'Health Check'
+                                            ? 'Health Check'
+                                            : activeUserTasks
+                                                .elementAt(index)
+                                                .name
+                                                .substring(
+                                                    0,
+                                                    activeUserTasks
+                                                                .elementAt(
+                                                                    index)
+                                                                .name
+                                                                .length <
+                                                            25
+                                                        ? activeUserTasks
+                                                            .elementAt(index)
+                                                            .name
+                                                            .length
+                                                        : 25),
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.lightBlue[900]),
+                                      )
+                                    ])))));
+                  }),
+            ),
             const Divider(thickness: 5, color: Colors.grey),
             Padding(
               padding: EdgeInsets.all(15.0),
@@ -149,83 +154,92 @@ class TaskTable extends StatelessWidget {
                     color: Colors.lightBlue[900]),
               ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: inActiveUserTasks.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                      child: InkWell(
-                    //This runs when double tapping an Active Task
-                    onTap: () {
-                      taskObserver
-                          .setCurrTaskIdForDetails(
-                              inActiveUserTasks[index].taskId)
-                          .then((value) => taskObserver
-                              .changeScreen(TASK_SCREENS.TASK_DETAIL));
-                      if (onListItemClickCallBackFn != null) {
-                        onListItemClickCallBackFn!.call();
-                      }
-                    },
-                    child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
-                            //color: setBackgroundColor(index),
-                            border: Border.all(color: Colors.blue),
-                            color: Colors.blueGrey[100],
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Row(children: <Widget>[
-                              FaIcon(
-                                  getIcon(
-                                      inActiveUserTasks.elementAt(index).icon),
-                                  color: getIconColor(inActiveUserTasks
-                                      .elementAt(index)
-                                      .iconColor)),
-                              Column(
-                                children: [
-                                  Text(
-                                    inActiveUserTasks
+            Container(
+              height: 200,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: inActiveUserTasks.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        child: InkWell(
+                      //This runs when double tapping an Active Task
+                      onTap: () {
+                        taskObserver
+                            .setCurrTaskIdForDetails(
+                                inActiveUserTasks[index].taskId)
+                            .then((value) => taskObserver
+                                .changeScreen(TASK_SCREENS.TASK_DETAIL));
+                        if (onListItemClickCallBackFn != null) {
+                          onListItemClickCallBackFn!.call();
+                        }
+                      },
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                              //color: setBackgroundColor(index),
+                              border: Border.all(color: Colors.blue),
+                              color: Colors.blueGrey[100],
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          child: Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Row(children: <Widget>[
+                                FaIcon(
+                                    getIcon(inActiveUserTasks
                                         .elementAt(index)
-                                        .name
-                                        .substring(
-                                            0,
-                                            inActiveUserTasks
-                                                        .elementAt(index)
-                                                        .name
-                                                        .length <
-                                                    24
-                                                ? inActiveUserTasks
-                                                    .elementAt(index)
-                                                    .name
-                                                    .length
-                                                : 24),
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.lightBlue[900]),
-                                  ),
-                                  Text(
-                                    inActiveUserTasks
+                                        .icon),
+                                    color: getIconColor(inActiveUserTasks
                                         .elementAt(index)
-                                        .completedTaskDateTime
-                                        .toString()
-                                        .substring(0, 16),
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      // fontWeight: FontWeight.bold,
-                                      // color: Colors.lightBlue[900],
+                                        .iconColor)),
+                                Text('   '),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      inActiveUserTasks
+                                                  .elementAt(index)
+                                                  .taskType ==
+                                              'Health Check'
+                                          ? 'Health Check'
+                                          : inActiveUserTasks
+                                              .elementAt(index)
+                                              .name
+                                              .substring(
+                                                  0,
+                                                  inActiveUserTasks
+                                                              .elementAt(index)
+                                                              .name
+                                                              .length <
+                                                          24
+                                                      ? inActiveUserTasks
+                                                          .elementAt(index)
+                                                          .name
+                                                          .length
+                                                      : 24),
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.lightBlue[900]),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ]))),
-                  ));
-                })
+                                    Text(
+                                      inActiveUserTasks
+                                          .elementAt(index)
+                                          .completedTaskDateTime
+                                          .toString()
+                                          .substring(0, 16),
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        // fontWeight: FontWeight.bold,
+                                        // color: Colors.lightBlue[900],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ]))),
+                    ));
+                  }),
+            )
           ]),
     );
   }

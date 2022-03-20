@@ -401,7 +401,6 @@ class _SaveTaskState extends State<SaveTask> {
                       labelText: 'Description',
                       border: OutlineInputBorder(),
 
-
                       // errorText: 'Error message',
                       // suffixIcon: Icon(
                       //   Icons.error,
@@ -1207,7 +1206,6 @@ class _SaveTaskState extends State<SaveTask> {
       });
     }
   }
-
 }
 
 //enum for Text Response, Schedule
