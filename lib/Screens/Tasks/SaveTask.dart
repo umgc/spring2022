@@ -33,8 +33,6 @@ class SaveTask extends StatefulWidget {
 
 //__ONSAVE
 class _SaveTaskState extends State<SaveTask> {
-
-
   String enteredTaskName = '';
   String enteredTaskDescription = '';
   String selectedIcon = '';
@@ -43,9 +41,10 @@ class _SaveTaskState extends State<SaveTask> {
   String selectedSchedule = '';
   String selectedDate = '';
   String selectedTime = '';
-  String taskType ='';
+  String taskType = '';
   String Grey = 'blueGrey';
 
+  //these flags indicate whether or not a button has been pressed
   bool _walkingFlag = true;
   bool _utensilFlag = true;
   bool _capsulesFlag = true;
@@ -53,6 +52,14 @@ class _SaveTaskState extends State<SaveTask> {
   bool _envelopeFlag = true;
   bool _tshirtFlag = true;
 
+  void unPressButtons(){
+    _walkingFlag = true;
+     _utensilFlag = true;
+     _capsulesFlag = true;
+     _toothFlag = true;
+     _envelopeFlag = true;
+     _tshirtFlag = true;
+  }
 
   //Index of stepper
   static int _stepIndex = 0;
@@ -64,7 +71,8 @@ class _SaveTaskState extends State<SaveTask> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   //Updated
-  final TextEditingController _textDescriptionController = TextEditingController();
+  final TextEditingController _textDescriptionController =
+      TextEditingController();
   final TextEditingController _textNameController = TextEditingController();
 
   /// Text task service to use for I/O operations against local system
@@ -240,7 +248,6 @@ class _SaveTaskState extends State<SaveTask> {
                         setState(() {
                           selectedIcon = 'walking';
                           taskType = 'Activity';
-
                         });
 
                         if (_stepIndex < (getSteps().length - 1)) {
@@ -336,12 +343,13 @@ class _SaveTaskState extends State<SaveTask> {
                   child: TextFormField(
                     // initialValue: 'Name',
                     controller: _textNameController,
-                    onChanged: (valueName){
+                    onChanged: (valueName) {
                       setState(() {
                         _textNameController.text = valueName;
                         enteredTaskDescription = valueName.toString();
-                        _textNameController.selection = TextSelection.fromPosition(TextPosition(offset: valueName.length));
-
+                        _textNameController.selection =
+                            TextSelection.fromPosition(
+                                TextPosition(offset: valueName.length));
                       });
                     },
                     cursorColor: Colors.blue,
@@ -382,14 +390,13 @@ class _SaveTaskState extends State<SaveTask> {
                     controller: _textDescriptionController,
                     keyboardType: TextInputType.multiline,
                     //updated
-                    onChanged: (valueDescription){
+                    onChanged: (valueDescription) {
                       setState(() {
                         _textDescriptionController.text = valueDescription;
                         enteredTaskDescription = valueDescription.toString();
-                        _textDescriptionController.selection = TextSelection.fromPosition(TextPosition(offset: valueDescription.length));
-
-
-
+                        _textDescriptionController.selection =
+                            TextSelection.fromPosition(
+                                TextPosition(offset: valueDescription.length));
                       });
                     },
                     maxLines: 5,
@@ -429,63 +436,73 @@ class _SaveTaskState extends State<SaveTask> {
                       Container(
                         width: 90,
                         height: 50,
-
                         child:
-                        //__Button change on click to different color
-                        ElevatedButton(
-                          child:  const Icon(FontAwesomeIcons.walking, color: Colors.black,),
-                          onPressed: ()=> setState(() {
-                          _walkingFlag = !_walkingFlag;
-                          selectedIcon = 'walking';}),
+                            //__Button change on click to different color
+                            ElevatedButton(
+                          child: const Icon(
+                            FontAwesomeIcons.walking,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => setState(() {
+                            unPressButtons();
+                            _walkingFlag = !_walkingFlag;
+                            selectedIcon = 'walking';
+                          }),
                           style: ElevatedButton.styleFrom(
-                              primary: _walkingFlag ? Colors.white : Colors.blueGrey,
-                              side: const BorderSide(color: Colors.blue,width: 2.0),
-                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) )),
-
+                              primary:
+                                  _walkingFlag ? Colors.white : Colors.blueGrey,
+                              side: const BorderSide(
+                                  color: Colors.blue, width: 2.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                         ),
-
                         padding: EdgeInsets.zero,
-
                       ),
-
-
-
                       Container(
                         width: 90,
                         height: 50,
-                        child:
-
-                        ElevatedButton(
-                          child:  const Icon(FontAwesomeIcons.utensils, color: Colors.black,),
-                          onPressed: ()=> setState(() {
+                        child: ElevatedButton(
+                          child: const Icon(
+                            FontAwesomeIcons.utensils,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => setState(() {
+                            unPressButtons();
                             _utensilFlag = !_utensilFlag;
-                            selectedIcon = 'utensils';}),
+                            selectedIcon = 'utensils';
+                          }),
                           style: ElevatedButton.styleFrom(
-                              primary: _utensilFlag ? Colors.white : Colors.blueGrey,
-                              side: const BorderSide(color: Colors.blue,width: 2.0),
-                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) )),
-
+                              primary:
+                                  _utensilFlag ? Colors.white : Colors.blueGrey,
+                              side: const BorderSide(
+                                  color: Colors.blue, width: 2.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                         ),
-
                         padding: EdgeInsets.zero,
                       ),
-
                       Container(
                         width: 90,
                         height: 50,
                         //updated
-                        child:
-
-                        ElevatedButton(
-                          child:  const Icon(FontAwesomeIcons.capsules, color: Colors.black,),
-                          onPressed: ()=> setState(() {
+                        child: ElevatedButton(
+                          child: const Icon(
+                            FontAwesomeIcons.capsules,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => setState(() {
+                            unPressButtons();
                             _capsulesFlag = !_capsulesFlag;
-                            selectedIcon = 'capsules';}),
+                            selectedIcon = 'capsules';
+                          }),
                           style: ElevatedButton.styleFrom(
-                              primary: _capsulesFlag ? Colors.white : Colors.blueGrey,
-                              side: const BorderSide(color: Colors.blue,width: 2.0),
-                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) )),
-
+                              primary: _capsulesFlag
+                                  ? Colors.white
+                                  : Colors.blueGrey,
+                              side: const BorderSide(
+                                  color: Colors.blue, width: 2.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                         ),
 
                         padding: EdgeInsets.zero,
@@ -498,71 +515,79 @@ class _SaveTaskState extends State<SaveTask> {
 
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                     children: [
                       Container(
                         width: 90,
                         height: 50,
-                        child:
-                        ElevatedButton(
-                          child:  const Icon(FontAwesomeIcons.tooth, color: Colors.black,),
-                          onPressed: ()=> setState(() {
-                            _toothFlag = !_toothFlag;
-                            selectedIcon = 'tooth';}),
+                        child: ElevatedButton(
+                          child: const Icon(
+                            FontAwesomeIcons.tooth,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => setState(
+                            () {
+                              unPressButtons();
+                              _toothFlag = !_toothFlag;
+                              selectedIcon = 'tooth';
+                            },
+                          ),
                           style: ElevatedButton.styleFrom(
-                              primary: _toothFlag ? Colors.white : Colors.blueGrey,
-                              side: const BorderSide(color: Colors.blue,width: 2.0),
-                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) )),
-
+                              primary:
+                                  _toothFlag ? Colors.white : Colors.blueGrey,
+                              side: const BorderSide(
+                                  color: Colors.blue, width: 2.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                         ),
-
                         padding: EdgeInsets.zero,
-
                       ),
                       Container(
                         width: 90,
                         height: 50,
-
-                        child:
-
-                        ElevatedButton(
-                          child:  const Icon(FontAwesomeIcons.envelope, color: Colors.black,),
-                          onPressed: ()=> setState(() {
+                        child: ElevatedButton(
+                          child: const Icon(
+                            FontAwesomeIcons.envelope,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => setState(() {
+                            unPressButtons();
                             _envelopeFlag = !_envelopeFlag;
-                            selectedIcon = 'envelope';}),
+                            selectedIcon = 'envelope';
+                          }),
                           style: ElevatedButton.styleFrom(
-                              primary: _envelopeFlag ? Colors.white : Colors.blueGrey,
-                              side: const BorderSide(color: Colors.blue,width: 2.0),
-                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) )),
-
+                              primary: _envelopeFlag
+                                  ? Colors.white
+                                  : Colors.blueGrey,
+                              side: const BorderSide(
+                                  color: Colors.blue, width: 2.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                         ),
-
                         padding: EdgeInsets.zero,
                       ),
-
                       Container(
                         width: 90,
                         height: 50,
-
-                        child:
-
-                        ElevatedButton(
-                          child:  const Icon(FontAwesomeIcons.tshirt, color: Colors.black,),
-                          onPressed: ()=> setState(() {
+                        child: ElevatedButton(
+                          child: const Icon(
+                            FontAwesomeIcons.tshirt,
+                            color: Colors.black,
+                          ),
+                          onPressed: () => setState(() {
+                            unPressButtons();
                             _tshirtFlag = !_tshirtFlag;
-                            selectedIcon = 'tshirt';}),
+                            selectedIcon = 'tshirt';
+                          }),
                           style: ElevatedButton.styleFrom(
-                              primary: _tshirtFlag ? Colors.white : Colors.blueGrey,
-                              side: const BorderSide(color: Colors.blue,width: 2.0),
-                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20) )),
-
+                              primary:
+                                  _tshirtFlag ? Colors.white : Colors.blueGrey,
+                              side: const BorderSide(
+                                  color: Colors.blue, width: 2.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                         ),
-
                         padding: EdgeInsets.zero,
                       ),
-
-
-
                     ]),
 
                 const SizedBox(height: 10.0),
@@ -601,23 +626,21 @@ class _SaveTaskState extends State<SaveTask> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   colorDropdownValue = newValue!;
-                                  if(newValue == 'Grey'){
-                                     selectedIconColor = 'blueGrey';
-                                  }else if (newValue =='Green'){
+                                  if (newValue == 'Grey') {
+                                    selectedIconColor = 'blueGrey';
+                                  } else if (newValue == 'Green') {
                                     selectedIconColor = 'green';
-                                  }else if (newValue == 'Purple'){
+                                  } else if (newValue == 'Purple') {
                                     selectedIconColor = 'purple';
-                                  }else if(newValue == 'Orange'){
+                                  } else if (newValue == 'Orange') {
                                     selectedIconColor = 'deepOrange';
-                                  }else if (newValue == 'Pink'){
+                                  } else if (newValue == 'Pink') {
                                     selectedIconColor = 'pink';
-                                  }else if (newValue == 'Red'){
+                                  } else if (newValue == 'Red') {
                                     selectedIconColor = 'red';
                                   }
-
                                 });
                               },
-
                               items: <String>[
                                 'Select Icon Color',
                                 'Grey',
@@ -803,23 +826,20 @@ class _SaveTaskState extends State<SaveTask> {
                         )),
                       ]),
 
-                  Visibility(child: Container(
-                      child: const Align(
-                        heightFactor: 1.5,
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'When to send task*',
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color.fromRGBO(46, 89, 132, 1),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )),
-
-
+                  Visibility(
+                    child: Container(
+                        child: const Align(
+                      heightFactor: 1.5,
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'When to send task*',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Color.fromRGBO(46, 89, 132, 1),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
                   ),
-
-
 
                   Container(
                       child:
@@ -828,12 +848,10 @@ class _SaveTaskState extends State<SaveTask> {
                           TextFormField(
                     readOnly: true,
                     controller: _dateController,
-                    onChanged: (valueDate){
+                    onChanged: (valueDate) {
                       setState(() {
                         _dateController.text = valueDate;
                         selectedDate = valueDate.toString();
-
-
                       });
                     },
                     decoration: const InputDecoration(
@@ -865,10 +883,9 @@ class _SaveTaskState extends State<SaveTask> {
                     child: TextFormField(
                       readOnly: true,
                       controller: _timeController,
-                      onChanged: (valueTime){
+                      onChanged: (valueTime) {
                         _timeController.text = valueTime;
                         selectedDate = valueTime.toString();
-
                       },
                       decoration: const InputDecoration(
                         labelText: 'Time',
@@ -885,10 +902,10 @@ class _SaveTaskState extends State<SaveTask> {
                           initialEntryMode: TimePickerEntryMode.dial,
                         ).then((selectedTime) {
                           if (selectedTime != null) {
-                            if(selectedTime.minute<10){
+                            if (selectedTime.minute < 10) {
                               _timeController.text =
-                              '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
-                            }else {
+                                  '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
+                            } else {
                               _timeController.text =
                                   '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
                             }
@@ -1100,8 +1117,6 @@ class _SaveTaskState extends State<SaveTask> {
     this._newTask.taskType = taskType;
     //Boolean radio button
     this._newTask.isResponseRequired = selectedIsResponseRequired;
-
-
 
     print('---line 962 icon' + selectedIcon);
     taskObserver.deleteTask(taskObserver.currTaskForDetails);
