@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
-import 'package:untitled3/Model/Setting.dart';
-import 'package:untitled3/Services/SettingService.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Model/Setting.dart';
+import 'package:memorez/Services/SettingService.dart';
+import 'package:memorez/generated/i18n.dart';
 
 part 'SettingObservable.g.dart';
 

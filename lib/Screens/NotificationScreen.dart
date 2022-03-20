@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:untitled3/Observables/NotificationObservable.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Observables/NotificationObservable.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/generated/i18n.dart';
 
 FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();

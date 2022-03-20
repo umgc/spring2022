@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/generated/i18n.dart';
 
 class Home extends StatefulWidget {
   @override

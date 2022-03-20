@@ -83,5 +83,12 @@
     "clearSelection": "Clear Selection",
     "enableNotifications" : "Enable Notifications",
     "minutesBeforeNotifications": "Minutes Before Notifications",
-    "daysToKeepNotes": "Days to Keep Notes"
+    "daysToKeepNotes": "Days to Keep Notes",
+    "tasks": "Tasks",
+    "fontSize": "Font Size",
+    "appSettings": "App Settings",
+    "profile": "Profile",
+    "chat": "Chat",
+    "helpTopics": "Help Topics",
+    "editpatientinformation": "Edit Patient Information"
 }

@@ -1,7 +1,7 @@
 import 'package:chat_bubbles/bubbles/bubble_special_one.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Observables/MicObservable.dart';
+import 'package:memorez/Observables/MicObservable.dart';
 
 class ChatMsgBubble extends StatelessWidget {
   final String? message;

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:untitled3/Model/CalendarEvent.dart';
-import 'package:untitled3/Model/Note.dart';
-import 'package:untitled3/Observables/CalenderObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Observables/NoteObservable.dart';
+import 'package:memorez/Model/CalendarEvent.dart';
+import 'package:memorez/Model/Note.dart';
+import 'package:memorez/Observables/CalenderObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Screens/Calendar/CalendarFormatBar.dart';
+import 'package:memorez/Screens/Calendar/CalendarFormatBar.dart';
 
 final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -17,7 +17,7 @@ final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 bool _filteredNotesIsVisible = false;
 
 DateTime _focusedDay = DateTime.now();
-
+List<CalenderEvent> _events = [];
 ValueNotifier<bool> _dayAndEventsUpdated = ValueNotifier(false);
 
 //--------------------------------------------------------------------------------
@@ -53,6 +53,7 @@ class CalendarState extends State<Calendar> {
           calendarObserver.setMonthHasBeenPressed(true);
           calendarObserver.setWeekHasBeenPressed(false);
           calendarObserver.setDayHasBeenPressed(false);
+          calendarObserver.setNotesOnDayIsVisible(false);
 
           calendarObserver.setCalendarIsVisible(true);
 
@@ -61,7 +62,8 @@ class CalendarState extends State<Calendar> {
       } else {
         _results = _allEvents
             .where((event) =>
-                event.text.toLowerCase().contains(value.toLowerCase()))
+                event.text.toLowerCase().contains(value.toLowerCase()) &&
+                event.eventDate.isEmpty == false)
             .toList();
         // Refresh the UI
         setState(() {
@@ -70,8 +72,15 @@ class CalendarState extends State<Calendar> {
           calendarObserver.setCalendarBarIsVisible(false);
           calendarObserver.setCalendarIsVisible(false);
           calendarObserver.setDailyCalendarIsVisible(false);
+          calendarObserver.setNotesOnDayIsVisible(false);
         });
       }
+    }
+
+    //This function builds the events on day list
+    List<CalenderEvent> checkDays(DateTime day) {
+      return calendarObserver
+          .loadEventsOfSelectedDay(day.toString().split(" ")[0]);
     }
 
     return Observer(
@@ -105,7 +114,6 @@ class CalendarState extends State<Calendar> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: new ListTile(
-
                           //onTap: () => print('${value[index]}'),
                           title: Text("${_matchedEvents[index].text}",
                               style: TextStyle(color: Colors.black),
@@ -151,18 +159,17 @@ class CalendarState extends State<Calendar> {
                 return isSameDay(calendarObserver.selectedDay, day);
               },
               //-------------------------------------------------------------------------------------------
-                //This event loader is causing an error and slowing this whole thing down
-                eventLoader: (DateTime day) {
-                  return calendarObserver
-                      .loadEventsOfSelectedDay(day.toString().split(" ")[0]);
-                },
+              //This event loader is causing an error and slowing this whole thing down
+              eventLoader: (DateTime day) {
+                return checkDays(day);
+              },
               //-----------------------------------------------------------------------------------------
               onDaySelected: (selectedDay, focusDay) {
                 _focusedDay = selectedDay;
                 print("onDaySelected selectedDay: $selectedDay");
                 //extract the date portion
                 calendarObserver.setSelectedDay(selectedDay);
-                var _events = calendarObserver.loadEventsOfSelectedDay(
+                _events = calendarObserver.loadEventsOfSelectedDay(
                     selectedDay.toString().split(" ")[0]);
 
                 if (_events.length > 0) {
@@ -217,44 +224,66 @@ class CalendarState extends State<Calendar> {
           ),
 
           const SizedBox(height: 8.0),
-
-          //Area under Calendar displaying notes--------------------------------
           Visibility(
             visible: calendarObserver.getNotesOnDayIsVisible(),
             child: Expanded(
-              child:ValueListenableBuilder<List<CalenderEvent>>(
-                valueListenable: calendarObserver.selectedEvents,
-                builder: (context, value, _) {
-                  print("Initialized Value Notifier: ");
-                  return ListView.builder(
-                      itemCount: value.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 50,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 3,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.lightBlue.shade50,
-                            border: Border.all(
-                                color: Colors.blueGrey,
-                                width: 1
-                            ),
-                            borderRadius: BorderRadius.circular(12.0),
-
-                          ),
-                          child: ListTile(
-                            //onTap: () => print('${value[index]}'),
-                            title: Text("${value[index]} \t at \t ${value[index].time}",
-                                textAlign: TextAlign.center),
-                          ),
-                        );
-                      });
-                },
-              )
+              child: ListView.builder(
+                  itemCount: _events.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: 50,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.lightBlue.shade50,
+                        border: Border.all(color: Colors.blueGrey, width: 1),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: ListTile(
+                        //onTap: () => print('${value[index]}'),
+                        title: Text(
+                            "${_events[index]} \t at \t ${_events[index].time}",
+                            textAlign: TextAlign.center),
+                      ),
+                    );
+                  }),
             ),
           )
+          //Area under Calendar displaying notes--------------------------------
+          // Visibility(
+          //   visible: calendarObserver.getNotesOnDayIsVisible(),
+          //   child: Expanded(
+          //       child: ValueListenableBuilder<List<CalenderEvent>>(
+          //     valueListenable: calendarObserver.selectedEvents,
+          //     builder: (context, value, _) {
+          //       print("Initialized Value Notifier: ");
+          //       return ListView.builder(
+          //           itemCount: value.length,
+          //           itemBuilder: (context, index) {
+          //             return Container(
+          //               height: 50,
+          //               margin: const EdgeInsets.symmetric(
+          //                 horizontal: 12.0,
+          //                 vertical: 3,
+          //               ),
+          //               decoration: BoxDecoration(
+          //                 color: Colors.lightBlue.shade50,
+          //                 border: Border.all(color: Colors.blueGrey, width: 1),
+          //                 borderRadius: BorderRadius.circular(12.0),
+          //               ),
+          //               child: ListTile(
+          //                 //onTap: () => print('${value[index]}'),
+          //                 title: Text(
+          //                     "${value[index]} \t at \t ${value[index].time}",
+          //                     textAlign: TextAlign.center),
+          //               ),
+          //             );
+          //           });
+          //     },
+          //   )),
+          // )
         ]),
       ),
     );

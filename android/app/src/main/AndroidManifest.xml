@@ -29,7 +29,7 @@
     </queries>
     <application
 
-        android:label="MemoryMagic"
+        android:label="memorez"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

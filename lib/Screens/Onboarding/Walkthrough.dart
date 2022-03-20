@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Screens/Components/VideoPlayer.dart';
-import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Services/VoiceOverTextService.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Screens/Components/VideoPlayer.dart';
+import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Services/VoiceOverTextService.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
-import 'package:untitled3/Utility/Video_Player.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/Utility/Video_Player.dart';
+import 'package:memorez/generated/i18n.dart';
 
 class WalkthroughScreen extends StatefulWidget {
   @override

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:memorez/Screens/Profile/UserProfile.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Setting.dart';
-import 'package:untitled3/Observables/OnboardObservable.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Screens/Home.dart';
-import 'package:untitled3/Screens/Main.dart';
-import 'package:untitled3/Screens/Onboarding/CloudSetup.dart';
-import 'package:untitled3/Screens/Onboarding/Permission.dart';
-import 'package:untitled3/Screens/Onboarding/SelectLanguage.dart';
-import 'package:untitled3/Screens/Onboarding/Walkthrough.dart';
+import 'package:memorez/Model/Setting.dart';
+import 'package:memorez/Observables/OnboardObservable.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Screens/Home.dart';
+import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Screens/Onboarding/CloudSetup.dart';
+import 'package:memorez/Screens/Onboarding/Permission.dart';
+import 'package:memorez/Screens/Onboarding/SelectLanguage.dart';
+import 'package:memorez/Screens/Onboarding/Walkthrough.dart';
 
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/generated/i18n.dart';
+
+import '../CreateAdmin.dart';
+import '../Profile/edit_profile_page.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -25,13 +29,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Setting onbaordSetting = Setting();
 
   //count of boardingScreens
-  static const int NUM_OF_ONBOARDING_SCREEN = 3;
+  static const int NUM_OF_ONBOARDING_SCREEN = 4;
 
   String _screenName(index) {
     List<String> boardingScreens = [
       I18n.of(context)!.onboardLangSetup,
       I18n.of(context)!.onboardPermissionSetup,
-      //I18n.of(context)!.onboardCloudSetup,
+      I18n.of(context)!.walkthroughScreen,
+      I18n.of(context)!.walkthroughScreen,
       I18n.of(context)!.walkthroughScreen,
       I18n.of(context)!.homeScreenName,
     ];
@@ -49,9 +54,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       case 1:
         return PermissionScreen();
       case 2:
-        return CloudSetupScreen();
-      default:
+        return SignupForm();
+      case 3:
+        return EditProfilePage();
+      case 4:
         return WalkthroughScreen();
+      default:
+        return MainNavigator();
     }
   }
 
@@ -91,7 +100,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             ElevatedButton(
                               child: Text(I18n.of(context)!.next.toUpperCase()),
                               onPressed: () {
-                                  if(onboardObserver.currentScreenIndex < 2){
+                                  if(onboardObserver.currentScreenIndex < 4){
                                     onboardObserver.moveToNextScreen();
                                   }else{
                                     Navigator.pushReplacement<void, void>(

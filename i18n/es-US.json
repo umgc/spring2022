@@ -83,5 +83,14 @@
     "selectDate": "Seleccione fecha",
     "enterTime": "Ingrese la hora",
     "clearSelection": "Selección clara",
-    "enableNotifications": "Permitir notificaciones"
+    "enableNotifications": "Permitir notificaciones",
+    "minutesBeforeNotifications": "Minutos antes de las notificaciones",
+    "daysToKeepNotes": "Días para guardar notas",
+    "tasks": "Tareas",
+    "fontSize": "Tamaño de fuente",
+    "appSettings": "Ajustes de Aplicacion",
+    "profile": "Perfil",
+    "chat": "Chat",
+    "helpTopics": "Temas de ayuda",
+    "editpatientinformation": "Editar información del paciente"
 }
