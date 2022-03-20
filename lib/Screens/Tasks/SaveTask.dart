@@ -274,7 +274,7 @@ class _SaveTaskState extends State<SaveTask> {
 
                         if (_stepIndex < (getSteps().length - 1)) {
                           //VALIDATE
-                          _stepIndex += 1;
+                          _stepIndex += 2;
                         }
                       },
                       icon: const Icon(
