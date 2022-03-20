@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled3/DatabaseHandler/DbHelper.dart';
+import 'package:untitled3/Model/UserModel.dart';
 import 'package:untitled3/Screens/Tasks/TaskHealthCheck.dart';
 import 'package:untitled3/Utility/Constant.dart';
 import 'package:untitled3/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'SaveTask.dart';
-import 'viewTask.dart';
+import 'ViewTask.dart';
 import 'TaskDetails.dart';
 
 final viewTasksScaffoldKey = GlobalKey<ScaffoldState>();
@@ -18,12 +21,35 @@ class Task extends StatefulWidget {
 }
 
 class _TaskState extends State<Task> {
+  bool careGiverModeEnabled = false;
   _TaskState();
+
+  final _pref = SharedPreferences.getInstance();
+  late DbHelper dbHelper;
+  var _conUserId = TextEditingController();
+  Future<void> getUserData() async {
+    final SharedPreferences sp = await _pref;
+    setState(() {
+      _conUserId.text = sp.getString("user_id")!;
+    });
+  }
+
+  UserModel? get userData => null;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+    dbHelper = DbHelper();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("username " + _conUserId.text);
     final taskObserver = Provider.of<TaskObserver>(context);
-
+    _conUserId.text == 'Admin'
+        ? taskObserver.enableCaregiverMode()
+        : taskObserver.disableCaregiverMode();
     return Scaffold(
       key: viewTasksScaffoldKey,
       body: Observer(builder: (_) => _changeScreen(taskObserver.currentScreen)),
@@ -31,8 +57,6 @@ class _TaskState extends State<Task> {
   }
 
   Widget _changeScreen(TASK_SCREENS screen) {
-    print("---Tasks/Task.dart Line 35--- Changing Task screen to $screen");
-
     switch (screen) {
       case TASK_SCREENS.ADD_TASK:
         return SaveTask();
@@ -55,7 +79,9 @@ class _TaskState extends State<Task> {
         );
 
       default:
-        return ViewTasks();
+        {
+          return ViewTasks();
+        }
     }
   }
 }
