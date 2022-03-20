@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
@@ -10,9 +10,9 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/Model/Medical.dart';
-import 'package:memorez/DatabaseHandler/database_helper.dart';
+import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
-
+import 'package:memorez/Model/History.dart';
 
 
 import '../Main.dart';
@@ -20,12 +20,12 @@ import 'add_allergy_card.dart';
 import 'add_medical_history_card.dart';
 import 'edit_profile_page.dart';
 
-class MedicalHistoryCard extends StatefulWidget {
+class HistoryCard extends StatefulWidget {
   @override
-  _MedicalHistoryCardState createState() => _MedicalHistoryCardState();
+  _HistoryCardState createState() => _HistoryCardState();
 }
 
-class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
+class _HistoryCardState extends State<HistoryCard> {
   //this code checks for admin mode
   late DbHelper dbHelper;
   final _pref = SharedPreferences.getInstance();
@@ -40,25 +40,25 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
     });
   }
 
-  Future<List<Medical>>? _medicalList;
+  Future<List<History>>? _historyList;
 
   @override
   void initState() {
     super.initState();
-    _updateMedicalList();
+    _updateHistoryList();
 
     //this initializes the admin mode check information
     getUserData();
     dbHelper = DbHelper();
   }
 
-  _updateMedicalList() {
+  _updateHistoryList() {
     setState(() {
-      _medicalList = DatabaseHelper.instance.getMedicalList();
+      _historyList = DatabaseHelper.instance.getHistoryList();
     });
   }
 
-  Widget buildMedical(Medical medical) {
+  Widget buildHistory(History history) {
 
     return Padding(
 
@@ -67,13 +67,13 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
         children: [
           ListTile(
               title: Text(
-                medical.medical!,
+                history.history!,
                 style: kLabelTextStyle,
               ),
-              subtitle: Text(
-                medical.mednote!,
-                style: kSubText,
-              ),
+              // subtitle: Text(
+              //   history.desc!,
+              //   style: kSubText,
+              // ),
               trailing:
 
               Visibility(
@@ -84,9 +84,9 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => AddMedicalHistoryCard(
-                            updateMedicalList: _updateMedicalList,
-                            medical: medical),
+                        builder: (_) => AddHistoryCard(
+                            updateHistoryList: _updateHistoryList,
+                            history: history),
                       ),
                     );
                   },
@@ -106,7 +106,7 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
       children: [
         FutureBuilder(
 
-            future: _medicalList,
+            future: _historyList,
             builder: (context, snapshot) {
 
               if (!snapshot.hasData) {
@@ -121,7 +121,7 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   // padding: EdgeInsets.symmetric(vertical: 15.0),
-                  itemCount: 1 + (snapshot.data as List<Medical>).length,
+                  itemCount: 1 + (snapshot.data as List<History>).length,
                   itemBuilder: (BuildContext context, int index) {
 
                     if (index == 0) {
@@ -155,9 +155,9 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) => AddMedicalHistoryCard(
-                                              updateMedicalList:
-                                              _updateMedicalList),
+                                          builder: (_) => AddHistoryCard(
+                                              updateHistoryList:
+                                              _updateHistoryList),
                                         ),
                                       ),
                                     },
@@ -170,9 +170,9 @@ class _MedicalHistoryCardState extends State<MedicalHistoryCard> {
                         ),
                       );
                     }
-                    return buildMedical(
+                    return buildHistory(
 
-                        (snapshot.data as List<Medical>)[index - 1]);
+                        (snapshot.data as List<History>)[index - 1]);
 
                   },
                 ),

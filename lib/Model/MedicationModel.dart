@@ -2,8 +2,8 @@ class Medication {
   int? id;
   String? title;
   String? dose;
-
   int? status;
+
 
   Medication({this.title, this.dose, this.status});
 

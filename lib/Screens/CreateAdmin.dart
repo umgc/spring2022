@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 
-import '../DatabaseHandler/DbHelper.dart';
+import '../DatabaseHandler/database_helper_profile.dart';
 
 class SignupForm extends StatefulWidget {
   @override

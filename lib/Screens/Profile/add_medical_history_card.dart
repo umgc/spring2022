@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
@@ -9,52 +9,53 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/Model/Medical.dart';
-import 'package:memorez/DatabaseHandler/database_helper.dart';
+import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
+import 'package:memorez/Model/History.dart';
 
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
-class AddMedicalHistoryCard extends StatefulWidget {
-  final Function? updateMedicalList;
-  final Medical? medical;
+class AddHistoryCard extends StatefulWidget {
+  final Function? updateHistoryList;
+  final History? history;
 
-  AddMedicalHistoryCard({this.updateMedicalList, this.medical});
+  AddHistoryCard({this.updateHistoryList, this.history});
 
   @override
   _UserProfileState createState() => _UserProfileState();
 }
 
-class _UserProfileState extends State<AddMedicalHistoryCard> {
+class _UserProfileState extends State<AddHistoryCard> {
   final _formKey = GlobalKey<FormState>();
 
-  String? _medical = "";
-  String? _mednote = "";
+  String? _history = "";
+  String? _desc = "";
   TextEditingController _dateController = TextEditingController();
 
   _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print('$_medical, $_mednote');
+      print('$_history, $_desc');
 
       // Insert medical history to Users Database
-      Medical medical = Medical(medical: _medical, mednote: _mednote);
-      if (widget.medical == null) {
-        medical.status = 0;
-        DatabaseHelper.instance.insertMedical(medical);
+      History history = History(history: _history, desc: _desc);
+      if (widget.history == null) {
+        history.status = 0;
+        DatabaseHelper.instance.insertHistory(history);
       } else {
         // Update medical history in Users Database
-        medical.id = widget.medical!.id;
-        DatabaseHelper.instance.updateMedical(medical);
+        history.id = widget.history!.id;
+        DatabaseHelper.instance.updateHistory(history);
       }
 
-      widget.updateMedicalList!();
+      widget.updateHistoryList!();
       Navigator.pop(context);
     }
   }
 
   _delete() {
-    DatabaseHelper.instance.deleteMedical(widget.medical!.id);
-    widget.updateMedicalList!();
+    DatabaseHelper.instance.deleteHistory(widget.history!.id);
+    widget.updateHistoryList!();
     Navigator.pop(context);
   }
 
@@ -87,7 +88,7 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.medical == null ? 'Add Past Medical History' : 'Update Past Medical History',
+                  widget.history == null ? 'Add Past Medical History' : 'Update Past Medical History',
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -105,9 +106,9 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                         child: TextFormField(
                           style: TextStyle(fontSize: 18),
                           decoration:
-                          widget.medical != null?
+                          widget.history != null?
                           InputDecoration(
-                              labelText: widget.medical?.medical.toString(),
+                              labelText: widget.history?.history.toString(),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -127,8 +128,8 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                           validator: (input) => input!.trim().isEmpty
                               ? 'Please enter medical history'
                               : null,
-                          onSaved: (input) => _medical = input,
-                          initialValue: _medical,
+                          onSaved: (input) => _history = input,
+                          initialValue: _history,
                         ),
                       ),
                       Padding(
@@ -136,9 +137,9 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                         child: TextFormField(
                           style: TextStyle(fontSize: 18),
                           decoration:
-                          widget.medical != null?
+                          widget.history != null?
                           InputDecoration(
-                              labelText: widget.medical?.mednote.toString(),
+                              labelText: widget.history?.desc.toString(),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -158,8 +159,8 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                           validator: (input) => input!.trim().isEmpty
                               ? 'Please enter a note'
                               : null,
-                          onSaved: (input) => _mednote = input,
-                          initialValue: _mednote,
+                          onSaved: (input) => _desc = input,
+                          initialValue: _desc,
                         ),
                       ),
 
@@ -173,7 +174,7 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.medical == null ? 'Add' : 'Update',
+                            widget.history == null ? 'Add' : 'Update',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -182,7 +183,7 @@ class _UserProfileState extends State<AddMedicalHistoryCard> {
                           ),
                         ),
                       ),
-                      widget.medical != null
+                      widget.history != null
                           ? Container(
                         margin:
                         EdgeInsets.symmetric(vertical: 20.0),
