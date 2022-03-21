@@ -25,7 +25,7 @@ import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:memorez/Observables/ScreenNavigator.dart';
 import 'package:memorez/Observables/NotificationObservable.dart';
 import 'package:dcdg/dcdg.dart';
-import 'package:memorez/Observables/TasksObservable.dart';
+import 'package:memorez/Observables/TaskObservable.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

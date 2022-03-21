@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:quiver/iterables.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
-import 'package:untitled3/Model/Task.dart';
-import 'package:untitled3/Observables/ScreenNavigator.dart';
-import 'package:untitled3/Observables/SettingObservable.dart';
-import 'package:untitled3/Utility/Constant.dart';
+import 'package:memorez/Model/Task.dart';
+import 'package:memorez/Observables/ScreenNavigator.dart';
+import 'package:memorez/Observables/SettingObservable.dart';
+import 'package:memorez/Utility/Constant.dart';
 import '../../Observables/TaskObservable.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

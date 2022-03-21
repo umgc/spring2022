@@ -38,11 +38,11 @@ import 'package:memorez/Screens/Calendar/Calendar.dart';
 import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:memorez/Screens/Tasks/tasks.dart';
+//import 'package:memorez/Screens/Tasks/tasks.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'dart:io';
 
-import '../Screens/Tasks/Task.dart';
+import 'package:memorez/Screens/Tasks/Task.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 

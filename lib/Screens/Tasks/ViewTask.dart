@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
-import 'package:untitled3/DatabaseHandler/DbHelper.dart';
-import 'package:untitled3/Services/NoteService.dart';
-import 'package:untitled3/Utility/Constant.dart';
-import 'package:untitled3/generated/i18n.dart';
+import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/Services/NoteService.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'TaskTable.dart';
-
-import 'package:untitled3/Model/Task.dart';
+import 'package:memorez/Model/Task.dart';
 
 final viewTasksScaffoldKey = GlobalKey<ScaffoldState>();
 
