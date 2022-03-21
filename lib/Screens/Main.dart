@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/Tasks/ViewTask.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
@@ -125,9 +126,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.help);
-
       return Help();
-
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -164,12 +163,10 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.profile);
       return UserProfile();
     }
-
     if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.editpatientinformation);
       return EditProfilePage();
     }
-
     if (screen == MENU_SCREENS.LOGIN) {
       screenNav.setTitle("Caregiver Login");
       return LoginForm();
@@ -178,7 +175,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle('Caregiver Screen');
       return UpdateAdmin();
     }
-
     //menu screens
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -197,7 +193,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.generalSetting);
       return Settings();
     }
-
     return Text("Wrong Screen - fix it");
   }
 
