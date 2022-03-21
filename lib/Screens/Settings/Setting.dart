@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/LoginPage.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Setting.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
@@ -63,6 +64,7 @@ class _SettingState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final screenNav = Provider.of<MainNavObserver>(context);
+    // screenNav.changeScreen(MENU_SCREENS.SETTING);
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
     _conUserId.text == 'Admin'? careMode = true : careMode = false;
@@ -528,7 +530,10 @@ class _SettingState extends State<Settings> {
                           // careMode = true;
                           // screenNav.changeScreen(MENU_SCREENS.SETTING);
                           careMode = true;
-                          screenNav.changeScreen(MENU_SCREENS.LOGIN);
+                          // screenNav.changeScreen(MENU_SCREENS.LOGIN);
+                          screenNav.changeScreen(MENU_SCREENS.SETTING);
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                              LoginForm()));
 
                         },
 
@@ -560,7 +565,10 @@ class _SettingState extends State<Settings> {
                           // careMode = true;
                           // screenNav.changeScreen(MENU_SCREENS.SETTING);
                           careMode = true;
+
                           screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
+
+
 
                         },
                         child: Text(
