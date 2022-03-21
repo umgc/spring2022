@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/AdminPage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Setting.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
@@ -566,8 +568,9 @@ class _SettingState extends State<Settings> {
                           // screenNav.changeScreen(MENU_SCREENS.SETTING);
                           careMode = true;
 
-                          screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
-
+                          // screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                              UpdateAdmin()));
 
 
                         },

@@ -9,6 +9,8 @@ import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Comm/genLoginSignupHeader.dart';
+
 class UpdateAdmin extends StatefulWidget {
   @override
   _HomeFormState createState() => _HomeFormState();
@@ -106,17 +108,29 @@ class _HomeFormState extends State<UpdateAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        foregroundColor: Color(0xFF0D47A1),
+        leading: BackButton(
+          onPressed: (){
+              Navigator.pop(context);
+          },
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            margin: EdgeInsets.only(top: 20.0),
+
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //Update
+
+                  genLoginSignupHeader('Update Caregiver'),//Update
                   getTextFormField(
                       controller: _conUserId,
                       isEnable: false,
