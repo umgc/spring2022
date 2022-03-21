@@ -29,7 +29,7 @@ class TaskTable extends StatelessWidget {
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 350) / 2;
+    var rowHeight = (MediaQuery.of(context).size.height - 400) / 2;
 
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];

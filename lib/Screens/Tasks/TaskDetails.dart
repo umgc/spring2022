@@ -108,7 +108,7 @@ class _TaskDetails extends State<TaskDetails> {
                   ),
 
                   Visibility(
-                      visible: false,
+                      visible: taskObserver.careGiverModeEnabled,
                       child: GestureDetector(
                           onTap: () {
                             //popup confirmation view
@@ -124,7 +124,7 @@ class _TaskDetails extends State<TaskDetails> {
                                 color: Colors.red,
                               ),
                               Text(
-                                I18n.of(context)!.deleteNote,
+                                'Delete Task',
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ],
@@ -153,6 +153,51 @@ class _TaskDetails extends State<TaskDetails> {
 IconData getIcon(String inputIconLabel) {
   IconData result = FontAwesomeIcons.globe;
   switch (inputIconLabel) {
+    case 'Bad':
+      {
+        result = FontAwesomeIcons.solidAngry;
+      }
+      break;
+    case 'Okay':
+      {
+        result = FontAwesomeIcons.meh;
+      }
+      break;
+    case 'Great':
+      {
+        result = FontAwesomeIcons.grin;
+      }
+      break;
+    case 'Sad':
+      {
+        result = FontAwesomeIcons.sadCry;
+      }
+      break;
+    case 'Angry':
+      {
+        result = FontAwesomeIcons.frown;
+      }
+      break;
+    case 'Pain':
+      {
+        result = FontAwesomeIcons.sadTear;
+      }
+      break;
+    case 'Confused':
+      {
+        result = FontAwesomeIcons.dizzy;
+      }
+      break;
+    case 'Tired':
+      {
+        result = FontAwesomeIcons.tired;
+      }
+      break;
+    case 'None':
+      {
+        result = FontAwesomeIcons.questionCircle;
+      }
+      break;
     case 'walking':
       {
         result = FontAwesomeIcons.walking;
