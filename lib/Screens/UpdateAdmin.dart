@@ -7,6 +7,7 @@ import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/Main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Comm/genLoginSignupHeader.dart';
