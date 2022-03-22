@@ -3,16 +3,16 @@ import 'package:lottie/lottie.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../DatabaseHandler/DbHelper.dart';
 import '../main.dart';
+import '../DatabaseHandler/database_helper_profile.dart';
 
 class SignupForm extends StatefulWidget {
   @override

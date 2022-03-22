@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/AdminPage.dart';
 import 'package:memorez/Screens/CreateAdmin.dart';
