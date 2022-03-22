@@ -599,11 +599,10 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     setState(() {
                                       if (secondSelection != '') {
                                         showCompleteBtn = true;
+                                      } else {
+                                        showCompleteBtn = false;
                                       }
                                     });
-
-                                    print('showComplete ' +
-                                        showCompleteBtn.toString());
                                   },
                                 ),
                               ],

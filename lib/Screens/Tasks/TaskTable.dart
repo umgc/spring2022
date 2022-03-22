@@ -168,15 +168,33 @@ class TaskTable extends StatelessWidget {
                           child: InkWell(
                         //This runs when double tapping an Active Task
                         onTap: () {
-                          taskObserver
-                              .setCurrTaskIdForDetails(
-                                  inActiveUserTasks[index].taskId)
-                              .then((value) => taskObserver.changeScreen(
-                                  TASK_SCREENS
-                                      .TASK_VIEW_COMPLETED_HEALTH_CHECK));
-                          if (onListItemClickCallBackFn != null) {
-                            onListItemClickCallBackFn!.call();
+                          print('task id: ' + inActiveUserTasks[index].taskId);
+                          print('task type selected = ' +
+                              inActiveUserTasks[index].taskType);
+                          if (inActiveUserTasks[index].taskType == 'Activity') {
+                            taskObserver
+                                .setCurrTaskIdForDetails(
+                                    inActiveUserTasks[index].taskId)
+                                .then((value) => taskObserver
+                                    .changeScreen(TASK_SCREENS.TASK_DETAIL));
+                          } else {
+                            taskObserver
+                                .setCurrTaskIdForDetails(
+                                    inActiveUserTasks[index].taskId)
+                                .then((value) => taskObserver.changeScreen(
+                                    TASK_SCREENS
+                                        .TASK_VIEW_COMPLETED_HEALTH_CHECK));
                           }
+
+                          // taskObserver
+                          //     .setCurrTaskIdForDetails(
+                          //         inActiveUserTasks[index].taskId)
+                          //     .then((value) => taskObserver.changeScreen(
+                          //         TASK_SCREENS
+                          //             .TASK_VIEW_COMPLETED_HEALTH_CHECK));
+                          // if (onListItemClickCallBackFn != null) {
+                          //   onListItemClickCallBackFn!.call();
+                          // }
                         },
                         child: Container(
                             width: MediaQuery.of(context).size.width,

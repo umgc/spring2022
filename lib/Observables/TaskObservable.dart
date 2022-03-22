@@ -174,7 +174,7 @@ abstract class _AbstractTaskObserver with Store {
     usersTask.remove(task);
     task.isTaskCompleted = true;
     task.completedTaskDateTime = DateTime.now();
-    print('******** task Observable line 162*****' + task.name);
+    print('******** task Observable line 162*****' + task.responseText);
     usersTask.add(task);
     TextTaskService.persistTasks(usersTask);
   }

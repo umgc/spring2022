@@ -27,18 +27,16 @@ class _TaskDetails extends State<TaskDetails> {
   /// Text task service to use for I/O operations against local system
   final TextTaskService textTaskService = new TextTaskService();
   bool readOnly;
-
-  var textController = TextEditingController();
+  bool showCompleteBtn = false;
+  String responseText = '';
   _TaskDetails({this.readOnly = false}) {}
 
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
 
-    if (taskObserver.currTaskForDetails != null) {
-      textController = TextEditingController(
-          text: taskObserver.currTaskForDetails!.localText);
-    }
+    responseText = taskObserver.currTaskForDetails!.responseText;
+    print('response text = ' + responseText);
 
     const ICON_SIZE = 80.00;
     return Scaffold(
@@ -48,20 +46,92 @@ class _TaskDetails extends State<TaskDetails> {
               // padding: EdgeInsets.all(10),
               child: Column(
             children: [
-              Text(taskObserver.currTaskForDetails!.taskType),
-              FaIcon(getIcon(taskObserver.currTaskForDetails!.icon),
-                  color:
-                      getIconColor(taskObserver.currTaskForDetails!.iconColor)),
-              Text(taskObserver.currTaskForDetails!.name),
-              Text(taskObserver.currTaskForDetails!.description),
-              TextField(
-                enabled: readOnly == false,
-                controller: textController,
-                maxLines: 5,
-                // style: TextStyle(fontSize: fontSize),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: "tbd line 73"),
+              Text(
+                'This activity task is assigned to you to perform an action.',
+                style: TextStyle(
+                  fontSize: 20.0,
+                ),
               ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        FaIcon(getIcon(taskObserver.currTaskForDetails!.icon),
+                            size: 50.0,
+                            color: getIconColor(
+                                taskObserver.currTaskForDetails!.iconColor)),
+                        Text(
+                          taskObserver.currTaskForDetails!.taskType,
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          taskObserver.currTaskForDetails!.name,
+                          style: TextStyle(fontSize: 35),
+                        ),
+                        Text(
+                          taskObserver.currTaskForDetails!.description,
+                          style: TextStyle(fontSize: 25.0),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Visibility(
+                visible: readOnly == false,
+                child: TextField(
+                  maxLines: 3,
+                  style: TextStyle(fontSize: 30),
+                  decoration: InputDecoration(hintText: "--Response--"),
+                  onChanged: (text) {
+                    setState(() {
+                      responseText = text;
+                      taskObserver.currTaskForDetails!.responseText =
+                          responseText;
+                      print('printing response - ' + responseText);
+                      if (responseText != '') {
+                        showCompleteBtn = true;
+                      } else
+                        showCompleteBtn = false;
+                    });
+                  },
+                ),
+              ),
+              Visibility(
+                visible: readOnly == true,
+                child: Text(
+                  responseText,
+                  maxLines: 3,
+                  style: TextStyle(fontSize: 30),
+                ),
+              ),
+              // TextField(
+              //     responseText,
+              //   onChanged: (text) {
+              //     setState(() {
+              //       taskObserver.currTaskForDetails!.responseText = text;
+              //       taskObserver.currTaskForDetails!.responseText == ''
+              //           ? showCompleteBtn = false
+              //           : showCompleteBtn = true;
+              //     });
+              //   },
+              //   enabled: readOnly == false,
+              //   // controller: textController,
+              //   maxLines: 5,
+              //   // style: TextStyle(fontSize: fontSize),
+              //   decoration: InputDecoration(
+              //       border: OutlineInputBorder(), hintText: "--Response--"),
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -85,28 +155,6 @@ class _TaskDetails extends State<TaskDetails> {
                           ),
                         ],
                       )),
-
-                  Visibility(
-                    visible: readOnly == false,
-                    child: GestureDetector(
-                        onTap: () {
-                          _onComplete(taskObserver);
-                        },
-                        child: Column(
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.check,
-                              size: ICON_SIZE,
-                              color: Colors.green,
-                            ),
-                            Text(
-                              'Complete Task',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ],
-                        )),
-                  ),
-
                   Visibility(
                       visible: taskObserver.careGiverModeEnabled,
                       child: GestureDetector(
@@ -128,7 +176,28 @@ class _TaskDetails extends State<TaskDetails> {
                                 style: Theme.of(context).textTheme.bodyText1,
                               ),
                             ],
-                          )))
+                          ))),
+                  Visibility(
+                    visible: readOnly == false && showCompleteBtn,
+                    child: GestureDetector(
+                        onTap: () {
+                          _onComplete(taskObserver);
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.check,
+                              size: ICON_SIZE,
+                              color: Colors.green,
+                            ),
+                            Text(
+                              'Complete Task',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ],
+                        )),
+                  ),
+
                   //Need to update with caregiver logic
                 ],
               )
@@ -138,6 +207,8 @@ class _TaskDetails extends State<TaskDetails> {
   }
 
   _onComplete(TaskObserver taskObserver) {
+    taskObserver.currTaskForDetails!.responseText = responseText;
+
     taskObserver.completeTask(taskObserver.currTaskForDetails!);
     Fluttertoast.showToast(
         msg: "Task Completed",
@@ -272,6 +343,11 @@ MaterialColor getIconColor(String inputIconLabel) {
     case 'pink':
       {
         result = Colors.pink;
+      }
+      break;
+    case 'red':
+      {
+        result = Colors.red;
       }
       break;
 
