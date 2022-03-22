@@ -24,7 +24,7 @@ class MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     final noteObserver = Provider.of<NoteObserver>(context, listen: false);
-    final menuObserver = Provider.of<MenuObserver>(context);
+    final menuObserver = Provider.of<MenuObserver>(context, listen: false);
     final screenNav = Provider.of<MainNavObserver>(context);
     return Observer(
         builder: (_) => (menuObserver.currentScreen == MENU_SCREENS.MENU)

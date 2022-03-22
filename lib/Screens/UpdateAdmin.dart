@@ -3,13 +3,14 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Screens/Main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Comm/genLoginSignupHeader.dart';
 import '../main.dart';
 
 class UpdateAdmin extends StatefulWidget {
@@ -85,7 +86,7 @@ class _HomeFormState extends State<UpdateAdmin> {
         updateSP(null, false).whenComplete(() {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => HomePage()),
+              MaterialPageRoute(builder: (_) => MyApp()),
                   (Route<dynamic> route) => false);
         });
       }
@@ -109,17 +110,29 @@ class _HomeFormState extends State<UpdateAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        foregroundColor: Color(0xFF0D47A1),
+        leading: BackButton(
+          onPressed: (){
+              Navigator.pop(context);
+          },
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            margin: EdgeInsets.only(top: 20.0),
+
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //Update
+
+                  genLoginSignupHeader('Update Caregiver'),//Update
                   getTextFormField(
                       controller: _conUserId,
                       isEnable: false,

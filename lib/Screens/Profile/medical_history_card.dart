@@ -10,22 +10,22 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/Model/Medical.dart';
-import 'package:memorez/DatabaseHandler/database_helper_transportation.dart';
+import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
-import 'package:memorez/Model/Transportation.dart';
-import 'package:memorez/Screens/Profile/add_transportation_card.dart';
+import 'package:memorez/Model/History.dart';
+
 
 import '../Main.dart';
 import 'add_allergy_card.dart';
 import 'add_medical_history_card.dart';
 import 'edit_profile_page.dart';
 
-class TransportationCard extends StatefulWidget {
+class HistoryCard extends StatefulWidget {
   @override
-  _TransportationCardState createState() => _TransportationCardState();
+  _HistoryCardState createState() => _HistoryCardState();
 }
 
-class _TransportationCardState extends State<TransportationCard> {
+class _HistoryCardState extends State<HistoryCard> {
   //this code checks for admin mode
   late DbHelper dbHelper;
   final _pref = SharedPreferences.getInstance();
@@ -40,25 +40,25 @@ class _TransportationCardState extends State<TransportationCard> {
     });
   }
 
-  Future<List<Transportation>>? _transportationList;
+  Future<List<History>>? _historyList;
 
   @override
   void initState() {
     super.initState();
-    _updateTransportationList();
+    _updateHistoryList();
 
     //this initializes the admin mode check information
     getUserData();
     dbHelper = DbHelper();
   }
 
-  _updateTransportationList() {
+  _updateHistoryList() {
     setState(() {
-      _transportationList = DatabaseHelper.instance.getTransportationList();
+      _historyList = DatabaseHelper.instance.getHistoryList();
     });
   }
 
-  Widget buildTransportation(Transportation transportation) {
+  Widget buildHistory(History history) {
 
     return Padding(
 
@@ -67,13 +67,13 @@ class _TransportationCardState extends State<TransportationCard> {
         children: [
           ListTile(
               title: Text(
-                transportation.name!,
+                history.history!,
                 style: kLabelTextStyle,
               ),
-              subtitle: Text(
-                transportation.phone!,
-                style: kSubText,
-              ),
+              // subtitle: Text(
+              //   history.desc!,
+              //   style: kSubText,
+              // ),
               trailing:
 
               Visibility(
@@ -84,9 +84,9 @@ class _TransportationCardState extends State<TransportationCard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => AddTransportationCard(
-                            updateTransportationList: _updateTransportationList,
-                            transportation: transportation),
+                        builder: (_) => AddHistoryCard(
+                            updateHistoryList: _updateHistoryList,
+                            history: history),
                       ),
                     );
                   },
@@ -106,7 +106,7 @@ class _TransportationCardState extends State<TransportationCard> {
       children: [
         FutureBuilder(
 
-            future: _transportationList,
+            future: _historyList,
             builder: (context, snapshot) {
 
               if (!snapshot.hasData) {
@@ -121,7 +121,7 @@ class _TransportationCardState extends State<TransportationCard> {
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   // padding: EdgeInsets.symmetric(vertical: 15.0),
-                  itemCount: 1 + (snapshot.data as List<Transportation>).length,
+                  itemCount: 1 + (snapshot.data as List<History>).length,
                   itemBuilder: (BuildContext context, int index) {
 
                     if (index == 0) {
@@ -135,7 +135,7 @@ class _TransportationCardState extends State<TransportationCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Transportation',
+                                  'Past Medical History',
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(
@@ -155,9 +155,9 @@ class _TransportationCardState extends State<TransportationCard> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (_) => AddTransportationCard(
-                                              updateTransportationList:
-                                              _updateTransportationList),
+                                          builder: (_) => AddHistoryCard(
+                                              updateHistoryList:
+                                              _updateHistoryList),
                                         ),
                                       ),
                                     },
@@ -170,9 +170,9 @@ class _TransportationCardState extends State<TransportationCard> {
                         ),
                       );
                     }
-                    return buildTransportation(
+                    return buildHistory(
 
-                        (snapshot.data as List<Transportation>)[index - 1]);
+                        (snapshot.data as List<History>)[index - 1]);
 
                   },
                 ),
@@ -182,116 +182,3 @@ class _TransportationCardState extends State<TransportationCard> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
-// import 'package:memorez/Model/UserModel.dart';
-// import 'package:memorez/Model/user.dart';
-// import 'package:memorez/Screens/Profile/profile_constants.dart';
-// import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
-// import 'package:memorez/utils/user_preferences.dart';
-//
-// import '../Main.dart';
-// import 'edit_profile_page.dart';
-//
-// class TransportationCard extends StatefulWidget {
-//   @override
-//   _UserProfileState createState() => _UserProfileState();
-// }
-//
-// class _UserProfileState extends State<TransportationCard> {
-//   final _pref = SharedPreferences.getInstance();
-//
-//   late DbHelper dbHelper;
-//   var _conUserId = TextEditingController();
-//
-//   UserModel? get userData => null;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     getUserData();
-//
-//     dbHelper = DbHelper();
-//   }
-//
-//   Future<void> getUserData() async {
-//     final SharedPreferences sp = await _pref;
-//
-//     setState(() {
-//       _conUserId.text = sp.getString("user_id")!;
-//     });
-//   }
-//
-//   void removeSP(String key) async {
-//     final prefs = await SharedPreferences.getInstance();
-//     prefs.remove("user_id");
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final user = UserPreferences.getUser();
-//
-//     return Builder(builder: (context) => buildTransportationCard(user));
-//   }
-//
-//   Widget buildTransportationCard(User user) => Row(
-//     children: [
-//       Expanded(
-//         child: Container(
-//           padding: const EdgeInsets.only(left: 30, bottom: 30),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: <Widget>[
-//               Text('Transportation', style: kSectionTitleTextStyle),
-//               //SIZED BOX FOR SPACING
-//               SizedBox(
-//                 height: 20.0,
-//               ),
-//               Text('Transportation 1', style: kLabelTextStyle),
-//               Text(user.trans1),
-//               Text(user.trans1ph),
-//               const SizedBox(height: 24),
-//               Text('Transportation 2', style: kLabelTextStyle),
-//               Text(user.trans2),
-//               Text(user.trans2ph),
-//             ],
-//           ),
-//         ),
-//       ),
-//       Column(
-//         children: [
-//           Container(
-//             padding: EdgeInsets.all(30.0),
-//             alignment: Alignment.centerRight,
-//
-//           ),
-//         ],
-//       ),
-//     ],
-//   );
-// }
-

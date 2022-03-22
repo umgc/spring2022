@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/Profile/allergy_card.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,16 +14,20 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/button_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/transportation_card.dart';
-import 'package:memorez/Screens/Profile/medications_card.dart';
+import 'package:memorez/Screens/Profile/add_medication_card.dart';
+
+
 
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
 import 'care_team_card.dart';
 import 'contact_card.dart';
+import 'medical_history_card.dart';
+import 'medication_card.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -76,15 +81,21 @@ class _ProfilePageState extends State<UserProfile> {
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             TransportationCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
-            MedicationsCard(),
-            const SizedBox(height: 24),
+            MedicationCard(),
+            const SizedBox(child: Divider(color: Colors.blueGrey)),
+            AllergyCard(),
+            const SizedBox(child: Divider(color: Colors.blueGrey)),
+            HistoryCard(),
+            const SizedBox(child: Divider(color: Colors.blueGrey), height: 60,),
+            // const SizedBox(child: Divider(color: Colors.blueGrey)),
+            // MedicalHistoryCard(),
 
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
                 ? Container(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     child: ButtonWidget(
-                      text: 'Edit',
+                      text: 'Edit About',
                       onClicked: () {
                         screenNav
                             .changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);

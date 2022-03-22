@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:memorez/Screens/Settings/Setting.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/AdminPage.dart';
 import 'package:memorez/Screens/CreateAdmin.dart';
@@ -38,6 +40,8 @@ class _LoginFormState extends State<LoginForm> {
     getUserData();
 
     dbHelper = DbHelper();
+
+
   }
 
   Future<void> getUserData() async {
@@ -48,7 +52,15 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
+ setScreen(){
+    final screenNav = Provider.of<MainNavObserver>(context, listen: false);
+
+      screenNav.changeScreen(MENU_SCREENS.SETTING);
+
+
+  }
   _login() async {
+
     String uid = 'Admin';
     String passwd = _conPassword.text;
 
@@ -83,15 +95,36 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final screenNav = Provider.of<MainNavObserver>(context);
+
+    final screenNav = Provider.of<MainNavObserver>(context, listen: false);
+
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
 
     return Builder(builder: (context) {
       return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          bottomOpacity: 0.0,
+          elevation: 0.0,
+          foregroundColor: Color(0xFF0D47A1),
+          leading: BackButton(
+              onPressed: (){
+
+                setState(() {
+                  screenNav.changeScreen(MENU_SCREENS.SETTING);
+                  Navigator.pop(context);
+                });
+                //
+                // Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                //     Settings()));
+              },
+          ),
+        ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
+
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -105,6 +138,7 @@ class _LoginFormState extends State<LoginForm> {
                     icon: Icons.lock,
                     hintName: 'Password',
                     isObscureText: true,
+
                   ),
                   Container(
                     margin: EdgeInsets.all(30.0),

@@ -20,8 +20,9 @@ import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
-import '../DatabaseHandler/DbHelper.dart';
+import '../DatabaseHandler/database_helper_profile.dart';
 import '../Model/UserModel.dart';
+import '../main.dart';
 import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
@@ -247,8 +248,8 @@ class _MainNavigatorState extends State<MainNavigator> {
   @override
   Widget build(BuildContext context) {
     final micObserver = Provider.of<MicObserver>(context);
-    final screenNav = Provider.of<MainNavObserver>(context);
-    screenNav.changeScreen(MAIN_SCREENS.MENU);
+    final screenNav = Provider.of<MainNavObserver>(context, listen: false);
+    // screenNav.changeScreen(MAIN_SCREENS.MENU);
     final settingObserver = Provider.of<SettingObserver>(context);
     HelpObserver helpObserver = Provider.of<HelpObserver>(context);
     helpObserver.loadHelpCotent();
