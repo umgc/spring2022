@@ -10,7 +10,8 @@ import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../DatabaseHandler/DbHelper.dart';
+import '../main.dart';
 import '../DatabaseHandler/database_helper_profile.dart';
 
 class SignupForm extends StatefulWidget {
@@ -30,6 +31,7 @@ class _SignupFormState extends State<SignupForm> {
   var dbHelper;
   bool isFirstRun = true;
   ValueNotifier<bool> submitButtonVisibility = ValueNotifier(true);
+  ValueNotifier<bool> doneButtonVisibility = ValueNotifier(false);
 
   @override
   void initState() {
@@ -41,6 +43,13 @@ class _SignupFormState extends State<SignupForm> {
     final SharedPreferences sp = await _pref;
     sp.setString("user_id", "Admin");
 
+  }
+
+  backToApp(){
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => MyApp()),
+            (Route<dynamic> route) => false);
   }
 
   signUp() async {
@@ -60,6 +69,7 @@ class _SignupFormState extends State<SignupForm> {
         await dbHelper.saveData(uModel).then((userData) {
           alertDialog(context, "Successfully Saved");
           submitButtonVisibility.value = false;
+          doneButtonVisibility.value=true;
           setSP();
 
 
@@ -100,7 +110,31 @@ class _SignupFormState extends State<SignupForm> {
                       ),
                     ),
                   ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: doneButtonVisibility,
+                    builder: (context, value, _) => Visibility(
+                      visible: value,
+                      child:Visibility(
+                        visible: isFirstRun==false,
+                        child: Container(
+                          margin: EdgeInsets.all(30.0),
+                          width: double.infinity,
+                          child: TextButton(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: backToApp,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF0D47A1),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
 
+                    ),
+                  ),
                   ValueListenableBuilder<bool>(
                       valueListenable: submitButtonVisibility,
                       builder: (context, value, _) => Visibility(
@@ -156,28 +190,28 @@ class _SignupFormState extends State<SignupForm> {
                               ],
                             ),
                           )),
-                  Visibility(
-                    visible: !isFirstRun,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Already have an account? '),
-                          FlatButton(
-                            textColor: Color(0xFF0D47A1),
-                            child: Text('Sign In'),
-                            onPressed: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => LoginForm()),
-                                  (Route<dynamic> route) => true);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Visibility(
+                  //   visible: !isFirstRun,
+                  //   child: Container(
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Text('Already have an account? '),
+                  //         FlatButton(
+                  //           textColor: Color(0xFF0D47A1),
+                  //           child: Text('Sign In'),
+                  //           onPressed: () {
+                  //             Navigator.pushAndRemoveUntil(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                     builder: (_) => LoginForm()),
+                  //                 (Route<dynamic> route) => true);
+                  //           },
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

@@ -22,6 +22,7 @@ import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
 import '../DatabaseHandler/database_helper_profile.dart';
 import '../Model/UserModel.dart';
+import '../main.dart';
 import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
@@ -333,8 +334,10 @@ class _MainNavigatorState extends State<MainNavigator> {
                                             adminModeEnabled = false;
 
                                           });
-                                          screenNav.changeScreen(MAIN_SCREENS.MENU);
-                                        },
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(builder: (_) => MyApp()),
+                                                  (Route<dynamic> route) => false);                                        },
                                         style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all<Color>(
