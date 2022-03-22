@@ -144,6 +144,7 @@ class _SaveNoteState extends State<SaveNote> {
                 " " +
                 noteObserver.currNoteForDetails!.eventTime),
         firstDate: DateTime.now(),
+        use24HourFormat: false,
         lastDate: DateTime(2100),
         icon: Icon(Icons.event),
         //  dateLabelText: dateLabelText,
@@ -176,6 +177,7 @@ class _SaveNoteState extends State<SaveNote> {
       locale: locale,
       dateMask: 'd MMM, yyyy',
       //initialValue: DateTime.now().toString(),
+      use24HourFormat: false,
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       icon: Icon(Icons.event),
