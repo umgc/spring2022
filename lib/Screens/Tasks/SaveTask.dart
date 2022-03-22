@@ -56,6 +56,7 @@ class _SaveTaskState extends State<SaveTask> {
   bool _envelopeFlag = true;
   bool _tshirtFlag = true;
 
+
   void unPressButtons() {
     _walkingFlag = true;
     _utensilFlag = true;
@@ -331,9 +332,12 @@ class _SaveTaskState extends State<SaveTask> {
               'Details',
               style: TextStyle(fontSize: 12),
             ),
-            content: Column(
+            content:
+
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+
                 Container(
                     child: const Align(
                   alignment: Alignment.topLeft,
@@ -361,6 +365,7 @@ class _SaveTaskState extends State<SaveTask> {
                 )),
                 //______
                 Container(
+
                   child: TextFormField(
                     // focusNode: textFocusNode,
                     controller: _textNameController,
@@ -990,7 +995,9 @@ class _SaveTaskState extends State<SaveTask> {
         fontSizeToPixelMap(settingObserver.userSettings.noteFontSize, false);
 
     const ICON_SIZE = 80.00;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: saveTaskScaffoldKey,
       body: Stepper(
         type: StepperType.horizontal,
@@ -1008,6 +1015,7 @@ class _SaveTaskState extends State<SaveTask> {
           }
         },
       ),
+
       //     Observer(
       //   builder: (context) => SingleChildScrollView(
       //       padding: EdgeInsets.all(padding),
@@ -1241,23 +1249,17 @@ class _SaveTaskState extends State<SaveTask> {
                       borderRadius: BorderRadius.circular(18.0)))),
 
           //Updated so the back button does not show in the Health check schedule screen
-          if (_stepIndex == 1 || taskType == 'Activity' )
+          if (taskType == 'Activity' && _stepIndex > 0 )
             TextButton(
               onPressed: (){ setState(() {
                 //_________
-                 if (taskType == 'Activity'){
-                  return onStepCancel();
-                }
+                 return onStepCancel();
+              });},
 
-              });
-
-              },
-
-              child: const Text(
-                'Back',
+              child:  const Text( 'Back',
                 style: TextStyle(color: Colors.blueAccent),
-              ),
-            )
+              ),)
+
         ],
       ),
     );
