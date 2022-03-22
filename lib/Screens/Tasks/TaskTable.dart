@@ -184,7 +184,12 @@ class TaskTable extends StatelessWidget {
                             decoration: BoxDecoration(
                                 //color: setBackgroundColor(index),
                                 border: Border.all(color: Colors.blue),
-                                color: Colors.blueGrey[100],
+                                color: inActiveUserTasks
+                                            .elementAt(index)
+                                            .firstHealthCheckMood ==
+                                        'Bad'
+                                    ? Colors.yellow[100]
+                                    : Colors.blueGrey[100],
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: Padding(
