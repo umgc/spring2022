@@ -31,18 +31,22 @@ class SaveTask extends StatefulWidget {
       viewExistingTask: this.viewExistingTask);
 }
 
+
+
 //__ONSAVE
 class _SaveTaskState extends State<SaveTask> {
   String enteredTaskName = '';
   String enteredTaskDescription = '';
   String selectedIcon = '';
   String selectedIconColor = '';
-  bool selectedIsResponseRequired = false;
   String selectedSchedule = '';
   String selectedDate = '';
   String selectedTime = '';
   String taskType = '';
-  String Grey = 'blueGrey';
+  String selectedDateTime = '';
+  // bool selectedIsResponseRequired = false;
+
+
 
   //these flags indicate whether or not a button has been pressed
   bool _walkingFlag = true;
@@ -60,6 +64,19 @@ class _SaveTaskState extends State<SaveTask> {
     _envelopeFlag = true;
     _tshirtFlag = true;
   }
+
+  //Show & hide keyboard
+
+  FocusNode textFocusNode = FocusNode();
+
+  @override
+  void textDispose(){
+    textFocusNode.dispose();
+    super.dispose();
+
+  }
+
+
 
   //Index of stepper
   static int _stepIndex = 0;
@@ -85,6 +102,7 @@ class _SaveTaskState extends State<SaveTask> {
   _SaveTaskState(
       {this.isCheckListEvent = false, this.viewExistingTask = false}) {
     //this.navScreenObs = navScreenObs;
+
   }
 
   @override
@@ -102,6 +120,7 @@ class _SaveTaskState extends State<SaveTask> {
         textColor: Colors.white,
         timeInSecForIosWeb: 4);
   }
+
 
   //ref: https://api.flutter.dev/flutter/material/Checkbox-class.html
   Widget _checkBox(fontSize) {
@@ -210,6 +229,7 @@ class _SaveTaskState extends State<SaveTask> {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final settingObserver = Provider.of<SettingObserver>(context);
 
+
     List<Step> getSteps() => [
           // Screen 1
           Step(
@@ -276,6 +296,7 @@ class _SaveTaskState extends State<SaveTask> {
                         setState(() {
                           selectedIcon = 'medkit';
                           taskType = 'Health Check';
+                          selectedIconColor = 'red';
                         });
                         print('line 243 icon state:' + selectedIcon);
 
@@ -338,22 +359,24 @@ class _SaveTaskState extends State<SaveTask> {
                         fontWeight: FontWeight.bold),
                   ),
                 )),
-
+                //______
                 Container(
                   child: TextFormField(
-                    // initialValue: 'Name',
+                    // focusNode: textFocusNode,
                     controller: _textNameController,
+                    onTap: () => textFocusNode.requestFocus(),
                     onChanged: (valueName) {
                       setState(() {
                         _textNameController.text = valueName;
-                        enteredTaskDescription = valueName.toString();
+                        enteredTaskName = valueName.toString();
                         _textNameController.selection =
                             TextSelection.fromPosition(
                                 TextPosition(offset: valueName.length));
+
                       });
                     },
                     cursorColor: Colors.blue,
-                    textInputAction: TextInputAction.continueAction,
+                    textInputAction: TextInputAction.done,
                     decoration: const InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -384,8 +407,8 @@ class _SaveTaskState extends State<SaveTask> {
 
                 Container(
                   child: TextFormField(
-                    // initialValue: 'Name',
-                    // onEditingComplete: ,
+                    // focusNode: textFocusNode,
+                    onTap: () => textFocusNode.requestFocus(),
                     cursorColor: Colors.blue,
                     controller: _textDescriptionController,
                     keyboardType: TextInputType.multiline,
@@ -662,74 +685,74 @@ class _SaveTaskState extends State<SaveTask> {
 
                 const SizedBox(height: 10),
 
-                // Text Radio Buttons
+                // Text Response Radio Buttons
 
-                Container(
-                    child: const Align(
-                  heightFactor: .5,
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Text Response Required*',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromRGBO(46, 89, 132, 1),
-                        fontWeight: FontWeight.bold),
-                  ),
-                )),
+                // Container(
+                //     child: const Align(
+                //   heightFactor: .5,
+                //   alignment: Alignment.topLeft,
+                //   child: Text(
+                //     'Text Response Required*',
+                //     style: TextStyle(
+                //         fontSize: 15,
+                //         color: Color.fromRGBO(46, 89, 132, 1),
+                //         fontWeight: FontWeight.bold),
+                //   ),
+                // )),
+                // Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: <Widget>[
+                //       //Text Yes Radio button
+                //       Container(
+                //           child: SizedBox(
+                //         width: 150,
+                //         child: RadioListTile<responseText>(
+                //           title: const Text(
+                //             'Yes',
+                //             textAlign: TextAlign.start,
+                //           ),
+                //           toggleable: true,
+                //           contentPadding:
+                //               const EdgeInsets.symmetric(horizontal: .5),
+                //           value: responseText.Yes,
+                //           groupValue: _textReponse,
+                //           onChanged: (responseText? value) {
+                //             //This will hid keyboard when selected
+                //             FocusScope.of(context).unfocus();
+                //
+                //             setState(() {
+                //               _textReponse = value;
+                //               selectedIsResponseRequired = true;
+                //               // value.toString()=='Yes'?true:false;
+                //             });
+                //           },
+                //         ),
+                //       )),
+                //
+                //       //Text No Radio button
+                //       Container(
+                //           child: SizedBox(
+                //         width: 150,
+                //         child: RadioListTile<responseText>(
+                //           title: const Text(
+                //             'No',
+                //             textAlign: TextAlign.left,
+                //           ),
+                //           toggleable: true,
+                //           contentPadding:
+                //               const EdgeInsets.symmetric(horizontal: .5),
+                //           value: responseText.No,
+                //           groupValue: _textReponse,
+                //           onChanged: (responseText? value) {
+                //             setState(() {
+                //               _textReponse = value;
+                //               selectedIsResponseRequired = false;
+                //             });
+                //           },
+                //         ),
+                //       )),
+                //     ]),
 
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      //Text Yes Radio button
-                      Container(
-                          child: SizedBox(
-                        width: 150,
-                        child: RadioListTile<responseText>(
-                          title: const Text(
-                            'Yes',
-                            textAlign: TextAlign.start,
-                          ),
-                          toggleable: true,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: .5),
-                          value: responseText.Yes,
-                          groupValue: _textReponse,
-                          onChanged: (responseText? value) {
-                            //This will hid keyboard when selected
-                            FocusScope.of(context).unfocus();
-
-                            setState(() {
-                              _textReponse = value;
-                              selectedIsResponseRequired = true;
-                              // value.toString()=='Yes'?true:false;
-                            });
-                          },
-                        ),
-                      )),
-
-                      //Text No Radio button
-                      Container(
-                          child: SizedBox(
-                        width: 150,
-                        child: RadioListTile<responseText>(
-                          title: const Text(
-                            'No',
-                            textAlign: TextAlign.left,
-                          ),
-                          toggleable: true,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: .5),
-                          value: responseText.No,
-                          groupValue: _textReponse,
-                          onChanged: (responseText? value) {
-                            setState(() {
-                              _textReponse = value;
-                              selectedIsResponseRequired = false;
-                            });
-                          },
-                        ),
-                      )),
-                    ]),
               ],
             ),
           ),
@@ -976,7 +999,14 @@ class _SaveTaskState extends State<SaveTask> {
         steps: getSteps(),
         onStepTapped: onStepTapped,
         onStepCancel: onStepCancel,
-        onStepContinue: onStepContinue,
+        onStepContinue: (){
+          if (_stepIndex < (getSteps().length - 1)) {
+            setState(() {
+              _stepIndex += 1;
+            });
+
+          }
+        },
       ),
       //     Observer(
       //   builder: (context) => SingleChildScrollView(
@@ -1115,10 +1145,11 @@ class _SaveTaskState extends State<SaveTask> {
     this._newTask.eventTime = _timeController.text;
     this._newTask.iconColor = selectedIconColor;
     this._newTask.sendTaskDateTime = DateTime.now();
+
     //Screen one
     this._newTask.taskType = taskType;
     //Boolean radio button
-    this._newTask.isResponseRequired = selectedIsResponseRequired;
+    // this._newTask.isResponseRequired = selectedIsResponseRequired;
 
     print('---line 962 icon' + selectedIcon);
     taskObserver.deleteTask(taskObserver.currTaskForDetails);
@@ -1209,9 +1240,19 @@ class _SaveTaskState extends State<SaveTask> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)))),
 
-          if (_stepIndex != 0)
+          //Updated so the back button does not show in the Health check schedule screen
+          if (_stepIndex == 1 || taskType == 'Activity' )
             TextButton(
-              onPressed: controlsDetails.onStepCancel,
+              onPressed: (){ setState(() {
+                //_________
+                 if (taskType == 'Activity'){
+                  return onStepCancel();
+                }
+
+              });
+
+              },
+
               child: const Text(
                 'Back',
                 style: TextStyle(color: Colors.blueAccent),
@@ -1222,10 +1263,13 @@ class _SaveTaskState extends State<SaveTask> {
     );
   }
 
-  void onStepTapped(int index) {
-    setState(() {
-      _stepIndex = index;
-    });
+  // __Update to not go back in the stepper
+  void onStepTapped(step) {
+    if (step > _stepIndex) {
+      setState(() {
+        _stepIndex = step;
+      });
+    }
   }
 
   void onStepCancel() {
@@ -1235,6 +1279,21 @@ class _SaveTaskState extends State<SaveTask> {
       });
     }
   }
+
+  // void onStepContinue() {
+  //   if (_stepIndex < (getSteps().length - 1)) {
+  //     //VALIDATE
+  //     _stepIndex += 1;
+  //   }
+  //   // else {
+  //   //   // This will place the steps in a continous loop esle to provide confirmations
+  //   //   // setState(() {
+  //   //   // _stepIndex = 0;
+  //   //   // });
+  //   // }
+  // }
+
+
 
 }
 
