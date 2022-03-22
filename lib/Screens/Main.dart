@@ -317,6 +317,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                                         removeSP("Admin");
                                         adminModeEnabled = false;
                                       });
+                                      screenNav.changeScreen(MAIN_SCREENS.MENU);
                                     },
                                     style: ButtonStyle(
                                       backgroundColor:
