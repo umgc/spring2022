@@ -247,8 +247,8 @@ class _MainNavigatorState extends State<MainNavigator> {
   @override
   Widget build(BuildContext context) {
     final micObserver = Provider.of<MicObserver>(context);
-    final screenNav = Provider.of<MainNavObserver>(context);
-    screenNav.changeScreen(MAIN_SCREENS.MENU);
+    final screenNav = Provider.of<MainNavObserver>(context, listen: false);
+    // screenNav.changeScreen(MAIN_SCREENS.MENU);
     final settingObserver = Provider.of<SettingObserver>(context);
     HelpObserver helpObserver = Provider.of<HelpObserver>(context);
     helpObserver.loadHelpCotent();
@@ -327,10 +327,13 @@ class _MainNavigatorState extends State<MainNavigator> {
                                           style: TextStyle(color: Colors.black),
                                         ),
                                         onPressed: () {
+
                                           setState(() {
                                             removeSP("Admin");
                                             adminModeEnabled = false;
+
                                           });
+                                          screenNav.changeScreen(MAIN_SCREENS.MENU);
                                         },
                                         style: ButtonStyle(
                                           backgroundColor:
