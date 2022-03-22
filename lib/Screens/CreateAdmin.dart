@@ -10,7 +10,7 @@ import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../DatabaseHandler/DbHelper.dart';
+// import '../DatabaseHandler/DbHelper.dart';
 import '../main.dart';
 import '../DatabaseHandler/database_helper_profile.dart';
 
