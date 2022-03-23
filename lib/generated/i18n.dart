@@ -23,7 +23,7 @@ class I18n implements WidgetsLocalizations {
   }
 
   static const GeneratedLocalizationsDelegate delegate =
-  GeneratedLocalizationsDelegate();
+      GeneratedLocalizationsDelegate();
 
   /// function to be invoked when changing the language
   static LocaleChangeCallback? onLocaleChanged;
@@ -254,9 +254,9 @@ class I18n implements WidgetsLocalizations {
   /// "Turn on Notification for Bathroom"
   String get turnOnBathroomNotification => "Turn on Notification for Bathroom";
 
-  /// "Here is a video to a brief walkthrough of how to use Memory Magic App"
+  /// "Here is a video to a brief walkthrough of how to use Memoreez App"
   String get walkthroughVideoLine =>
-      "Here is a video to a brief walkthrough of how to use Memory Magic App";
+      "Here is a video to a brief walkthrough of how to use Memoreez App";
 
   /// "Features will be limited without allowing access to your microphone."
   String get micLimitedAccess =>
@@ -1868,7 +1868,7 @@ class GeneratedLocalizationsDelegate
     I18n._shouldReload = false;
     final String lang = I18n._locale != null ? I18n._locale.toString() : "";
     final String languageCode =
-    I18n._locale != null ? I18n._locale!.languageCode : "";
+        I18n._locale != null ? I18n._locale!.languageCode : "";
     if ("en_US" == lang) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_en_US());
     } else if ("es_US" == lang) {
