@@ -12,7 +12,7 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/DatabaseHandler/database_helper_allergy.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
-
+import '../../Utility/EncryptionUtil.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -57,7 +57,8 @@ class _AllergyCardState extends State<AllergyCard> {
   }
 
   Widget buildAllergy(Allergy allergy) {
-
+String allergyN = EncryptUtil.decryptNote(allergy.allergy!);
+String allergyR = EncryptUtil.decryptNote(allergy.reaction!);
     return Padding(
 
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -65,11 +66,11 @@ class _AllergyCardState extends State<AllergyCard> {
         children: [
           ListTile(
               title: Text(
-                allergy.allergy!,
+                allergyN,
                 style: kLabelTextStyle,
               ),
               subtitle: Text(
-                allergy.reaction!,
+                allergyR,
                 style: kSubText,
               ),
               trailing:

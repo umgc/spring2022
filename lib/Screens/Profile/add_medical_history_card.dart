@@ -11,7 +11,7 @@ import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/Model/Medical.dart';
 import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
 import 'package:memorez/Model/History.dart';
-
+import '../../Utility/EncryptionUtil.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -36,7 +36,8 @@ class _UserProfileState extends State<AddHistoryCard> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       print('$_history, $_desc');
-
+      _history = EncryptUtil.encryptNote(_history);
+      _desc = EncryptUtil.encryptNote(_desc);
       // Insert medical history to Users Database
       History history = History(history: _history, desc: _desc);
       if (widget.history == null) {
