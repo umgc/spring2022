@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/Tasks/ViewTask.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
 import '../DatabaseHandler/database_helper_profile.dart';
+import '../DatabaseHandler/DbHelper.dart';
 import '../Model/UserModel.dart';
 import '../main.dart';
 import 'Profile/UserProfile.dart';
@@ -39,9 +41,11 @@ import 'package:memorez/Screens/Calendar/Calendar.dart';
 import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:memorez/Screens/Tasks/tasks.dart';
+//import 'package:memorez/Screens/Tasks/tasks.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'dart:io';
+
+import 'package:memorez/Screens/Tasks/Task.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -92,6 +96,14 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   int _currentIndex = 0;
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    bool? exitResult = await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+    return exitResult ?? false;
+  }
+
   AlertDialog _buildExitDialog(BuildContext context) {
     return AlertDialog(
       title: const Text('Please confirm'),
@@ -116,7 +128,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.help);
-
       return Help();
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
@@ -148,18 +159,16 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle(I18n.of(context)!.tasks);
-      return Tasks();
+      return Task();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.profile);
       return UserProfile();
     }
-
     if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.editpatientinformation);
       return EditProfilePage();
     }
-
     if (screen == MENU_SCREENS.LOGIN) {
       screenNav.setTitle("Caregiver Login");
       return LoginForm();
@@ -168,7 +177,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle('Caregiver Screen');
       return UpdateAdmin();
     }
-
     //menu screens
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -187,7 +195,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.generalSetting);
       return Settings();
     }
-
     return Text("Wrong Screen - fix it");
   }
 
