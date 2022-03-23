@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io' as io;
+import 'package:memorez/Utility/EncryptionUtil.dart';
 
 class DbHelper {
 
@@ -53,6 +55,8 @@ class DbHelper {
         "$C_Password = '$password'");
 
     if (res.length > 0) {
+
+      print(' Still Encrypted HERE!!!!!!!!!!!! $res');
       return UserModel.fromMap(res.first);
     }
 

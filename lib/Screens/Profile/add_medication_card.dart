@@ -8,7 +8,7 @@ import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/DatabaseHandler/database_helper.dart';
-
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -33,7 +33,8 @@ class _UserProfileState extends State<AddMedicationCard> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       print('$_title, $_dose');
-
+      _title = EncryptUtil.encryptNote(_title);
+      _dose = EncryptUtil.encryptNote(_dose);
       // Insert medication to Users Database
       Medication medication = Medication(title: _title, dose: _dose);
       if (widget.medication == null) {

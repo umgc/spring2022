@@ -70,10 +70,10 @@ class _HistoryCardState extends State<HistoryCard> {
                 history.history!,
                 style: kLabelTextStyle,
               ),
-              // subtitle: Text(
-              //   history.desc!,
-              //   style: kSubText,
-              // ),
+              subtitle: Text(
+                history.desc!,
+                style: kSubText,
+              ),
               trailing:
 
               Visibility(

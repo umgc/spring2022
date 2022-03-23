@@ -9,13 +9,14 @@ import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Screens/Main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import '../Comm/genLoginSignupHeader.dart';
 import '../main.dart';
 
 class UpdateAdmin extends StatefulWidget {
   @override
   _HomeFormState createState() => _HomeFormState();
+
 }
 
 class _HomeFormState extends State<UpdateAdmin> {
@@ -30,20 +31,28 @@ class _HomeFormState extends State<UpdateAdmin> {
 
   @override
   void initState() {
+
     super.initState();
-    getUserData();
+
 
     dbHelper = DbHelper();
+    getUserData();
   }
 
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
     setState(() {
+
       _conUserId.text = sp.getString("user_id")!;
       _conDelUserId.text = sp.getString("user_id")!;
       _conPhone.text = sp.getString("phone")!;
       _conPassword.text = sp.getString("password")!;
+
+      _conUserId.text = EncryptUtil.decryptNote(_conUserId.text);
+      _conDelUserId.text = EncryptUtil.decryptNote(_conDelUserId.text);
+      _conPassword.text = EncryptUtil.decryptNote(_conPassword.text);
+
     });
   }
 
@@ -51,6 +60,10 @@ class _HomeFormState extends State<UpdateAdmin> {
     String uid = _conUserId.text;
     String phone = _conPhone.text;
     String passwd = _conPassword.text;
+
+    ///Encrypt data for update
+    uid = EncryptUtil.encryptNote(uid);
+    passwd = EncryptUtil.encryptNote(passwd);
 
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -78,7 +91,7 @@ class _HomeFormState extends State<UpdateAdmin> {
 
   delete() async {
     String delUserID = _conDelUserId.text;
-
+    delUserID = EncryptUtil.encryptNote(delUserID);
     await dbHelper.deleteUser(delUserID).then((value) {
       if (value == 1) {
         alertDialog(context, "Successfully Deleted");
