@@ -57,7 +57,11 @@ platform :ios do
         }
       }
     )
-
+    
+    increment_version_number(
+      bump_type: "patch"
+    )
+    
     pilot(
       apple_id: "#{DEVELOPER_APP_ID}",
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
