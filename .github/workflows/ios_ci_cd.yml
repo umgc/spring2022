@@ -30,6 +30,8 @@ jobs:
       - name: Move file to assests/NLU directory 
         run: |
           mv ./creds/Lex_Credentials.xml ./assets/NLU
+      - name: Update version in YAML
+        run: sed -i 's/99.99.99+99/${{ github.run_number }}.0.0+${{ github.run_number }}/g' pubspec.yaml
       - name: Run Flutter tasks
         uses: subosito/flutter-action@v1
         with:
@@ -53,4 +55,3 @@ jobs:
           PROVISIONING_PROFILE_SPECIFIER: '${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}'
           TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
           TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
-          BUILD_NUMBER: '${{ github.run_number }}'
