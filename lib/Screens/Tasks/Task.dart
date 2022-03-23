@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/DBHelper.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Tasks/TaskHealthCheck.dart';
 import 'package:memorez/Utility/Constant.dart';
