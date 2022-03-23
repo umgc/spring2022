@@ -5,11 +5,11 @@ name: iOS CI/CD
 on:
   push:
     branches:
-      - "main"
+      - "feature/app-store"
   
   pull_request:
     branches:
-      - "main"
+      - "feature/app-store"
       
 jobs:
  deploy_ios:
