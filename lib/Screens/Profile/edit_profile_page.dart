@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/user.dart';
@@ -33,6 +34,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
     final screenNav = Provider.of<MainNavObserver>(context);
     return Builder(
       builder: (context) => Scaffold(
@@ -111,9 +113,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(height: 24),
             TextFieldWidget(
               label: 'Date of Birth',
-              text: user.bday,
+              text: EncryptUtil.decryptNote(user.bday),
               maxLines: 1,
-              onChanged: (bday) => user = user.copy(bday: bday),
+              onChanged: (bday) {
+                bday = EncryptUtil.encryptNote(bday);
+                user = user.copy(bday: bday);
+              }
             ),
             const SizedBox(height: 24),
             const SizedBox(
@@ -303,6 +308,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 UserPreferences.setUser(user);
                 UserPreferences.getUser();
                 alertDialog(context, "Updated User Profile");
+                print('Encrypted data: Birthdate: ${user.bday}');
               },
             ),
           ],

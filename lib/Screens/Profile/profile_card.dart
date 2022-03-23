@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -70,7 +71,7 @@ class _UserProfileState extends State<ProfileCard> {
                     height: 20.0,
                   ),
                   Text('Date of Birth', style: kLabelTextStyle),
-                  Text(user.bday),
+                  Text(EncryptUtil.decryptNote(user.bday)),
                   SizedBox(
                     height: 20.0,
                   ),
