@@ -23,7 +23,7 @@ class I18n implements WidgetsLocalizations {
   }
 
   static const GeneratedLocalizationsDelegate delegate =
-  GeneratedLocalizationsDelegate();
+      GeneratedLocalizationsDelegate();
 
   /// function to be invoked when changing the language
   static LocaleChangeCallback? onLocaleChanged;
@@ -33,7 +33,7 @@ class I18n implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get editpatientinformation => "edit Patient Information";
+  String get editpatientinformation => "Edit Profile";
 
   /// "Home"
   String get homeScreenName => "Home";
@@ -1868,7 +1868,7 @@ class GeneratedLocalizationsDelegate
     I18n._shouldReload = false;
     final String lang = I18n._locale != null ? I18n._locale.toString() : "";
     final String languageCode =
-    I18n._locale != null ? I18n._locale!.languageCode : "";
+        I18n._locale != null ? I18n._locale!.languageCode : "";
     if ("en_US" == lang) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_en_US());
     } else if ("es_US" == lang) {
