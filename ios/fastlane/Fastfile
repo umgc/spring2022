@@ -43,7 +43,7 @@ platform :ios do
     )
     
     increment_version_number(
-      bump_type: "major"
+      version_number: "2.0.0"
     )
 
     gym(
