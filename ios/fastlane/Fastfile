@@ -43,7 +43,7 @@ platform :ios do
     )
     
     increment_version_number(
-      bump_type: "patch"
+      bump_type: "major"
     )
 
     gym(
@@ -59,7 +59,7 @@ platform :ios do
     )
     
     increment_version_number(
-      bump_type: "patch"
+      bump_type: "major"
     )
     
     pilot(
