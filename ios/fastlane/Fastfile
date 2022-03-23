@@ -43,7 +43,7 @@ platform :ios do
     )
     
     increment_version_number(
-      version_number: "2.0.0"
+      version_number: "3.0.0"
     )
 
     gym(
@@ -56,10 +56,6 @@ platform :ios do
             DEVELOPER_APP_ID => PROVISIONING_PROFILE_SPECIFIER
         }
       }
-    )
-    
-    increment_version_number(
-      bump_type: "major"
     )
     
     pilot(
