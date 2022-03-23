@@ -5,7 +5,7 @@ DEVELOPER_APP_IDENTIFIER = ENV["DEVELOPER_APP_IDENTIFIER"]
 PROVISIONING_PROFILE_SPECIFIER = ENV["PROVISIONING_PROFILE_SPECIFIER"]
 TEMP_KEYCHAIN_USER = ENV["TEMP_KEYCHAIN_USER"]
 TEMP_KEYCHAIN_PASSWORD = ENV["TEMP_KEYCHAIN_PASSWORD"]
-#BUILD_NUMBER = ENV["BUILD_NUMBER"]
+BUILD_NUMBER = ENV["BUILD_NUMBER"]
 
 def delete_temp_keychain(name)
   delete_keychain(
@@ -34,7 +34,7 @@ platform :ios do
     ensure_temp_keychain(keychain_name, keychain_password)
     
     increment_build_number(
-      build_number: "2"
+      build_number: "#{BUILD_NUMBER}"
     )
     
     match(
