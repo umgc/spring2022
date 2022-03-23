@@ -111,6 +111,7 @@ class TextTask {
     task.isFavorite = jsonObj['isFavorite'];
     task.eventDate = jsonObj['eventDate'] ?? "";
     task.eventTime = jsonObj['eventTime'] ?? "";
+    print(task.toString());
     return task;
   }
 

@@ -90,6 +90,7 @@ class _TaskDetails extends State<TaskDetails> {
               Visibility(
                 visible: readOnly == false,
                 child: TextField(
+                  textInputAction: TextInputAction.done,
                   maxLines: 3,
                   style: TextStyle(fontSize: 30),
                   decoration: InputDecoration(hintText: "--Response--"),

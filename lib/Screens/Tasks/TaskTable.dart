@@ -10,15 +10,16 @@ import '../../Observables/TaskObservable.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-/// View Tasks page
-class TaskTable extends StatelessWidget {
+class TaskTable extends StatefulWidget {
   final List<TextTask> usersTasks;
 
-  final Function? onListItemClickCallBackFn;
-
   //Flutter will autto assign this param to usersTasks
-  TaskTable(this.usersTasks, this.onListItemClickCallBackFn);
+  TaskTable(this.usersTasks);
+  @override
+  State<TaskTable> createState() => _TaskTableState();
+}
 
+class _TaskTableState extends State<TaskTable> {
   @override
   Widget build(BuildContext context) {
     final screenNav = Provider.of<MainNavObserver>(context);

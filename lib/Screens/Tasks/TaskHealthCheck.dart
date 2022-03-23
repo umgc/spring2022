@@ -590,6 +590,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                 ),
                                 TextField(
                                   maxLines: 3,
+                                  textInputAction: TextInputAction.done,
                                   style: TextStyle(fontSize: 30),
                                   decoration: InputDecoration(
                                       hintText: "--Description--"),

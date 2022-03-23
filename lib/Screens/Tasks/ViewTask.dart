@@ -16,8 +16,6 @@ final viewTasksScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// View Tasks page
 class ViewTasks extends StatefulWidget {
-  ViewTasks();
-
   @override
   State<ViewTasks> createState() => _ViewTasksState();
 }
@@ -27,17 +25,15 @@ class _ViewTasksState extends State<ViewTasks> {
 
   @override
   Widget build(BuildContext context) {
-    final taskObserver = Provider.of<TaskObserver>(context);
+    var taskObserver = Provider.of<TaskObserver>(context);
 
     taskObserver.resetCurrTaskIdForDetails();
 
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         body: Column(
           children: [
-            TaskTable(taskObserver.usersTask, () => print("done")),
-            // Text('Completed Tasks'),
-            // TaskTable(inActiveUserTasks, () => print("done"))
+            TaskTable(taskObserver.usersTask),
           ],
         ),
         floatingActionButton: Padding(
