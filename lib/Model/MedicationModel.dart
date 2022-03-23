@@ -21,6 +21,7 @@ class Medication {
 
   factory Medication.fromMap(Map<String, dynamic> map) {
     return Medication.withId(
+
         id: map['id'],
         title: map['title'],
         dose: map['dose'],
