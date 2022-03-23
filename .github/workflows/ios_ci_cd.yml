@@ -16,6 +16,9 @@ jobs:
     name: Deploy beta build to TestFlight
     runs-on: macOS-latest
     steps:
+      - name: Get run number
+        run: |
+          echo '${{ github.run_number }}'
       - name: Checkout code from ref
         uses: actions/checkout@v2
         with:
