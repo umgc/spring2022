@@ -33,7 +33,7 @@ class I18n implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  String get editpatientinformation => "edit Patient Information";
+  String get editpatientinformation => "Edit Profile";
 
   /// "Home"
   String get homeScreenName => "Home";

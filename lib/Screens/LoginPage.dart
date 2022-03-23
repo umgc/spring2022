@@ -40,8 +40,6 @@ class _LoginFormState extends State<LoginForm> {
     getUserData();
 
     dbHelper = DbHelper();
-
-
   }
 
   Future<void> getUserData() async {
@@ -52,15 +50,13 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
- setScreen(){
+  setScreen() {
     final screenNav = Provider.of<MainNavObserver>(context, listen: false);
 
-      screenNav.changeScreen(MENU_SCREENS.SETTING);
-
-
+    screenNav.changeScreen(MENU_SCREENS.SETTING);
   }
-  _login() async {
 
+  _login() async {
     String uid = 'Admin';
     String passwd = _conPassword.text;
 
@@ -95,7 +91,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-
     final screenNav = Provider.of<MainNavObserver>(context, listen: false);
 
     final settingObserver = Provider.of<SettingObserver>(context);
@@ -109,22 +104,20 @@ class _LoginFormState extends State<LoginForm> {
           elevation: 0.0,
           foregroundColor: Color(0xFF0D47A1),
           leading: BackButton(
-              onPressed: (){
-
-                setState(() {
-                  screenNav.changeScreen(MENU_SCREENS.SETTING);
-                  Navigator.pop(context);
-                });
-                //
-                // Navigator.push(context, MaterialPageRoute(builder: (_)=>
-                //     Settings()));
-              },
+            onPressed: () {
+              setState(() {
+                screenNav.changeScreen(MENU_SCREENS.SETTING);
+                Navigator.pop(context);
+              });
+              //
+              // Navigator.push(context, MaterialPageRoute(builder: (_)=>
+              //     Settings()));
+            },
           ),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +131,6 @@ class _LoginFormState extends State<LoginForm> {
                     icon: Icons.lock,
                     hintName: 'Password',
                     isObscureText: true,
-
                   ),
                   Container(
                     margin: EdgeInsets.all(30.0),
@@ -157,19 +149,27 @@ class _LoginFormState extends State<LoginForm> {
                   Container(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Need to create an account?'),
-                          FlatButton(
-                            textColor: Color(0xFF0D47A1),
-                            child: Text('Create Caregiver'),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => SignupForm()));
-                            },
+                          Row(
+                            children: [
+                              Text('Need to create an account?'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              FlatButton(
+                                textColor: Color(0xFF0D47A1),
+                                child: Text('Create Caregiver'),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => SignupForm()));
+                                },
+                              ),
+                            ],
                           )
                         ],
                       ),

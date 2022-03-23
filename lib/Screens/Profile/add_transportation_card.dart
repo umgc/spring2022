@@ -38,7 +38,8 @@ class _UserProfileState extends State<AddTransportationCard> {
       print('$_name, $_phone');
 
       // Insert medical history to Users Database
-      Transportation transportation = Transportation(name: _name, phone: _phone);
+      Transportation transportation =
+          Transportation(name: _name, phone: _phone);
       if (widget.transportation == null) {
         transportation.status = 0;
         DatabaseHelper.instance.insertTransportation(transportation);
@@ -88,7 +89,9 @@ class _UserProfileState extends State<AddTransportationCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.transportation == null ? 'Add Past Medical History' : 'Update Past Medical History',
+                  widget.transportation == null
+                      ? 'Add Transportation'
+                      : 'Update Transportation',
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -105,26 +108,28 @@ class _UserProfileState extends State<AddTransportationCard> {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: TextFormField(
                           style: TextStyle(fontSize: 18),
-                          decoration:
-                          widget.transportation != null?
-                          InputDecoration(
-                              labelText: widget.transportation?.name.toString(),
-                              labelStyle: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0))):
-                          InputDecoration(
-                              labelText: 'Transportation',
-                              labelStyle: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
+                          decoration: widget.transportation != null
+                              ? InputDecoration(
+                                  labelText:
+                                      widget.transportation?.name.toString(),
+                                  labelStyle: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)))
+                              : InputDecoration(
+                                  labelText: 'Transportation',
+                                  labelStyle: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
                               ? 'Please enter transportation name'
                               : null,
@@ -136,26 +141,28 @@ class _UserProfileState extends State<AddTransportationCard> {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: TextFormField(
                           style: TextStyle(fontSize: 18),
-                          decoration:
-                          widget.transportation != null?
-                          InputDecoration(
-                              labelText: widget.transportation?.phone.toString(),
-                              labelStyle: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0))):
-                          InputDecoration(
-                              labelText: 'Note',
-                              labelStyle: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0))),
+                          decoration: widget.transportation != null
+                              ? InputDecoration(
+                                  labelText:
+                                      widget.transportation?.phone.toString(),
+                                  labelStyle: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0)))
+                              : InputDecoration(
+                                  labelText: 'Note',
+                                  labelStyle: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
                               ? 'Please enter a note'
                               : null,
@@ -163,7 +170,6 @@ class _UserProfileState extends State<AddTransportationCard> {
                           initialValue: _phone,
                         ),
                       ),
-
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 20.0),
                         height: 60.0,
@@ -185,26 +191,24 @@ class _UserProfileState extends State<AddTransportationCard> {
                       ),
                       widget.transportation != null
                           ? Container(
-                        margin:
-                        EdgeInsets.symmetric(vertical: 20.0),
-                        height: 60.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius:
-                            BorderRadius.circular(30.0)),
-                        child: TextButton(
-                          onPressed: _delete,
-                          child: Text(
-                            'Delete',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ),
-                      )
+                              margin: EdgeInsets.symmetric(vertical: 20.0),
+                              height: 60.0,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(30.0)),
+                              child: TextButton(
+                                onPressed: _delete,
+                                child: Text(
+                                  'Delete',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                            )
                           : SizedBox.shrink(),
                     ],
                   ),

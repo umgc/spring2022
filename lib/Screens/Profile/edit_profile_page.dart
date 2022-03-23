@@ -72,10 +72,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           () => user = user.copy(imagePath: newImage.path));
                     },
                   ),
-                  Icon(
-                    Icons.add_a_photo,
-                    size: 40,
+                  IconButton(
+                    icon: Icon(Icons.add_a_photo),
+                    iconSize: 40,
                     color: Colors.black87,
+                    onPressed: () async {
+                      final image = await ImagePicker()
+                          .getImage(source: ImageSource.gallery);
+
+                      if (image == null) return;
+
+                      final directory =
+                          await getApplicationDocumentsDirectory();
+                      final name = basename(image.path);
+                      final imageFile = File('${directory.path}/$name');
+                      final newImage =
+                          await File(image.path).copy(imageFile.path);
+
+                      setState(
+                          () => user = user.copy(imagePath: newImage.path));
+                    },
                   )
                 ],
               ),
