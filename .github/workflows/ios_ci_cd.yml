@@ -20,6 +20,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
+      - name: Decrypt and Unzip File
+        run: |
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.KEYS_SECRET_PASSPHRASE }}" --output creds.zip creds.zip.gpg
+          jar xvf creds.zip
+      - name: Move file to assests/NLU directory 
+        run: |
+          mv ./creds/Lex_Credentials.xml ./assets/NLU
       - name: Run Flutter tasks
         uses: subosito/flutter-action@v1
         with:
