@@ -74,6 +74,21 @@ class _ProfilePageState extends State<UserProfile> {
           children: [
             const SizedBox(height: 24),
             ProfileCard(),
+            //If admin, show edit, else stay the same
+            _conUserId.text == 'Admin'
+                ? Container(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: ButtonWidget(
+
+                text: 'Edit About',
+                onClicked: () {
+                  screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
+                },
+              ),
+            )
+                : Text(''),
+
+            const SizedBox(height: 24),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             ContactCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
@@ -90,21 +105,7 @@ class _ProfilePageState extends State<UserProfile> {
             // const SizedBox(child: Divider(color: Colors.blueGrey)),
             // MedicalHistoryCard(),
 
-            //If admin, show edit, else stay the same
-            _conUserId.text == 'Admin'
-                ? Container(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: ButtonWidget(
-                      text: 'Edit About',
-                      onClicked: () {
-                        screenNav
-                            .changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
-                      },
-                    ),
-                  )
-                : Text(''),
 
-            const SizedBox(height: 24),
 
           ],
         ),
