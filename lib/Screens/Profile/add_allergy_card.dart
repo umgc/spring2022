@@ -111,7 +111,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: EncryptUtil.decryptNote(widget.allergy?.allergy.toString()),
+                              labelText: 'Allergy Name',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -132,7 +132,9 @@ class _UserProfileState extends State<AddAllergyCard> {
                               ? 'Please enter a allergy name'
                               : null,
                           onSaved: (input) => _allergy = input,
-                          initialValue: _allergy,
+                          initialValue:
+                          widget.allergy != null?
+                          EncryptUtil.decryptNote(widget.allergy?.allergy.toString()): _allergy,
                         ),
                       ),
                       Padding(
@@ -142,7 +144,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: EncryptUtil.decryptNote(widget.allergy?.reaction.toString()),
+                              labelText: 'Allergy Reaction',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -163,7 +165,9 @@ class _UserProfileState extends State<AddAllergyCard> {
                               ? 'Please enter dose'
                               : null,
                           onSaved: (input) => _reaction = input,
-                          initialValue: _reaction,
+                          initialValue:
+                          widget.allergy != null?
+                          EncryptUtil.decryptNote(widget.allergy?.reaction.toString()): _reaction,
                         ),
                       ),
 
