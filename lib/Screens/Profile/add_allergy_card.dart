@@ -111,7 +111,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: widget.allergy?.allergy.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.allergy?.allergy.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -142,7 +142,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: widget.allergy?.reaction.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.allergy?.reaction.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,

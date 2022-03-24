@@ -109,7 +109,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                               widget.medication != null?
                                   InputDecoration(
-                                    labelText: widget.medication?.title.toString(),
+                                    labelText: EncryptUtil.decryptNote(widget.medication?.title.toString()),
                                     labelStyle: TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -140,7 +140,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                           widget.medication != null?
                           InputDecoration(
-                              labelText: widget.medication?.dose.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.medication?.dose.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,

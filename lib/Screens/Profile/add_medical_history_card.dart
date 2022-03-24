@@ -109,7 +109,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: widget.history?.history.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.history?.history.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -140,7 +140,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: widget.history?.desc.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.history?.desc.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
