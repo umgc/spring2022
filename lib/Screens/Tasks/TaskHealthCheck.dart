@@ -56,14 +56,14 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
     const ICON_SIZE = 80.00;
     const TEXT_SIZE = 25.00;
 
-    var rowHeight = (MediaQuery.of(context).size.height - 350) / 5;
+    var rowHeight = (MediaQuery.of(context).size.height);
     var columnWidth = (MediaQuery.of(context).size.width - 50) / 3;
-    var readOnlyRowHeight = (MediaQuery.of(context).size.height - 350) / 3;
-    var readOnlyColumnWidth = (MediaQuery.of(context).size.width - 50) / 3;
+    var readOnlyRowHeight = (MediaQuery.of(context).size.height);
+    var readOnlyColumnWidth = (MediaQuery.of(context).size.width - 50);
     print(taskObserver.currTaskForDetails.toString());
-    return Scaffold(
+    return Container(
       key: saveTaskScaffoldKey,
-      body: Observer(
+      child: Observer(
           builder: (context) => ListView.builder(
               itemCount: 1,
               itemBuilder: (BuildContext context, int index) {
@@ -71,6 +71,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                             Padding(
                               padding: EdgeInsets.all(15.0),
@@ -103,7 +104,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: readOnlyRowHeight,
+                                        height: columnWidth,
                                         child: Icon(
                                             getIcon(taskObserver
                                                 .currTaskForDetails!
@@ -144,7 +145,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                       children: [
                                         SizedBox(
                                             width: columnWidth,
-                                            height: readOnlyRowHeight,
+                                            height: columnWidth,
                                             child: Icon(
                                               getIcon(taskObserver
                                                   .currTaskForDetails!
@@ -171,60 +172,65 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                               // fontWeight: FontWeight.bold,
                               // color: Colors.lightBlue[900]),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Divider(thickness: 5, color: Colors.blue),
+                            ),
+                            Column(
                               children: [
-                                GestureDetector(
-                                    onTap: () {
+                                TextButton.icon(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    primary: Colors.black,
+                                    fixedSize: Size(readOnlyColumnWidth, 40.0),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Colors.black)),
+                                  ),
+                                  icon: Icon(
+                                    Icons.keyboard_return,
+                                  ),
+                                  label: Text(
+                                    'Go Back',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  onPressed: () {
+                                    taskObserver
+                                        .changeScreen(TASK_SCREENS.TASK);
+                                    taskObserver.setCurrTaskIdForDetails(null);
+                                  },
+                                ),
+                                Visibility(
+                                  visible: taskObserver.careGiverModeEnabled,
+                                  child: TextButton.icon(
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      primary: Colors.red,
+                                      fixedSize:
+                                          Size(readOnlyColumnWidth, 40.0),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                          side: BorderSide(color: Colors.red)),
+                                    ),
+                                    icon: Icon(
+                                      FontAwesomeIcons.trash,
+                                    ),
+                                    label: Text(
+                                      'Delete',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    onPressed: () {
+                                      taskObserver.deleteTask(
+                                          taskObserver.currTaskForDetails);
                                       taskObserver
                                           .changeScreen(TASK_SCREENS.TASK);
-                                      taskObserver
-                                          .setCurrTaskIdForDetails(null);
                                     },
-                                    child: Column(
-                                      children: [
-                                        Transform.rotate(
-                                          angle: 180 * math.pi / 180,
-                                          child: Icon(
-                                            Icons.exit_to_app_rounded,
-                                            size: ICON_SIZE,
-                                            color: Colors.amber,
-                                          ),
-                                        ),
-                                        Text(
-                                          I18n.of(context)!.cancel,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    )),
-                                if (taskObserver.careGiverModeEnabled)
-                                  GestureDetector(
-                                      onTap: () {
-                                        //popup confirmation view
-                                        taskObserver.deleteTask(
-                                            taskObserver.currTaskForDetails);
-                                        taskObserver
-                                            .changeScreen(TASK_SCREENS.TASK);
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.delete_forever,
-                                            size: ICON_SIZE,
-                                            color: Colors.red,
-                                          ),
-                                          Text(
-                                            'Delete Task',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1,
-                                          ),
-                                        ],
-                                      ))
+                                  ),
+                                ),
                               ],
-                            )
+                            ),
                           ])
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -259,7 +265,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: rowHeight,
+                                        height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -291,7 +297,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: rowHeight,
+                                        height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -323,7 +329,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: rowHeight,
+                                        height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -371,7 +377,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -408,7 +414,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -445,7 +451,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -486,7 +492,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -524,7 +530,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -561,7 +567,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -590,6 +596,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                 ),
                                 TextField(
                                   maxLines: 3,
+                                  textInputAction: TextInputAction.done,
                                   style: TextStyle(fontSize: 30),
                                   decoration: InputDecoration(
                                       hintText: "--Description--"),
@@ -608,81 +615,76 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
                             children: [
-                              GestureDetector(
-                                  onTap: () {
+                              TextButton.icon(
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  primary: Colors.black,
+                                  fixedSize: Size(readOnlyColumnWidth, 40.0),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(color: Colors.black)),
+                                ),
+                                icon: Icon(
+                                  Icons.keyboard_return,
+                                ),
+                                label: Text(
+                                  'Go Back',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                onPressed: () {
+                                  taskObserver.changeScreen(TASK_SCREENS.TASK);
+                                  taskObserver.setCurrTaskIdForDetails(null);
+                                },
+                              ),
+                              Visibility(
+                                visible: taskObserver.careGiverModeEnabled,
+                                child: TextButton.icon(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    primary: Colors.red,
+                                    fixedSize: Size(readOnlyColumnWidth, 40.0),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Colors.red)),
+                                  ),
+                                  icon: Icon(
+                                    FontAwesomeIcons.trash,
+                                  ),
+                                  label: Text(
+                                    'Delete',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  onPressed: () {
+                                    taskObserver.deleteTask(
+                                        taskObserver.currTaskForDetails);
                                     taskObserver
                                         .changeScreen(TASK_SCREENS.TASK);
-                                    taskObserver.setCurrTaskIdForDetails(null);
                                   },
-                                  child: Column(
-                                    children: [
-                                      Transform.rotate(
-                                        angle: 180 * math.pi / 180,
-                                        child: Icon(
-                                          Icons.exit_to_app_rounded,
-                                          size: ICON_SIZE,
-                                          color: Colors.amber,
-                                        ),
-                                      ),
-                                      Text(
-                                        I18n.of(context)!.cancel,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                    ],
-                                  )),
-                              if (taskObserver.careGiverModeEnabled)
-                                GestureDetector(
-                                    onTap: () {
-                                      //popup confirmation view
-                                      taskObserver.deleteTask(
-                                          taskObserver.currTaskForDetails);
-                                      taskObserver
-                                          .changeScreen(TASK_SCREENS.TASK);
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          Icons.delete_forever,
-                                          size: ICON_SIZE,
-                                          color: Colors.red,
-                                        ),
-                                        Text(
-                                          'Delete Task',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    )),
-                              GestureDetector(
-                                onTap: () {
-                                  _onSave(taskObserver);
-                                },
-                                child: Visibility(
-                                  visible: showCompleteBtn,
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          FontAwesomeIcons.arrowAltCircleRight,
-                                          size: ICON_SIZE,
-                                          color: Colors.green,
-                                        ),
-                                        Text(
-                                          'Complete Task',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: showCompleteBtn,
+                                child: TextButton.icon(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    primary: Colors.white,
+                                    fixedSize: Size(readOnlyColumnWidth, 40.0),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Colors.black)),
                                   ),
+                                  icon: Icon(FontAwesomeIcons.check),
+                                  label: Text(
+                                    'Complete Task',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  onPressed: () {
+                                    _onSave(taskObserver);
+                                  },
                                 ),
                               ),
                             ],

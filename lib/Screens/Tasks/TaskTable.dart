@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Services/TaskService.dart';
 import 'package:quiver/iterables.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
@@ -10,31 +11,43 @@ import '../../Observables/TaskObservable.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-/// View Tasks page
-class TaskTable extends StatelessWidget {
+class TaskTable extends StatefulWidget {
   final List<TextTask> usersTasks;
 
-  final Function? onListItemClickCallBackFn;
-
   //Flutter will autto assign this param to usersTasks
-  TaskTable(this.usersTasks, this.onListItemClickCallBackFn);
+  TaskTable(this.usersTasks);
+  @override
+  State<TaskTable> createState() => _TaskTableState();
+
+}
+
+class _TaskTableState extends State<TaskTable> {
+@override
 
   @override
   Widget build(BuildContext context) {
+
     final screenNav = Provider.of<MainNavObserver>(context);
 
     final taskObserver = Provider.of<TaskObserver>(context);
+
+        TextTaskService.loadTasks().then((tasks) =>
+        {taskObserver.setTasks(tasks), taskObserver.setCheckList(tasks)});
+
     taskObserver.resetCurrTaskIdForDetails();
 
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 450) / 2;
+    var rowHeight = (MediaQuery.of(context).size.height) /
+        (taskObserver.careGiverModeEnabled ? 2 : 1);
 
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];
 
     for (var i = 0; i < taskObserver.usersTask.length; i++) {
+      print('send task datetime:' +
+          taskObserver.usersTask[i].isTaskCompleted.toString());
       if (taskObserver.usersTask[i].isTaskCompleted) {
         inActiveUserTasks.add(taskObserver.usersTask[i]);
       } else {
@@ -44,7 +57,9 @@ class TaskTable extends StatelessWidget {
         }
       }
     }
+    // taskObserver.changeScreen(TASK_SCREENS.TASK);
 
+    
     return Column(
       children: [
         Column(
@@ -62,9 +77,10 @@ class TaskTable extends StatelessWidget {
                 ),
               ),
               Container(
-                height: rowHeight,
+                //height: rowHeight,
                 child: ListView.builder(
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: activeUserTasks.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
@@ -146,21 +162,27 @@ class TaskTable extends StatelessWidget {
         Visibility(
           visible: taskObserver.careGiverModeEnabled,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Divider(thickness: 5, color: Colors.grey),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Divider(thickness: 5, color: Colors.blue),
+              ),
               Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text(
                   'Completed Tasks',
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.lightBlue[900]),
                 ),
               ),
               Container(
-                height: rowHeight,
+                //height: rowHeight,
                 child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: inActiveUserTasks.length,
                     itemBuilder: (BuildContext context, int index) {

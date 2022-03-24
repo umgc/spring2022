@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import '../Services/TaskService.dart';
 
 class TextTask {
@@ -53,10 +55,16 @@ class TextTask {
   DateTime? completedTaskDateTime;
 
   String toJson() {
+    String completedTaskDateTime = '';
+    if (this.isTaskCompleted) {
+      if (this.completedTaskDateTime != null) {
+        completedTaskDateTime = this.completedTaskDateTime!.toIso8601String();
+      }
+    }
     String jsonStr = """ {
                         "taskId": "${this.taskId}",
                         "taskType": "${this.taskType}",
-                        "sendTaskDateTime": "${this.sendTaskDateTime}",
+                        "sendTaskDateTime": "${this.sendTaskDateTime.toIso8601String()}",
                         "responseText":"${this.responseText}",
                         "isReoccuring":"${this.isReoccuring}",
                         "isTaskCompleted" :"${this.isTaskCompleted}",
@@ -67,18 +75,8 @@ class TextTask {
                         "icon":"${this.icon}",
                         "iconColor":"${this.iconColor}",
                         "isResponseRequired":"${this.isResponseRequired}",
-                        "completedTaskDateTime":"${this.completedTaskDateTime}",
-                        
-                        "recordedTime": "${this.recordedTime}",
-                        "language": "${this.language}",
-                        "recurrentType": "${this.recurrentType}",
-                        "isCheckList": ${this.isCheckList},
-                        "isEvent": ${this.isEvent},
-                        "text": "${this.text}",
-                        "localText": "${this.localText}",
-                        "isFavorite": ${this.isFavorite},
-                        "eventDate": "${this.eventDate}",
-                        "eventTime": "${this.eventTime}"
+                        "completedTaskDateTime":"${completedTaskDateTime}"
+                      
                         }""";
     return jsonStr;
   }
@@ -88,29 +86,39 @@ class TextTask {
     print("extracting jsonObj $jsonObj");
     task.taskId = jsonObj['taskId'];
     task.taskType = jsonObj['taskType'];
-    task.sendTaskDateTime = jsonObj['sendTaskDateTime'];
+    // task.sendTaskDateTime =
+    //     DateTime.parse(jsonObj['sendTaskDateTime'].toIso8601Strin);
     task.responseText = jsonObj['responseText'];
-    task.isReoccuring = jsonObj['isReoccuring'];
+    task.isReoccuring =
+        jsonObj['isReoccuring'].toString().toLowerCase() == 'true';
     task.firstHealthCheckMood = jsonObj['firstHealthCheckMood'];
     task.secondHealthCheckMood = jsonObj['secondHealthCheckMood'];
     task.name = jsonObj['name'];
     task.description = jsonObj['description'];
     task.icon = jsonObj['icon'];
     task.iconColor = jsonObj['iconColor'];
-    task.isResponseRequired = jsonObj['isResponseRequired'];
-    task.isTaskCompleted = jsonObj['isTaskCompleted'];
-    task.completedTaskDateTime = jsonObj['completedTaskDateTime'];
+    task.isResponseRequired =
+        jsonObj['isResponseRequired'].toString().toLowerCase() == 'true';
+    task.isTaskCompleted =
+        jsonObj['isTaskCompleted'].toString().toLowerCase() == 'true';
+    if (task.isTaskCompleted) {
+      if (jsonObj['completedTaskDateTime'] != '') {
+        task.completedTaskDateTime =
+            DateTime.parse(jsonObj['completedTaskDateTime'].toString());
+      }
+    }
 
-    task.recordedTime = DateTime.parse(jsonObj['recordedTime']);
-    task.language = jsonObj['language'];
-    task.isCheckList = jsonObj['isCheckList'];
-    task.recurrentType = jsonObj['recurrentType'];
-    task.isEvent = jsonObj['isEvent'];
-    task.text = jsonObj['text'];
-    task.localText = jsonObj['localText'];
-    task.isFavorite = jsonObj['isFavorite'];
-    task.eventDate = jsonObj['eventDate'] ?? "";
-    task.eventTime = jsonObj['eventTime'] ?? "";
+    // task.recordedTime = DateTime.parse(jsonObj['recordedTime']);
+    // task.language = jsonObj['language'];
+    // task.isCheckList = jsonObj['isCheckList'];
+    // task.recurrentType = jsonObj['recurrentType'];
+    // task.isEvent = jsonObj['isEvent'];
+    // task.text = jsonObj['text'];
+    // task.localText = jsonObj['localText'];
+    // task.isFavorite = jsonObj['isFavorite'];
+    // task.eventDate = jsonObj['eventDate'] ?? "";
+    // task.eventTime = jsonObj['eventTime'] ?? "";
+    print(task.toString());
     return task;
   }
 

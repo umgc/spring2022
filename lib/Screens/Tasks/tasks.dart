@@ -48,6 +48,7 @@ class _TasksState extends State<Tasks> {
               // This block builds the ToDo list
               ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: _toDoTasks.length,
                 itemBuilder: (BuildContext context, int index){
 

@@ -13,7 +13,7 @@ class TextNoteService {
 
   /// Save a text note file to local storage
   static Future<List<TextNote>> loadNotes() async {
-    print("Loading notes from file");
+    print("Loading notes from file1");
     List<TextNote> userTextNotes = [];
     try {
       dynamic listExtract =

@@ -13,16 +13,19 @@ class TextTaskService {
 
   /// Save a text note file to local storage
   static Future<List<TextTask>> loadTasks() async {
-    print("Loading tasks from file");
+    print('Loading tasks from file');
     List<TextTask> userTextTasks = [];
     try {
       dynamic listExtract =
           await FileUtil.readJson(FILE_NAME).then((value) => value);
-      for (var note in listExtract) {
-        print("Loading tasks from file $note");
-        userTextTasks.add(TextTask.fromJson(note));
+      for (var task in listExtract) {
+        print("Loading tasks from file $task");
+        userTextTasks.add(TextTask.fromJson(task));
       }
-    } catch (Exception) {}
+      print('all tasks loaded ' + userTextTasks.length.toString());
+    } catch (Exception) {
+      print('error ' + Exception.toString());
+    }
     return userTextTasks;
   }
 
