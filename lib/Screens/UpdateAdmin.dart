@@ -134,12 +134,6 @@ class _HomeFormState extends State<UpdateAdmin> {
 
                   genLoginSignupHeader('Update Caregiver'),//Update
                   getTextFormField(
-                      controller: _conUserId,
-                      isEnable: false,
-                      icon: Icons.person,
-                      hintName: 'User ID'),
-                  SizedBox(height: 10.0),
-                  getTextFormField(
                       controller: _conPhone,
                       icon: Icons.phone,
                       inputType: TextInputType.phone,
@@ -151,47 +145,45 @@ class _HomeFormState extends State<UpdateAdmin> {
                     hintName: 'Password',
                     isObscureText: true,
                   ),
-                  SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Update',
-                        style: TextStyle(color: Colors.white),
+
+                  //Update
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: update,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0D47A1),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                       ),
-                      onPressed: update,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0D47A1),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
+                      //Delete
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: delete,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ],
                   ),
 
-                  //Delete
-
-                  getTextFormField(
-                      controller: _conDelUserId,
-                      isEnable: false,
-                      icon: Icons.person,
-                      hintName: 'User ID'),
-                  SizedBox(height: 10.0),
-                  SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Delete',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: delete,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
                 ],
               ),
             ),
