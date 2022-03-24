@@ -10,7 +10,7 @@ import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/AdminPage.dart';
 import 'package:memorez/Screens/CreateAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
 
 import '../Observables/ScreenNavigator.dart';
@@ -59,12 +59,15 @@ class _LoginFormState extends State<LoginForm> {
   _login() async {
     String uid = 'Admin';
     String passwd = _conPassword.text;
+    uid = EncryptUtil.encryptNote(uid);
+    passwd = EncryptUtil.encryptNote(passwd);
 
     if (uid.isEmpty) {
       alertDialog(context, "Please Enter User ID");
     } else if (passwd.isEmpty) {
       alertDialog(context, "Please Enter Password");
     } else {
+
       await dbHelper.getLoginUser(uid, passwd).then((userData) {
         setSP(userData!).whenComplete(
           () {
@@ -83,10 +86,12 @@ class _LoginFormState extends State<LoginForm> {
 
   Future setSP(UserModel user) async {
     final SharedPreferences sp = await _pref;
-
-    sp.setString("user_id", user.user_id);
-    sp.setString("phone", user.phone);
+    String uid = EncryptUtil.decryptNote(user.user_id);
+    String password = EncryptUtil.decryptNote(user.password);
+    sp.setString("user_id", uid);
+    sp.setString("phone", password);
     sp.setString("password", user.password);
+    print('ARE WEEEEE DECRYPTING? =======> uid: ${uid}  password: ${password}');
   }
 
   @override

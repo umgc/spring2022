@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import '../DatabaseHandler/DBHelper.dart';
 import '../main.dart';
 import '../DatabaseHandler/database_helper_profile.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 
 class SignupForm extends StatefulWidget {
   @override
@@ -54,10 +55,12 @@ class _SignupFormState extends State<SignupForm> {
 
   signUp() async {
     String uid = 'Admin';
+    uid = EncryptUtil.encryptNote(uid);
     String phone = _conPhone.text;
     String passwd = _conPassword.text;
+    passwd = EncryptUtil.encryptNote(passwd);
     String cpasswd = _conCPassword.text;
-
+    cpasswd = EncryptUtil.encryptNote(cpasswd);
     if (_formKey.currentState!.validate()) {
       if (passwd != cpasswd) {
         alertDialog(context, 'Password Mismatch');
@@ -65,8 +68,10 @@ class _SignupFormState extends State<SignupForm> {
         _formKey.currentState?.save();
 
         UserModel uModel = UserModel(uid, phone, passwd);
+
         print('XXXXXXXXXXX ${uModel.phone}');
         await dbHelper.saveData(uModel).then((userData) {
+          print('DATA has been ENCRYPTED!!!!! ======> uid: $uid password: $passwd');
           alertDialog(context, "Successfully Saved");
           submitButtonVisibility.value = false;
           doneButtonVisibility.value=true;

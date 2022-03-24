@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -59,7 +60,8 @@ class _HistoryCardState extends State<HistoryCard> {
   }
 
   Widget buildHistory(History history) {
-
+    String mh = EncryptUtil.decryptNote(history.history!);
+    String dh = EncryptUtil.decryptNote(history.desc!);
     return Padding(
 
       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -67,13 +69,13 @@ class _HistoryCardState extends State<HistoryCard> {
         children: [
           ListTile(
               title: Text(
-                history.history!,
+                mh,
                 style: kLabelTextStyle,
               ),
-              // subtitle: Text(
-              //   history.desc!,
-              //   style: kSubText,
-              // ),
+              subtitle: Text(
+                dh,
+                style: kSubText,
+              ),
               trailing:
 
               Visibility(

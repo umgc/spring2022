@@ -9,6 +9,7 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_allergy.dart';
 
 import '../../Model/Allergy.dart';
+import '../../Utility/EncryptionUtil.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -34,6 +35,8 @@ class _UserProfileState extends State<AddAllergyCard> {
       _formKey.currentState!.save();
       print('$_allergy, $_reaction');
 
+      _allergy = EncryptUtil.encryptNote(_allergy);
+      _reaction = EncryptUtil.encryptNote(_reaction);
       // Insert medication to Users Database
       Allergy allergy = Allergy(allergy: _allergy, reaction: _reaction);
       if (widget.allergy == null) {
@@ -108,7 +111,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: widget.allergy?.allergy.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.allergy?.allergy.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -139,7 +142,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: widget.allergy?.reaction.toString(),
+                              labelText: EncryptUtil.decryptNote(widget.allergy?.reaction.toString()),
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,

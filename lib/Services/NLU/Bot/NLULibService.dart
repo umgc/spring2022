@@ -16,7 +16,7 @@ class NLULibService {
   late final BertQAService bertQAService;
   late final LexService lexService;
   static const String FallbackResponse =
-      "Sorry I'm not able to understand Daryle.";
+      "Sorry I'm not able to understand.";
   static const String AppHelp = "AppHelp";
   static const String AppNav = "AppNav";
   static const String SearchNotes = "SearchNotes";

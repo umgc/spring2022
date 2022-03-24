@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -7,6 +10,7 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
 
+import '../../Observables/ScreenNavigator.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -46,12 +50,14 @@ class _UserProfileState extends State<ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.getUser();
 
+    final user = UserPreferences.getUser();
+    final screenNav = Provider.of<MainNavObserver>(context);
     return Builder(builder: (context) => buildProfileCard(user));
   }
 
   Widget buildProfileCard(User user) => Row(
+
         children: [
           Expanded(
             child: Container(
@@ -70,7 +76,7 @@ class _UserProfileState extends State<ProfileCard> {
                     height: 20.0,
                   ),
                   Text('Date of Birth', style: kLabelTextStyle),
-                  Text(user.bday),
+                  Text(EncryptUtil.decryptNote(user.bday)),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -89,11 +95,6 @@ class _UserProfileState extends State<ProfileCard> {
             child: ProfileWidget(
               imagePath: user.imagePath,
               onClicked: () {
-                _conUserId.text == 'Admin'
-                    ? Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => EditProfilePage()))
-                    : Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => MainNavigator()));
                 setState(() {});
               },
             ),

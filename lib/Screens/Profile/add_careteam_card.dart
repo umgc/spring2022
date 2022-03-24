@@ -148,7 +148,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Note',
+                              labelText: 'Phone',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -157,7 +157,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a note'
+                              ? 'Please enter phone'
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: _phone,

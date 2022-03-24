@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -10,7 +11,7 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/DatabaseHandler/database_helper.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
-
+import 'package:memorez/Utility/EncryptionUtil.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -51,23 +52,26 @@ class _MedicationCardState extends State<MedicationCard> {
       _medicationList = DatabaseHelper.instance.getMedicationList();
 
 
+
     });
   }
 
   Widget buildMedication(Medication medication) {
-
+    String _mTitle = EncryptUtil.decryptNote(medication.title!);
+    String _mDose = EncryptUtil.decryptNote(medication.dose!);
     return Padding(
 
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           ListTile(
+
               title: Text(
-                medication.title!,
+                _mTitle,
                 style: kLabelTextStyle,
               ),
               subtitle: Text(
-                medication.dose!,
+                _mDose,
                 style: kSubText,
               ),
               trailing:
