@@ -7,6 +7,7 @@ import 'package:memorez/generated/i18n.dart';
 import '../../Observables/MenuObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../Observables/TaskObservable.dart';
 import '../../Utility/Constant.dart';
 import 'package:memorez/Screens/Settings/Trigger.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
@@ -25,6 +26,7 @@ class MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     final noteObserver = Provider.of<NoteObserver>(context, listen: false);
     final menuObserver = Provider.of<MenuObserver>(context, listen: false);
+    final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final screenNav = Provider.of<MainNavObserver>(context);
     return Observer(
         builder: (_) => (menuObserver.currentScreen == MENU_SCREENS.MENU)
@@ -65,6 +67,8 @@ class MenuState extends State<Menu> {
                           ),
                           onPressed: () {
                             screenNav.changeScreen(MAIN_SCREENS.TASKS);
+                            taskObserver.changeScreen(TASK_SCREENS.TASK);
+
                           },
                         ),
                       ),

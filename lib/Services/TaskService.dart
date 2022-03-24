@@ -13,6 +13,7 @@ class TextTaskService {
 
   /// Save a text note file to local storage
   static Future<List<TextTask>> loadTasks() async {
+    print('Loading tasks from file');
     List<TextTask> userTextTasks = [];
     try {
       dynamic listExtract =

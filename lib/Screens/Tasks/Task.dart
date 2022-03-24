@@ -8,7 +8,9 @@ import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Tasks/TaskHealthCheck.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/generated/i18n.dart';
+import '../../Observables/ScreenNavigator.dart';
 import '../../Observables/TaskObservable.dart';
+import '../../Services/TaskService.dart';
 import 'SaveTask.dart';
 import 'ViewTask.dart';
 import 'TaskDetails.dart';
@@ -31,6 +33,7 @@ class _TaskState extends State<Task> {
     final SharedPreferences sp = await _pref;
     setState(() {
       _conUserId.text = sp.getString("user_id")!;
+
     });
   }
 
@@ -41,13 +44,21 @@ class _TaskState extends State<Task> {
     super.initState();
     getUserData();
     dbHelper = DbHelper();
+
+
   }
+
 
   @override
   Widget build(BuildContext context) {
     print("username " + _conUserId.text);
     final taskObserver = Provider.of<TaskObserver>(context);
     print('loaded tasks : ' + taskObserver.usersTask.toString());
+
+    TextTaskService.loadTasks().then((tasks) =>
+    {taskObserver.setTasks(tasks), taskObserver.setCheckList(tasks)});
+
+
     _conUserId.text == 'Admin'
         ? taskObserver.enableCaregiverMode()
         : taskObserver.disableCaregiverMode();

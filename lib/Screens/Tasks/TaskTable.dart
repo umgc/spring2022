@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Services/TaskService.dart';
 import 'package:quiver/iterables.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
@@ -17,14 +18,22 @@ class TaskTable extends StatefulWidget {
   TaskTable(this.usersTasks);
   @override
   State<TaskTable> createState() => _TaskTableState();
+
 }
 
 class _TaskTableState extends State<TaskTable> {
+@override
+
   @override
   Widget build(BuildContext context) {
+
     final screenNav = Provider.of<MainNavObserver>(context);
 
     final taskObserver = Provider.of<TaskObserver>(context);
+
+        TextTaskService.loadTasks().then((tasks) =>
+        {taskObserver.setTasks(tasks), taskObserver.setCheckList(tasks)});
+
     taskObserver.resetCurrTaskIdForDetails();
 
     const TEXT_STYLE = TextStyle(fontSize: 20);
@@ -48,7 +57,9 @@ class _TaskTableState extends State<TaskTable> {
         }
       }
     }
+    // taskObserver.changeScreen(TASK_SCREENS.TASK);
 
+    
     return Column(
       children: [
         Column(
