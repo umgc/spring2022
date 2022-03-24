@@ -108,7 +108,7 @@ class _UserProfileState extends State<AddContactCard> {
                           decoration:
                           widget.contact != null?
                           InputDecoration(
-                              labelText: widget.contact?.name.toString(),
+                              labelText: 'Contact Name',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -129,17 +129,18 @@ class _UserProfileState extends State<AddContactCard> {
                               ? 'Please enter name'
                               : null,
                           onSaved: (input) => _name = input,
-                          initialValue: _name,
+                          initialValue: widget.contact?.name.toString(),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: TextFormField(
+
                           style: TextStyle(fontSize: 18),
                           decoration:
                           widget.contact != null?
                           InputDecoration(
-                              labelText: widget.contact?.phone.toString(),
+                              labelText: 'Phone',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -160,7 +161,7 @@ class _UserProfileState extends State<AddContactCard> {
                               ? 'Please enter phone'
                               : null,
                           onSaved: (input) => _phone = input,
-                          initialValue: _phone,
+                          initialValue: widget.contact?.phone.toString(),
                         ),
                       ),
 
