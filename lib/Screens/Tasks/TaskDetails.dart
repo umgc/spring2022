@@ -39,11 +39,12 @@ class _TaskDetails extends State<TaskDetails> {
     print('response text = ' + responseText);
     var btnColumnWidth = (MediaQuery.of(context).size.width - 50);
     const ICON_SIZE = 80.00;
-    return Scaffold(
+    return Container(
         key: saveTaskScaffoldKey,
-        body: Observer(
+        child: Observer(
           builder: (context) => SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                   padding: const EdgeInsets.all(15.0),

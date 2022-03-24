@@ -56,14 +56,14 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
     const ICON_SIZE = 80.00;
     const TEXT_SIZE = 25.00;
 
-    var rowHeight = (MediaQuery.of(context).size.height - 350) / 5;
+    var rowHeight = (MediaQuery.of(context).size.height);
     var columnWidth = (MediaQuery.of(context).size.width - 50) / 3;
-    var readOnlyRowHeight = (MediaQuery.of(context).size.height - 350) / 3;
+    var readOnlyRowHeight = (MediaQuery.of(context).size.height);
     var readOnlyColumnWidth = (MediaQuery.of(context).size.width - 50);
     print(taskObserver.currTaskForDetails.toString());
-    return Scaffold(
+    return Container(
       key: saveTaskScaffoldKey,
-      body: Observer(
+      child: Observer(
           builder: (context) => ListView.builder(
               itemCount: 1,
               itemBuilder: (BuildContext context, int index) {
@@ -71,6 +71,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                             Padding(
                               padding: EdgeInsets.all(15.0),
@@ -103,7 +104,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: readOnlyRowHeight,
+                                        height: columnWidth,
                                         child: Icon(
                                             getIcon(taskObserver
                                                 .currTaskForDetails!
@@ -144,7 +145,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                       children: [
                                         SizedBox(
                                             width: columnWidth,
-                                            height: readOnlyRowHeight,
+                                            height: columnWidth,
                                             child: Icon(
                                               getIcon(taskObserver
                                                   .currTaskForDetails!
@@ -264,7 +265,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: rowHeight,
+                                        height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -296,7 +297,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: rowHeight,
+                                        height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -328,7 +329,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     children: [
                                       SizedBox(
                                         width: columnWidth,
-                                        height: rowHeight,
+                                        height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -376,7 +377,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -413,7 +414,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -450,7 +451,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -491,7 +492,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -529,7 +530,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -566,7 +567,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         children: [
                                           SizedBox(
                                             width: columnWidth,
-                                            height: rowHeight,
+                                            height: columnWidth,
                                             child: IconButton(
                                                 onPressed: () {
                                                   setState(() {

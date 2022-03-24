@@ -262,7 +262,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     final menuObserver = Provider.of<MenuObserver>(context);
     return Observer(
       builder: (_) => Scaffold(
-        resizeToAvoidBottomInset: false,
+        //resizeToAvoidBottomInset: true,
         appBar: AppBar(
           //removes the backbutton in the appbar
           automaticallyImplyLeading: false,
@@ -348,9 +348,8 @@ class _MainNavigatorState extends State<MainNavigator> {
         body: Container(
             //margin: const EdgeInsets.only(bottom: 30.0),
             padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-            child: Center(
-                child: _changeScreen(
-                    screenNav.currentScreen, screenNav.focusedNavBtn))),
+            child: _changeScreen(
+                screenNav.currentScreen, screenNav.focusedNavBtn)),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: screenNav.setFocusedBtn,

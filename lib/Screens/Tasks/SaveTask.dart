@@ -997,7 +997,7 @@ class _SaveTaskState extends State<SaveTask> {
     const ICON_SIZE = 80.00;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       key: saveTaskScaffoldKey,
       body: Stepper(
         type: StepperType.horizontal,

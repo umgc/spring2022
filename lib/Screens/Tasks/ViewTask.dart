@@ -31,10 +31,13 @@ class _ViewTasksState extends State<ViewTasks> {
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        body: Column(
-          children: [
-            TaskTable(taskObserver.usersTask),
-          ],
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              TaskTable(taskObserver.usersTask),
+            ],
+          ),
         ),
         floatingActionButton: Padding(
             padding: EdgeInsets.only(left: 30),
