@@ -30,7 +30,8 @@ class _TaskTableState extends State<TaskTable> {
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 350) / 2;
+    var rowHeight = (MediaQuery.of(context).size.height - 350) /
+        (taskObserver.careGiverModeEnabled ? 2 : 1);
 
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];
