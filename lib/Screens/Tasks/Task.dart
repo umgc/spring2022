@@ -47,6 +47,7 @@ class _TaskState extends State<Task> {
   Widget build(BuildContext context) {
     print("username " + _conUserId.text);
     final taskObserver = Provider.of<TaskObserver>(context);
+    print('loaded tasks : ' + taskObserver.usersTask.toString());
     _conUserId.text == 'Admin'
         ? taskObserver.enableCaregiverMode()
         : taskObserver.disableCaregiverMode();

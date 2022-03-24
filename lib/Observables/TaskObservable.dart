@@ -17,8 +17,11 @@ class TaskObserver = _AbstractTaskObserver with _$TaskObserver;
 
 abstract class _AbstractTaskObserver with Store {
   _AbstractTaskObserver() {
-    TextTaskService.loadTasks()
-        .then((tasks) => {setTasks(tasks), setCheckList(tasks)});
+    TextTaskService.loadTasks().then((tasks) => {
+          setTasks(tasks),
+          setCheckList(tasks),
+          print('task observable tasks' + tasks.toString())
+        });
   }
   @observable
   File? _image;

@@ -37,7 +37,7 @@ class _TaskDetails extends State<TaskDetails> {
 
     responseText = taskObserver.currTaskForDetails!.responseText;
     print('response text = ' + responseText);
-
+    var btnColumnWidth = (MediaQuery.of(context).size.width - 50);
     const ICON_SIZE = 80.00;
     return Scaffold(
         key: saveTaskScaffoldKey,
@@ -133,75 +133,77 @@ class _TaskDetails extends State<TaskDetails> {
               //   decoration: InputDecoration(
               //       border: OutlineInputBorder(), hintText: "--Response--"),
               // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
-                  GestureDetector(
-                      onTap: () {
-                        taskObserver.changeScreen(TASK_SCREENS.TASK);
-                        taskObserver.setCurrTaskIdForDetails(null);
-                      },
-                      child: Column(
-                        children: [
-                          Transform.rotate(
-                              angle: 180 * math.pi / 180,
-                              child: Icon(
-                                Icons.exit_to_app_rounded,
-                                size: ICON_SIZE,
-                                color: Colors.amber,
-                              )),
-                          Text(
-                            I18n.of(context)!.cancel,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ],
-                      )),
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      primary: Colors.black,
+                      fixedSize: Size(btnColumnWidth, 40.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.black)),
+                    ),
+                    icon: Icon(
+                      Icons.keyboard_return,
+                    ),
+                    label: Text(
+                      'Go Back',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      taskObserver.changeScreen(TASK_SCREENS.TASK);
+                      taskObserver.setCurrTaskIdForDetails(null);
+                    },
+                  ),
                   Visibility(
-                      visible: taskObserver.careGiverModeEnabled,
-                      child: GestureDetector(
-                          onTap: () {
-                            //popup confirmation view
-                            taskObserver
-                                .deleteTask(taskObserver.currTaskForDetails);
-                            taskObserver.changeScreen(TASK_SCREENS.TASK);
-                          },
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.delete_forever,
-                                size: ICON_SIZE,
-                                color: Colors.red,
-                              ),
-                              Text(
-                                'Delete Task',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          ))),
+                    visible: taskObserver.careGiverModeEnabled,
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        primary: Colors.red,
+                        fixedSize: Size(btnColumnWidth, 40.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.red)),
+                      ),
+                      icon: Icon(
+                        FontAwesomeIcons.trash,
+                      ),
+                      label: Text(
+                        'Delete',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {
+                        taskObserver
+                            .deleteTask(taskObserver.currTaskForDetails);
+                        taskObserver.changeScreen(TASK_SCREENS.TASK);
+                      },
+                    ),
+                  ),
                   Visibility(
                     visible: readOnly == false && showCompleteBtn,
-                    child: GestureDetector(
-                        onTap: () {
-                          _onComplete(taskObserver);
-                        },
-                        child: Column(
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.check,
-                              size: ICON_SIZE,
-                              color: Colors.green,
-                            ),
-                            Text(
-                              'Complete Task',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                          ],
-                        )),
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        primary: Colors.white,
+                        fixedSize: Size(btnColumnWidth, 40.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: Colors.black)),
+                      ),
+                      icon: Icon(FontAwesomeIcons.check),
+                      label: Text(
+                        'Complete Task',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {
+                        _onComplete(taskObserver);
+                      },
+                    ),
                   ),
-
-                  //Need to update with caregiver logic
                 ],
-              )
+              ),
             ],
           )),
         ));

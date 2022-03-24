@@ -30,12 +30,14 @@ class _TaskTableState extends State<TaskTable> {
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 450) / 2;
+    var rowHeight = (MediaQuery.of(context).size.height - 350) / 2;
 
     List<TextTask> activeUserTasks = <TextTask>[];
     List<TextTask> inActiveUserTasks = <TextTask>[];
 
     for (var i = 0; i < taskObserver.usersTask.length; i++) {
+      print('send task datetime:' +
+          taskObserver.usersTask[i].isTaskCompleted.toString());
       if (taskObserver.usersTask[i].isTaskCompleted) {
         inActiveUserTasks.add(taskObserver.usersTask[i]);
       } else {
@@ -147,14 +149,19 @@ class _TaskTableState extends State<TaskTable> {
         Visibility(
           visible: taskObserver.careGiverModeEnabled,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Divider(thickness: 5, color: Colors.grey),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Divider(thickness: 5, color: Colors.blue),
+              ),
               Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text(
                   'Completed Tasks',
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.lightBlue[900]),
                 ),
