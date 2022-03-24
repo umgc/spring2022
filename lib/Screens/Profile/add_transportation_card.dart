@@ -110,8 +110,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText:
-                                      widget.transportation?.name.toString(),
+                                  labelText: 'Transportation',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -134,7 +133,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                               ? 'Please enter transportation name'
                               : null,
                           onSaved: (input) => _name = input,
-                          initialValue: _name,
+                          initialValue: widget.transportation?.name.toString(),
                         ),
                       ),
                       Padding(
@@ -143,8 +142,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText:
-                                      widget.transportation?.phone.toString(),
+                                  labelText: 'Phone',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -167,7 +165,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                               ? 'Please enter a phone'
                               : null,
                           onSaved: (input) => _phone = input,
-                          initialValue: _phone,
+                          initialValue: widget.transportation?.phone.toString(),
                         ),
                       ),
                       Container(
