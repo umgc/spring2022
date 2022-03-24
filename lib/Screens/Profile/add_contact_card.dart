@@ -117,7 +117,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Contacts',
+                              labelText: 'Contact',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
