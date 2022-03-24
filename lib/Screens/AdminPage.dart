@@ -50,7 +50,7 @@ class _HomeFormState extends State<HomeForm2> {
 
   Future setSP(UserModel user) async {
     final SharedPreferences sp = await _pref;
-    sp.setString("user_id", 'Daryle');
+    sp.setString("user_id", 'My Friend');
   }
 
   void removeSP(String key) async{

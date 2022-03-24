@@ -42,18 +42,15 @@ class _HomeFormState extends State<UpdateAdmin> {
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
-    setState(() {
-
-      _conUserId.text = sp.getString("user_id")!;
-      _conDelUserId.text = sp.getString("user_id")!;
-      _conPhone.text = sp.getString("phone")!;
-      _conPassword.text = sp.getString("password")!;
+      _conUserId.text = await sp.getString("user_id")!;
+      _conDelUserId.text =await sp.getString("user_id")!;
+      _conPhone.text =await sp.getString("phone")!;
+      _conPassword.text =await sp.getString("password")!;
 
       _conUserId.text = EncryptUtil.decryptNote(_conUserId.text);
       _conDelUserId.text = EncryptUtil.decryptNote(_conDelUserId.text);
       _conPassword.text = EncryptUtil.decryptNote(_conPassword.text);
 
-    });
   }
 
   update() async {

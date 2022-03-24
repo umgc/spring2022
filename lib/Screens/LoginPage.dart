@@ -32,13 +32,14 @@ class _LoginFormState extends State<LoginForm> {
 
   late DbHelper dbHelper;
   final _conUserId = TextEditingController();
-  final _conUserPhone=TextEditingController();
+  final _conUserPhone = TextEditingController();
   final _truePassword = TextEditingController();
   final _conPassword = TextEditingController();
 
   String secondaryAction = '';
   String secondaryActionLink = '';
   final Telephony telephony = Telephony.instance;
+  ValueNotifier<bool> _conUserIdUpdated = ValueNotifier(false);
 
   @override
   void initState() {
@@ -47,25 +48,34 @@ class _LoginFormState extends State<LoginForm> {
 
     dbHelper = DbHelper();
   }
-  void resetPassword(){
-    telephony.sendSms(
-        to: _conUserPhone.text,
-        message: "Hello World!"
-    );
+
+  void resetPassword() {
+    telephony.sendSms(to: _conUserPhone.text, message: "Hello World!");
   }
-  void createCareGiver(){
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => SignupForm()));
+
+  void createCareGiver() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => SignupForm()));
   }
+
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
-    setState(() {
-      _truePassword.text = sp.getString("password")!;
-      _conUserPhone.text = sp.getString("phone")!;
-    });
+    try {
+      _conUserId.text = await sp.getString("user_id")!;
+      _truePassword.text = await sp.getString("password")!;
+      _conUserPhone.text = await sp.getString("phone")!;
+    } catch (e) {
+      print('CareGiver has been is Missing or has been Deleted!');
+      _conUserId.text = "No_CareGiver";
+    } finally {
+      _conUserIdUpdated.value = !_conUserIdUpdated.value;
+      _conUserId.text == 'No_CareGiver'
+          ? secondaryAction = 'Need to create an account?'
+          : secondaryAction = 'Need to reset your password?';
+      _conUserId.text == 'No_CareGiver'
+          ? secondaryActionLink = 'Create Caregiver'
+          : secondaryActionLink = 'reset password?';
+    }
   }
 
   setScreen() {
@@ -85,7 +95,6 @@ class _LoginFormState extends State<LoginForm> {
     } else if (passwd.isEmpty) {
       alertDialog(context, "Please Enter Password");
     } else {
-
       await dbHelper.getLoginUser(uid, passwd).then((userData) {
         setSP(userData!).whenComplete(
           () {
@@ -105,24 +114,20 @@ class _LoginFormState extends State<LoginForm> {
   Future setSP(UserModel user) async {
     final SharedPreferences sp = await _pref;
     String uid = EncryptUtil.decryptNote(user.user_id);
+    String phone = user.phone.toString();
     String password = EncryptUtil.decryptNote(user.password);
     sp.setString("user_id", uid);
-    sp.setString("phone", password);
+    sp.setString("phone", phone);
     sp.setString("password", user.password);
     print('ARE WEEEEE DECRYPTING? =======> uid: ${uid}  password: ${password}');
   }
 
   @override
   Widget build(BuildContext context) {
-    print('XXXXXXXXXXXXXXXXXXXXXXXXX${_conUserPhone.text}');
     final screenNav = Provider.of<MainNavObserver>(context, listen: false);
 
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
-
-    _conUserId.text=='Admin'? secondaryAction='Need to reset your password?':secondaryAction='Need to create an account?';
-    _conUserId.text=='Admin'? secondaryActionLink='reset password?':secondaryActionLink='Create Caregiver';
-
 
     return Builder(builder: (context) {
       return Scaffold(
@@ -177,26 +182,31 @@ class _LoginFormState extends State<LoginForm> {
                   Container(
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Text(secondaryAction),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              FlatButton(
-                                textColor: Color(0xFF0D47A1),
-                                child: Text(secondaryActionLink),
-                                onPressed: () {
-                                  _conUserId=='Admin'?resetPassword():createCareGiver();
-                                },
-                              ),
-                            ],
-                          )
-                        ],
+                      child: ValueListenableBuilder<bool>(
+                        valueListenable: _conUserIdUpdated,
+                        builder: (context, value, _) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Text(secondaryAction),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                FlatButton(
+                                  textColor: Color(0xFF0D47A1),
+                                  child: Text(secondaryActionLink),
+                                  onPressed: () {
+                                    _conUserId.text=='No_CareGiver'
+                                        ? createCareGiver()
+                                        : resetPassword();
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

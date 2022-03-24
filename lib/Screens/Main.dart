@@ -77,12 +77,21 @@ class _MainNavigatorState extends State<MainNavigator> {
     final SharedPreferences sp = await _pref;
 
     setState(() {
-      _conUserId.text = sp.getString("user_id")!;
-      weWantToSeeConUserId = _conUserId.text;
-      // print("line 81 xxxxxx" + weWantToSeeConUserId);
-      if (_conUserId.text == "Admin") {
-        adminModeEnabled = true;
-      } else {
+
+      try {
+        _conUserId.text = sp.getString("user_id")!;
+        weWantToSeeConUserId = _conUserId.text;
+        // print("line 81 xxxxxx" + weWantToSeeConUserId);
+        if (_conUserId.text == "Admin") {
+          adminModeEnabled = true;
+        } else {
+          adminModeEnabled = false;
+        }
+      } catch (e) {
+        //Admin has been deleted or doesn't exist!
+        print('Admin has been deleted or doesnt exist!');
+        _conUserId.text = "No_CareGiver";
+        weWantToSeeConUserId = _conUserId.text;
         adminModeEnabled = false;
       }
     });
@@ -90,7 +99,10 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   void removeSP(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove("user_id");
+    setState(() {
+      prefs.remove("user_id");
+      prefs.setString("user_id", "STML_User");
+    });
   }
 
   int _currentIndex = 0;
