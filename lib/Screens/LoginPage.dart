@@ -19,6 +19,7 @@ import '../Utility/Constant.dart';
 import '../generated/i18n.dart';
 import '../main.dart';
 import 'Main.dart';
+import 'package:telephony/telephony.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -31,8 +32,13 @@ class _LoginFormState extends State<LoginForm> {
 
   late DbHelper dbHelper;
   final _conUserId = TextEditingController();
+  final _conUserPhone=TextEditingController();
   final _truePassword = TextEditingController();
   final _conPassword = TextEditingController();
+
+  String secondaryAction = '';
+  String secondaryActionLink = '';
+  final Telephony telephony = Telephony.instance;
 
   @override
   void initState() {
@@ -41,12 +47,24 @@ class _LoginFormState extends State<LoginForm> {
 
     dbHelper = DbHelper();
   }
-
+  void resetPassword(){
+    telephony.sendSms(
+        to: _conUserPhone.text,
+        message: "Hello World!"
+    );
+  }
+  void createCareGiver(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => SignupForm()));
+  }
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
     setState(() {
       _truePassword.text = sp.getString("password")!;
+      _conUserPhone.text = sp.getString("phone")!;
     });
   }
 
@@ -96,10 +114,15 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    print('XXXXXXXXXXXXXXXXXXXXXXXXX${_conUserPhone.text}');
     final screenNav = Provider.of<MainNavObserver>(context, listen: false);
 
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
+
+    _conUserId.text=='Admin'? secondaryAction='Need to reset your password?':secondaryAction='Need to create an account?';
+    _conUserId.text=='Admin'? secondaryActionLink='reset password?':secondaryActionLink='Create Caregiver';
+
 
     return Builder(builder: (context) {
       return Scaffold(
@@ -159,19 +182,16 @@ class _LoginFormState extends State<LoginForm> {
                         children: [
                           Row(
                             children: [
-                              Text('Need to create an account?'),
+                              Text(secondaryAction),
                             ],
                           ),
                           Row(
                             children: [
                               FlatButton(
                                 textColor: Color(0xFF0D47A1),
-                                child: Text('Create Caregiver'),
+                                child: Text(secondaryActionLink),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => SignupForm()));
+                                  _conUserId=='Admin'?resetPassword():createCareGiver();
                                 },
                               ),
                             ],

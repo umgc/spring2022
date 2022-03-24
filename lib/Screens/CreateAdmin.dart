@@ -42,7 +42,12 @@ class _SignupFormState extends State<SignupForm> {
 
   Future setSP() async {
     final SharedPreferences sp = await _pref;
-    sp.setString("user_id", "Admin");
+
+    setState(() {
+      sp.setString("user_id", "Admin");
+      sp.setString("phone", _conPhone.text);
+      sp.setString("password", _conPassword.text);
+    });
 
   }
 
