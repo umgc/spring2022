@@ -43,50 +43,50 @@ class _TaskDetails extends State<TaskDetails> {
         key: saveTaskScaffoldKey,
         body: Observer(
           builder: (context) => SingleChildScrollView(
-              // padding: EdgeInsets.all(10),
               child: Column(
             children: [
+              Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(children: [
+                    Text(
+                      taskObserver.currTaskForDetails!.taskType,
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    FaIcon(getIcon(taskObserver.currTaskForDetails!.icon),
+                        size: 50.0,
+                        color: getIconColor(
+                            taskObserver.currTaskForDetails!.iconColor)),
+                  ])),
               Text(
                 'This activity task is assigned to you to perform an action.',
                 style: TextStyle(
                   fontSize: 20.0,
                 ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        FaIcon(getIcon(taskObserver.currTaskForDetails!.icon),
-                            size: 50.0,
-                            color: getIconColor(
-                                taskObserver.currTaskForDetails!.iconColor)),
-                        Text(
-                          taskObserver.currTaskForDetails!.taskType,
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    Text(
+                      taskObserver.currTaskForDetails!.name,
+                      softWrap: true,
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          taskObserver.currTaskForDetails!.name,
-                          style: TextStyle(fontSize: 35),
-                        ),
-                        Text(
-                          taskObserver.currTaskForDetails!.description,
-                          style: TextStyle(fontSize: 25.0),
-                        ),
-                      ],
+                    Text(
+                      taskObserver.currTaskForDetails!.description,
+                      softWrap: true,
+                      style: TextStyle(fontSize: 25.0),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
+              //   ],
+              // ),
               Visibility(
                 visible: readOnly == false,
                 child: TextField(
@@ -116,23 +116,10 @@ class _TaskDetails extends State<TaskDetails> {
                   style: TextStyle(fontSize: 30),
                 ),
               ),
-              // TextField(
-              //     responseText,
-              //   onChanged: (text) {
-              //     setState(() {
-              //       taskObserver.currTaskForDetails!.responseText = text;
-              //       taskObserver.currTaskForDetails!.responseText == ''
-              //           ? showCompleteBtn = false
-              //           : showCompleteBtn = true;
-              //     });
-              //   },
-              //   enabled: readOnly == false,
-              //   // controller: textController,
-              //   maxLines: 5,
-              //   // style: TextStyle(fontSize: fontSize),
-              //   decoration: InputDecoration(
-              //       border: OutlineInputBorder(), hintText: "--Response--"),
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Divider(thickness: 5, color: Colors.blue),
+              ),
               Column(
                 children: [
                   TextButton.icon(
