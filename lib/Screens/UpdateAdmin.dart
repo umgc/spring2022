@@ -42,18 +42,15 @@ class _HomeFormState extends State<UpdateAdmin> {
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
-    setState(() {
-
-      _conUserId.text = sp.getString("user_id")!;
-      _conDelUserId.text = sp.getString("user_id")!;
-      _conPhone.text = sp.getString("phone")!;
-      _conPassword.text = sp.getString("password")!;
+      _conUserId.text = await sp.getString("user_id")!;
+      _conDelUserId.text =await sp.getString("user_id")!;
+      _conPhone.text =await sp.getString("phone")!;
+      _conPassword.text =await sp.getString("password")!;
 
       _conUserId.text = EncryptUtil.decryptNote(_conUserId.text);
       _conDelUserId.text = EncryptUtil.decryptNote(_conDelUserId.text);
       _conPassword.text = EncryptUtil.decryptNote(_conPassword.text);
 
-    });
   }
 
   update() async {
@@ -147,12 +144,6 @@ class _HomeFormState extends State<UpdateAdmin> {
 
                   genLoginSignupHeader('Update Caregiver'),//Update
                   getTextFormField(
-                      controller: _conUserId,
-                      isEnable: false,
-                      icon: Icons.person,
-                      hintName: 'User ID'),
-                  SizedBox(height: 10.0),
-                  getTextFormField(
                       controller: _conPhone,
                       icon: Icons.phone,
                       inputType: TextInputType.phone,
@@ -164,47 +155,45 @@ class _HomeFormState extends State<UpdateAdmin> {
                     hintName: 'Password',
                     isObscureText: true,
                   ),
-                  SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Update',
-                        style: TextStyle(color: Colors.white),
+
+                  //Update
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: update,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0D47A1),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                       ),
-                      onPressed: update,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0D47A1),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
+                      //Delete
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: delete,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ],
                   ),
 
-                  //Delete
-
-                  getTextFormField(
-                      controller: _conDelUserId,
-                      isEnable: false,
-                      icon: Icons.person,
-                      hintName: 'User ID'),
-                  SizedBox(height: 10.0),
-                  SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Delete',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: delete,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
                 ],
               ),
             ),

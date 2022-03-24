@@ -39,6 +39,8 @@ class _PermissionScreenState extends State<PermissionScreen> {
       await Permission.camera.request();
       await Permission.storage.request();
       await Permission.manageExternalStorage.request();
+      await Permission.sms.request();
+
     } else if (status.isPermanentlyDenied) {
       status = PermissionStatus.granted;
     } else {
