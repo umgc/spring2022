@@ -82,7 +82,6 @@ class _LoginFormState extends State<LoginForm> {
         sp.setString("password", tempPasscode.toString());
         String message = "This is an automated message from MemorEZ's password "
             "reset service. Your Temporary PassCode is: ${tempPasscode.toString()}";
-        List<String> recipents = [];
 
         //Use sendSMS with the recipient number and message body.
         TwilioFlutter twilioFlutter = TwilioFlutter(
@@ -90,17 +89,19 @@ class _LoginFormState extends State<LoginForm> {
             authToken : authToken,  // replace xxx with Auth Token
             twilioNumber : twilioNumber  // replace .... with Twilio Number
         );
-        twilioFlutter.sendSMS(
+        var status = twilioFlutter.sendSMS(
             toNumber : '+1${_conUserPhone.text}',
             messageBody : message);
 
+        status == 200 ? alertDialog(context, "Password Reset SMS Sent!"):alertDialog(context, "Error During Message Delivery");
+
         alertDialog(context, "Password Reset SMS Sent!");
       }else{
-        alertDialog(context, "Error During Message Delivery");
+        alertDialog(context, "Error During Database Update");
       }
     }).catchError((error) {
       print(error);
-      alertDialog(context, "Error");
+      alertDialog(context, "Other Error");
     });
   }
 
