@@ -31,7 +31,7 @@ class _ViewNotesState extends State<ViewNotes> {
 
     //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: NoteTable(noteObserver.usersNotes, () => print("done")),
 
       // floatingActionButton: Padding(

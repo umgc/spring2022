@@ -39,7 +39,7 @@ class _TaskTableState extends State<TaskTable> {
     const TEXT_STYLE = TextStyle(fontSize: 20);
     const HEADER_TEXT_STYLE = const TextStyle(fontSize: 20);
 
-    var rowHeight = (MediaQuery.of(context).size.height - 350) /
+    var rowHeight = (MediaQuery.of(context).size.height) /
         (taskObserver.careGiverModeEnabled ? 2 : 1);
 
     List<TextTask> activeUserTasks = <TextTask>[];
@@ -77,9 +77,10 @@ class _TaskTableState extends State<TaskTable> {
                 ),
               ),
               Container(
-                height: rowHeight,
+                //height: rowHeight,
                 child: ListView.builder(
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: activeUserTasks.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
@@ -179,8 +180,9 @@ class _TaskTableState extends State<TaskTable> {
                 ),
               ),
               Container(
-                height: rowHeight,
+                //height: rowHeight,
                 child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: inActiveUserTasks.length,
                     itemBuilder: (BuildContext context, int index) {

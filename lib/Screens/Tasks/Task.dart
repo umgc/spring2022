@@ -62,9 +62,9 @@ class _TaskState extends State<Task> {
     _conUserId.text == 'Admin'
         ? taskObserver.enableCaregiverMode()
         : taskObserver.disableCaregiverMode();
-    return Scaffold(
+    return Container(
       key: viewTasksScaffoldKey,
-      body: Observer(builder: (_) => _changeScreen(taskObserver.currentScreen)),
+      child: Observer(builder: (_) => _changeScreen(taskObserver.currentScreen)),
     );
   }
 

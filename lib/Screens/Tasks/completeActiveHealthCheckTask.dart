@@ -13,9 +13,10 @@ class _ActiveHealthCheckTaskState extends State<ActiveHealthCheckTask> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
+    return Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             if (pageToDisplay == 'first')
