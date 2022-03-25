@@ -109,7 +109,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                               widget.medication != null?
                                   InputDecoration(
-                                    labelText: EncryptUtil.decryptNote(widget.medication?.title.toString()),
+                                    labelText: 'Medication',
                                     labelStyle: TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -130,7 +130,9 @@ class _UserProfileState extends State<AddMedicationCard> {
                               ? 'Please enter a medication name'
                               : null,
                           onSaved: (input) => _title = input,
-                          initialValue: _title,
+                          initialValue:
+                            widget.medication != null?
+                            EncryptUtil.decryptNote(widget.medication?.title.toString()):_title,
                         ),
                       ),
                       Padding(
@@ -140,7 +142,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                           widget.medication != null?
                           InputDecoration(
-                              labelText: EncryptUtil.decryptNote(widget.medication?.dose.toString()),
+                              labelText: 'Dose',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -161,7 +163,9 @@ class _UserProfileState extends State<AddMedicationCard> {
                               ? 'Please enter dose'
                               : null,
                           onSaved: (input) => _dose = input,
-                          initialValue: _dose,
+                          initialValue:
+                          widget.medication != null?
+                          EncryptUtil.decryptNote(widget.medication!.dose) : _dose
                         ),
                       ),
 

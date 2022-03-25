@@ -108,7 +108,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                           decoration:
                           widget.careTeam != null?
                           InputDecoration(
-                              labelText: widget.careTeam?.name.toString(),
+                              labelText: 'Care Team',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -129,7 +129,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               ? 'Please enter name'
                               : null,
                           onSaved: (input) => _name = input,
-                          initialValue: _name,
+                          initialValue: widget.careTeam?.name.toString(),
                         ),
                       ),
                       Padding(
@@ -139,7 +139,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                           decoration:
                           widget.careTeam != null?
                           InputDecoration(
-                              labelText: widget.careTeam?.phone.toString(),
+                              labelText: 'Phone',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -160,7 +160,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               ? 'Please enter phone'
                               : null,
                           onSaved: (input) => _phone = input,
-                          initialValue: _phone,
+                          initialValue: widget.careTeam?.phone.toString(),
                         ),
                       ),
 

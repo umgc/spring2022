@@ -109,7 +109,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: EncryptUtil.decryptNote(widget.history?.history.toString()),
+                              labelText: 'Past Medical History',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -130,7 +130,10 @@ class _UserProfileState extends State<AddHistoryCard> {
                               ? 'Please enter medical history'
                               : null,
                           onSaved: (input) => _history = input,
-                          initialValue: _history,
+                          initialValue:
+                            widget.history != null?
+                            EncryptUtil.decryptNote(widget.history?.history.toString()):
+                            _history,
                         ),
                       ),
                       Padding(
@@ -140,7 +143,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: EncryptUtil.decryptNote(widget.history?.desc.toString()),
+                              labelText: 'Description',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -161,7 +164,9 @@ class _UserProfileState extends State<AddHistoryCard> {
                               ? 'Please enter a note'
                               : null,
                           onSaved: (input) => _desc = input,
-                          initialValue: _desc,
+                          initialValue:
+                            widget.history != null?
+                            EncryptUtil.decryptNote(widget.history?.desc.toString()): _desc,
                         ),
                       ),
 
