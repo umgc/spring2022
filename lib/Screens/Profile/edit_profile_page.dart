@@ -106,7 +106,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-              label: 'phone',
+              label: 'Phone Number',
               text: user.phone,
               onChanged: (phone) => user = user.copy(phone: phone),
             ),

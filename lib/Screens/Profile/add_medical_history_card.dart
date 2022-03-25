@@ -93,7 +93,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
-                      fontSize: 30.0),
+                      fontSize: 24.0),
                 ),
                 SizedBox(
                   height: 10.0,
@@ -143,7 +143,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: 'Description',
+                              labelText: 'Note',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -161,7 +161,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a note'
+                              ? 'Please enter a note or description'
                               : null,
                           onSaved: (input) => _desc = input,
                           initialValue:

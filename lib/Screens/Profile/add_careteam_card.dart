@@ -92,7 +92,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
-                      fontSize: 30.0),
+                      fontSize: 25.0),
                 ),
                 SizedBox(
                   height: 10.0,
@@ -108,7 +108,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                           decoration:
                           widget.careTeam != null?
                           InputDecoration(
-                              labelText: 'Care Team',
+                              labelText: 'Provider Name',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -117,7 +117,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Care Team',
+                              labelText: 'Provider Name',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -126,7 +126,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter name'
+                              ? 'Please enter a provider name (ex: Dr. John Smith)'
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.careTeam?.name.toString(),
@@ -139,7 +139,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                           decoration:
                           widget.careTeam != null?
                           InputDecoration(
-                              labelText: 'Phone',
+                              labelText: 'Phone Number',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -148,7 +148,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Phone',
+                              labelText: 'Phone Number',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -157,7 +157,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter phone'
+                              ? 'Please enter a phone number'
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.careTeam?.phone.toString(),

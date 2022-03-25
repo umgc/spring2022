@@ -43,7 +43,7 @@ class _UserProfileState extends State<AddContactCard> {
         contact.status = 0;
         DatabaseHelper.instance.insertContact(contact);
       } else {
-        // Update medical history in Users Database
+        // Update contact name in Database
         contact.id = widget.contact!.id;
         DatabaseHelper.instance.updateContact(contact);
       }
@@ -88,7 +88,7 @@ class _UserProfileState extends State<AddContactCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.contact == null ? 'Add a Contact' : 'Update a Contact',
+                  widget.contact == null ? 'Add Contact' : 'Update Contact',
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -117,7 +117,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Contact',
+                              labelText: 'Contact Name',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -126,7 +126,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter name'
+                              ? 'Please enter a contact name (ex: Jane Doe)'
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.contact?.name.toString(),
@@ -140,7 +140,7 @@ class _UserProfileState extends State<AddContactCard> {
                           decoration:
                           widget.contact != null?
                           InputDecoration(
-                              labelText: 'Phone',
+                              labelText: 'Phone Number',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -149,7 +149,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Phone',
+                              labelText: 'Phone Number',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -158,7 +158,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter phone'
+                              ? 'Please enter a phone number'
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.contact?.phone.toString(),

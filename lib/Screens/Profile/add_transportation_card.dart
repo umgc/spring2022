@@ -110,7 +110,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText: 'Transportation',
+                                  labelText: 'Transportation Name',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -120,7 +120,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0)))
                               : InputDecoration(
-                                  labelText: 'Transportation',
+                                  labelText: 'Transportation Name',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -142,7 +142,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText: 'Phone',
+                                  labelText: 'Phone Number',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -152,7 +152,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0)))
                               : InputDecoration(
-                                  labelText: 'Phone',
+                                  labelText: 'Phone Number',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -162,7 +162,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a phone'
+                              ? 'Please enter a phone number'
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.transportation?.phone.toString(),
