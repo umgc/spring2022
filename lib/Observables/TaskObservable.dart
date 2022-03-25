@@ -6,7 +6,6 @@ import '../Services/TaskService.dart';
 import 'dart:collection';
 import 'dart:io';
 
-import 'package:image_picker/image_picker.dart';
 import 'package:memorez/Utility/Constant.dart';
 import '../Model/Task.dart';
 import 'package:share_plus/share_plus.dart';
@@ -23,11 +22,6 @@ abstract class _AbstractTaskObserver with Store {
           print('task observable tasks' + tasks.toString())
         });
   }
-  @observable
-  File? _image;
-
-  @observable
-  ImagePicker imagePicker = ImagePicker();
 
   @observable
   TASK_SCREENS currentScreen = TASK_SCREENS.TASK;
@@ -52,13 +46,6 @@ abstract class _AbstractTaskObserver with Store {
   String newTaskEventTime = "";
   @observable
   bool careGiverModeEnabled = false;
-
-  @action
-  Future getImage() async {
-    final image = await imagePicker.getImage(source: ImageSource.camera);
-    _image = File(image!.path);
-    Share.shareFiles([image.path]);
-  }
 
   @action
   void addTask(TextTask task) {

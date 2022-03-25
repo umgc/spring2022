@@ -9,36 +9,6 @@ part of 'TaskObservable.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$TaskObserver on _AbstractTaskObserver, Store {
-  final _$_imageAtom = Atom(name: '_AbstractTaskObserver._image');
-
-  @override
-  File? get _image {
-    _$_imageAtom.reportRead();
-    return super._image;
-  }
-
-  @override
-  set _image(File? value) {
-    _$_imageAtom.reportWrite(value, super._image, () {
-      super._image = value;
-    });
-  }
-
-  final _$imagePickerAtom = Atom(name: '_AbstractTaskObserver.imagePicker');
-
-  @override
-  ImagePicker get imagePicker {
-    _$imagePickerAtom.reportRead();
-    return super.imagePicker;
-  }
-
-  @override
-  set imagePicker(ImagePicker value) {
-    _$imagePickerAtom.reportWrite(value, super.imagePicker, () {
-      super.imagePicker = value;
-    });
-  }
-
   final _$currentScreenAtom = Atom(name: '_AbstractTaskObserver.currentScreen');
 
   @override
@@ -147,13 +117,6 @@ mixin _$TaskObserver on _AbstractTaskObserver, Store {
     _$newTaskEventTimeAtom.reportWrite(value, super.newTaskEventTime, () {
       super.newTaskEventTime = value;
     });
-  }
-
-  final _$getImageAsyncAction = AsyncAction('_AbstractTaskObserver.getImage');
-
-  @override
-  Future<dynamic> getImage() {
-    return _$getImageAsyncAction.run(() => super.getImage());
   }
 
   final _$setCurrTaskIdForDetailsAsyncAction =
@@ -290,7 +253,7 @@ mixin _$TaskObserver on _AbstractTaskObserver, Store {
   @override
   String toString() {
     return '''
-imagePicker: ${imagePicker},
+
 currentScreen: ${currentScreen},
 currTaskForDetails: ${currTaskForDetails},
 usersTask: ${usersTask},
