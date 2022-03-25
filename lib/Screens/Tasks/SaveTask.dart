@@ -31,8 +31,6 @@ class SaveTask extends StatefulWidget {
       viewExistingTask: this.viewExistingTask);
 }
 
-
-
 //__ONSAVE
 class _SaveTaskState extends State<SaveTask> {
   String enteredTaskName = '';
@@ -43,10 +41,8 @@ class _SaveTaskState extends State<SaveTask> {
   String selectedDate = '';
   String selectedTime = '';
   String taskType = '';
-  String selectedDateTime = '';
+  DateTime selectedDateTime = DateTime.now();
   // bool selectedIsResponseRequired = false;
-
-
 
   //these flags indicate whether or not a button has been pressed
   bool _walkingFlag = true;
@@ -55,7 +51,6 @@ class _SaveTaskState extends State<SaveTask> {
   bool _toothFlag = true;
   bool _envelopeFlag = true;
   bool _tshirtFlag = true;
-
 
   void unPressButtons() {
     _walkingFlag = true;
@@ -71,13 +66,10 @@ class _SaveTaskState extends State<SaveTask> {
   FocusNode textFocusNode = FocusNode();
 
   @override
-  void textDispose(){
+  void textDispose() {
     textFocusNode.dispose();
     super.dispose();
-
   }
-
-
 
   //Index of stepper
   static int _stepIndex = 0;
@@ -103,7 +95,6 @@ class _SaveTaskState extends State<SaveTask> {
   _SaveTaskState(
       {this.isCheckListEvent = false, this.viewExistingTask = false}) {
     //this.navScreenObs = navScreenObs;
-
   }
 
   @override
@@ -121,7 +112,6 @@ class _SaveTaskState extends State<SaveTask> {
         textColor: Colors.white,
         timeInSecForIosWeb: 4);
   }
-
 
   //ref: https://api.flutter.dev/flutter/material/Checkbox-class.html
   Widget _checkBox(fontSize) {
@@ -145,59 +135,14 @@ class _SaveTaskState extends State<SaveTask> {
   }
 
   //ref: https://pub.dev/packages/date_time_picker
-  Widget _selectDate(bool isCheckList, I18n? i18n, Locale locale) {
-    final taskObserver = Provider.of<TaskObserver>(context);
-    print(
-        "_selectDate taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
-    String dateLabelText =
-        (isCheckListEvent || isCheckList) ? i18n!.startDate : i18n!.selectDate;
-    String timeLabelText = i18n.enterTime;
-
-    if (this.viewExistingTask == true) {
-      return DateTimePicker(
-        type: (isCheckList || this.isCheckListEvent == true)
-            ? DateTimePickerType.time
-            : DateTimePickerType.dateTimeSeparate,
-        dateMask: 'd MMM, yyyy',
-        initialValue: (taskObserver.newTaskIsCheckList == true ||
-                this.isCheckListEvent == true)
-            ? (taskObserver.currTaskForDetails!.eventTime)
-            : (taskObserver.currTaskForDetails!.eventDate +
-                " " +
-                taskObserver.currTaskForDetails!.eventTime),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
-        icon: Icon(Icons.event),
-        dateLabelText: dateLabelText,
-        timeLabelText: timeLabelText,
-        selectableDayPredicate: (date) {
-          return true;
-        },
-        onChanged: (value) {
-          print("_selectDate: Datetime $value");
-          if (taskObserver.newTaskIsCheckList == true ||
-              this.isCheckListEvent == true) {
-            taskObserver.setNewTaskEventTime(value);
-          } else {
-            String mDate = value.split(" ")[0];
-            String mTime = value.split(" ")[1];
-            taskObserver.setNewTaskEventDate(mDate);
-            taskObserver.setNewTaskEventTime(mTime);
-          }
-        },
-        validator: (val) {
-          print(val);
-          return null;
-        },
-        onSaved: (val) => print("onSaved $val"),
-      );
-    }
+  Widget _selectDate() {
+    String dateLabelText = 'What date to send the task';
+    String timeLabelText = 'What time to send the task';
 
     return DateTimePicker(
       type: DateTimePickerType.dateTimeSeparate,
-      locale: locale,
       dateMask: 'd MMM, yyyy',
-      //initialValue: DateTime.now().toString(),
+      initialValue: DateTime.now().toString(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       icon: Icon(Icons.event),
@@ -207,15 +152,8 @@ class _SaveTaskState extends State<SaveTask> {
         return true;
       },
       onChanged: (value) {
-        if (taskObserver.newTaskIsCheckList == true ||
-            this.isCheckListEvent == true) {
-          taskObserver.setNewTaskEventTime(value);
-        } else {
-          String mDate = value.split(" ")[0];
-          String mTime = value.split(" ")[1];
-          taskObserver.setNewTaskEventDate(mDate);
-          taskObserver.setNewTaskEventTime(mTime);
-        }
+        print("_selectDate: Datetime $value");
+        selectedDateTime = DateTime.parse(value);
       },
       validator: (val) {
         print(val);
@@ -229,7 +167,6 @@ class _SaveTaskState extends State<SaveTask> {
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final settingObserver = Provider.of<SettingObserver>(context);
-
 
     List<Step> getSteps() => [
           // Screen 1
@@ -332,12 +269,9 @@ class _SaveTaskState extends State<SaveTask> {
               'Details',
               style: TextStyle(fontSize: 12),
             ),
-            content:
-
-            Column(
+            content: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-
                 Container(
                     child: const Align(
                   alignment: Alignment.topLeft,
@@ -365,7 +299,6 @@ class _SaveTaskState extends State<SaveTask> {
                 )),
                 //______
                 Container(
-
                   child: TextFormField(
                     // focusNode: textFocusNode,
                     controller: _textNameController,
@@ -377,7 +310,6 @@ class _SaveTaskState extends State<SaveTask> {
                         _textNameController.selection =
                             TextSelection.fromPosition(
                                 TextPosition(offset: valueName.length));
-
                       });
                     },
                     cursorColor: Colors.blue,
@@ -435,7 +367,6 @@ class _SaveTaskState extends State<SaveTask> {
                           EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                       labelText: 'Description',
                       border: OutlineInputBorder(),
-
 
                       // errorText: 'Error message',
                       // suffixIcon: Icon(
@@ -757,7 +688,6 @@ class _SaveTaskState extends State<SaveTask> {
                 //         ),
                 //       )),
                 //     ]),
-
               ],
             ),
           ),
@@ -874,82 +804,10 @@ class _SaveTaskState extends State<SaveTask> {
 
                   Visibility(
                     visible: _scheduleReponse == responseSchedule.Future,
-                    child: Container(
-                        child:
-                            //DATE CALENDAR
+                    child: Container(child: _selectDate()
+                        //DATE CALENDAR
 
-                            TextFormField(
-                      readOnly: true,
-                      controller: _dateController,
-                      onChanged: (valueDate) {
-                        setState(() {
-                          _dateController.text = valueDate;
-                          selectedDate = valueDate.toString();
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        labelText: 'Date',
-                        suffixIcon: Icon(FontAwesomeIcons.calendarDay),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        border: OutlineInputBorder(),
-                      ),
-                      onTap: () async {
-                        await showDatePicker(
-                          context: context,
-                          confirmText: 'SET DATE',
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2030),
-                        ).then((selectedDate) {
-                          if (selectedDate != null) {
-                            _dateController.text =
-                                '${selectedDate.month.toString()}/${selectedDate.day.toString()}/${selectedDate.year.toString()}';
-                          }
-                        });
-                      },
-                    )),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Visibility(
-                    visible: _scheduleReponse == responseSchedule.Future,
-                    child: Container(
-                      child: TextFormField(
-                        readOnly: true,
-                        controller: _timeController,
-                        onChanged: (valueTime) {
-                          _timeController.text = valueTime;
-                          selectedDate = valueTime.toString();
-                        },
-                        decoration: const InputDecoration(
-                          labelText: 'Time',
-                          suffixIcon: Icon(FontAwesomeIcons.solidClock),
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          border: OutlineInputBorder(),
                         ),
-                        onTap: () async {
-                          await showTimePicker(
-                            context: context,
-                            confirmText: 'SET TIME',
-                            initialTime: TimeOfDay.now(),
-                            initialEntryMode: TimePickerEntryMode.dial,
-                          ).then((selectedTime) {
-                            if (selectedTime != null) {
-                              if (selectedTime.minute < 10) {
-                                _timeController.text =
-                                    '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
-                              } else {
-                                _timeController.text =
-                                    '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
-                              }
-                            }
-                          });
-                        },
-                      ),
-                    ),
                   ),
                 ]),
           ),
@@ -1006,12 +864,11 @@ class _SaveTaskState extends State<SaveTask> {
         steps: getSteps(),
         onStepTapped: onStepTapped,
         onStepCancel: onStepCancel,
-        onStepContinue: (){
+        onStepContinue: () {
           if (_stepIndex < (getSteps().length - 1)) {
             setState(() {
               _stepIndex += 1;
             });
-
           }
         },
       ),
@@ -1152,7 +1009,7 @@ class _SaveTaskState extends State<SaveTask> {
     this._newTask.eventDate = _dateController.text;
     this._newTask.eventTime = _timeController.text;
     this._newTask.iconColor = selectedIconColor;
-    this._newTask.sendTaskDateTime = DateTime.now();
+    this._newTask.sendTaskDateTime = selectedDateTime;
 
     //Screen one
     this._newTask.taskType = taskType;
@@ -1249,17 +1106,19 @@ class _SaveTaskState extends State<SaveTask> {
                       borderRadius: BorderRadius.circular(18.0)))),
 
           //Updated so the back button does not show in the Health check schedule screen
-          if (taskType == 'Activity' && _stepIndex > 0 )
+          if (taskType == 'Activity' && _stepIndex > 0)
             TextButton(
-              onPressed: (){ setState(() {
-                //_________
-                 return onStepCancel();
-              });},
-
-              child:  const Text( 'Back',
+              onPressed: () {
+                setState(() {
+                  //_________
+                  return onStepCancel();
+                });
+              },
+              child: const Text(
+                'Back',
                 style: TextStyle(color: Colors.blueAccent),
-              ),)
-
+              ),
+            )
         ],
       ),
     );
@@ -1294,8 +1153,6 @@ class _SaveTaskState extends State<SaveTask> {
   //   //   // });
   //   // }
   // }
-
-
 
 }
 
