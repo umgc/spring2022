@@ -127,7 +127,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter medical history'
+                              ? 'Please enter medical history (ex: Diabetes)'
                               : null,
                           onSaved: (input) => _history = input,
                           initialValue:
@@ -161,7 +161,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a note or description'
+                              ? 'Please enter a note or description (ex: Managed by Dr. Evangelista- PCP)'
                               : null,
                           onSaved: (input) => _desc = input,
                           initialValue:

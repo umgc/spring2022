@@ -37,14 +37,14 @@ class _UserProfileState extends State<AddTransportationCard> {
       _formKey.currentState!.save();
       print('$_name, $_phone');
 
-      // Insert medical history to Users Database
+      // Insert  transportation to Database
       Transportation transportation =
           Transportation(name: _name, phone: _phone);
       if (widget.transportation == null) {
         transportation.status = 0;
         DatabaseHelper.instance.insertTransportation(transportation);
       } else {
-        // Update medical history in Users Database
+        // Update transportation in Database
         transportation.id = widget.transportation!.id;
         DatabaseHelper.instance.updateTransportation(transportation);
       }
@@ -130,7 +130,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter transportation name'
+                              ? 'Please enter transportation name (ex: Medibus)'
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.transportation?.name.toString(),

@@ -37,7 +37,7 @@ class _UserProfileState extends State<AddContactCard> {
       _formKey.currentState!.save();
       print('$_name, $_phone');
 
-      // Insert medical history to Users Database
+      // Insert contact name in Database
       Contact contact = Contact(name: _name, phone: _phone);
       if (widget.contact == null) {
         contact.status = 0;

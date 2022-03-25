@@ -126,7 +126,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a provider name (ex: Dr. John Smith)'
+                              ? 'Please enter a provider name (ex: Dr. John Smith - PCP)'
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.careTeam?.name.toString(),

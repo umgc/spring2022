@@ -40,7 +40,7 @@ class _UserProfileState extends State<AddMedicationCard> {
       if (widget.medication == null) {
         medication.status = 0;
         DatabaseHelper.instance.insertMedication(medication);
-        print('Inserted to allergy table:  ${medication.toMap()}');
+        print('Inserted to medication table:  ${medication.toMap()}');
       } else {
         // Update medication to Users Database
         medication.id = widget.medication!.id;
@@ -109,7 +109,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                               widget.medication != null?
                                   InputDecoration(
-                                    labelText: 'Medication',
+                                    labelText: 'Medication Name',
                                     labelStyle: TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -127,7 +127,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a medication name'
+                              ? 'Please enter a medication name (ex: Lipitor)'
                               : null,
                           onSaved: (input) => _title = input,
                           initialValue:
@@ -142,7 +142,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                           widget.medication != null?
                           InputDecoration(
-                              labelText: 'Dose',
+                              labelText: 'Medication Dose',
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -160,7 +160,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter dose'
+                              ? 'Please enter dose (ex: 100 mg daily)'
                               : null,
                           onSaved: (input) => _dose = input,
                           initialValue:
