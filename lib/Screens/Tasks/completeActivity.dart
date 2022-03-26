@@ -14,16 +14,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// Save Task page
-class TaskDetails extends StatefulWidget {
+class CompleteActivity extends StatefulWidget {
   bool readOnly;
 
-  TaskDetails({this.readOnly = false}) {}
+  CompleteActivity({this.readOnly = false}) {}
 
   @override
-  State<TaskDetails> createState() => _TaskDetails(readOnly: this.readOnly);
+  State<CompleteActivity> createState() => _TaskDetails(readOnly: this.readOnly);
 }
 
-class _TaskDetails extends State<TaskDetails> {
+class _TaskDetails extends State<CompleteActivity> {
   /// Text task service to use for I/O operations against local system
   final TextTaskService textTaskService = new TextTaskService();
   bool readOnly;
@@ -35,8 +35,13 @@ class _TaskDetails extends State<TaskDetails> {
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
 
-    responseText = taskObserver.currTaskForDetails!.responseText;
-    print('response text = ' + responseText);
+
+    try {
+      responseText = taskObserver.currTaskForDetails!.responseText;
+      print('response text = ' + responseText);
+    } on Exception catch (e) {
+      print('Exception $e');
+    }
     var btnColumnWidth = (MediaQuery.of(context).size.width - 50);
     const ICON_SIZE = 80.00;
     return Container(
@@ -186,7 +191,11 @@ class _TaskDetails extends State<TaskDetails> {
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
-                        _onComplete(taskObserver);
+                        _onComplete();
+                        taskObserver.completeTask(taskObserver.currTaskForDetails!);
+                        taskObserver.completeTask(taskObserver.currTaskForDetails!);
+                        taskObserver.inactiveTasksUpdated.value = !taskObserver.inactiveTasksUpdated.value;
+                        taskObserver.changeScreen(TASK_SCREENS.TASK);
                       },
                     ),
                   ),
@@ -197,10 +206,7 @@ class _TaskDetails extends State<TaskDetails> {
         ));
   }
 
-  _onComplete(TaskObserver taskObserver) {
-    taskObserver.currTaskForDetails!.responseText = responseText;
-
-    taskObserver.completeTask(taskObserver.currTaskForDetails!);
+  _onComplete() {
     Fluttertoast.showToast(
         msg: "Task Completed",
         toastLength: Toast.LENGTH_LONG,
@@ -208,7 +214,6 @@ class _TaskDetails extends State<TaskDetails> {
         backgroundColor: Colors.green,
         textColor: Colors.white,
         timeInSecForIosWeb: 4);
-    taskObserver.changeScreen(TASK_SCREENS.TASK);
   }
 }
 
