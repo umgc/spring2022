@@ -83,7 +83,7 @@ class TextTask {
 
   factory TextTask.fromJson(dynamic jsonObj) {
     TextTask task = TextTask();
-    print("extracting jsonObj $jsonObj");
+    //print("extracting jsonObj $jsonObj");
     task.taskId = jsonObj['taskId'];
     task.taskType = jsonObj['taskType'];
     // task.sendTaskDateTime =
