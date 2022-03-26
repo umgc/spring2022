@@ -64,7 +64,7 @@ class TextTask {
     String jsonStr = """ {
                         "taskId": "${this.taskId}",
                         "taskType": "${this.taskType}",
-                        "sendTaskDateTime": "${this.sendTaskDateTime.toIso8601String()}",
+                        "sendTaskDateTime": "${this.sendTaskDateTime}",
                         "responseText":"${this.responseText}",
                         "isReoccuring":"${this.isReoccuring}",
                         "isTaskCompleted" :"${this.isTaskCompleted}",
@@ -86,8 +86,8 @@ class TextTask {
     print("extracting jsonObj $jsonObj");
     task.taskId = jsonObj['taskId'];
     task.taskType = jsonObj['taskType'];
-    // task.sendTaskDateTime =
-    //     DateTime.parse(jsonObj['sendTaskDateTime'].toIso8601Strin);
+    task.sendTaskDateTime =
+        DateTime.parse(jsonObj['sendTaskDateTime'].toString());
     task.responseText = jsonObj['responseText'];
     task.isReoccuring =
         jsonObj['isReoccuring'].toString().toLowerCase() == 'true';
