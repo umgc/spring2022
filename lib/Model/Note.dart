@@ -40,7 +40,7 @@ class TextNote {
   String eventTime = "";
 
   ///Notification for event
-  bool notification = true;
+  bool notification = false;
 
   String toJson() {
     String jsonStr = """ {"noteId": "${this.noteId}",

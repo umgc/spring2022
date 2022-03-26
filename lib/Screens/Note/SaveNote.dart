@@ -38,7 +38,7 @@ class _SaveNoteState extends State<SaveNote> {
   final TextNoteService textNoteService = new TextNoteService();
   bool isCheckListEvent;
   bool viewExistingNote;
-  String _reminderNotification = "Yes";
+  String _reminderNotification = "No";
   bool deleteButtonVisible;
 
   var textController = TextEditingController();
@@ -68,7 +68,11 @@ class _SaveNoteState extends State<SaveNote> {
   }
 
   //ref: https://api.flutter.dev/flutter/material/Checkbox-class.html
-  Widget _checkBox() {
+  Widget _checkBox(TextNote? currNoteForDetails) {
+    if (currNoteForDetails?.notification == true) {
+      _reminderNotification = "Yes";
+    }
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +86,7 @@ class _SaveNoteState extends State<SaveNote> {
                     Expanded(
                       flex: 1,
                       child: _myRadioButton(
-                        value: "No",
+                        value: "Yes",
                         title: "Yes",
                         onChanged: (newValue) =>
                             setState(() => _reminderNotification = newValue),
@@ -91,7 +95,7 @@ class _SaveNoteState extends State<SaveNote> {
                     Expanded(
                       flex: 1,
                       child: _myRadioButton(
-                        value: "Yes",
+                        value: "No",
                         title: "No",
                         onChanged: (newValue) =>
                             setState(() => _reminderNotification = newValue),
@@ -144,7 +148,6 @@ class _SaveNoteState extends State<SaveNote> {
                 " " +
                 noteObserver.currNoteForDetails!.eventTime),
         firstDate: DateTime.now(),
-        use24HourFormat: false,
         lastDate: DateTime(2100),
         icon: Icon(Icons.event),
         //  dateLabelText: dateLabelText,
@@ -177,7 +180,6 @@ class _SaveNoteState extends State<SaveNote> {
       locale: locale,
       dateMask: 'd MMM, yyyy',
       //initialValue: DateTime.now().toString(),
-      use24HourFormat: false,
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       icon: Icon(Icons.event),
@@ -187,15 +189,25 @@ class _SaveNoteState extends State<SaveNote> {
         return true;
       },
       onChanged: (value) {
-        if (noteObserver.newNoteIsCheckList == true ||
-            this.isCheckListEvent == true) {
-          noteObserver.setNewNoteEventTime(value);
-        } else {
+        if (value.split(" ").length == 2) {
+          print("value " + value.toString());
           String mDate = value.split(" ")[0];
           String mTime = value.split(" ")[1];
           noteObserver.setNewNoteEventDate(mDate);
           noteObserver.setNewNoteEventTime(mTime);
         }
+        //   if (noteObserver.newNoteIsCheckList == true ||
+        //      this.isCheckListEvent == true) {
+        //    noteObserver.setNewNoteEventTime(value);
+        //   } else {
+        //   print("value " + value.toString());
+        //    String mDate = value.split(" ")[0];
+        //  String mTime = value.split(" ")[1];
+        // noteObserver.setNewNoteEventDate(mDate);
+        //   noteObserver.setNewNoteEventTime(mTime);
+        //    noteObserver.setNewNoteEventTime(value);
+
+        //  }
       },
       validator: (val) {
         print(val);
@@ -257,7 +269,7 @@ class _SaveNoteState extends State<SaveNote> {
                   child: Text('Send Reminder Notification?',
                       style: TextStyle(
                           fontSize: 12, fontWeight: FontWeight.bold))),
-              _checkBox(),
+              _checkBox(noteObserver.currNoteForDetails),
               SizedBox(height: verticalColSpace),
               Column(
                 children: [
@@ -346,14 +358,15 @@ class _SaveNoteState extends State<SaveNote> {
       this._newNote.localText = textController.text;
       this._newNote.eventTime = noteObserver.newNoteEventTime;
       this._newNote.eventDate = noteObserver.newNoteEventDate;
-      this._newNote.isCheckList = noteObserver.newNoteIsCheckList;
+      /* this._newNote.isCheckList = noteObserver.newNoteIsCheckList;
       if (noteObserver.newNoteIsCheckList == true) {
         this._newNote.recurrentType = "daily";
-      }
+      }*/
       if (_reminderNotification == "No") {
         this._newNote.notification = false;
       }
       if (_reminderNotification == 'Yes') {
+        this._newNote.notification = true;
         DateTime dateTime =
             DateTime.parse(_newNote.eventDate + " " + _newNote.eventTime);
         var _body = _newNote.text +
