@@ -18,21 +18,17 @@ class TaskTable extends StatefulWidget {
   TaskTable(this.usersTasks);
   @override
   State<TaskTable> createState() => _TaskTableState();
-
 }
 
 class _TaskTableState extends State<TaskTable> {
-@override
-
+  @override
   @override
   Widget build(BuildContext context) {
-
     final screenNav = Provider.of<MainNavObserver>(context);
 
     final taskObserver = Provider.of<TaskObserver>(context);
 
-        TextTaskService.loadTasks().then((tasks) =>
-        {taskObserver.setTasks(tasks), taskObserver.setCheckList(tasks)});
+    TextTaskService.loadTasks().then((tasks) => {taskObserver.setTasks(tasks)});
 
     taskObserver.resetCurrTaskIdForDetails();
 
@@ -46,11 +42,15 @@ class _TaskTableState extends State<TaskTable> {
     List<TextTask> inActiveUserTasks = <TextTask>[];
 
     for (var i = 0; i < taskObserver.usersTask.length; i++) {
-      print('send task datetime:' +
+      print('is task complete:' +
           taskObserver.usersTask[i].isTaskCompleted.toString());
       if (taskObserver.usersTask[i].isTaskCompleted) {
         inActiveUserTasks.add(taskObserver.usersTask[i]);
       } else {
+        print('is sendtaskdatetime before now' +
+            taskObserver.usersTask[i].sendTaskDateTime
+                .isBefore(DateTime.now())
+                .toString());
         if (taskObserver.usersTask[i].sendTaskDateTime
             .isBefore(DateTime.now())) {
           activeUserTasks.add(taskObserver.usersTask[i]);
@@ -59,7 +59,6 @@ class _TaskTableState extends State<TaskTable> {
     }
     // taskObserver.changeScreen(TASK_SCREENS.TASK);
 
-    
     return Column(
       children: [
         Column(
@@ -182,7 +181,7 @@ class _TaskTableState extends State<TaskTable> {
               Container(
                 //height: rowHeight,
                 child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: inActiveUserTasks.length,
                     itemBuilder: (BuildContext context, int index) {

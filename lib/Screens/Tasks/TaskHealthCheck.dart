@@ -42,7 +42,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
 
   @override
   Widget build(BuildContext context) {
-    final taskObserver = Provider.of<TaskObserver>(context, listen: false);
+    final taskObserver = Provider.of<TaskObserver>(context);
 
     String taskId = "";
     //VIEW_Task MODE: Populated the details of the targeted Tasks into the UI

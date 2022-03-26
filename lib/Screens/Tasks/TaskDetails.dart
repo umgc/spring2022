@@ -33,7 +33,7 @@ class _TaskDetails extends State<TaskDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final taskObserver = Provider.of<TaskObserver>(context, listen: false);
+    final taskObserver = Provider.of<TaskObserver>(context);
 
     responseText = taskObserver.currTaskForDetails!.responseText;
     print('response text = ' + responseText);
@@ -44,7 +44,7 @@ class _TaskDetails extends State<TaskDetails> {
         child: Observer(
           builder: (context) => SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                   padding: const EdgeInsets.all(15.0),

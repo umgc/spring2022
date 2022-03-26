@@ -91,7 +91,6 @@ abstract class _AbstractTaskObserver with Store {
 
   @action
   void setTasks(tasks) {
-    print("set task to: ${tasks}");
     usersTask = tasks;
   }
 

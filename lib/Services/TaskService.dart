@@ -19,8 +19,9 @@ class TextTaskService {
       dynamic listExtract =
           await FileUtil.readJson(FILE_NAME).then((value) => value);
       for (var task in listExtract) {
-        print("Loading tasks from file $task");
+        print("Loading tasks from file start $task");
         userTextTasks.add(TextTask.fromJson(task));
+        print("Loading tasks from file end $task");
       }
       print('all tasks loaded ' + userTextTasks.length.toString());
     } catch (Exception) {

@@ -61,6 +61,8 @@ class TextTask {
         completedTaskDateTime = this.completedTaskDateTime!.toIso8601String();
       }
     }
+    print("to json sendTaskDateTime:  ${this.sendTaskDateTime}");
+
     String jsonStr = """ {
                         "taskId": "${this.taskId}",
                         "taskType": "${this.taskType}",
@@ -82,6 +84,7 @@ class TextTask {
   }
 
   factory TextTask.fromJson(dynamic jsonObj) {
+    print('reading tasks from json start:' + jsonObj.toString());
     TextTask task = TextTask();
     print("extracting jsonObj $jsonObj");
     task.taskId = jsonObj['taskId'];
@@ -106,6 +109,7 @@ class TextTask {
         task.completedTaskDateTime =
             DateTime.parse(jsonObj['completedTaskDateTime'].toString());
       }
+      print('reading tasks from json end:' + jsonObj.toString());
     }
 
     // task.recordedTime = DateTime.parse(jsonObj['recordedTime']);
