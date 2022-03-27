@@ -19,6 +19,16 @@ jobs:
       - name: Get run number
         run: |
           echo '${{ github.run_number }}'
+      - name: Set temporary environment user
+        run: |
+          export FASTLANE_USER="${{ secrets.FASTLANE_USER }}"
+      - name: Set temporary environment password
+        run: |
+          export FASTLANE_PASSWORD="${{ secrets.FASTLANE_PASSWORD }}"
+      - name: Check temporary environment user and password
+        run: |
+          echo $FASTLANE_USER
+          echo $FASTLANE_PASSWORD
       - name: Checkout code from ref
         uses: actions/checkout@v2
         with:
