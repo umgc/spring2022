@@ -1,0 +1,56 @@
+# ios_ci_cd.yml
+
+name: iOS CI/CD
+
+on:
+  push:
+    branches:
+      - "main"
+  
+  pull_request:
+    branches:
+      - "main"
+      
+jobs:
+ deploy_ios:
+    name: Deploy beta build to TestFlight
+    runs-on: macOS-latest
+    steps:
+      - name: Get run number
+        run: |
+          echo '${{ github.run_number }}'
+      - name: Checkout code from ref
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Decrypt and Unzip File
+        run: |
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.KEYS_SECRET_PASSPHRASE }}" --output creds.zip creds.zip.gpg
+          jar xvf creds.zip
+      - name: Move file to assests/NLU directory 
+        run: |
+          mv ./creds/Lex_Credentials.xml ./assets/NLU
+      - name: Run Flutter tasks
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build ios --release --no-codesign
+      - name: Deploy iOS Beta to TestFlight via Fastlane
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: closed_beta
+          subdirectory: ios
+        env:
+          APP_STORE_CONNECT_TEAM_ID: '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'
+          DEVELOPER_APP_ID: '${{ secrets.DEVELOPER_APP_ID }}'
+          DEVELOPER_APP_IDENTIFIER: '${{ secrets.DEVELOPER_APP_IDENTIFIER }}'
+          DEVELOPER_PORTAL_TEAM_ID: '${{ secrets.DEVELOPER_PORTAL_TEAM_ID }}'
+          FASTLANE_APPLE_ID: '${{ secrets.FASTLANE_APPLE_ID }}'
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: '${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}'
+          MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
+          GIT_AUTHORIZATION: '${{ secrets.GIT_AUTHORIZATION }}'
+          PROVISIONING_PROFILE_SPECIFIER: '${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}'
+          TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
+          TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
+          BUILD_NUMBER: '${{ github.run_number }}'

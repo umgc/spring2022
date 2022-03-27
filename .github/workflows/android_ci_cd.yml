@@ -22,7 +22,7 @@ jobs:
       - name: Move file to assests/NLU directory 
         run: |
           mv ./creds/Lex_Credentials.xml ./assets/NLU
-          mv ./creds/service_account.json ./android
+          mv ./creds/serviceaccountnew.json ./android
           mv ./creds/key.properties ./android
           mv ./creds/mysigningkey.jks ./android/app
       - name: Check files in android directory
@@ -65,7 +65,7 @@ jobs:
       - name: Move file to assests/NLU directory
         run: |
           mv ./creds/Lex_Credentials.xml ./assets/NLU
-          mv ./creds/service_account.json ./android
+          mv ./creds/serviceaccountnew.json ./android
           mv ./creds/key.properties ./android
           mv ./creds/mysigningkey.jks ./android/app
       - name: Check files in android directory
