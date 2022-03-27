@@ -366,15 +366,17 @@ class _SaveNoteState extends State<SaveNote> {
         this._newNote.notification = false;
       }
       if (_reminderNotification == 'Yes') {
-        this._newNote.notification = true;
-        DateTime dateTime =
-            DateTime.parse(_newNote.eventDate + " " + _newNote.eventTime);
-        var _body = _newNote.text +
-            "\n" +
-            _newNote.eventDate +
-            " at " +
-            _newNote.eventTime;
-        notify(_body, dateTime, settingObserver);
+        if (settingObserver.userSettings.enableNotesNotifications) {
+          this._newNote.notification = true;
+          DateTime dateTime =
+          DateTime.parse(_newNote.eventDate + " " + _newNote.eventTime);
+          var _body = _newNote.text +
+              "\n" +
+              _newNote.eventDate +
+              " at " +
+              _newNote.eventTime;
+          notify(_body, dateTime, settingObserver);
+        }
       }
       noteObserver.deleteNote(noteObserver.currNoteForDetails);
       noteObserver.addNote(_newNote);
