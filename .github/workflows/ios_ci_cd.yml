@@ -19,10 +19,6 @@ jobs:
       - name: Get run number
         run: |
           echo '${{ github.run_number }}'
-      - name: Check temporary environment user and password
-        run: |
-          echo "The fastlane user is $FASTLANE_USER"
-          echo "The fastlane password is $FASTLANE_PASSWORD"
       - name: Checkout code from ref
         uses: actions/checkout@v2
         with:
@@ -58,5 +54,3 @@ jobs:
           TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
           TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
           BUILD_NUMBER: '${{ github.run_number }}'
-          FASTLANE_USER: "${{ secrets.FASTLANE_USER }}"
-          FASTLANE_PASSWORD: "${{ secrets.FASTLANE_PASSWORD }}"
