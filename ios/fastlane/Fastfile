@@ -76,8 +76,9 @@ platform :ios do
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
       skip_waiting_for_build_processing: false,
       skip_submission: false,
-      distribute_external: false,
-      notify_external_testers: false,
+      distribute_external: true,
+      notify_external_testers: true,
+      groups: ["MemorEZ App External Testing"],
       ipa: "./Runner.ipa"
     )
 
