@@ -3,10 +3,10 @@ name: Android CI/CD
 on:
   push:
     branches:
-      - "feature/app-store"
+      - "main"
   pull_request:
     branches:
-      - "feature/app-store"
+      - "main"
 
 jobs:
   # CI
