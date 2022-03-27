@@ -27,8 +27,7 @@ jobs:
           export FASTLANE_PASSWORD="${{ secrets.FASTLANE_PASSWORD }}"
       - name: Check temporary environment user and password
         run: |
-          echo $FASTLANE_USER
-          echo $FASTLANE_PASSWORD
+          printenv
       - name: Checkout code from ref
         uses: actions/checkout@v2
         with:
