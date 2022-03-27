@@ -274,7 +274,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     final menuObserver = Provider.of<MenuObserver>(context);
     return Observer(
       builder: (_) => Scaffold(
-        //resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset:screenNav.currentScreen!=MAIN_SCREENS.CALENDAR,
         appBar: AppBar(
           //removes the backbutton in the appbar
           automaticallyImplyLeading: false,
