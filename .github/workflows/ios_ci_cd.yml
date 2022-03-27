@@ -15,9 +15,6 @@ jobs:
  deploy_ios:
     name: Deploy beta build to TestFlight
     runs-on: macOS-latest
-    env:
-      FASTLANE_USER: "${{ secrets.FASTLANE_USER }}"
-      FASTLANE_PASSWORD: "${{ secrets.FASTLANE_PASSWORD }}"
     steps:
       - name: Get run number
         run: |
@@ -61,3 +58,5 @@ jobs:
           TEMP_KEYCHAIN_PASSWORD: '${{ secrets.TEMP_KEYCHAIN_PASSWORD }}'
           TEMP_KEYCHAIN_USER: '${{ secrets.TEMP_KEYCHAIN_USER }}'
           BUILD_NUMBER: '${{ github.run_number }}'
+          FASTLANE_USER: "${{ secrets.FASTLANE_USER }}"
+          FASTLANE_PASSWORD: "${{ secrets.FASTLANE_PASSWORD }}"
