@@ -79,6 +79,7 @@ platform :ios do
       distribute_external: true,
       notify_external_testers: true,
       groups: ["MemorEZ App External Testing"],
+      changelog: "Please test the MemorEz app end to end.",
       ipa: "./Runner.ipa"
     )
 
