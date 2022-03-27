@@ -15,19 +15,17 @@ jobs:
  deploy_ios:
     name: Deploy beta build to TestFlight
     runs-on: macOS-latest
+    env:
+      FASTLANE_USER: "${{ secrets.FASTLANE_USER }}"
+      FASTLANE_PASSWORD: "${{ secrets.FASTLANE_PASSWORD }}"
     steps:
       - name: Get run number
         run: |
           echo '${{ github.run_number }}'
-      - name: Set temporary environment user
-        run: |
-          export FASTLANE_USER="${{ secrets.FASTLANE_USER }}"
-      - name: Set temporary environment password
-        run: |
-          export FASTLANE_PASSWORD="${{ secrets.FASTLANE_PASSWORD }}"
       - name: Check temporary environment user and password
         run: |
-          printenv
+          echo "The fastlane user is $FASTLANE_USER"
+          echo "The fastlane password is $FASTLANE_PASSWORD"
       - name: Checkout code from ref
         uses: actions/checkout@v2
         with:
