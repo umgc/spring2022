@@ -3,10 +3,10 @@ name: Android CI/CD
 on:
   push:
     branches:
-      - "development"
+      - "main"
   pull_request:
     branches:
-      - "development"
+      - "main"
 
 jobs:
   # CI
@@ -52,3 +52,49 @@ jobs:
         run: flutter test
       - name: Build App Bundle
         run: flutter build appbundle
+  # CD
+  deploy_android:
+    runs-on: ubuntu-latest
+    needs: [build_android]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Decrypt and Unzip File
+        run: |
+          gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.KEYS_SECRET_PASSPHRASE }}" --output creds.zip creds.zip.gpg
+          jar xvf creds.zip
+      - name: Move file to assests/NLU directory
+        run: |
+          mv ./creds/Lex_Credentials.xml ./assets/NLU
+          mv ./creds/serviceaccountnew.json ./android
+          mv ./creds/key.properties ./android
+          mv ./creds/mysigningkey.jks ./android/app
+          mv ./creds/Twilio_Credentials.xml ./assets/Twilio
+      - name: Check files in android directory
+        run: |
+          cd android && ls -ltr .
+      - name: Check files in app directory
+        run: |
+          cd android/app && ls -ltr .
+      - name: Get run number
+        run: |
+          echo ${{ github.run_number }}
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 12.x
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - name: Update version in YAML
+        run: sed -i 's/99.99.99+99/${{ github.run_number }}.0.0+${{ github.run_number }}/g' pubspec.yaml
+      - name: Install Flutter dependencies
+        run: flutter pub get
+      - name: Build App Bundle
+        run: flutter build appbundle
+      - name: Run Fastlane
+        uses: maierj/fastlane-action@v1.4.0
+        with:
+          lane: closed_beta
+          subdirectory: android
