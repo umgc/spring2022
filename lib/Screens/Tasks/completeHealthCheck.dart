@@ -337,14 +337,11 @@ class _TaskHealthCheck extends State<CompleteHealthCheck> {
                                         height: columnWidth,
                                         child: IconButton(
                                             onPressed: () {
+                                              setState(() {
+                                                screen = '2';
                                                 firstSelection = 'Great';
-                                                taskObserver.currTaskForDetails!.responseText = description;
-                                                taskObserver.currTaskForDetails!.firstHealthCheckMood = firstSelection;
-                                                taskObserver.currTaskForDetails!.secondHealthCheckMood = secondSelection;
-                                                taskObserver.completeTask(taskObserver.currTaskForDetails!);
-                                                taskObserver.completeTask(taskObserver.currTaskForDetails!);
-                                                taskObserver.changeScreen(TASK_SCREENS.TASK);
-                                                _onSave();
+                                                _onSave(taskObserver);
+                                              });
                                             },
                                             icon: Icon(
                                               FontAwesomeIcons.grin,
@@ -704,16 +701,8 @@ class _TaskHealthCheck extends State<CompleteHealthCheck> {
                                     style: TextStyle(fontSize: 20),
                                   ),
                                   onPressed: () {
-                                    ///Here we pass in the entire task observer?
-                                    taskObserver.currTaskForDetails!.responseText = description;
-                                    taskObserver.currTaskForDetails!.firstHealthCheckMood = firstSelection;
-                                    taskObserver.currTaskForDetails!.secondHealthCheckMood = secondSelection;
-                                    taskObserver.completeTask(taskObserver.currTaskForDetails!);
-                                    taskObserver.completeTask(taskObserver.currTaskForDetails!);
-                                    taskObserver.inactiveTasksUpdated.value = !taskObserver.inactiveTasksUpdated.value;
-                                    taskObserver.changeScreen(TASK_SCREENS.TASK);
-
-                                    _onSave();
+                                    ///Here we pass in the entire task observer
+                                    _onSave(taskObserver);
                                   },
                                 ),
                               ),
@@ -725,7 +714,11 @@ class _TaskHealthCheck extends State<CompleteHealthCheck> {
     );
   }
 
-  _onSave() {
+  _onSave(TaskObserver taskObserver) {
+    taskObserver.currTaskForDetails!.responseText = description;
+    taskObserver.currTaskForDetails!.firstHealthCheckMood = firstSelection;
+    taskObserver.currTaskForDetails!.secondHealthCheckMood = secondSelection;
+    taskObserver.completeTask(taskObserver.currTaskForDetails!);
     Fluttertoast.showToast(
         msg: "Task Completed",
         toastLength: Toast.LENGTH_LONG,
@@ -733,5 +726,6 @@ class _TaskHealthCheck extends State<CompleteHealthCheck> {
         backgroundColor: Colors.green,
         textColor: Colors.white,
         timeInSecForIosWeb: 4);
+    taskObserver.changeScreen(TASK_SCREENS.TASK);
   }
 }

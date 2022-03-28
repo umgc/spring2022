@@ -211,7 +211,7 @@ class _SaveNewTaskState extends State<SaveNewTask> {
                     onChanged: (valueName) {
                       setState(() {
                         _textNameController.text = valueName;
-                        enteredTaskName = valueName.toString();
+                        enteredTaskName = valueName;
                         _textNameController.selection =
                             TextSelection.fromPosition(
                                 TextPosition(offset: valueName.length));
@@ -765,7 +765,21 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   FocusNode textFocusNode = FocusNode();
 
   ///Calls to the task observer to set the values of a new task
-  _onSave() {
+  _onSave(TaskObserver taskObserver) {
+    // if (textController.text.length > 0) {
+    print(
+        "taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
+    this._newTask.taskId = (taskObserver.currTaskForDetails != null)
+        ? taskObserver.currTaskForDetails!.taskId
+        : TextTask().taskId;
+    this._newTask.name = textController.text;
+    this._newTask.localText = textController.text;
+    this._newTask.eventTime = taskObserver.newTaskEventTime;
+    this._newTask.eventDate = taskObserver.newTaskEventDate;
+    this._newTask.isCheckList = taskObserver.newTaskIsCheckList;
+    if (taskObserver.newTaskIsCheckList == true) {
+      this._newTask.recurrentType = "daily";
+    }
     //__Objectspassed
     //updated
     this._newTask.name = _textNameController.text;
@@ -778,9 +792,17 @@ class _SaveNewTaskState extends State<SaveNewTask> {
 
     //Screen one
     this._newTask.taskType = taskType;
-    _showToast();
-  }
+    //Boolean radio button
+    // this._newTask.isResponseRequired = selectedIsResponseRequired;
 
+    print('---line 962 icon' + selectedIcon);
+    taskObserver.deleteTask(taskObserver.currTaskForDetails);
+    taskObserver.addTask(_newTask);
+    _showToast();
+    taskObserver.changeScreen(TASK_SCREENS.TASK);
+    // }
+    print('kkkkkkkkkkkkkkkk: line 962');
+  }
   /// This prevents going backwards in the stepper
   void onStepTapped(step) {
     if (step > _stepIndex) {
@@ -849,22 +871,9 @@ class _SaveNewTaskState extends State<SaveNewTask> {
             (OutlinedButton(
                 onPressed: () {
                   _stepIndex = 0;
-                  _onSave();
-                  print("taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
-                  this._newTask.taskId = (taskObserver.currTaskForDetails != null)
-                      ? taskObserver.currTaskForDetails!.taskId
-                      : TextTask().taskId;
-                  this._newTask.name = textController.text;
-                  this._newTask.localText = textController.text;
-                  this._newTask.eventTime = taskObserver.newTaskEventTime;
-                  this._newTask.eventDate = taskObserver.newTaskEventDate;
-                  this._newTask.isCheckList = taskObserver.newTaskIsCheckList;
-                  if (taskObserver.newTaskIsCheckList == true) {
-                    this._newTask.recurrentType = "daily";
-                  }
-                  taskObserver.deleteTask(taskObserver.currTaskForDetails);
-                  taskObserver.addTask(_newTask);
-                  taskObserver.changeScreen(TASK_SCREENS.TASK);                },
+                  _onSave(taskObserver);
+                  print('================line 978');
+                },
                 child: const Text('Send Task'),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.white,
