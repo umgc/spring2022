@@ -29,7 +29,7 @@ dependencies:
   translator: 0.1.7
   highlight_text: ^1.1.0
   avatar_glow: ^2.0.1
-  font_awesome_flutter: ^9.1.0
+  font_awesome_flutter: ^10.0.0
   path_provider: ^2.0.2
   xml: ^5.1.2
   encrypt: ^5.0.0
@@ -68,7 +68,7 @@ dependencies:
 
   enum_to_string: ^2.0.1
   reading_time: ^2.0.0
-  permission_handler: ^8.3.0
+  permission_handler: ^9.2.0
   url_launcher: ^6.0.12
   flutter_localized_locales: ^2.0.3
   chewie: ^1.1.0
@@ -82,7 +82,7 @@ dependencies:
   location: ^4.3.0
   camera: ^0.9.4+7
   image_picker: ^0.8.4+5
-  share_plus: ^3.0.4
+  share_plus: ^4.0.1
 
 
 
