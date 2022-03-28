@@ -25,12 +25,13 @@ jobs:
           mv ./creds/serviceaccountnew.json ./android
           mv ./creds/key.properties ./android
           mv ./creds/mysigningkey.jks ./android/app
+          mv ./creds/Twilio_Credentials.xml ./assets/Twilio
       - name: Check files in android directory
         run: |
           cd android && ls -ltr .
       - name: Check files in app directory
         run: |
-          cd android/app && ls -ltr .
+          cd assets/Twilio && ls -ltr .
       - name: Get run number
         run: |
           echo ${{ github.run_number }}
@@ -68,6 +69,7 @@ jobs:
           mv ./creds/serviceaccountnew.json ./android
           mv ./creds/key.properties ./android
           mv ./creds/mysigningkey.jks ./android/app
+          mv ./creds/Twilio_Credentials.xml ./assets/Twilio
       - name: Check files in android directory
         run: |
           cd android && ls -ltr .
