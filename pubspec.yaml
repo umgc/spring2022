@@ -53,7 +53,8 @@ dependencies:
   sigv4: ^5.0.0
   sqflite: ^2.0.2
   toast: ^0.1.5
-  awesome_notifications: ^0.6.21
+  awesome_notifications: ^0.0.6+10
+  twilio_flutter: ^0.0.9
 
 
   # The following adds the Cupertino Icons font to your application.
