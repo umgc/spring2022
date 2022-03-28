@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Task.dart';
@@ -12,29 +9,27 @@ import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/Utility/FontUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
-import 'dart:math' as math;
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
+enum responseText { start, Yes, No } //enum for Text Response, Schedule
+enum responseSchedule { start, Now, Future } //enum for Text Response, Schedule
 
 /// Save Task page
-class SaveTask extends StatefulWidget {
+class SaveNewTask extends StatefulWidget {
   bool isCheckListEvent;
   bool viewExistingTask;
 
-  SaveTask({this.isCheckListEvent = false, this.viewExistingTask = false}) {}
+  SaveNewTask({this.isCheckListEvent = false, this.viewExistingTask = false}) {}
 
   @override
-  State<SaveTask> createState() => _SaveTaskState(
+  State<SaveNewTask> createState() => _SaveNewTaskState(
       isCheckListEvent: this.isCheckListEvent,
       viewExistingTask: this.viewExistingTask);
 }
 
-
-
-//__ONSAVE
-class _SaveTaskState extends State<SaveTask> {
+/// ONSAVE
+class _SaveNewTaskState extends State<SaveNewTask> {
   String enteredTaskName = '';
   String enteredTaskDescription = '';
   String selectedIcon = '';
@@ -46,9 +41,7 @@ class _SaveTaskState extends State<SaveTask> {
   String selectedDateTime = '';
   // bool selectedIsResponseRequired = false;
 
-
-
-  //these flags indicate whether or not a button has been pressed
+  ///these flags indicate whether or not a button has been pressed
   bool _walkingFlag = true;
   bool _utensilFlag = true;
   bool _capsulesFlag = true;
@@ -56,180 +49,33 @@ class _SaveTaskState extends State<SaveTask> {
   bool _envelopeFlag = true;
   bool _tshirtFlag = true;
 
-
-  void unPressButtons() {
-    _walkingFlag = true;
-    _utensilFlag = true;
-    _capsulesFlag = true;
-    _toothFlag = true;
-    _envelopeFlag = true;
-    _tshirtFlag = true;
-  }
-
-  //Show & hide keyboard
-
-  FocusNode textFocusNode = FocusNode();
-
-  @override
-  void textDispose(){
-    textFocusNode.dispose();
-    super.dispose();
-
-  }
-
-
-
-  //Index of stepper
+  ///Starting Index of page stepper
   static int _stepIndex = 0;
-  //Initial value for dropdown list
+
+  ///Initial value for dropdown list
   String colorDropdownValue = 'Select Icon Color';
-  //This was done to get an unfilled button
+
+  ///This was done to get an unfilled button
   responseText? _textReponse = responseText.start;
   responseSchedule? _scheduleReponse = responseSchedule.start;
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-  //Updated
-  final TextEditingController _textDescriptionController =
-      TextEditingController();
+  final TextEditingController _textDescriptionController =TextEditingController();
   final TextEditingController _textNameController = TextEditingController();
 
   /// Text task service to use for I/O operations against local system
   final TextTaskService textTaskService = new TextTaskService();
   bool isCheckListEvent;
   bool viewExistingTask;
-
   var textController = TextEditingController();
+
+  ///Create a blank new TextTask
   TextTask _newTask = TextTask();
-  _SaveTaskState(
-      {this.isCheckListEvent = false, this.viewExistingTask = false}) {
-    //this.navScreenObs = navScreenObs;
-
-  }
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
-  void _showToast() {
-    Fluttertoast.showToast(
-        msg: "Task Created",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        timeInSecForIosWeb: 4);
-  }
-
-
-  //ref: https://api.flutter.dev/flutter/material/Checkbox-class.html
-  Widget _checkBox(fontSize) {
-    final taskObserver = Provider.of<TaskObserver>(context);
-
-    Color getColor(Set<MaterialState> states) {
-      return Colors.blue;
-    }
-
-    return CheckboxListTile(
-      title: Text("Make this a daily activity",
-          style: TextStyle(fontSize: fontSize)),
-      checkColor: Colors.white,
-      activeColor: Colors.blue,
-      value: (taskObserver.newTaskIsCheckList),
-      onChanged: (bool? value) {
-        print("Checkbox onChanged $value");
-        taskObserver.setNewTaskAIsCheckList(value!);
-      },
-    );
-  }
-
-  //ref: https://pub.dev/packages/date_time_picker
-  Widget _selectDate(bool isCheckList, I18n? i18n, Locale locale) {
-    final taskObserver = Provider.of<TaskObserver>(context);
-    print(
-        "_selectDate taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
-    String dateLabelText =
-        (isCheckListEvent || isCheckList) ? i18n!.startDate : i18n!.selectDate;
-    String timeLabelText = i18n.enterTime;
-
-    if (this.viewExistingTask == true) {
-      return DateTimePicker(
-        type: (isCheckList || this.isCheckListEvent == true)
-            ? DateTimePickerType.time
-            : DateTimePickerType.dateTimeSeparate,
-        dateMask: 'd MMM, yyyy',
-        initialValue: (taskObserver.newTaskIsCheckList == true ||
-                this.isCheckListEvent == true)
-            ? (taskObserver.currTaskForDetails!.eventTime)
-            : (taskObserver.currTaskForDetails!.eventDate +
-                " " +
-                taskObserver.currTaskForDetails!.eventTime),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
-        icon: Icon(Icons.event),
-        dateLabelText: dateLabelText,
-        timeLabelText: timeLabelText,
-        selectableDayPredicate: (date) {
-          return true;
-        },
-        onChanged: (value) {
-          print("_selectDate: Datetime $value");
-          if (taskObserver.newTaskIsCheckList == true ||
-              this.isCheckListEvent == true) {
-            taskObserver.setNewTaskEventTime(value);
-          } else {
-            String mDate = value.split(" ")[0];
-            String mTime = value.split(" ")[1];
-            taskObserver.setNewTaskEventDate(mDate);
-            taskObserver.setNewTaskEventTime(mTime);
-          }
-        },
-        validator: (val) {
-          print(val);
-          return null;
-        },
-        onSaved: (val) => print("onSaved $val"),
-      );
-    }
-
-    return DateTimePicker(
-      type: DateTimePickerType.dateTimeSeparate,
-      locale: locale,
-      dateMask: 'd MMM, yyyy',
-      //initialValue: DateTime.now().toString(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-      icon: Icon(Icons.event),
-      dateLabelText: dateLabelText,
-      timeLabelText: timeLabelText,
-      selectableDayPredicate: (date) {
-        return true;
-      },
-      onChanged: (value) {
-        if (taskObserver.newTaskIsCheckList == true ||
-            this.isCheckListEvent == true) {
-          taskObserver.setNewTaskEventTime(value);
-        } else {
-          String mDate = value.split(" ")[0];
-          String mTime = value.split(" ")[1];
-          taskObserver.setNewTaskEventDate(mDate);
-          taskObserver.setNewTaskEventTime(mTime);
-        }
-      },
-      validator: (val) {
-        print(val);
-        return null;
-      },
-      onSaved: (val) => print("onSaved $val"),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final settingObserver = Provider.of<SettingObserver>(context);
-
 
     List<Step> getSteps() => [
           // Screen 1
@@ -240,11 +86,7 @@ class _SaveTaskState extends State<SaveTask> {
               'Task Type',
               style: TextStyle(fontSize: 12),
             ),
-            content:
-                // Padding(
-                // padding: const EdgeInsets.symmetric(vertical: 16.0),
-                // child:
-                Column(
+            content: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
@@ -332,12 +174,9 @@ class _SaveTaskState extends State<SaveTask> {
               'Details',
               style: TextStyle(fontSize: 12),
             ),
-            content:
-
-            Column(
+            content: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-
                 Container(
                     child: const Align(
                   alignment: Alignment.topLeft,
@@ -365,7 +204,6 @@ class _SaveTaskState extends State<SaveTask> {
                 )),
                 //______
                 Container(
-
                   child: TextFormField(
                     // focusNode: textFocusNode,
                     controller: _textNameController,
@@ -373,11 +211,10 @@ class _SaveTaskState extends State<SaveTask> {
                     onChanged: (valueName) {
                       setState(() {
                         _textNameController.text = valueName;
-                        enteredTaskName = valueName.toString();
+                        enteredTaskName = valueName;
                         _textNameController.selection =
                             TextSelection.fromPosition(
                                 TextPosition(offset: valueName.length));
-
                       });
                     },
                     cursorColor: Colors.blue,
@@ -387,10 +224,6 @@ class _SaveTaskState extends State<SaveTask> {
                           EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                       labelText: 'Name ',
                       border: OutlineInputBorder(),
-                      // errorText: 'Error message',
-                      // suffixIcon: Icon(
-                      //   Icons.error,
-                      // ),
                     ),
                   ),
                 ),
@@ -435,12 +268,6 @@ class _SaveTaskState extends State<SaveTask> {
                           EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                       labelText: 'Description',
                       border: OutlineInputBorder(),
-
-
-                      // errorText: 'Error message',
-                      // suffixIcon: Icon(
-                      //   Icons.error,
-                      // ),
                     ),
                   ),
                 ),
@@ -689,75 +516,6 @@ class _SaveTaskState extends State<SaveTask> {
                 ),
 
                 const SizedBox(height: 10),
-
-                // Text Response Radio Buttons
-
-                // Container(
-                //     child: const Align(
-                //   heightFactor: .5,
-                //   alignment: Alignment.topLeft,
-                //   child: Text(
-                //     'Text Response Required*',
-                //     style: TextStyle(
-                //         fontSize: 15,
-                //         color: Color.fromRGBO(46, 89, 132, 1),
-                //         fontWeight: FontWeight.bold),
-                //   ),
-                // )),
-                // Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: <Widget>[
-                //       //Text Yes Radio button
-                //       Container(
-                //           child: SizedBox(
-                //         width: 150,
-                //         child: RadioListTile<responseText>(
-                //           title: const Text(
-                //             'Yes',
-                //             textAlign: TextAlign.start,
-                //           ),
-                //           toggleable: true,
-                //           contentPadding:
-                //               const EdgeInsets.symmetric(horizontal: .5),
-                //           value: responseText.Yes,
-                //           groupValue: _textReponse,
-                //           onChanged: (responseText? value) {
-                //             //This will hid keyboard when selected
-                //             FocusScope.of(context).unfocus();
-                //
-                //             setState(() {
-                //               _textReponse = value;
-                //               selectedIsResponseRequired = true;
-                //               // value.toString()=='Yes'?true:false;
-                //             });
-                //           },
-                //         ),
-                //       )),
-                //
-                //       //Text No Radio button
-                //       Container(
-                //           child: SizedBox(
-                //         width: 150,
-                //         child: RadioListTile<responseText>(
-                //           title: const Text(
-                //             'No',
-                //             textAlign: TextAlign.left,
-                //           ),
-                //           toggleable: true,
-                //           contentPadding:
-                //               const EdgeInsets.symmetric(horizontal: .5),
-                //           value: responseText.No,
-                //           groupValue: _textReponse,
-                //           onChanged: (responseText? value) {
-                //             setState(() {
-                //               _textReponse = value;
-                //               selectedIsResponseRequired = false;
-                //             });
-                //           },
-                //         ),
-                //       )),
-                //     ]),
-
               ],
             ),
           ),
@@ -953,28 +711,12 @@ class _SaveTaskState extends State<SaveTask> {
                   ),
                 ]),
           ),
-
-          // This is in case we want to add a complete step at the end of the process
-          // Step(
-          //   state: StepState.complete,
-          //   isActive: _stepIndex >= 3,
-          //   title: const Text('Confirm',style: TextStyle(fontSize: 11),),
-          //   content: const Text('Confirm Task',
-          //     textAlign: TextAlign.left,
-          //     style: TextStyle(fontSize: 20, color: Color.fromRGBO(46, 89, 132, 1),
-          //         fontWeight: FontWeight.bold),),
-          // ),
         ];
 
     void onStepContinue() {
       if (_stepIndex < (getSteps().length - 1)) {
         //VALIDATE
         _stepIndex += 1;
-      } else {
-        // This will place the steps in a continous loop esle to provide confirmations
-        // setState(() {
-        // _stepIndex = 0;
-        // });
       }
     }
 
@@ -987,15 +729,6 @@ class _SaveTaskState extends State<SaveTask> {
           text: taskObserver.currTaskForDetails!.localText);
     }
 
-    var padding = MediaQuery.of(context).size.width * 0.02;
-
-    var verticalColSpace = MediaQuery.of(context).size.width * 0.1;
-
-    var fontSize =
-        fontSizeToPixelMap(settingObserver.userSettings.noteFontSize, false);
-
-    const ICON_SIZE = 80.00;
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: saveTaskScaffoldKey,
@@ -1006,129 +739,32 @@ class _SaveTaskState extends State<SaveTask> {
         steps: getSteps(),
         onStepTapped: onStepTapped,
         onStepCancel: onStepCancel,
-        onStepContinue: (){
+        onStepContinue: () {
           if (_stepIndex < (getSteps().length - 1)) {
             setState(() {
               _stepIndex += 1;
             });
-
           }
         },
       ),
-
-      //     Observer(
-      //   builder: (context) => SingleChildScrollView(
-      //       padding: EdgeInsets.all(padding),
-      //       child: Column(
-      //         children: [
-      //           TextField(
-      //             controller: textController,
-      //             maxLines: 5,
-      //             style: TextStyle(fontSize: fontSize),
-      //             decoration: InputDecoration(
-      //                 border: OutlineInputBorder(),
-      //                 hintText: I18n.of(context)!.enterNoteText),
-      //           ),
-      //           DropdownButton<String>(
-      //             value: _newTask.taskType,
-      //             elevation: 16,
-      //             style: const TextStyle(color: Colors.deepPurple),
-      //             underline: Container(
-      //               height: 2,
-      //               color: Colors.deepPurpleAccent,
-      //             ),
-      //             onChanged: (String? newValue) {
-      //               setState(() {
-      //                 _newTask.taskType = newValue!;
-      //                 if (_newTask.taskType == 'Health Check') {
-      //                   _newTask.icon = 'medkit';
-      //                   _newTask.iconColor = 'red';
-      //                 }
-      //               });
-      //             },
-      //             items: <String>['Activity', 'Health Check', 'defaultType']
-      //                 .map<DropdownMenuItem<String>>((String value) {
-      //               return DropdownMenuItem<String>(
-      //                 value: value,
-      //                 child: Text(value),
-      //               );
-      //             }).toList(),
-      //           ),
-      //           _selectDate(taskObserver.newTaskIsCheckList, I18n.of(context),
-      //               settingObserver.userSettings.locale),
-      //           Row(
-      //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //             children: [
-      //               //Cancel Btn
-      //               GestureDetector(
-      //                   onTap: () {
-      //                     taskObserver.changeScreen(TASK_SCREENS.TASK);
-      //                     taskObserver.setCurrTaskIdForDetails(null);
-      //                   },
-      //                   child: Column(
-      //                     children: [
-      //                       Transform.rotate(
-      //                           angle: 180 * math.pi / 180,
-      //                           child: Icon(
-      //                             Icons.exit_to_app_rounded,
-      //                             size: ICON_SIZE,
-      //                             color: Colors.amber,
-      //                           )),
-      //                       Text(
-      //                         I18n.of(context)!.cancel,
-      //                         style: Theme.of(context).textTheme.bodyText1,
-      //                       ),
-      //                     ],
-      //                   )),
-      //               //Save Btn
-      //               GestureDetector(
-      //                   onTap: () {
-      //                     _onSave(taskObserver);
-      //                   },
-      //                   child: Column(
-      //                     children: [
-      //                       Icon(
-      //                         Icons.save,
-      //                         size: ICON_SIZE,
-      //                         color: Colors.green,
-      //                       ),
-      //                       Text(
-      //                         I18n.of(context)!.saveNote,
-      //                         style: Theme.of(context).textTheme.bodyText1,
-      //                       ),
-      //                     ],
-      //                   )),
-      //               //Delete Btn
-      //               if (taskObserver.currTaskForDetails != null)
-      //                 GestureDetector(
-      //                     onTap: () {
-      //                       //popup confirmation view
-      //                       taskObserver
-      //                           .deleteTask(taskObserver.currTaskForDetails);
-      //                       taskObserver.changeScreen(TASK_SCREENS.TASK);
-      //                     },
-      //                     child: Column(
-      //                       children: [
-      //                         Icon(
-      //                           Icons.delete_forever,
-      //                           size: ICON_SIZE,
-      //                           color: Colors.red,
-      //                         ),
-      //                         Text(
-      //                           I18n.of(context)!.deleteNote,
-      //                           style: Theme.of(context).textTheme.bodyText1,
-      //                         ),
-      //                       ],
-      //                     ))
-      //             ],
-      //           )
-      //         ],
-      //       )),
-      //   //bottomNavigationBar: BottomBar(3),
-      // ),
     );
   }
 
+  // saveNewTask Support Methods-----------------------------------------------
+  /// Resets all the icons to the unpressed state
+  void unPressButtons() {
+    _walkingFlag = true;
+    _utensilFlag = true;
+    _capsulesFlag = true;
+    _toothFlag = true;
+    _envelopeFlag = true;
+    _tshirtFlag = true;
+  }
+
+  /// Show & hide keyboard
+  FocusNode textFocusNode = FocusNode();
+
+  ///Calls to the task observer to set the values of a new task
   _onSave(TaskObserver taskObserver) {
     // if (textController.text.length > 0) {
     print(
@@ -1167,6 +803,23 @@ class _SaveTaskState extends State<SaveTask> {
     // }
     print('kkkkkkkkkkkkkkkk: line 962');
   }
+  /// This prevents going backwards in the stepper
+  void onStepTapped(step) {
+    if (step > _stepIndex) {
+      setState(() {
+        _stepIndex = step;
+      });
+    }
+  }
+
+  ///This resets the stepper counter
+  void onStepCancel() {
+    if (_stepIndex > 0) {
+      setState(() {
+        _stepIndex -= 1;
+      });
+    }
+  }
 
   /// Show a dialog message confirming task was saved
   showConfirmDialog(BuildContext context) {
@@ -1195,10 +848,9 @@ class _SaveTaskState extends State<SaveTask> {
     );
   }
 
-  Widget controlsBuilder(
-      BuildContext context, ControlsDetails controlsDetails) {
+  ///controlsBuilder Manages the steps and UI that is shown in each page
+  Widget controlsBuilder(BuildContext context, ControlsDetails controlsDetails) {
     final taskObserver = Provider.of<TaskObserver>(context);
-
     return Padding(
       // This is the padding around the continue, cancel, and back buttons
       padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -1249,56 +901,146 @@ class _SaveTaskState extends State<SaveTask> {
                       borderRadius: BorderRadius.circular(18.0)))),
 
           //Updated so the back button does not show in the Health check schedule screen
-          if (taskType == 'Activity' && _stepIndex > 0 )
+          if (taskType == 'Activity' && _stepIndex > 0)
             TextButton(
-              onPressed: (){ setState(() {
-                //_________
-                 return onStepCancel();
-              });},
-
-              child:  const Text( 'Back',
+              onPressed: () {
+                setState(
+                  () {
+                    return onStepCancel();
+                  },
+                );
+              },
+              child: const Text(
+                'Back',
                 style: TextStyle(color: Colors.blueAccent),
-              ),)
-
+              ),
+            )
         ],
       ),
     );
   }
 
-  // __Update to not go back in the stepper
-  void onStepTapped(step) {
-    if (step > _stepIndex) {
-      setState(() {
-        _stepIndex = step;
-      });
-    }
+  ///Resets/saves task state variables
+  _SaveNewTaskState({this.isCheckListEvent = false, this.viewExistingTask = false});
+
+  ///Empties text fields
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+  void textDispose() {
+    textFocusNode.dispose();
+    super.dispose();
   }
 
-  void onStepCancel() {
-    if (_stepIndex > 0) {
-      setState(() {
-        _stepIndex -= 1;
-      });
-    }
+  ///Alert dialog for task completion
+  void _showToast() {
+    Fluttertoast.showToast(
+        msg: "Task Created",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        timeInSecForIosWeb: 4);
   }
 
-  // void onStepContinue() {
-  //   if (_stepIndex < (getSteps().length - 1)) {
-  //     //VALIDATE
-  //     _stepIndex += 1;
-  //   }
-  //   // else {
-  //   //   // This will place the steps in a continous loop esle to provide confirmations
-  //   //   // setState(() {
-  //   //   // _stepIndex = 0;
-  //   //   // });
-  //   // }
-  // }
+  // These are not implemented yet----------------------------------------------
+  ///Checkbox for daily recurrence (not implemented yet)
+  //ref: https://api.flutter.dev/flutter/material/Checkbox-class.html
+  Widget _checkBox(fontSize) {
+    final taskObserver = Provider.of<TaskObserver>(context);
 
+    return CheckboxListTile(
+      title: Text("Make this a daily activity",
+          style: TextStyle(fontSize: fontSize)),
+      checkColor: Colors.white,
+      activeColor: Colors.blue,
+      value: (taskObserver.newTaskIsCheckList),
+      onChanged: (bool? value) {
+        print("Checkbox onChanged $value");
+        taskObserver.setNewTaskAIsCheckList(value!);
+      },
+    );
+  }
+  //ref: https://pub.dev/packages/date_time_picker
+  Widget _selectDate(bool isCheckList, I18n? i18n, Locale locale) {
+    final taskObserver = Provider.of<TaskObserver>(context);
+    print(
+        "_selectDate taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
+    String dateLabelText =
+        (isCheckListEvent || isCheckList) ? i18n!.startDate : i18n!.selectDate;
+    String timeLabelText = i18n.enterTime;
 
+    if (this.viewExistingTask == true) {
+      return DateTimePicker(
+        type: (isCheckList || this.isCheckListEvent == true)
+            ? DateTimePickerType.time
+            : DateTimePickerType.dateTimeSeparate,
+        dateMask: 'd MMM, yyyy',
+        initialValue: (taskObserver.newTaskIsCheckList == true ||
+                this.isCheckListEvent == true)
+            ? (taskObserver.currTaskForDetails!.eventTime)
+            : (taskObserver.currTaskForDetails!.eventDate +
+                " " +
+                taskObserver.currTaskForDetails!.eventTime),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100),
+        icon: Icon(Icons.event),
+        dateLabelText: dateLabelText,
+        timeLabelText: timeLabelText,
+        selectableDayPredicate: (date) {
+          return true;
+        },
+        onChanged: (value) {
+          print("_selectDate: Datetime $value");
+          if (taskObserver.newTaskIsCheckList == true ||
+              this.isCheckListEvent == true) {
+            taskObserver.setNewTaskEventTime(value);
+          } else {
+            String mDate = value.split(" ")[0];
+            String mTime = value.split(" ")[1];
+            taskObserver.setNewTaskEventDate(mDate);
+            taskObserver.setNewTaskEventTime(mTime);
+          }
+        },
+        validator: (val) {
+          print(val);
+          return null;
+        },
+        onSaved: (val) => print("onSaved $val"),
+      );
+    }
 
+    return DateTimePicker(
+      type: DateTimePickerType.dateTimeSeparate,
+      locale: locale,
+      dateMask: 'd MMM, yyyy',
+      //initialValue: DateTime.now().toString(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+      icon: Icon(Icons.event),
+      dateLabelText: dateLabelText,
+      timeLabelText: timeLabelText,
+      selectableDayPredicate: (date) {
+        return true;
+      },
+      onChanged: (value) {
+        if (taskObserver.newTaskIsCheckList == true ||
+            this.isCheckListEvent == true) {
+          taskObserver.setNewTaskEventTime(value);
+        } else {
+          String mDate = value.split(" ")[0];
+          String mTime = value.split(" ")[1];
+          taskObserver.setNewTaskEventDate(mDate);
+          taskObserver.setNewTaskEventTime(mTime);
+        }
+      },
+      validator: (val) {
+        print(val);
+        return null;
+      },
+      onSaved: (val) => print("onSaved $val"),
+    );
+  }
 }
-
-//enum for Text Response, Schedule
-enum responseText { start, Yes, No }
-enum responseSchedule { start, Now, Future }

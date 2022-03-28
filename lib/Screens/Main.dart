@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/Tasks/ViewTask.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';

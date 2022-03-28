@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Task.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
-import 'package:memorez/Screens/Tasks/TaskDetails.dart';
+import 'package:memorez/Screens/Tasks/completeActivity.dart';
 import 'package:memorez/Services/TaskService.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/Utility/FontUtil.dart';
@@ -16,17 +16,17 @@ import 'dart:math' as math;
 
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 
-class TaskHealthCheck extends StatefulWidget {
+class CompleteHealthCheck extends StatefulWidget {
   final bool readOnly;
 
-  TaskHealthCheck({this.readOnly = false}) {}
+  CompleteHealthCheck({this.readOnly = false}) {}
 
   @override
-  State<TaskHealthCheck> createState() =>
+  State<CompleteHealthCheck> createState() =>
       _TaskHealthCheck(readOnly: this.readOnly);
 }
 
-class _TaskHealthCheck extends State<TaskHealthCheck> {
+class _TaskHealthCheck extends State<CompleteHealthCheck> {
   String screen = '1';
   String firstSelection = '';
   String secondSelection = '';
@@ -43,12 +43,10 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
-    final settingObserver = Provider.of<SettingObserver>(context);
     String taskId = "";
     //VIEW_Task MODE: Populated the details of the targeted Tasks into the UI
     if (taskObserver.currTaskForDetails != null) {
       taskId = taskObserver.currTaskForDetails!.taskId;
-
       textController = TextEditingController(
           text: taskObserver.currTaskForDetails!.responseText);
     }
@@ -56,9 +54,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
     const ICON_SIZE = 80.00;
     const TEXT_SIZE = 25.00;
 
-    var rowHeight = (MediaQuery.of(context).size.height);
     var columnWidth = (MediaQuery.of(context).size.width - 50) / 3;
-    var readOnlyRowHeight = (MediaQuery.of(context).size.height);
     var readOnlyColumnWidth = (MediaQuery.of(context).size.width - 50);
     print(taskObserver.currTaskForDetails.toString());
     return Container(
@@ -67,7 +63,9 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
           builder: (context) => ListView.builder(
               itemCount: 1,
               itemBuilder: (BuildContext context, int index) {
+                ///Is this read only?
                 return readOnly
+                ///If yes return COMPLETED Health Check Information
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -232,10 +230,12 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                               ],
                             ),
                           ])
+                ///If not return Empty Health Check Information To be completed by user
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          ///Asking the user how they are feeling
                           Padding(
                             padding: EdgeInsets.all(15.0),
                             child: Text(
@@ -254,8 +254,10 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                               )),
                           Visibility(
                             visible: screen == '1',
+                            ///How are they feeling? Bad, Okay, or Great
                             child: Row(
                               children: [
+                                ///Card Contains logic for the "Bad" Tile
                                 Card(
                                   shadowColor: Colors.blueGrey[900],
                                   child: Column(
@@ -269,6 +271,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
+                                                ///User has seleced Bad, move onto the next screen
                                                 screen = '2';
                                                 firstSelection = 'Bad';
                                               });
@@ -288,6 +291,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     ],
                                   ),
                                 ),
+                                ///Card Contains logic for the "Okay" Tile
                                 Card(
                                   shadowColor: Colors.blueGrey[900],
                                   child: Column(
@@ -320,6 +324,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     ],
                                   ),
                                 ),
+                                ///Card contains logic for the "Great" Tile
                                 Card(
                                   shadowColor: Colors.blueGrey[900],
                                   child: Column(
@@ -356,14 +361,17 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                               ],
                             ),
                           ),
+                          ///Screen no.2 used to ask follow up questions if screen no.1 is "bad" or "okay"
                           Visibility(
                             visible: screen == '2',
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                ///Row 0 of more detailed feelings
                                 Row(
                                   children: [
+                                    ///Sad
                                     Card(
                                       shadowColor: Colors.blueGrey[900],
                                       color: secondSelection == 'Sad'
@@ -401,6 +409,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         ],
                                       ),
                                     ),
+                                    ///Angry
                                     Card(
                                       shadowColor: Colors.blueGrey[900],
                                       color: secondSelection == 'Angry'
@@ -438,6 +447,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         ],
                                       ),
                                     ),
+                                    ///Pain
                                     Card(
                                       shadowColor: Colors.blueGrey[900],
                                       color: secondSelection == 'Pain'
@@ -477,8 +487,10 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     ),
                                   ],
                                 ),
+                                ///Row 1 of more detailed feelings
                                 Row(
                                   children: [
+                                    ///Confused
                                     Card(
                                       shadowColor: Colors.blueGrey[900],
                                       color: secondSelection == 'Confused'
@@ -517,6 +529,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         ],
                                       ),
                                     ),
+                                    ///Tired
                                     Card(
                                       shadowColor: Colors.blueGrey[900],
                                       color: secondSelection == 'Tired'
@@ -554,6 +567,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                         ],
                                       ),
                                     ),
+                                    ///None
                                     Card(
                                       shadowColor: Colors.blueGrey[900],
                                       color: secondSelection == 'None'
@@ -594,6 +608,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     ),
                                   ],
                                 ),
+                                ///This field requires that the user enter a description
                                 TextField(
                                   maxLines: 3,
                                   textInputAction: TextInputAction.done,
@@ -617,6 +632,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                           ),
                           Column(
                             children: [
+                              ///Go Back Button
                               TextButton.icon(
                                 style: TextButton.styleFrom(
                                   backgroundColor: Colors.white,
@@ -638,6 +654,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                   taskObserver.setCurrTaskIdForDetails(null);
                                 },
                               ),
+                              ///Delete Button
                               Visibility(
                                 visible: taskObserver.careGiverModeEnabled,
                                 child: TextButton.icon(
@@ -665,6 +682,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                   },
                                 ),
                               ),
+                              ///Show complete button to submit completed task
                               Visibility(
                                 visible: showCompleteBtn,
                                 child: TextButton.icon(
@@ -683,6 +701,7 @@ class _TaskHealthCheck extends State<TaskHealthCheck> {
                                     style: TextStyle(fontSize: 20),
                                   ),
                                   onPressed: () {
+                                    ///Here we pass in the entire task observer
                                     _onSave(taskObserver);
                                   },
                                 ),
