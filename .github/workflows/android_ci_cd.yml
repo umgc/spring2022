@@ -29,9 +29,9 @@ jobs:
       - name: Check files in android directory
         run: |
           cd assets/Twilio && ls -ltr .
-      - name: Check files in app directory
+      - name: View files in app directory
         run: |
-          cd assets/Twilio && ls -ltr .
+          cat assets/Twilio/Twilio_Credentials.xml
       - name: Get run number
         run: |
           echo ${{ github.run_number }}
