@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/Screens/Profile/add_allergy_card.dart';
+import 'package:memorez/generated/i18n.dart';
 // import 'package:memorez/Screens/Profile/add_medication_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
@@ -134,7 +135,7 @@ String allergyR = EncryptUtil.decryptNote(allergy.reaction!);
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Allergies',
+                                  I18n.of(context)!.allergies,
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(

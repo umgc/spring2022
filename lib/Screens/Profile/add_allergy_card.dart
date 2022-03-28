@@ -10,6 +10,7 @@ import 'package:memorez/DatabaseHandler/database_helper_allergy.dart';
 
 import '../../Model/Allergy.dart';
 import '../../Utility/EncryptionUtil.dart';
+import '../../generated/i18n.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -91,7 +92,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.allergy == null ? 'Add Allergy' : 'Update Allergy',
+                  widget.allergy == null ? I18n.of(context)!.add : I18n.of(context)!.update,/// can add Allergy to translations
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -181,7 +182,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.allergy == null ? 'Add' : 'Update',
+                            widget.allergy == null ? I18n.of(context)!.add : I18n.of(context)!.update,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -203,7 +204,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                         child: TextButton(
                           onPressed: _delete,
                           child: Text(
-                            'Delete',
+                            I18n.of(context)!.delete,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -135,7 +136,7 @@ class _ContactCardState extends State<ContactCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Contacts',
+                                  I18n.of(context)!.contacts,
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(

@@ -24,6 +24,7 @@ import 'package:memorez/Screens/Profile/add_medication_card.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
+import '../../generated/i18n.dart';
 import 'care_team_card.dart';
 import 'contact_card.dart';
 import 'medical_history_card.dart';
@@ -80,7 +81,7 @@ class _ProfilePageState extends State<UserProfile> {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: ButtonWidget(
 
-                text: 'Edit About',
+                text: I18n.of(context)!.edit + ' ' + I18n.of(context)!.aboutMe,
                 onClicked: () {
                   screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
                 },

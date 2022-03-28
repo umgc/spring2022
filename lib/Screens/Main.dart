@@ -176,7 +176,7 @@ class _MainNavigatorState extends State<MainNavigator> {
       return UserProfile();
     }
     if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
-      screenNav.setTitle(I18n.of(context)!.editpatientinformation);
+      screenNav.setTitle(I18n.of(context)!.edit);
       return EditProfilePage();
     }
     if (screen == MENU_SCREENS.LOGIN) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -136,7 +137,7 @@ class _MedicationCardState extends State<MedicationCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Medications',
+                                  I18n.of(context)!.medications,
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(

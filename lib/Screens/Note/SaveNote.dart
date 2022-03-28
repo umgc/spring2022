@@ -412,6 +412,7 @@ class _SaveNoteState extends State<SaveNote> {
     );
   }
 
+
   void notify(
       var _body, DateTime dateTime, SettingObserver settingObserver) async {
     await AwesomeNotifications().createNotification(

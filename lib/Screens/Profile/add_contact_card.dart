@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -88,7 +89,8 @@ class _UserProfileState extends State<AddContactCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.contact == null ? 'Add a Contact' : 'Update a Contact',
+                  widget.contact == null ? I18n.of(context)!.add  + ' ' + I18n.of(context)!.contact :
+                  I18n.of(context)!.update + ' ' + I18n.of(context)!.contact,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -108,7 +110,7 @@ class _UserProfileState extends State<AddContactCard> {
                           decoration:
                           widget.contact != null?
                           InputDecoration(
-                              labelText: 'Contact Name',
+                              labelText: I18n.of(context)!.contact + ' ' + I18n.of(context)!.name,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -117,7 +119,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Contact',
+                              labelText: I18n.of(context)!.contact,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -126,7 +128,8 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter name'
+                              //? 'Please enter name'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.contact?.name.toString(),
@@ -140,7 +143,7 @@ class _UserProfileState extends State<AddContactCard> {
                           decoration:
                           widget.contact != null?
                           InputDecoration(
-                              labelText: 'Phone',
+                              labelText: I18n.of(context)!.phone,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -149,7 +152,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Phone',
+                              labelText: I18n.of(context)!.phone,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -158,7 +161,8 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter phone'
+                              //? 'Please enter phone'
+                                ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.phone
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.contact?.phone.toString(),
@@ -175,7 +179,7 @@ class _UserProfileState extends State<AddContactCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.contact == null ? 'Add' : 'Update',
+                            widget.contact == null ? I18n.of(context)!.add : I18n.of(context)!.update,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -197,7 +201,7 @@ class _UserProfileState extends State<AddContactCard> {
                         child: TextButton(
                           onPressed: _delete,
                           child: Text(
-                            'Delete',
+                            I18n.of(context)!.delete,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,

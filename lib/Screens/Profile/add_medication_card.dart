@@ -9,6 +9,7 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/DatabaseHandler/database_helper.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
+import '../../generated/i18n.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -89,7 +90,8 @@ class _UserProfileState extends State<AddMedicationCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.medication == null ? 'Add Medication' : 'Update Medication',
+                  widget.medication == null ? I18n.of(context)!.add + ' ' + I18n.of(context)!.medication :
+                  I18n.of(context)!.update + ' ' + I18n.of(context)!.medication,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -109,7 +111,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                               widget.medication != null?
                                   InputDecoration(
-                                    labelText: 'Medication',
+                                    labelText: I18n.of(context)!.medication,
                                     labelStyle: TextStyle(
                                       fontSize: 18,
                                       color: Colors.black,
@@ -118,7 +120,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Medication Name',
+                              labelText: I18n.of(context)!.medication + ' ' + I18n.of(context)!.name,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -142,7 +144,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                           decoration:
                           widget.medication != null?
                           InputDecoration(
-                              labelText: 'Dose',
+                              labelText: I18n.of(context)!.dose,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -151,7 +153,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Medication Dose',
+                              labelText: I18n.of(context)!.medication + ' ' + I18n.of(context)!.dose,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -179,7 +181,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.medication == null ? 'Add' : 'Update',
+                            widget.medication == null ? I18n.of(context)!.add : I18n.of(context)!.update,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -201,7 +203,7 @@ class _UserProfileState extends State<AddMedicationCard> {
                         child: TextButton(
                           onPressed: _delete,
                           child: Text(
-                            'Delete',
+                            I18n.of(context)!.delete,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
