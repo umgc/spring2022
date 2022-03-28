@@ -20,8 +20,9 @@ import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
-import '../DatabaseHandler/DbHelper.dart';
+import '../DatabaseHandler/DBHelper.dart';
 import '../Model/UserModel.dart';
+import '../main.dart';
 import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
@@ -38,9 +39,11 @@ import 'package:memorez/Screens/Calendar/Calendar.dart';
 import 'Checklist.dart';
 
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:memorez/Screens/Tasks/tasks.dart';
+//import 'package:memorez/Screens/Tasks/tasks.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'dart:io';
+
+import 'package:memorez/Screens/Tasks/Task.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -73,12 +76,21 @@ class _MainNavigatorState extends State<MainNavigator> {
     final SharedPreferences sp = await _pref;
 
     setState(() {
-      _conUserId.text = sp.getString("user_id")!;
-      weWantToSeeConUserId = _conUserId.text;
-      // print("line 81 xxxxxx" + weWantToSeeConUserId);
-      if (_conUserId.text == "Admin") {
-        adminModeEnabled = true;
-      } else {
+
+      try {
+        _conUserId.text = sp.getString("user_id")!;
+        weWantToSeeConUserId = _conUserId.text;
+        // print("line 81 xxxxxx" + weWantToSeeConUserId);
+        if (_conUserId.text == "Admin") {
+          adminModeEnabled = true;
+        } else {
+          adminModeEnabled = false;
+        }
+      } catch (e) {
+        //Admin has been deleted or doesn't exist!
+        print('Admin has been deleted or doesnt exist!');
+        _conUserId.text = "No_CareGiver";
+        weWantToSeeConUserId = _conUserId.text;
         adminModeEnabled = false;
       }
     });
@@ -86,10 +98,21 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   void removeSP(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove("user_id");
+    setState(() {
+      prefs.remove("user_id");
+      prefs.setString("user_id", "STML_User");
+    });
   }
 
   int _currentIndex = 0;
+
+  Future<bool> _onWillPop(BuildContext context) async {
+    bool? exitResult = await showDialog(
+      context: context,
+      builder: (context) => _buildExitDialog(context),
+    );
+    return exitResult ?? false;
+  }
 
   AlertDialog _buildExitDialog(BuildContext context) {
     return AlertDialog(
@@ -115,7 +138,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     //main screen
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.help);
-
       return Help();
     }
     if (screen == MAIN_SCREENS.MENU || index == 0) {
@@ -147,18 +169,16 @@ class _MainNavigatorState extends State<MainNavigator> {
     if (screen == MAIN_SCREENS.TASKS) {
       // screenNav.setTitle(I18n.of(context)!.checklistScreenName);
       screenNav.setTitle(I18n.of(context)!.tasks);
-      return Tasks();
+      return Task();
     }
     if (screen == MENU_SCREENS.USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.profile);
       return UserProfile();
     }
-
     if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
       screenNav.setTitle(I18n.of(context)!.editpatientinformation);
       return EditProfilePage();
     }
-
     if (screen == MENU_SCREENS.LOGIN) {
       screenNav.setTitle("Caregiver Login");
       return LoginForm();
@@ -167,7 +187,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle('Caregiver Screen');
       return UpdateAdmin();
     }
-
     //menu screens
     if (screen == MENU_SCREENS.HELP || index == 2) {
       screenNav.setTitle(I18n.of(context)!.menuScreenName);
@@ -186,7 +205,6 @@ class _MainNavigatorState extends State<MainNavigator> {
       screenNav.setTitle(I18n.of(context)!.generalSetting);
       return Settings();
     }
-
     return Text("Wrong Screen - fix it");
   }
 
@@ -247,109 +265,93 @@ class _MainNavigatorState extends State<MainNavigator> {
   @override
   Widget build(BuildContext context) {
     final micObserver = Provider.of<MicObserver>(context);
-    final screenNav = Provider.of<MainNavObserver>(context);
-    screenNav.changeScreen(MAIN_SCREENS.MENU);
+    final screenNav = Provider.of<MainNavObserver>(context, listen: false);
+    // screenNav.changeScreen(MAIN_SCREENS.MENU);
     final settingObserver = Provider.of<SettingObserver>(context);
     HelpObserver helpObserver = Provider.of<HelpObserver>(context);
     helpObserver.loadHelpCotent();
     final menuObserver = Provider.of<MenuObserver>(context);
     return Observer(
       builder: (_) => Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset:screenNav.currentScreen!=MAIN_SCREENS.CALENDAR,
         appBar: AppBar(
           //removes the backbutton in the appbar
           automaticallyImplyLeading: false,
           titleTextStyle: TextStyle(color: Colors.black),
-          toolbarHeight: adminModeEnabled ? 90 : 50,
+          toolbarHeight: 50,
           centerTitle: true,
-          title: Column(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                //mainAxisAlignment:MainAxisAlignment.end,
-                children: [
-                  Observer(
-                      builder: (_) => Text(
-                            '${screenNav.screenTitle}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          )),
-                ],
+              Observer(
+                  builder: (_) => Text(
+                        '${screenNav.screenTitle}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
               ),
-              Row(
-                children: [
-                  Visibility(
-                    visible: adminModeEnabled,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.red[200],
-                              border: Border.all(color: Colors.black26),
-                            ),
-                            child: Row(
+              Visibility(
+                visible: adminModeEnabled,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.red[200],
+                          border: Border.all(color: Colors.black26),
+                        ),
+                        child: Row(
+                          children: [
+                            Row(
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, right: 5.0),
-                                          child: Icon(
-                                            Icons.warning,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                        Text(
-                                          ' Admin mode enabled!',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 5, right: 8.0),
-                                      child: TextButton(
-                                        child: Text(
-                                          'DISABLE',
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            removeSP("Admin");
-                                            adminModeEnabled = false;
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                            Colors.lightBlueAccent,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 5.0),
+                                  child: Icon(
+                                    Icons.warning,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5, right: 1.0),
+                                  child: TextButton(
+                                    child: Text(
+                                      'Exit CareGiver',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        removeSP("Admin");
+                                        adminModeEnabled = false;
+                                      });
+                                      screenNav.changeScreen(MAIN_SCREENS.MENU);
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                        Colors.lightBlueAccent,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ),
@@ -357,9 +359,8 @@ class _MainNavigatorState extends State<MainNavigator> {
         body: Container(
             //margin: const EdgeInsets.only(bottom: 30.0),
             padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-            child: Center(
-                child: _changeScreen(
-                    screenNav.currentScreen, screenNav.focusedNavBtn))),
+            child: _changeScreen(
+                screenNav.currentScreen, screenNav.focusedNavBtn)),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: screenNav.setFocusedBtn,

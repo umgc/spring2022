@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/AdminPage.dart';
+import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Setting.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
@@ -8,12 +11,13 @@ import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
 
-import '../../DatabaseHandler/DbHelper.dart';
+import '../../DatabaseHandler/database_helper_profile.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 
 List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
-List<String> _minutesBeforeNotification = ['1', '2', '3', '5', '10', '30'];
+List<String> _minutesBeforeNoteNotification = ['1', '2', '3', '5', '10', '30'];
+List<String> _minutesBeforeTaskNotification = ['1', '2', '3', '5', '10', '30'];
 List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
 
 List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
@@ -63,6 +67,7 @@ class _SettingState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final screenNav = Provider.of<MainNavObserver>(context);
+    // screenNav.changeScreen(MENU_SCREENS.SETTING);
     final settingObserver = Provider.of<SettingObserver>(context);
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
     _conUserId.text == 'Admin'? careMode = true : careMode = false;
@@ -187,7 +192,7 @@ class _SettingState extends State<Settings> {
                           .userSettings.minutesBeforeNoteNotifications,
 
                       /// the default or saved value
-                      items: _minutesBeforeNotification
+                      items: _minutesBeforeNoteNotification
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -319,7 +324,7 @@ class _SettingState extends State<Settings> {
                       alignment: Alignment.center,
                       value: settingObserver
                           .userSettings.minutesBeforeTaskNotifications,
-                      items: _minutesBeforeNotification
+                      items: _minutesBeforeTaskNotification
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -528,7 +533,10 @@ class _SettingState extends State<Settings> {
                           // careMode = true;
                           // screenNav.changeScreen(MENU_SCREENS.SETTING);
                           careMode = true;
-                          screenNav.changeScreen(MENU_SCREENS.LOGIN);
+                          // screenNav.changeScreen(MENU_SCREENS.LOGIN);
+                          screenNav.changeScreen(MENU_SCREENS.SETTING);
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                              LoginForm()));
 
                         },
 
@@ -560,7 +568,11 @@ class _SettingState extends State<Settings> {
                           // careMode = true;
                           // screenNav.changeScreen(MENU_SCREENS.SETTING);
                           careMode = true;
-                          screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
+
+                          // screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>
+                              UpdateAdmin()));
+
 
                         },
                         child: Text(

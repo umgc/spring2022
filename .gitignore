@@ -23,7 +23,7 @@ doc/api/
 *.js.deps
 *.js.map
 assets/NLU/Lex_Credentials.xml
-
+assets/Twilio/Twilio_Credentials.xml
 # android generated files
 android/*/.*
 android/.*

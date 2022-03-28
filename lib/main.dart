@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -25,10 +26,30 @@ import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:memorez/Observables/ScreenNavigator.dart';
 import 'package:memorez/Observables/NotificationObservable.dart';
 import 'package:dcdg/dcdg.dart';
-import 'package:memorez/Observables/TasksObservable.dart';
+import 'package:memorez/Observables/TaskObservable.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+            channelKey: 'key1',
+            channelName: 'Proto Coders Point',
+            channelDescription: "Notification example",
+            defaultColor: Color(0XFF9050DD),
+            ledColor: Colors.white,
+            playSound: true,
+            enableLights:true,
+            enableVibration: true
+        )
+      ]
+  );
+  AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    if (!isAllowed) {
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  });
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -72,7 +93,7 @@ class _MyAppState extends State<MyApp> {
     return Observer(
         builder: (_) => MultiProvider(
                 providers: [
-                  Provider<MainNavigator>(create: (_)=> MainNavigator()),
+                  Provider<MainNavigator>(create: (_) => MainNavigator()),
                   Provider<NotificationObserver>(
                       create: (_) => NotificationObserver()),
                   Provider<OnboardObserver>(create: (_) => OnboardObserver()),
@@ -86,7 +107,7 @@ class _MyAppState extends State<MyApp> {
                   Provider<CheckListObserver>(
                       create: (_) => CheckListObserver()),
                   Provider<HelpObserver>(create: (_) => HelpObserver()),
-                  Provider<TasksObserver>(create: (_) => TasksObserver())
+                  Provider<TaskObserver>(create: (_) => TaskObserver())
                 ],
                 child: (MaterialApp(
                   debugShowCheckedModeBanner: false,

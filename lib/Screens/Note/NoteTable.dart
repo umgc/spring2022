@@ -75,6 +75,7 @@ class _NoteTableState extends State<NoteTable> {
       }
     }
 
+    final RegExp regexp = new RegExp(r'^0+(?=.)');
     bool _checkboxToggle = false;
     void _selectNotes(bool) {
       //todo code here
@@ -194,9 +195,11 @@ class _NoteTableState extends State<NoteTable> {
                           child: Text(
                             widget.usersNotes[index].localText +
                                 '\n(' +
-                                widget.usersNotes[index].eventDate +
-                                ' ' +
-                                widget.usersNotes[index].eventTime +
+                                DateFormat.MMMEd().format(DateTime.parse(
+                                    widget.usersNotes[index].eventDate)) +
+                                ' at ' +
+                                widget.usersNotes[index].eventTime
+                                    .replaceAll(regexp, '') +
                                 ')',
                             style: TEXT_STYLE,
                           )),
@@ -268,9 +271,11 @@ class _NoteTableState extends State<NoteTable> {
                           child: Text(
                             widget.usersNotes[index].localText +
                                 '\n(' +
-                                widget.usersNotes[index].eventDate +
-                                ' ' +
-                                widget.usersNotes[index].eventTime +
+                                DateFormat.MMMEd().format(DateTime.parse(
+                                    widget.usersNotes[index].eventDate)) +
+                                ' at ' +
+                                widget.usersNotes[index].eventTime
+                                    .replaceAll(regexp, '') +
                                 ')',
                             style: TEXT_STYLE,
                           )),

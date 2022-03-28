@@ -3,15 +3,20 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/Main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
+import '../Comm/genLoginSignupHeader.dart';
+import '../main.dart';
 
 class UpdateAdmin extends StatefulWidget {
   @override
   _HomeFormState createState() => _HomeFormState();
+
 }
 
 class _HomeFormState extends State<UpdateAdmin> {
@@ -26,27 +31,36 @@ class _HomeFormState extends State<UpdateAdmin> {
 
   @override
   void initState() {
+
     super.initState();
-    getUserData();
+
 
     dbHelper = DbHelper();
+    getUserData();
   }
 
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
-    setState(() {
-      _conUserId.text = sp.getString("user_id")!;
-      _conDelUserId.text = sp.getString("user_id")!;
-      _conPhone.text = sp.getString("phone")!;
-      _conPassword.text = sp.getString("password")!;
-    });
+      _conUserId.text = await sp.getString("user_id")!;
+      _conDelUserId.text =await sp.getString("user_id")!;
+      _conPhone.text =await sp.getString("phone")!;
+      _conPassword.text =await sp.getString("password")!;
+
+      _conUserId.text = EncryptUtil.decryptNote(_conUserId.text);
+      _conDelUserId.text = EncryptUtil.decryptNote(_conDelUserId.text);
+      _conPassword.text = EncryptUtil.decryptNote(_conPassword.text);
+
   }
 
   update() async {
     String uid = _conUserId.text;
     String phone = _conPhone.text;
     String passwd = _conPassword.text;
+
+    ///Encrypt data for update
+    uid = EncryptUtil.encryptNote(uid);
+    passwd = EncryptUtil.encryptNote(passwd);
 
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -59,7 +73,7 @@ class _HomeFormState extends State<UpdateAdmin> {
           updateSP(user, true).whenComplete(() {
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (_) => HomePage()),
+                MaterialPageRoute(builder: (_) => MyApp()),
                     (Route<dynamic> route) => false);
           });
         } else {
@@ -74,7 +88,7 @@ class _HomeFormState extends State<UpdateAdmin> {
 
   delete() async {
     String delUserID = _conDelUserId.text;
-
+    delUserID = EncryptUtil.encryptNote(delUserID);
     await dbHelper.deleteUser(delUserID).then((value) {
       if (value == 1) {
         alertDialog(context, "Successfully Deleted");
@@ -82,7 +96,7 @@ class _HomeFormState extends State<UpdateAdmin> {
         updateSP(null, false).whenComplete(() {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => HomePage()),
+              MaterialPageRoute(builder: (_) => MyApp()),
                   (Route<dynamic> route) => false);
         });
       }
@@ -106,23 +120,29 @@ class _HomeFormState extends State<UpdateAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        foregroundColor: Color(0xFF0D47A1),
+        leading: BackButton(
+          onPressed: (){
+              Navigator.pop(context);
+          },
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            margin: EdgeInsets.only(top: 20.0),
+
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //Update
-                  getTextFormField(
-                      controller: _conUserId,
-                      isEnable: false,
-                      icon: Icons.person,
-                      hintName: 'User ID'),
-                  SizedBox(height: 10.0),
+
+                  genLoginSignupHeader('Update Caregiver'),//Update
                   getTextFormField(
                       controller: _conPhone,
                       icon: Icons.phone,
@@ -135,47 +155,45 @@ class _HomeFormState extends State<UpdateAdmin> {
                     hintName: 'Password',
                     isObscureText: true,
                   ),
-                  SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Update',
-                        style: TextStyle(color: Colors.white),
+
+                  //Update
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: update,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0D47A1),
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
                       ),
-                      onPressed: update,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0D47A1),
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
+                      //Delete
+                      Container(
+                        margin: EdgeInsets.all(30.0),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: delete,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ],
                   ),
 
-                  //Delete
-
-                  getTextFormField(
-                      controller: _conDelUserId,
-                      isEnable: false,
-                      icon: Icons.person,
-                      hintName: 'User ID'),
-                  SizedBox(height: 10.0),
-                  SizedBox(height: 10.0),
-                  Container(
-                    margin: EdgeInsets.all(30.0),
-                    width: double.infinity,
-                    child: FlatButton(
-                      child: Text(
-                        'Delete',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: delete,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
                 ],
               ),
             ),

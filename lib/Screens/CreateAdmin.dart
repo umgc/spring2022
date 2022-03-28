@@ -3,15 +3,17 @@ import 'package:lottie/lottie.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
-import 'package:memorez/DatabaseHandler/DbHelper.dart';
+import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../DatabaseHandler/DbHelper.dart';
+// import '../DatabaseHandler/DBHelper.dart';
+import '../main.dart';
+import '../DatabaseHandler/database_helper_profile.dart';
+import 'package:memorez/Utility/EncryptionUtil.dart';
 
 class SignupForm extends StatefulWidget {
   @override
@@ -30,6 +32,7 @@ class _SignupFormState extends State<SignupForm> {
   var dbHelper;
   bool isFirstRun = true;
   ValueNotifier<bool> submitButtonVisibility = ValueNotifier(true);
+  ValueNotifier<bool> doneButtonVisibility = ValueNotifier(false);
 
   @override
   void initState() {
@@ -39,16 +42,30 @@ class _SignupFormState extends State<SignupForm> {
 
   Future setSP() async {
     final SharedPreferences sp = await _pref;
-    sp.setString("user_id", "Admin");
 
+    setState(() {
+      sp.setString("user_id", "Admin");
+      sp.setString("phone", _conPhone.text);
+      sp.setString("password", _conPassword.text);
+    });
+
+  }
+
+  backToApp(){
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => MyApp()),
+            (Route<dynamic> route) => false);
   }
 
   signUp() async {
     String uid = 'Admin';
+    uid = EncryptUtil.encryptNote(uid);
     String phone = _conPhone.text;
     String passwd = _conPassword.text;
+    passwd = EncryptUtil.encryptNote(passwd);
     String cpasswd = _conCPassword.text;
-
+    cpasswd = EncryptUtil.encryptNote(cpasswd);
     if (_formKey.currentState!.validate()) {
       if (passwd != cpasswd) {
         alertDialog(context, 'Password Mismatch');
@@ -56,10 +73,13 @@ class _SignupFormState extends State<SignupForm> {
         _formKey.currentState?.save();
 
         UserModel uModel = UserModel(uid, phone, passwd);
+
         print('XXXXXXXXXXX ${uModel.phone}');
         await dbHelper.saveData(uModel).then((userData) {
+          print('DATA has been ENCRYPTED!!!!! ======> uid: $uid password: $passwd');
           alertDialog(context, "Successfully Saved");
           submitButtonVisibility.value = false;
+          doneButtonVisibility.value=true;
           setSP();
 
 
@@ -100,7 +120,31 @@ class _SignupFormState extends State<SignupForm> {
                       ),
                     ),
                   ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: doneButtonVisibility,
+                    builder: (context, value, _) => Visibility(
+                      visible: value,
+                      child:Visibility(
+                        visible: isFirstRun==false,
+                        child: Container(
+                          margin: EdgeInsets.all(30.0),
+                          width: double.infinity,
+                          child: TextButton(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: backToApp,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF0D47A1),
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
 
+                    ),
+                  ),
                   ValueListenableBuilder<bool>(
                       valueListenable: submitButtonVisibility,
                       builder: (context, value, _) => Visibility(
@@ -156,28 +200,28 @@ class _SignupFormState extends State<SignupForm> {
                               ],
                             ),
                           )),
-                  Visibility(
-                    visible: !isFirstRun,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Already have an account? '),
-                          FlatButton(
-                            textColor: Color(0xFF0D47A1),
-                            child: Text('Sign In'),
-                            onPressed: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => LoginForm()),
-                                  (Route<dynamic> route) => true);
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Visibility(
+                  //   visible: !isFirstRun,
+                  //   child: Container(
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         Text('Already have an account? '),
+                  //         FlatButton(
+                  //           textColor: Color(0xFF0D47A1),
+                  //           child: Text('Sign In'),
+                  //           onPressed: () {
+                  //             Navigator.pushAndRemoveUntil(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                     builder: (_) => LoginForm()),
+                  //                 (Route<dynamic> route) => true);
+                  //           },
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

@@ -187,7 +187,7 @@ abstract class _AbstractCalendarObserver with Store {
     setCalendarIsVisible(true);
     setCalendarBarIsVisible(true);
 
-    setNotesOnDayIsVisible(true);
+    setNotesOnDayIsVisible(false);
   }
 
   @action

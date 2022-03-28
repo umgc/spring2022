@@ -150,6 +150,7 @@ class CalendarState extends State<Calendar> {
                 titleCentered: true,
                 headerPadding: EdgeInsets.all(5),
               ),
+              rowHeight: MediaQuery.of(context).size.height/15.2,
               focusedDay: _focusedDay,
               locale: settingObserver.userSettings.locale.languageCode,
               firstDay: calendarObserver

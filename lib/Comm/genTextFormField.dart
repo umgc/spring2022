@@ -1,8 +1,14 @@
-import 'package:flutter/material.dart';
 
+
+import 'package:flutter/material.dart';
+import 'package:memorez/Utility/Constant.dart';
+import 'package:provider/provider.dart';
+
+import '../Observables/ScreenNavigator.dart';
 import 'comHelper.dart';
 
 class getTextFormField extends StatelessWidget {
+
   TextEditingController controller;
   String hintName;
   IconData icon;
@@ -20,9 +26,11 @@ class getTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenNav = Provider.of<MainNavObserver>(context, listen: false);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextFormField(
+        onTap: (){screenNav.changeScreen(MENU_SCREENS.SETTING);},
         controller: controller,
         obscureText: isObscureText,
         enabled: isEnable,
