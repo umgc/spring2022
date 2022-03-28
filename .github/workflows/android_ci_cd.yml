@@ -28,7 +28,7 @@ jobs:
           mv ./creds/Twilio_Credentials.xml ./assets/Twilio
       - name: Check files in android directory
         run: |
-          cd android && ls -ltr .
+          cd assets/Twilio && ls -ltr .
       - name: Check files in app directory
         run: |
           cd assets/Twilio && ls -ltr .
@@ -75,7 +75,7 @@ jobs:
           cd android && ls -ltr .
       - name: Check files in app directory
         run: |
-          cd android/app && ls -ltr .
+          cd assets/Twilio && ls -ltr .
       - name: Get run number
         run: |
           echo ${{ github.run_number }}
