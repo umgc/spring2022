@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:intl/date_symbols.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -422,10 +423,10 @@ abstract class _AbstractMicObserver with Store {
     }
 
     note.eventDate =
-    ((nluResponse.eventDate != null) ? nluResponse.eventDate : "")!;
+    ((nluResponse.eventDate != null) ? nluResponse.eventDate : DateFormat.MMMEd().format(DateTime.now()))!;
 
     note.eventTime =
-    ((nluResponse.eventTime != null) ? nluResponse.eventTime : "")!;
+    ((nluResponse.eventTime != null) ? nluResponse.eventTime : DateFormat.Hms().format(DateTime.now()))!;
     note.isCheckList = (nluResponse.recurringType != null);
 
     if ((nluResponse.recurringType != null)) {
