@@ -115,8 +115,8 @@ class Setting {
       setting.noteFontSize = fontSizeStringToEnum(jsonObj['noteFontSize']) ?? DEFAULT_FONT_SIZE;
       setting.menuFontSize = fontSizeStringToEnum(jsonObj['menuFontSize']) ?? DEFAULT_FONT_SIZE;
       setting.appTheme = appThemeStringToEnum(jsonObj['appTheme'] ?? DEFAULT_APP_THEME);
-      setting.minutesBeforeNoteNotifications = jsonObj['minutesBeforeNoteNotification'] ?? DEFAULT_MINUTES_BEFORE_NOTE_NOTIFICATIONS;
-      setting.minutesBeforeTaskNotifications = jsonObj['minutesBeforeTaskNotification'] ?? DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS;
+      setting.minutesBeforeNoteNotifications = jsonObj['minutesBeforeNoteNotifications'] ?? DEFAULT_MINUTES_BEFORE_NOTE_NOTIFICATIONS;
+      setting.minutesBeforeTaskNotifications = jsonObj['minutesBeforeTaskNotifications'] ?? DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS;
       setting.enableNotesNotifications = jsonObj['enableNotesNotifications'] ?? DEFAULT_ENABLE_NOTES_NOTIFICATIONS;
       setting.enableTasksNotifications = jsonObj['enableTasksNotifications'] ?? DEFAULT_ENABLE_TASKS_NOTIFICATIONS;
     }

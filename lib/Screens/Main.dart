@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/Tasks/ViewTask.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
@@ -274,7 +273,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     final menuObserver = Provider.of<MenuObserver>(context);
     return Observer(
       builder: (_) => Scaffold(
-        //resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset:screenNav.currentScreen!=MAIN_SCREENS.CALENDAR,
         appBar: AppBar(
           //removes the backbutton in the appbar
           automaticallyImplyLeading: false,

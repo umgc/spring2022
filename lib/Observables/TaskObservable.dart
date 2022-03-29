@@ -1,16 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:mobx/mobx.dart';
-
 import '../Services/TaskService.dart';
-
 import 'dart:collection';
 import 'dart:io';
-
 import 'package:image_picker/image_picker.dart';
-import 'package:memorez/Utility/Constant.dart';
 import '../Model/Task.dart';
 import 'package:share_plus/share_plus.dart';
-
 part 'TaskObservable.g.dart';
 
 class TaskObserver = _AbstractTaskObserver with _$TaskObserver;
@@ -23,6 +19,9 @@ abstract class _AbstractTaskObserver with Store {
           print('task observable tasks' + tasks.toString())
         });
   }
+  @observable
+  ValueNotifier<bool> inactiveTasksUpdated = ValueNotifier(false);
+
   @observable
   File? _image;
 
@@ -104,7 +103,7 @@ abstract class _AbstractTaskObserver with Store {
 
   @action
   void setTasks(tasks) {
-    print("set task to: ${tasks}");
+    //print("set task to: ${tasks}");
     usersTask = tasks;
   }
 

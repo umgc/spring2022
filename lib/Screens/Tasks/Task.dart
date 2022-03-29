@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Screens/Tasks/TaskTable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/DatabaseHandler/DBHelper.dart';
 import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Screens/Tasks/TaskHealthCheck.dart';
+import 'package:memorez/Screens/Tasks/completeHealthCheck.dart';
 import 'package:memorez/Utility/Constant.dart';
-import 'package:memorez/generated/i18n.dart';
-import '../../Observables/ScreenNavigator.dart';
 import '../../Observables/TaskObservable.dart';
 import '../../Services/TaskService.dart';
-import 'SaveTask.dart';
-import 'ViewTask.dart';
-import 'TaskDetails.dart';
+import 'saveNewTask.dart';
+import 'completeActivity.dart';
 
 final viewTasksScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,8 +41,6 @@ class _TaskState extends State<Task> {
     super.initState();
     getUserData();
     dbHelper = DbHelper();
-
-
   }
 
 
@@ -53,15 +48,15 @@ class _TaskState extends State<Task> {
   Widget build(BuildContext context) {
     print("username " + _conUserId.text);
     final taskObserver = Provider.of<TaskObserver>(context);
-    print('loaded tasks : ' + taskObserver.usersTask.toString());
+    //print('loaded tasks : ' + taskObserver.usersTask.toString());
 
     TextTaskService.loadTasks().then((tasks) =>
     {taskObserver.setTasks(tasks), taskObserver.setCheckList(tasks)});
 
-
     _conUserId.text == 'Admin'
         ? taskObserver.enableCaregiverMode()
         : taskObserver.disableCaregiverMode();
+
     return Container(
       key: viewTasksScaffoldKey,
       child: Observer(builder: (_) => _changeScreen(taskObserver.currentScreen)),
@@ -69,30 +64,31 @@ class _TaskState extends State<Task> {
   }
 
   Widget _changeScreen(TASK_SCREENS screen) {
+
     switch (screen) {
       case TASK_SCREENS.ADD_TASK:
-        return SaveTask();
+        return SaveNewTask();
 
       case TASK_SCREENS.TASK_DETAIL:
-        return TaskDetails(
+        return CompleteActivity(
           readOnly: true,
         );
       case TASK_SCREENS.TASK_COMPLETE_ACTIVITY:
-        return TaskDetails(
+        return CompleteActivity(
           readOnly: false,
         );
       case TASK_SCREENS.TASK_COMPLETE_HEALTH_CHECK:
-        return TaskHealthCheck(
+        return CompleteHealthCheck(
           readOnly: false,
         );
       case TASK_SCREENS.TASK_VIEW_COMPLETED_HEALTH_CHECK:
-        return TaskHealthCheck(
+        return CompleteHealthCheck(
           readOnly: true,
         );
 
       default:
         {
-          return ViewTasks();
+          return TaskTable();
         }
     }
   }
