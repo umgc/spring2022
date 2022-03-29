@@ -92,7 +92,8 @@ class _UserProfileState extends State<AddAllergyCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.allergy == null ? I18n.of(context)!.add : I18n.of(context)!.update,/// can add Allergy to translations
+                  widget.allergy == null ? I18n.of(context)!.add + ' ' + I18n.of(context)!.allergy :
+                  I18n.of(context)!.update + ' ' + I18n.of(context)!.allergy,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -112,7 +113,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: 'Allergy Name',
+                              labelText: I18n.of(context)!.allergy + ' ' + I18n.of(context)!.name,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -121,7 +122,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Allergy Name',
+                              labelText: I18n.of(context)!.allergy + ' ' + I18n.of(context)!.name,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -130,7 +131,8 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a allergy name'
+                              //? 'Please enter a allergy name'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.allergy + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _allergy = input,
                           initialValue:
@@ -145,7 +147,8 @@ class _UserProfileState extends State<AddAllergyCard> {
                           decoration:
                           widget.allergy != null?
                           InputDecoration(
-                              labelText: 'Allergy Reaction',
+                              //labelText: 'Allergy Reaction',
+                              labelText: I18n.of(context)!.allergyReaction,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -154,7 +157,8 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Allergy Reaction',
+                              //labelText: 'Allergy Reaction',
+                              labelText: I18n.of(context)!.allergyReaction,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -163,7 +167,8 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter dose'
+                              //? 'Please enter dose'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.dose
                               : null,
                           onSaved: (input) => _reaction = input,
                           initialValue:

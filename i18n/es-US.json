@@ -110,5 +110,21 @@
     "pleaseEnter": "Por favor escribe",
     "delete": "Borrar",
     "dose": "Dosis",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "allergy": "Alergia",
+    "allergyReaction": "Reacción Alérgica",
+    "activeTasks": "Tareas activas",
+    "addCareTeamMember": "Agregar Miembro Del Equipo De Atención",
+    "completedTasks": "Tareas Completadas",
+    "continueWord": "Continuar",
+    "description": "Descripción",
+    "details": "Detalles",
+    "enableCaregiverMode": "Habilitar El Modo De Cuidador",
+    "exitCaregiver": "Salir Del Cuidador",
+    "updateCaregiver": "Actualizar cuidador",
+    "reminder": "Recordatorio",
+    "schedule": "Calendario",
+    "searchForNote": "Buscar Una Nota",
+    "selectTaskType": "Seleccionar Tipo De Tarea",
+    "updateCareTeamMember": "Actualizar miembro del equipo de atención"
 }

@@ -129,7 +129,8 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a medication name'
+                              //? 'Please enter a medication name'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.medication + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _title = input,
                           initialValue:
@@ -162,7 +163,8 @@ class _UserProfileState extends State<AddMedicationCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter dose'
+                             // ? 'Please enter dose'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.dose
                               : null,
                           onSaved: (input) => _dose = input,
                           initialValue:

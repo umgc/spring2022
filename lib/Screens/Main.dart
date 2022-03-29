@@ -326,7 +326,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                                       left: 5, right: 1.0),
                                   child: TextButton(
                                     child: Text(
-                                      'Exit CareGiver',
+                                      I18n.of(context)!.exitCaregiver,
                                       style: TextStyle(color: Colors.black),
                                     ),
                                     onPressed: () {

@@ -89,7 +89,8 @@ class _UserProfileState extends State<AddCareTeamCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.careTeam == null ? 'Add Care Team Member' : 'Update Care Team Member',
+                  //widget.careTeam == null ? 'Add Care Team Member' : 'Update Care Team Member',
+                  widget.careTeam == null ? I18n.of(context)!.addCareTeamMember : I18n.of(context)!.updateCareTeamMember,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,

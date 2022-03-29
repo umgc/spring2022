@@ -303,7 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             // const SizedBox(height: 24),
 
             ButtonWidget(
-              text: 'Save',
+              text: I18n.of(context)!.save,
               onClicked: () {
                 screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
                 UserPreferences.setUser(user);

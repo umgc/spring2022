@@ -129,7 +129,8 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter medical history'
+                              //? 'Please enter medical history'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.medicalHistory
                               : null,
                           onSaved: (input) => _history = input,
                           initialValue:
@@ -145,7 +146,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: 'Description',
+                              labelText: I18n.of(context)!.description,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -154,7 +155,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Note',
+                              labelText: I18n.of(context)!.note,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -163,7 +164,8 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a note'
+                             // ? 'Please enter a note'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.note
                               : null,
                           onSaved: (input) => _desc = input,
                           initialValue:

@@ -110,5 +110,21 @@
     "pleaseEnter": "请输入",
     "delete": "删除",
     "dose": "剂量",
-    "contact": "联系"
+    "contact": "联系",
+    "allergy": "过敏",
+    "allergyReaction": "过敏反应",
+    "activeTasks": "活动任务",
+    "addCareTeamMember": "添加护理团队成员",
+    "completedTasks": "已完成的任务",
+    "continueWord": "继续",
+    "description": "描述",
+    "details": "细节",
+    "enableCaregiverMode": "启用看护人模式",
+    "exitCaregiver": "退出看护人",
+    "updateCaregiver": "更新看护人",
+    "reminder": "提醒",
+    "schedule": "日程",
+    "searchForANote": "搜索笔记",
+    "selectTaskType": "选择任务类型",
+    "updateCareTeamMember": "更新护理团队成员"
 }

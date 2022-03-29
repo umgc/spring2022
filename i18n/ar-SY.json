@@ -110,5 +110,21 @@
     "pleaseEnter": "تفضل",
     "delete": "حذف",
     "dose": "جرعة",
-    "contact": "اتصل"
+    "contact": "اتصل",
+    "allergy": "حساسية",
+    "allergyReaction": "رد فعل تحسسي",
+    "activeTasks": "المهام النشطة",
+    "addCareTeamMember": "إضافة عضو فريق الرعاية",
+    "completedTasks": "المهام المكتملة",
+    "continueWord": "يكمل",
+    "description": "وصف",
+    "details": "تفاصيل",
+    "enableCaregiverMode": "قم بتمكين وضع مقدم الرعاية",
+    "exitCaregiver": "غادر مقدم الرعاية",
+    "updateCaregiver": "تحديث مقدم الرعاية",
+    "reminder": "تذكير",
+    "schedule": "برنامج",
+    "searchForNote": "ابحث عن ملاحظة",
+    "selectTaskType": "حدد نوع المهمة",
+    "updateCareTeamMember": "تحديث عضو فريق الرعاية"
 }

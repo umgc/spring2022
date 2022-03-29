@@ -131,7 +131,8 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter transportation name'
+                              //? 'Please enter transportation name'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.transportation + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.transportation?.name.toString(),

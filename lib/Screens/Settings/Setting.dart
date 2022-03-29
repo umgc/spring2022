@@ -541,7 +541,7 @@ class _SettingState extends State<Settings> {
                         },
 
                         child: Text(
-                          'Enable Caregiver Mode',
+                          I18n.of(context)!.enableCaregiverMode,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: _bodyFontSize,
@@ -576,7 +576,7 @@ class _SettingState extends State<Settings> {
 
                         },
                         child: Text(
-                          'Update Caregiver',
+                          I18n.of(context)!.updateCaregiver,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: _bodyFontSize,
