@@ -162,7 +162,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter dose'
+                              ? 'Please enter a reaction'
                               : null,
                           onSaved: (input) => _reaction = input,
                           initialValue:

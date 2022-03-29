@@ -37,14 +37,14 @@ class _UserProfileState extends State<AddTransportationCard> {
       _formKey.currentState!.save();
       print('$_name, $_phone');
 
-      // Insert medical history to Users Database
+      // Insert  transportation to Database
       Transportation transportation =
           Transportation(name: _name, phone: _phone);
       if (widget.transportation == null) {
         transportation.status = 0;
         DatabaseHelper.instance.insertTransportation(transportation);
       } else {
-        // Update medical history in Users Database
+        // Update transportation in Database
         transportation.id = widget.transportation!.id;
         DatabaseHelper.instance.updateTransportation(transportation);
       }
@@ -110,7 +110,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText: 'Transportation',
+                                  labelText: 'Transportation Name',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -120,7 +120,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0)))
                               : InputDecoration(
-                                  labelText: 'Transportation',
+                                  labelText: 'Transportation Name',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -130,7 +130,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter transportation name'
+                              ? 'Please enter transportation name (ex: Medibus)'
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.transportation?.name.toString(),
@@ -142,7 +142,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText: 'Phone',
+                                  labelText: 'Phone Number',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -152,7 +152,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0)))
                               : InputDecoration(
-                                  labelText: 'Phone',
+                                  labelText: 'Phone Number',
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -162,7 +162,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a phone'
+                              ? 'Please enter a phone number'
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.transportation?.phone.toString(),
