@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Note.dart';
@@ -109,7 +110,10 @@ class _NoteTableState extends State<NoteTable> {
                 controller: controller,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: '--Search For A Note--',
+                  hintText: '-- ' + I18n.of(context)!.searchForNote + ' --',
+                  hintStyle: TextStyle(
+                    color: Colors.grey
+                  )
                 ),
                 onChanged: (value) {
                   _runFilter(value);
@@ -128,7 +132,7 @@ class _NoteTableState extends State<NoteTable> {
                   Icons.add,
                 ),
                 label: Text(
-                  'Add Note',
+                  I18n.of(context)!.addNote,
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () {

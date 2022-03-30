@@ -24,8 +24,6 @@ List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
 
 bool careMode = false;
 
-/// days to keep Notes???
-
 class Settings extends StatefulWidget {
   @override
   _SettingState createState() => _SettingState();
@@ -213,49 +211,49 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text( 
-                        I18n.of(context)!.daysToKeepNotes,
-                        //'Days To Keep Notes',
-                        style: TextStyle(
-                          fontSize: _bodyFontSize,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    DropdownButton<String>(
-                      alignment: Alignment.center,
-
-                      /// This may need to be changed to new variable.*****************
-                      value: settingObserver.userSettings.daysToKeepFiles,
-                      items: _daysToKeepFilesOptions
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              fontSize: _bodyFontSize,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          settingObserver.userSettings.daysToKeepFiles =
-                              newValue!;
-
-                          /// This may need to be changed to new variable.*****************
-
-                          //null check
-                        });
-                      },
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: <Widget>[
+                //     Flexible(
+                //       child: Text(
+                //         I18n.of(context)!.daysToKeepNotes,
+                //         //'Days To Keep Notes',
+                //         style: TextStyle(
+                //           fontSize: _bodyFontSize,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ),
+                //     DropdownButton<String>(
+                //       alignment: Alignment.center,
+                //
+                //       /// This may need to be changed to new variable.*****************
+                //       value: settingObserver.userSettings.daysToKeepFiles,
+                //       items: _daysToKeepFilesOptions
+                //           .map<DropdownMenuItem<String>>((String value) {
+                //         return DropdownMenuItem<String>(
+                //           value: value,
+                //           child: Text(
+                //             value,
+                //             style: TextStyle(
+                //               fontSize: _bodyFontSize,
+                //             ),
+                //           ),
+                //         );
+                //       }).toList(),
+                //       onChanged: (String? newValue) {
+                //         setState(() {
+                //           settingObserver.userSettings.daysToKeepFiles =
+                //               newValue!;
+                //
+                //           /// This may need to be changed to new variable.*****************
+                //
+                //           //null check
+                //         });
+                //       },
+                //     ),
+                //   ],
+                // ),
                 addTopDivider(),
                 addBotDivider(),
 
