@@ -29,6 +29,9 @@ jobs:
       - name: Check files in android directory
         run: |
           cd assets/Twilio && ls -ltr .
+      - name: Check files in NLU directory
+        run: |
+          cd assets/NLU && ls -ltr .
       - name: View files in app directory
         run: |
           cat assets/Twilio/Twilio_Credentials.xml
@@ -76,6 +79,15 @@ jobs:
       - name: Check files in app directory
         run: |
           cd assets/Twilio && ls -ltr .
+      - name: Check files in NLU directory
+        run: |
+          cd assets/NLU && ls -ltr .
+      - name: View Twilio
+        run: |
+          cat assets/Twilio/Twilio_Credentials.xml
+      - name: View Lex
+        run: |
+          cat assets/NLU/Lex_Credentials.xml
       - name: Get run number
         run: |
           echo ${{ github.run_number }}
