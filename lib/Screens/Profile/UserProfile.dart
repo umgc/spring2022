@@ -92,9 +92,6 @@ class _ProfilePageState extends State<UserProfile> {
             const SizedBox(child: Divider(color: Colors.blueGrey), height: 60,),
             // const SizedBox(child: Divider(color: Colors.blueGrey)),
             // MedicalHistoryCard(),
-
-
-
           ],
         ),
       ),

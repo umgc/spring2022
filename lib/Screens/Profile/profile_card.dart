@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,8 @@ import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
-
 import '../../Observables/ScreenNavigator.dart';
-import '../Main.dart';
-import 'edit_profile_page.dart';
+
 
 class ProfileCard extends StatefulWidget {
   @override
