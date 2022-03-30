@@ -169,6 +169,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                           validator: (input) => input!.trim().isEmpty
                               //? 'Please enter dose'
                               ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.dose
+
                               : null,
                           onSaved: (input) => _reaction = input,
                           initialValue:

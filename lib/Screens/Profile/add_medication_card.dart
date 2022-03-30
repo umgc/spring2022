@@ -41,7 +41,7 @@ class _UserProfileState extends State<AddMedicationCard> {
       if (widget.medication == null) {
         medication.status = 0;
         DatabaseHelper.instance.insertMedication(medication);
-        print('Inserted to allergy table:  ${medication.toMap()}');
+        print('Inserted to medication table:  ${medication.toMap()}');
       } else {
         // Update medication to Users Database
         medication.id = widget.medication!.id;

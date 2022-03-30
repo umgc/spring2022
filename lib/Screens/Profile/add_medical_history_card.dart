@@ -95,7 +95,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
-                      fontSize: 30.0),
+                      fontSize: 24.0),
                 ),
                 SizedBox(
                   height: 10.0,
