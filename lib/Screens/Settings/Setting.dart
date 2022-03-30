@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/AdminPage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
 import 'package:provider/provider.dart';

@@ -1,48 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/UpdateAdmin.dart';
-import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/Observables/HelpObservable.dart';
 import 'package:memorez/Observables/MicObservable.dart';
-import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
-import 'package:memorez/Screens/AdminPage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Screens/Mic/Mic.dart';
 import 'package:memorez/Screens/Profile/edit_profile_page.dart';
 import '../../Observables/MenuObservable.dart';
 import 'package:memorez/Screens/Note/Note.dart';
-import 'package:memorez/Screens/Note/NoteSearchDelegate.dart';
 import 'package:memorez/Screens/NotificationScreen.dart';
 import 'package:memorez/Utility/Constant.dart';
-import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
 import '../DatabaseHandler/DBHelper.dart';
 import '../Model/UserModel.dart';
-import '../main.dart';
 import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
 import 'package:memorez/Screens/Menu/Menu.dart';
 import 'package:memorez/Screens/Settings/Trigger.dart';
-import 'package:memorez/Screens/Settings/Help.dart';
 import 'package:memorez/Screens/Settings/SyncToCloud.dart';
-
 import 'package:flutter_search_bar/flutter_search_bar.dart';
-
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../Observables/ScreenNavigator.dart';
 import 'package:memorez/Screens/Calendar/Calendar.dart';
 import 'Checklist.dart';
-
 import 'package:avatar_glow/avatar_glow.dart';
-//import 'package:memorez/Screens/Tasks/tasks.dart';
-import 'package:memorez/Screens/HomePage.dart';
-import 'dart:io';
-
 import 'package:memorez/Screens/Tasks/Task.dart';
 
 final mainScaffoldKey = GlobalKey<ScaffoldState>();
