@@ -26,7 +26,8 @@ Widget createWidgetForTesting(
         Provider<SettingObserver>(create: (_) => SettingObserver()),
         Provider<NoteObserver>(create: (_) => NoteObserver()),
         Provider<MenuObserver>(create: (_) => MenuObserver()),
-        Provider<HelpObserver>(create: (_) => HelpObserver())
+        Provider<HelpObserver>(create: (_) => HelpObserver()),
+        Provider<TaskObserver>(create: (_) => TaskObserver())
       ],
       child: MaterialApp(
         home: child,
