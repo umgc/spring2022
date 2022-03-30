@@ -11,6 +11,8 @@ import 'package:memorez/generated/i18n.dart';
 import '../../Observables/TaskObservable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
+
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 enum responseText { start, Yes, No } //enum for Text Response, Schedule
 enum responseSchedule { start, Now, Future } //enum for Text Response, Schedule
@@ -38,7 +40,8 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   String selectedDate = '';
   String selectedTime = '';
   String taskType = '';
-  String selectedDateTime = '';
+
+  DateTime selectedDateTime = DateTime.now();
   // bool selectedIsResponseRequired = false;
 
   ///these flags indicate whether or not a button has been pressed
@@ -60,7 +63,8 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   responseSchedule? _scheduleReponse = responseSchedule.start;
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-  final TextEditingController _textDescriptionController =TextEditingController();
+  final TextEditingController _textDescriptionController =
+      TextEditingController();
   final TextEditingController _textNameController = TextEditingController();
 
   /// Text task service to use for I/O operations against local system
@@ -75,7 +79,6 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
-    final settingObserver = Provider.of<SettingObserver>(context);
 
     List<Step> getSteps() => [
           // Screen 1
@@ -632,83 +635,11 @@ class _SaveNewTaskState extends State<SaveNewTask> {
 
                   Visibility(
                     visible: _scheduleReponse == responseSchedule.Future,
-                    child: Container(
-                        child:
-                            //DATE CALENDAR
+                    child: Container(child: _selectDate()
+                        //DATE CALENDAR
 
-                            TextFormField(
-                      readOnly: true,
-                      controller: _dateController,
-                      onChanged: (valueDate) {
-                        setState(() {
-                          _dateController.text = valueDate;
-                          selectedDate = valueDate.toString();
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        labelText: 'Date',
-                        suffixIcon: Icon(FontAwesomeIcons.calendarDay),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        border: OutlineInputBorder(),
-                      ),
-                      onTap: () async {
-                        await showDatePicker(
-                          context: context,
-                          confirmText: 'SET DATE',
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2030),
-                        ).then((selectedDate) {
-                          if (selectedDate != null) {
-                            _dateController.text =
-                                '${selectedDate.month.toString()}/${selectedDate.day.toString()}/${selectedDate.year.toString()}';
-                          }
-                        });
-                      },
-                    )),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  Visibility(
-                    visible: _scheduleReponse == responseSchedule.Future,
-                    child: Container(
-                      child: TextFormField(
-                        readOnly: true,
-                        controller: _timeController,
-                        onChanged: (valueTime) {
-                          _timeController.text = valueTime;
-                          selectedDate = valueTime.toString();
-                        },
-                        decoration: const InputDecoration(
-                          labelText: 'Time',
-                          suffixIcon: Icon(FontAwesomeIcons.solidClock),
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          border: OutlineInputBorder(),
                         ),
-                        onTap: () async {
-                          await showTimePicker(
-                            context: context,
-                            confirmText: 'SET TIME',
-                            initialTime: TimeOfDay.now(),
-                            initialEntryMode: TimePickerEntryMode.dial,
-                          ).then((selectedTime) {
-                            if (selectedTime != null) {
-                              if (selectedTime.minute < 10) {
-                                _timeController.text =
-                                    '${selectedTime.hourOfPeriod.toString()}:0${selectedTime.minute} ${selectedTime.period.name}';
-                              } else {
-                                _timeController.text =
-                                    '${selectedTime.hourOfPeriod.toString()}:${selectedTime.minute} ${selectedTime.period.name}';
-                              }
-                            }
-                          });
-                        },
-                      ),
-                    ),
-                  ),
+                  )
                 ]),
           ),
         ];
@@ -765,7 +696,7 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   FocusNode textFocusNode = FocusNode();
 
   ///Calls to the task observer to set the values of a new task
-  _onSave(TaskObserver taskObserver) {
+  _onSave(TaskObserver taskObserver, SettingObserver settingObserver) {
     // if (textController.text.length > 0) {
     print(
         "taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
@@ -788,10 +719,18 @@ class _SaveNewTaskState extends State<SaveNewTask> {
     this._newTask.eventDate = _dateController.text;
     this._newTask.eventTime = _timeController.text;
     this._newTask.iconColor = selectedIconColor;
-    this._newTask.sendTaskDateTime = DateTime.now();
+    this._newTask.sendTaskDateTime = selectedDateTime;
 
     //Screen one
     this._newTask.taskType = taskType;
+
+    if (settingObserver.userSettings.enableTasksNotifications) {
+      print('sending out a notification for this task');
+      DateTime dateTime = selectedDateTime;
+      var _body = this._newTask.name;
+      notify(_body, dateTime, settingObserver);
+    }
+
     //Boolean radio button
     // this._newTask.isResponseRequired = selectedIsResponseRequired;
 
@@ -803,6 +742,7 @@ class _SaveNewTaskState extends State<SaveNewTask> {
     // }
     print('kkkkkkkkkkkkkkkk: line 962');
   }
+
   /// This prevents going backwards in the stepper
   void onStepTapped(step) {
     if (step > _stepIndex) {
@@ -849,8 +789,10 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   }
 
   ///controlsBuilder Manages the steps and UI that is shown in each page
-  Widget controlsBuilder(BuildContext context, ControlsDetails controlsDetails) {
+  Widget controlsBuilder(
+      BuildContext context, ControlsDetails controlsDetails) {
     final taskObserver = Provider.of<TaskObserver>(context);
+    final settingObserver = Provider.of<SettingObserver>(context);
     return Padding(
       // This is the padding around the continue, cancel, and back buttons
       padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -871,7 +813,7 @@ class _SaveNewTaskState extends State<SaveNewTask> {
             (OutlinedButton(
                 onPressed: () {
                   _stepIndex = 0;
-                  _onSave(taskObserver);
+                  _onSave(taskObserver, settingObserver);
                   print('================line 978');
                 },
                 child: const Text('Send Task'),
@@ -921,7 +863,8 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   }
 
   ///Resets/saves task state variables
-  _SaveNewTaskState({this.isCheckListEvent = false, this.viewExistingTask = false});
+  _SaveNewTaskState(
+      {this.isCheckListEvent = false, this.viewExistingTask = false});
 
   ///Empties text fields
   @override
@@ -929,6 +872,7 @@ class _SaveNewTaskState extends State<SaveNewTask> {
     textController.dispose();
     super.dispose();
   }
+
   void textDispose() {
     textFocusNode.dispose();
     super.dispose();
@@ -963,60 +907,16 @@ class _SaveNewTaskState extends State<SaveNewTask> {
       },
     );
   }
-  //ref: https://pub.dev/packages/date_time_picker
-  Widget _selectDate(bool isCheckList, I18n? i18n, Locale locale) {
-    final taskObserver = Provider.of<TaskObserver>(context);
-    print(
-        "_selectDate taskObserver.currTaskForDetails: ${taskObserver.currTaskForDetails}");
-    String dateLabelText =
-        (isCheckListEvent || isCheckList) ? i18n!.startDate : i18n!.selectDate;
-    String timeLabelText = i18n.enterTime;
 
-    if (this.viewExistingTask == true) {
-      return DateTimePicker(
-        type: (isCheckList || this.isCheckListEvent == true)
-            ? DateTimePickerType.time
-            : DateTimePickerType.dateTimeSeparate,
-        dateMask: 'd MMM, yyyy',
-        initialValue: (taskObserver.newTaskIsCheckList == true ||
-                this.isCheckListEvent == true)
-            ? (taskObserver.currTaskForDetails!.eventTime)
-            : (taskObserver.currTaskForDetails!.eventDate +
-                " " +
-                taskObserver.currTaskForDetails!.eventTime),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
-        icon: Icon(Icons.event),
-        dateLabelText: dateLabelText,
-        timeLabelText: timeLabelText,
-        selectableDayPredicate: (date) {
-          return true;
-        },
-        onChanged: (value) {
-          print("_selectDate: Datetime $value");
-          if (taskObserver.newTaskIsCheckList == true ||
-              this.isCheckListEvent == true) {
-            taskObserver.setNewTaskEventTime(value);
-          } else {
-            String mDate = value.split(" ")[0];
-            String mTime = value.split(" ")[1];
-            taskObserver.setNewTaskEventDate(mDate);
-            taskObserver.setNewTaskEventTime(mTime);
-          }
-        },
-        validator: (val) {
-          print(val);
-          return null;
-        },
-        onSaved: (val) => print("onSaved $val"),
-      );
-    }
+  //ref: https://pub.dev/packages/date_time_picker
+  Widget _selectDate() {
+    String dateLabelText = 'What date to send the task';
+    String timeLabelText = 'What time to send the task';
 
     return DateTimePicker(
       type: DateTimePickerType.dateTimeSeparate,
-      locale: locale,
       dateMask: 'd MMM, yyyy',
-      //initialValue: DateTime.now().toString(),
+      initialValue: DateTime.now().toString(),
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       icon: Icon(Icons.event),
@@ -1026,21 +926,34 @@ class _SaveNewTaskState extends State<SaveNewTask> {
         return true;
       },
       onChanged: (value) {
-        if (taskObserver.newTaskIsCheckList == true ||
-            this.isCheckListEvent == true) {
-          taskObserver.setNewTaskEventTime(value);
-        } else {
-          String mDate = value.split(" ")[0];
-          String mTime = value.split(" ")[1];
-          taskObserver.setNewTaskEventDate(mDate);
-          taskObserver.setNewTaskEventTime(mTime);
-        }
+        setState(() {
+          print("_selectDate: Datetime $value");
+          selectedDateTime = DateTime.parse(value);
+        });
       },
       validator: (val) {
         print(val);
         return null;
       },
       onSaved: (val) => print("onSaved $val"),
+    );
+  }
+
+  void notify(
+      var _body, DateTime dateTime, SettingObserver settingObserver) async {
+    print('Notification Calendar' +
+        NotificationCalendar.fromDate(
+                date: dateTime.subtract(Duration(
+                    minutes: int.parse(settingObserver
+                        .userSettings.minutesBeforeTaskNotifications))))
+            .toString());
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+          id: 1, channelKey: 'key1', title: 'Reminder', body: _body),
+      schedule: NotificationCalendar.fromDate(
+          date: dateTime.subtract(Duration(
+              minutes: int.parse(settingObserver
+                  .userSettings.minutesBeforeTaskNotifications)))),
     );
   }
 }

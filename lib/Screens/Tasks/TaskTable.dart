@@ -5,6 +5,7 @@ import 'package:memorez/Model/Task.dart';
 import 'package:memorez/Utility/Constant.dart';
 import '../../Observables/TaskObservable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class TaskTable extends StatefulWidget {
   @override
@@ -40,8 +41,8 @@ class _TaskTableState extends State<TaskTable> {
       //if the task is completed
       if (taskObserver.usersTask[i].isTaskCompleted == true) {
         //we need to check the active task list and remove it if it's there
-        activeUserTasks =
-            checkActiveTasks(activeUserTasks, taskObserver.usersTask[i].taskId);
+        // activeUserTasks =
+        //     checkActiveTasks(activeUserTasks, taskObserver.usersTask[i].taskId);
 
         // then add it to the list of inactive tasks
         inActiveUserTasks.add(taskObserver.usersTask[i]);
@@ -49,14 +50,12 @@ class _TaskTableState extends State<TaskTable> {
         //otherwise
         //if the task is scheduled for a time before the current time
         if (taskObserver.usersTask[i].sendTaskDateTime
-                .isAfter(DateTime.now()) ||
-            taskObserver.usersTask[i].isTaskCompleted == false) {
-          //add it to the list of active tasks
+            .isBefore(DateTime.now())) {
+          print('time now ' + DateTime.now().toString());
+          print('time of task ' +
+              taskObserver.usersTask[i].sendTaskDateTime.toString());
           activeUserTasks.add(taskObserver.usersTask[i]);
-        } else {
-          print(
-              'XXXXXXXXXXXXX ERROR Completion status:${taskObserver.usersTask[i].isTaskCompleted}');
-        }
+        } else {}
       }
     }
     // taskObserver.changeScreen(TASK_SCREENS.TASK);
@@ -300,11 +299,9 @@ class _TaskTableState extends State<TaskTable> {
                                                             .lightBlue[900]),
                                                   ),
                                                   Text(
-                                                    inActiveUserTasks
+                                                    timeago.format(inActiveUserTasks
                                                         .elementAt(index)
-                                                        .completedTaskDateTime
-                                                        .toString()
-                                                        .substring(0, 16),
+                                                        .completedTaskDateTime!),
                                                     style: TextStyle(
                                                       fontSize: 20.0,
                                                       // fontWeight: FontWeight.bold,
