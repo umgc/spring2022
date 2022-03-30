@@ -7,13 +7,8 @@ import 'package:memorez/Observables/CheckListObservable.dart';
 import 'package:memorez/Observables/HelpObservable.dart';
 import 'package:memorez/Observables/MicObservable.dart';
 import 'package:memorez/Observables/OnboardObservable.dart';
-// Internal
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/Main.dart';
-// import 'package:memorez/Screens/Menu/main_menu_screen.dart';
-import 'package:memorez/Screens/NotificationScreen.dart';
-import 'package:memorez/Screens/Onboarding/Boarding.dart';
 import 'package:memorez/utils/user_preferences.dart';
 import 'Screens/Splash/SplashScreen.dart';
 import 'Utility/FontUtil.dart';
@@ -25,7 +20,6 @@ import 'package:memorez/Observables/SettingObservable.dart';
 import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:memorez/Observables/ScreenNavigator.dart';
 import 'package:memorez/Observables/NotificationObservable.dart';
-import 'package:dcdg/dcdg.dart';
 import 'package:memorez/Observables/TaskObservable.dart';
 
 void main() async{

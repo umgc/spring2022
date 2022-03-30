@@ -14,7 +14,7 @@ import 'package:memorez/Screens/Onboarding/Walkthrough.dart';
 
 import 'package:memorez/generated/i18n.dart';
 
-import '../CreateAdmin.dart';
+import '../Admin/CreateAdmin.dart';
 import '../Profile/edit_profile_page.dart';
 
 class OnBoardingScreen extends StatefulWidget {

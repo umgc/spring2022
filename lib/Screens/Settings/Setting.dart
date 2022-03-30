@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/LoginPage.dart';
-import 'package:memorez/Screens/UpdateAdmin.dart';
+import 'package:memorez/Screens/Admin/LoginPage.dart';
+import 'package:memorez/Screens/Admin/UpdateAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Setting.dart';
 import 'package:memorez/Observables/SettingObservable.dart';

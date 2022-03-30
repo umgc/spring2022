@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/UpdateAdmin.dart';
+import 'package:memorez/Screens/Admin/UpdateAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/Observables/HelpObservable.dart';
 import 'package:memorez/Observables/MicObservable.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
-import 'package:memorez/Screens/LoginPage.dart';
+import 'package:memorez/Screens/Admin/LoginPage.dart';
 import 'package:memorez/Screens/Mic/Mic.dart';
 import 'package:memorez/Screens/Profile/edit_profile_page.dart';
 import '../../Observables/MenuObservable.dart';
