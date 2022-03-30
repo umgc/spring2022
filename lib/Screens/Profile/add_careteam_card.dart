@@ -12,6 +12,7 @@ import 'package:memorez/Model/Medical.dart';
 import 'package:memorez/DatabaseHandler/database_helper_careteam.dart';
 import 'package:memorez/Model/CareTeam.dart';
 
+import '../../generated/i18n.dart';
 import '../Main.dart';
 import 'edit_profile_page.dart';
 
@@ -88,7 +89,8 @@ class _UserProfileState extends State<AddCareTeamCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.careTeam == null ? 'Add Care Team Member' : 'Update Care Team Member',
+                  //widget.careTeam == null ? 'Add Care Team Member' : 'Update Care Team Member',
+                  widget.careTeam == null ? I18n.of(context)!.addCareTeamMember : I18n.of(context)!.updateCareTeamMember,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -108,7 +110,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                           decoration:
                           widget.careTeam != null?
                           InputDecoration(
-                              labelText: 'Provider Name',
+                              labelText: I18n.of(context)!.careTeam,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -117,7 +119,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Provider Name',
+                              labelText: I18n.of(context)!.careTeam,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -126,7 +128,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a provider name (ex: Dr. John Smith - PCP)'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.careTeam?.name.toString(),
@@ -139,7 +141,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                           decoration:
                           widget.careTeam != null?
                           InputDecoration(
-                              labelText: 'Phone Number',
+                              labelText: I18n.of(context)!.phone,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -148,7 +150,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Phone Number',
+                              labelText: I18n.of(context)!.phone,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -157,7 +159,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a phone number'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.phone
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.careTeam?.phone.toString(),
@@ -174,7 +176,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.careTeam == null ? 'Add' : 'Update',
+                            widget.careTeam == null ? I18n.of(context)!.add : I18n.of(context)!.update,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -196,7 +198,7 @@ class _UserProfileState extends State<AddCareTeamCard> {
                         child: TextButton(
                           onPressed: _delete,
                           child: Text(
-                            'Delete',
+                            I18n.of(context)!.delete,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,

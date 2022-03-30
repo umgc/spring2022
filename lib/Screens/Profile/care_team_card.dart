@@ -15,6 +15,7 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Model/CareTeam.dart';
 import 'package:memorez/Screens/Profile/add_careteam_card.dart';
 
+import '../../generated/i18n.dart';
 import '../Main.dart';
 import 'add_allergy_card.dart';
 import 'add_medical_history_card.dart';
@@ -135,7 +136,7 @@ class _CareTeamCardState extends State<CareTeamCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Care Team',
+                                  I18n.of(context)!.careTeam,
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(

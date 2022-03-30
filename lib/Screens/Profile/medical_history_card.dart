@@ -16,6 +16,7 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Model/History.dart';
 
 
+import '../../generated/i18n.dart';
 import '../Main.dart';
 import 'add_allergy_card.dart';
 import 'add_medical_history_card.dart';
@@ -137,7 +138,7 @@ class _HistoryCardState extends State<HistoryCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Past Medical History',
+                                  I18n.of(context)!.medicalHistory,
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(

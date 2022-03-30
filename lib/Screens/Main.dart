@@ -176,7 +176,7 @@ class _MainNavigatorState extends State<MainNavigator> {
       return UserProfile();
     }
     if (screen == PROFILE_SCREENS.UPDATE_USERPROFILE) {
-      screenNav.setTitle(I18n.of(context)!.editpatientinformation);
+      screenNav.setTitle(I18n.of(context)!.edit);
       return EditProfilePage();
     }
     if (screen == MENU_SCREENS.LOGIN) {
@@ -326,7 +326,7 @@ class _MainNavigatorState extends State<MainNavigator> {
                                       left: 5, right: 1.0),
                                   child: TextButton(
                                     child: Text(
-                                      'Exit CareGiver',
+                                      I18n.of(context)!.exitCaregiver,
                                       style: TextStyle(color: Colors.black),
                                     ),
                                     onPressed: () {

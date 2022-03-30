@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/user.dart';
@@ -43,7 +44,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           physics: BouncingScrollPhysics(),
           children: [
             Text(
-              'About Me',
+              I18n.of(context)!.aboutMe,
               style: kSectionTitleTextStyle,
               textAlign: TextAlign.center,
             ),
@@ -100,19 +101,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-              label: 'Full Name',
+              label: I18n.of(context)!.name,
               text: user.name,
               onChanged: (name) => user = user.copy(name: name),
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-              label: 'Phone Number',
+              label: I18n.of(context)!.phone,
               text: user.phone,
               onChanged: (phone) => user = user.copy(phone: phone),
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-              label: 'Date of Birth',
+              label: I18n.of(context)!.dateOfBirth,
               text: EncryptUtil.decryptNote(user.bday),
               maxLines: 1,
               onChanged: (bday) {
@@ -302,7 +303,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             // const SizedBox(height: 24),
 
             ButtonWidget(
-              text: 'Save',
+              text: I18n.of(context)!.save,
               onClicked: () {
                 screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
                 UserPreferences.setUser(user);
