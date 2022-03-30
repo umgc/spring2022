@@ -81,9 +81,6 @@ class _UserProfileState extends State<ProfileCard> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
                   Text(I18n.of(context)!.phoneNumber, style: kLabelTextStyle),
                   Text(user.phone),
                 ],

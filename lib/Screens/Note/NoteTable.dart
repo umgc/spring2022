@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Note.dart';
@@ -89,77 +90,80 @@ class _NoteTableState extends State<NoteTable> {
     final RegExp regexp = new RegExp(r'^0+(?=.)');
     bool _checkboxToggle = false;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: '--Search For A Note--',
-            ),
-            onChanged: (value) {
-              _runFilter(value);
-            },
-          ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.blue[800],
-              primary: Colors.white,
-              fixedSize: Size(noteWidth, 40.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-            ),
-            icon: Icon(
-              Icons.add,
-            ),
-            label: Text(
-              'Add Note',
-              style: TextStyle(fontSize: 20),
-            ),
-            onPressed: () {
-              noteObserver.changeScreen(NOTE_SCREENS.ADD_NOTE);
-            },
-          ),
-          //THIS TABLE IS VISABLE WHEN THE SEARCH BAR IS EMPTY
-          Visibility(
-            visible: _unfilteredNotes,
-            child: DataTable(
-              showCheckboxColumn: _checkboxToggle,
-              dataRowHeight: rowHeight,
-              headingRowHeight: 0,
-              columnSpacing: 30,
-              columns: const <DataColumn>[
-                DataColumn(
-                  label: SizedBox(
-                    height: 0,
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: '-- ' + I18n.of(context)!.searchForNote + ' --',
+                  hintStyle: TextStyle(
+                      color: Colors.grey
                   ),
                 ),
-              ],
-              rows: List<DataRow>.generate(
-                widget.usersNotes.length,
-                (int index) => DataRow(
-                  cells: <DataCell>[
-                    // DataCell(Text("${(index + 1)}")),
-                    DataCell(
-                      Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey,
-                            ),
-                            color: Colors.lightBlueAccent,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          padding: EdgeInsets.all(10),
-                          width: noteWidth,
-                          child: Text(
-                            widget.usersNotes[index].localText +
-                                '\n(' +
-                                DateFormat.MMMEd().format(DateTime.parse(
-                                    _getTime(index).toString())) +
+                onChanged: (value) {
+                  _runFilter(value);
+                },
+              ),
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue[800],
+                  primary: Colors.white,
+                  fixedSize: Size(noteWidth, 40.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                ),
+                icon: Icon(
+                  Icons.add,
+                ),
+                label: Text(
+                  I18n.of(context)!.addNote,
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  noteObserver.changeScreen(NOTE_SCREENS.ADD_NOTE);
+                },
+              ),
+              //THIS TABLE IS VISABLE WHEN THE SEARCH BAR IS EMPTY
+              Visibility(
+                visible: _unfilteredNotes,
+                child: DataTable(
+                  showCheckboxColumn: _checkboxToggle,
+                  dataRowHeight: rowHeight,
+                  headingRowHeight: 0,
+                  columnSpacing: 30,
+                  columns: const <DataColumn>[
+                    DataColumn(
+                      label: SizedBox(
+                        height: 0,
+                      ),
+                    ),
+                  ],
+                  rows: List<DataRow>.generate(
+                    widget.usersNotes.length,
+                    (int index) => DataRow(
+                      cells: <DataCell>[
+                        // DataCell(Text("${(index + 1)}")),
+                        DataCell(
+                          Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                color: Colors.lightBlueAccent,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              padding: EdgeInsets.all(10),
+                              width: noteWidth,
+                              child: Text(
+                                widget.usersNotes[index].localText +
+                                    '\n(' +
+                                    DateFormat.MMMEd().format(DateTime.parse(
+                                        _getTime(index).toString())) +
 
                                 // widget.usersNotes[index].eventDate)) +
                                 ' at ' +

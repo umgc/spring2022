@@ -8,7 +8,7 @@
     "micButton": "Micrófono",
     "pressToRecord": "Presione para grabar",
     "yes": "sí",
-    "saveNote": "Guardar nota",
+    "saveNote": "GUARDAR NOTA",
     "date": "Fecha",
     "note": "Nota",
     "notesDetailScreenName": "Detalles de notas",
@@ -126,5 +126,8 @@
     "schedule": "Calendario",
     "searchForNote": "Buscar Una Nota",
     "selectTaskType": "Seleccionar Tipo De Tarea",
-    "updateCareTeamMember": "Actualizar miembro del equipo de atención"
+    "updateCareTeamMember": "Actualizar miembro del equipo de atención",
+    "backToNotes": "VOLVER A LAS NOTAS",
+    "sendReminderNotification": "¿Enviar notificación de recordatorio?",
+    "settingDateAndTime": "Setting a date and time will add the note to your calendar"
 }
