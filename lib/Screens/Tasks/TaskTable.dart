@@ -41,8 +41,8 @@ class _TaskTableState extends State<TaskTable> {
       //if the task is completed
       if (taskObserver.usersTask[i].isTaskCompleted == true) {
         //we need to check the active task list and remove it if it's there
-        // activeUserTasks =
-        //     checkActiveTasks(activeUserTasks, taskObserver.usersTask[i].taskId);
+         activeUserTasks =
+             checkActiveTasks(activeUserTasks, taskObserver.usersTask[i].taskId);
 
         // then add it to the list of inactive tasks
         inActiveUserTasks.add(taskObserver.usersTask[i]);
@@ -328,18 +328,17 @@ class _TaskTableState extends State<TaskTable> {
     );
   }
 
-  List<TextTask> checkActiveTasks(
-      List<TextTask> activeUserTasks, String taskId) {
-    if (activeUserTasks.length > 0) {
-      for (var i = 0; i < activeUserTasks.length; i++) {
-        if (activeUserTasks[i].taskId == taskId) {
-          activeUserTasks.removeAt(i);
-          return activeUserTasks;
-        }
+}
+List<TextTask> checkActiveTasks(List<TextTask> activeUserTasks, String taskId) {
+  if (activeUserTasks.length > 0) {
+    for (var i = 0; i < activeUserTasks.length; i++) {
+      if (activeUserTasks[i].taskId == taskId) {
+        activeUserTasks.removeAt(i);
+        return activeUserTasks;
       }
     }
-    return activeUserTasks;
   }
+  return activeUserTasks;
 }
 
 ///Icon support function
