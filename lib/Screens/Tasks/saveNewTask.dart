@@ -723,7 +723,8 @@ class _SaveNewTaskState extends State<SaveNewTask> {
 
     //Screen one
     this._newTask.taskType = taskType;
-
+    print('line 726 ' +
+        settingObserver.userSettings.enableTasksNotifications.toString());
     if (settingObserver.userSettings.enableTasksNotifications) {
       print('sending out a notification for this task');
       DateTime dateTime = selectedDateTime;
@@ -953,7 +954,8 @@ class _SaveNewTaskState extends State<SaveNewTask> {
       schedule: NotificationCalendar.fromDate(
           date: dateTime.subtract(Duration(
               minutes: int.parse(settingObserver
-                  .userSettings.minutesBeforeTaskNotifications)))),
+                  .userSettings.minutesBeforeTaskNotifications))),
+          allowWhileIdle: true),
     );
   }
 }
