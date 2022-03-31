@@ -140,6 +140,18 @@ class _NoteTableState extends State<NoteTable> {
                         height: 0,
                       ),
                     ),
+                    // DataColumn(
+                    //   label: Text(
+                    //     'NOTE',
+                    //     style: HEADER_TEXT_STYLE,
+                    //   ),
+                    // ),
+                    // DataColumn(
+                    //   label: Text(
+                    //     'CREATED',
+                    //     style: HEADER_TEXT_STYLE,
+                    //   ),
+                    // ),
                   ],
                   rows: List<DataRow>.generate(
                     widget.usersNotes.length,
