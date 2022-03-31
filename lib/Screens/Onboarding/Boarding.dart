@@ -43,7 +43,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   
     switch (index) {
       case 0:
+
         return SelectLanguageScreen();
+
       case 1:
         return PermissionScreen();
       case 2:
@@ -54,7 +56,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         return WalkthroughScreen();
       default:
         return MainNavigator();
+
     }
+
   }
 
   AppBar buildAppBar(BuildContext context) {

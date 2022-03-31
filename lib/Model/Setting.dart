@@ -1,4 +1,10 @@
-import 'dart:ui';
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+
+import '../generated/i18n.dart';
 
 enum FontSize {
   SMALL,
@@ -31,8 +37,12 @@ appThemeStringToEnum(String appTheme) { ///needs to be changed with appTheme
 const DEFAULT_FONT_SIZE = FontSize.MEDIUM;
 
 const DEFAULT_DAYS_TO_KEEP_FILES = "7";
+String defaultLocale = Platform.localeName;
 
-const DEFAULT_LOCALE = const Locale("en", "US");
+
+// var DEFAULT_LOCALE = Locale("en", "US");
+
+var DEFAULT_LOCALE = Locale('${ui.window.locale.languageCode}');
 
 const DEFAULT_APP_THEME = AppTheme.BLUE;
 
