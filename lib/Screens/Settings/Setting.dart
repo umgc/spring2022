@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Screens/Admin/LoginPage.dart';
 import 'package:memorez/Screens/Admin/UpdateAdmin.dart';
 import 'package:provider/provider.dart';
@@ -656,6 +657,7 @@ class _SettingState extends State<Settings> {
                         settingObserver.saveSetting();
                         I18n.onLocaleChanged!(
                             settingObserver.userSettings.locale);
+                            alertDialog(context, 'Settings Saved');
                       },
                       child: Column(
                         children: [
@@ -686,6 +688,7 @@ class _SettingState extends State<Settings> {
                       settingObserver.saveSetting();
 
                       I18n.onLocaleChanged!(DEFAULT_LOCALE);
+
                     },
                     child: Column(
                       children: [
