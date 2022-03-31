@@ -188,8 +188,6 @@ class _SettingState extends State<Settings> {
                       alignment: Alignment.center,
                       value: settingObserver
                           .userSettings.minutesBeforeNoteNotifications,
-
-                      /// the default or saved value
                       items: _minutesBeforeNoteNotification
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
@@ -211,6 +209,8 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
+
+                /// Setting previously used to save Notes a specified number of days
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: <Widget>[
@@ -254,12 +254,10 @@ class _SettingState extends State<Settings> {
                 //     ),
                 //   ],
                 // ),
-                addTopDivider(),
-                addBotDivider(),
+                _addTopDivider(),
+                _addBotDivider(),
 
-                /**
-             * Tasks section
-             */
+                /// Tasks section
                 Row(
                   children: <Widget>[
                     Row(
@@ -343,12 +341,11 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
-                addTopDivider(),
-                addBotDivider(),
+                _addTopDivider(),
+                _addBotDivider(),
               ],
-              /**
-             * App Settings Section
-             */
+
+              ///App Settings Section
               Row(
                 children: <Widget>[
                   Flexible(
@@ -367,7 +364,6 @@ class _SettingState extends State<Settings> {
               SizedBox(
                 height: 10.0,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -512,8 +508,8 @@ class _SettingState extends State<Settings> {
                   ),
                 ],
               ),
-              addTopDivider(),
-              addBotDivider(),
+              _addTopDivider(),
+              _addBotDivider(),
 
               /// Caregiver Mode Button
 
@@ -618,8 +614,8 @@ class _SettingState extends State<Settings> {
                 ),
               ),
 
-              addTopDivider(),
-              addBotDivider(),
+              _addTopDivider(),
+              _addBotDivider(),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -711,7 +707,7 @@ class _SettingState extends State<Settings> {
   }
 }
 
-Divider addTopDivider() {
+Divider _addTopDivider() {
   return Divider(
     thickness: 2.0,
     indent: 5,
@@ -719,7 +715,7 @@ Divider addTopDivider() {
   );
 }
 
-Divider addBotDivider() {
+Divider _addBotDivider() {
   return Divider(
     thickness: 2.0,
     indent: 5,

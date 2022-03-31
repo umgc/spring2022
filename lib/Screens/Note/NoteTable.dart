@@ -144,6 +144,8 @@ class _NoteTableState extends State<NoteTable> {
                   rows: List<DataRow>.generate(
                     widget.usersNotes.length,
                     (int index) => DataRow(
+
+                      //onSelectChanged: _selectNotes,
                       cells: <DataCell>[
                         // DataCell(Text("${(index + 1)}")),
                         DataCell(
