@@ -42,7 +42,35 @@ String defaultLocale = Platform.localeName;
 
 // var DEFAULT_LOCALE = Locale("en", "US");
 
-var DEFAULT_LOCALE = Locale('${ui.window.locale.languageCode}');
+var DEFAULT_LOCALE = determineLanguage();
+
+determineLanguage() {
+  print('888888888888888 ${ui.window.locale.languageCode}');
+  if(ui.window.locale.languageCode == 'en'){
+    var DEFAULT_LOCALE = Locale("en", "US");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'es'){
+    var DEFAULT_LOCALE = Locale("es", "US");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'pt'){
+    var DEFAULT_LOCALE = Locale("pt", "BR");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'ar'){
+    var DEFAULT_LOCALE = Locale("ar", "SY");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'zh'){
+    var DEFAULT_LOCALE = Locale("zh", "CN");
+    return DEFAULT_LOCALE;
+  } else {
+    var DEFAULT_LOCALE = Locale("en", "US");
+    return DEFAULT_LOCALE;
+  }
+}
+// Locale('${ui.window.locale.languageCode}');
 
 const DEFAULT_APP_THEME = AppTheme.BLUE;
 

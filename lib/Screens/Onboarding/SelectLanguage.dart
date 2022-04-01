@@ -23,8 +23,9 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('LOCAL ====> ${defaultLocale}');
-    VoiceOverTextService.speakOutLoud(I18n.of(context)!.selectLanguage, defaultLocale);
+    print('LOCAL xxx====> ${defaultLocale}');
+    VoiceOverTextService.speakOutLoud(I18n.of(context)!.selectLanguage,
+        (language as Locale).languageCode.toString());
 
 
     final onboardingObserver = Provider.of<OnboardObserver>(context);
