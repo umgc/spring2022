@@ -3,14 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:memorez/Model/Help.dart';
 import 'package:memorez/Observables/HelpObservable.dart';
 import 'package:memorez/Observables/MenuObservable.dart';
-import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:memorez/Observables/ScreenNavigator.dart';
 import 'package:memorez/Screens/Components/VideoPlayer.dart';
-import 'package:memorez/Observables/SettingObservable.dart';
-import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/generated/i18n.dart';
 
-import '../../Observables/SettingObservable.dart';
 
 class Help extends StatefulWidget {
   @override

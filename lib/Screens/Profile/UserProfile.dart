@@ -2,25 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/allergy_card.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/Model/user.dart';
-import 'package:memorez/Screens/AdminPage.dart';
-import 'package:memorez/Screens/HomePage.dart';
-import 'package:memorez/Screens/LoginPage.dart';
-import 'package:memorez/Screens/Main.dart';
-import 'package:memorez/Screens/Profile/edit_profile_page.dart';
 import 'package:memorez/Screens/Profile/profile_card.dart';
-import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/button_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
-import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/transportation_card.dart';
-import 'package:memorez/Screens/Profile/add_medication_card.dart';
-
-
-
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
@@ -105,9 +92,6 @@ class _ProfilePageState extends State<UserProfile> {
             const SizedBox(child: Divider(color: Colors.blueGrey), height: 60,),
             // const SizedBox(child: Divider(color: Colors.blueGrey)),
             // MedicalHistoryCard(),
-
-
-
           ],
         ),
       ),

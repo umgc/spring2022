@@ -5,16 +5,10 @@ import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
-import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
-import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/DatabaseHandler/database_helper.dart';
-import 'package:memorez/Screens/Profile/profile_constants.dart';
-import 'package:memorez/Utility/EncryptionUtil.dart';
-import '../Main.dart';
-import 'edit_profile_page.dart';
+
 
 class MedicationCard extends StatefulWidget {
   @override

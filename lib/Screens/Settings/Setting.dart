@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/AdminPage.dart';
-import 'package:memorez/Screens/LoginPage.dart';
-import 'package:memorez/Screens/UpdateAdmin.dart';
+import 'package:memorez/Comm/comHelper.dart';
+import 'package:memorez/Screens/Admin/LoginPage.dart';
+import 'package:memorez/Screens/Admin/UpdateAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Setting.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
@@ -10,7 +10,6 @@ import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' as math;
-
 import '../../DatabaseHandler/database_helper_profile.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
@@ -658,6 +657,7 @@ class _SettingState extends State<Settings> {
                         settingObserver.saveSetting();
                         I18n.onLocaleChanged!(
                             settingObserver.userSettings.locale);
+                            alertDialog(context, 'Settings Saved');
                       },
                       child: Column(
                         children: [
@@ -688,6 +688,7 @@ class _SettingState extends State<Settings> {
                       settingObserver.saveSetting();
 
                       I18n.onLocaleChanged!(DEFAULT_LOCALE);
+
                     },
                     child: Column(
                       children: [

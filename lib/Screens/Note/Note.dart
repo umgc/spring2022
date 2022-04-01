@@ -4,10 +4,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Screens/Note/ViewNote.dart';
 import 'package:memorez/Utility/Constant.dart';
-import 'package:memorez/generated/i18n.dart';
 import '../../Observables/NoteObservable.dart';
 import 'SaveNote.dart';
-import '../../Model/Note.dart';
+
 
 final viewNotesScaffoldKey = GlobalKey<ScaffoldState>();
 

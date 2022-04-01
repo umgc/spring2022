@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:memorez/Screens/Profile/UserProfile.dart';
-import 'package:provider/provider.dart';
 import 'package:memorez/Model/Setting.dart';
 import 'package:memorez/Observables/OnboardObservable.dart';
-import 'package:memorez/Observables/SettingObservable.dart';
-import 'package:memorez/Screens/Home.dart';
 import 'package:memorez/Screens/Main.dart';
-import 'package:memorez/Screens/Onboarding/CloudSetup.dart';
 import 'package:memorez/Screens/Onboarding/Permission.dart';
 import 'package:memorez/Screens/Onboarding/SelectLanguage.dart';
 import 'package:memorez/Screens/Onboarding/Walkthrough.dart';
-
 import 'package:memorez/generated/i18n.dart';
-
-import '../CreateAdmin.dart';
+import '../Admin/CreateAdmin.dart';
 import '../Profile/edit_profile_page.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -50,7 +43,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   
     switch (index) {
       case 0:
+
         return SelectLanguageScreen();
+
       case 1:
         return PermissionScreen();
       case 2:
@@ -61,7 +56,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         return WalkthroughScreen();
       default:
         return MainNavigator();
+
     }
+
   }
 
   AppBar buildAppBar(BuildContext context) {
