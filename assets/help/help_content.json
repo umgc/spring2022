@@ -2,16 +2,16 @@
 [
   {
     "title":"TASK: Overview of Tasks",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/task_Overview.mp4"
   },
 
   {
     "title":"TASK: How to create a Task",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/createATask.mp4"
   },
   {
-    "title":"TASK: How to edit a Task",
-    "videoUrl":"sample.com"
+    "title":"TASK: How to complete a Task",
+    "videoUrl":"assets/help/completeTask.mp4"
   },
   {
     "title":"NOTES: Overview of Notes",
