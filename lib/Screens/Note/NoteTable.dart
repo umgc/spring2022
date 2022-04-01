@@ -74,6 +74,16 @@ class _NoteTableState extends State<NoteTable> {
         });
       }
     }
+    DateTime _getDate(int index) {
+      String dateString = widget.usersNotes[index].eventDate;
+      DateTime date = DateTime.now();
+      try {
+        date = DateTime.parse(dateString);
+      } on Exception catch (_) {
+        return date;
+      }
+      return date;
+    }
 
     DateTime _getTime(int index) {
       String dateString = widget.usersNotes[index].eventTime;
@@ -159,7 +169,7 @@ class _NoteTableState extends State<NoteTable> {
                             widget.usersNotes[index].localText +
                                 '\n(' +
                                 DateFormat.MMMEd().format(DateTime.parse(
-                                    _getTime(index).toString())) +
+                                    _getDate(index).toString())) +
 
                                 // widget.usersNotes[index].eventDate)) +
                                 ' at ' +
