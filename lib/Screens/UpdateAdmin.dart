@@ -190,23 +190,23 @@ class _HomeFormState extends State<UpdateAdmin> {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 30.0, right: 30),
-                        width: double.infinity,
-                        child: FlatButton(
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.only(left: 30.0, right: 30),
+                      //   width: double.infinity,
+                      //   child: FlatButton(
+                      //     child: Text(
+                      //       'Cancel',
+                      //       style: TextStyle(color: Colors.white),
+                      //     ),
+                      //     onPressed: () {
+                      //       Navigator.pop(context);
+                      //     },
+                      //   ),
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.redAccent,
+                      //     borderRadius: BorderRadius.circular(30.0),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
