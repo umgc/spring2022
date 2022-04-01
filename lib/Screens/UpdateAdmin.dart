@@ -8,6 +8,7 @@ import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/HomePage.dart';
 import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Screens/Main.dart';
+import 'package:memorez/Utility/Constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
 import '../Comm/genLoginSignupHeader.dart';
@@ -16,7 +17,6 @@ import '../main.dart';
 class UpdateAdmin extends StatefulWidget {
   @override
   _HomeFormState createState() => _HomeFormState();
-
 }
 
 class _HomeFormState extends State<UpdateAdmin> {
@@ -29,11 +29,11 @@ class _HomeFormState extends State<UpdateAdmin> {
   final _conPhone = TextEditingController();
   final _conPassword = TextEditingController();
 
+  get screenNav => null;
+
   @override
   void initState() {
-
     super.initState();
-
 
     dbHelper = DbHelper();
     getUserData();
@@ -42,15 +42,14 @@ class _HomeFormState extends State<UpdateAdmin> {
   Future<void> getUserData() async {
     final SharedPreferences sp = await _pref;
 
-      _conUserId.text = await sp.getString("user_id")!;
-      _conDelUserId.text =await sp.getString("user_id")!;
-      _conPhone.text =await sp.getString("phone")!;
-      _conPassword.text =await sp.getString("password")!;
+    _conUserId.text = await sp.getString("user_id")!;
+    _conDelUserId.text = await sp.getString("user_id")!;
+    _conPhone.text = await sp.getString("phone")!;
+    _conPassword.text = await sp.getString("password")!;
 
-      _conUserId.text = EncryptUtil.decryptNote(_conUserId.text);
-      _conDelUserId.text = EncryptUtil.decryptNote(_conDelUserId.text);
-      _conPassword.text = EncryptUtil.decryptNote(_conPassword.text);
-
+    _conUserId.text = EncryptUtil.decryptNote(_conUserId.text);
+    _conDelUserId.text = EncryptUtil.decryptNote(_conDelUserId.text);
+    _conPassword.text = EncryptUtil.decryptNote(_conPassword.text);
   }
 
   update() async {
@@ -74,7 +73,7 @@ class _HomeFormState extends State<UpdateAdmin> {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (_) => MyApp()),
-                    (Route<dynamic> route) => false);
+                (Route<dynamic> route) => false);
           });
         } else {
           alertDialog(context, "Error Update");
@@ -97,7 +96,7 @@ class _HomeFormState extends State<UpdateAdmin> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => MyApp()),
-                  (Route<dynamic> route) => false);
+              (Route<dynamic> route) => false);
         });
       }
     });
@@ -126,8 +125,8 @@ class _HomeFormState extends State<UpdateAdmin> {
         elevation: 0.0,
         foregroundColor: Color(0xFF0D47A1),
         leading: BackButton(
-          onPressed: (){
-              Navigator.pop(context);
+          onPressed: () {
+            Navigator.pop(context);
           },
         ),
       ),
@@ -136,13 +135,11 @@ class _HomeFormState extends State<UpdateAdmin> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  genLoginSignupHeader('Update Caregiver'),//Update
+                  genLoginSignupHeader('Update Caregiver'), //Update
                   getTextFormField(
                       controller: _conPhone,
                       icon: Icons.phone,
@@ -161,7 +158,8 @@ class _HomeFormState extends State<UpdateAdmin> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.all(30.0),
+                        margin: EdgeInsets.only(
+                            top: 10, bottom: 10, left: 30.0, right: 30),
                         width: double.infinity,
                         child: FlatButton(
                           child: Text(
@@ -177,7 +175,8 @@ class _HomeFormState extends State<UpdateAdmin> {
                       ),
                       //Delete
                       Container(
-                        margin: EdgeInsets.all(30.0),
+                        margin:
+                            EdgeInsets.only(bottom: 10, left: 30.0, right: 30),
                         width: double.infinity,
                         child: FlatButton(
                           child: Text(
@@ -191,9 +190,25 @@ class _HomeFormState extends State<UpdateAdmin> {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
+                      Container(
+                        margin: EdgeInsets.only(left: 30.0, right: 30),
+                        width: double.infinity,
+                        child: FlatButton(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.redAccent,
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
                     ],
                   ),
-
                 ],
               ),
             ),

@@ -34,7 +34,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
     final screenNav = Provider.of<MainNavObserver>(context);
     return Builder(
       builder: (context) => Scaffold(
@@ -112,14 +111,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 24),
             TextFieldWidget(
-              label: 'Date of Birth',
-              text: EncryptUtil.decryptNote(user.bday),
-              maxLines: 1,
-              onChanged: (bday) {
-                bday = EncryptUtil.encryptNote(bday);
-                user = user.copy(bday: bday);
-              }
-            ),
+                label: 'Date of Birth',
+                text: EncryptUtil.decryptNote(user.bday),
+                maxLines: 1,
+                onChanged: (bday) {
+                  bday = EncryptUtil.encryptNote(bday);
+                  user = user.copy(bday: bday);
+                }),
             const SizedBox(height: 24),
             const SizedBox(
                 height: 34,
@@ -303,6 +301,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
             ButtonWidget(
               text: 'Save',
+              color: Color(0xFF0D47A1),
               onClicked: () {
                 screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
                 UserPreferences.setUser(user);
@@ -311,6 +310,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 print('Encrypted data: Birthdate: ${user.bday}');
               },
             ),
+            const SizedBox(height: 10),
+            ButtonWidget(
+              text: 'Cancel',
+              color: Colors.red,
+              onClicked: () {
+                screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
+                alertDialog(context, "No Changes Saved");
+              },
+            )
           ],
         ),
       ),

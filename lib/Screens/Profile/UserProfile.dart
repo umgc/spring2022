@@ -19,8 +19,6 @@ import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/transportation_card.dart';
 import 'package:memorez/Screens/Profile/add_medication_card.dart';
 
-
-
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
@@ -77,15 +75,16 @@ class _ProfilePageState extends State<UserProfile> {
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
                 ? Container(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: ButtonWidget(
-
-                text: 'Edit About',
-                onClicked: () {
-                  screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
-                },
-              ),
-            )
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: ButtonWidget(
+                      color: Color(0xFF0D47A1),
+                      text: 'Edit About',
+                      onClicked: () {
+                        screenNav
+                            .changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
+                      },
+                    ),
+                  )
                 : Text(''),
 
             const SizedBox(height: 24),
@@ -101,12 +100,12 @@ class _ProfilePageState extends State<UserProfile> {
             AllergyCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             HistoryCard(),
-            const SizedBox(child: Divider(color: Colors.blueGrey), height: 60,),
+            const SizedBox(
+              child: Divider(color: Colors.blueGrey),
+              height: 60,
+            ),
             // const SizedBox(child: Divider(color: Colors.blueGrey)),
             // MedicalHistoryCard(),
-
-
-
           ],
         ),
       ),

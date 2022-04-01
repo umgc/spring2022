@@ -48,14 +48,13 @@ class _SignupFormState extends State<SignupForm> {
       sp.setString("phone", _conPhone.text);
       sp.setString("password", _conPassword.text);
     });
-
   }
 
-  backToApp(){
+  backToApp() {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => MyApp()),
-            (Route<dynamic> route) => false);
+        (Route<dynamic> route) => false);
   }
 
   signUp() async {
@@ -76,13 +75,12 @@ class _SignupFormState extends State<SignupForm> {
 
         print('XXXXXXXXXXX ${uModel.phone}');
         await dbHelper.saveData(uModel).then((userData) {
-          print('DATA has been ENCRYPTED!!!!! ======> uid: $uid password: $passwd');
+          print(
+              'DATA has been ENCRYPTED!!!!! ======> uid: $uid password: $passwd');
           alertDialog(context, "Successfully Saved");
           submitButtonVisibility.value = false;
-          doneButtonVisibility.value=true;
+          doneButtonVisibility.value = true;
           setSP();
-
-
         }).catchError((error) {
           print('YYYYYYYYY $error');
           alertDialog(context, "Error: Admin already exist, pls log in");
@@ -124,8 +122,8 @@ class _SignupFormState extends State<SignupForm> {
                     valueListenable: doneButtonVisibility,
                     builder: (context, value, _) => Visibility(
                       visible: value,
-                      child:Visibility(
-                        visible: isFirstRun==false,
+                      child: Visibility(
+                        visible: isFirstRun == false,
                         child: Container(
                           margin: EdgeInsets.all(30.0),
                           width: double.infinity,
@@ -142,7 +140,6 @@ class _SignupFormState extends State<SignupForm> {
                           ),
                         ),
                       ),
-
                     ),
                   ),
                   ValueListenableBuilder<bool>(
@@ -183,7 +180,11 @@ class _SignupFormState extends State<SignupForm> {
                                   isObscureText: true,
                                 ),
                                 Container(
-                                  margin: EdgeInsets.all(30.0),
+                                  margin: EdgeInsets.only(
+                                      top: 10,
+                                      bottom: 10,
+                                      left: 30.0,
+                                      right: 30),
                                   width: double.infinity,
                                   child: TextButton(
                                     child: Text(
@@ -194,6 +195,24 @@ class _SignupFormState extends State<SignupForm> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: Color(0xFF0D47A1),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(left: 30.0, right: 30),
+                                  width: double.infinity,
+                                  child: FlatButton(
+                                    child: Text(
+                                      'Cancel',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.redAccent,
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                 ),
