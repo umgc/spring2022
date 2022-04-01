@@ -45,7 +45,7 @@ class _UserProfileState extends State<AddAllergyCard> {
         DatabaseHelper.instance.insertAllergy(allergy);
         print('Inserted to allergy table:  ${allergy.toMap()}');
       } else {
-        // Update medication to Users Database
+        // Update allergy in allergy database
         allergy.id = widget.allergy!.id;
         allergy.status = widget.allergy!.status;
         DatabaseHelper.instance.updateAllergy(allergy);
@@ -57,6 +57,7 @@ class _UserProfileState extends State<AddAllergyCard> {
     }
   }
 
+  //delete allergy from allergy database
   _delete() {
     DatabaseHelper.instance.deleteAllergy(widget.allergy!.id);
     widget.updateAllergyList!();
@@ -131,7 +132,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              //? 'Please enter a allergy name'
+                              //? 'Please enter an allergy name'
                               ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.allergy + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _allergy = input,
@@ -167,8 +168,8 @@ class _UserProfileState extends State<AddAllergyCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              //? 'Please enter dose'
-                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.dose
+                              //? 'Please enter a reaction'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.reaction
 
                               : null,
                           onSaved: (input) => _reaction = input,

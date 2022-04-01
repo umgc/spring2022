@@ -235,7 +235,7 @@ class I18n implements WidgetsLocalizations {
 	/// "About Me"
 	String get aboutMe => "About Me";
 	/// "Phone"
-	String get phone => "Phone";
+	String get phone => "Phone Number";
 	/// "Add"
 	String get add => "Add";
 	/// "Edit"

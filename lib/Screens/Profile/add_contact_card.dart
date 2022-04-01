@@ -128,8 +128,8 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              //? 'Please enter name'
-                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.name
+                              //? 'Please enter contact name'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.contactName
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.contact?.name.toString(),
@@ -161,7 +161,7 @@ class _UserProfileState extends State<AddContactCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              //? 'Please enter phone'
+                              //? 'Please enter phone number'
                                 ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.phone
                               : null,
                           onSaved: (input) => _phone = input,

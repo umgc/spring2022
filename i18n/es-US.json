@@ -113,6 +113,7 @@
     "contact": "Contacto",
     "allergy": "Alergia",
     "allergyReaction": "Reacción Alérgica",
+    "reaction": "reacción",
     "activeTasks": "Tareas activas",
     "addCareTeamMember": "Agregar Miembro Del Equipo De Atención",
     "completedTasks": "Tareas Completadas",
@@ -126,5 +127,6 @@
     "schedule": "Calendario",
     "searchForNote": "Buscar Una Nota",
     "selectTaskType": "Seleccionar Tipo De Tarea",
-    "updateCareTeamMember": "Actualizar miembro del equipo de atención"
+    "updateCareTeamMember": "Actualizar miembro del equipo de atención",
+    "providerName": "Nombre del Proveedor",
 }

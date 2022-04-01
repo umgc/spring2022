@@ -103,13 +103,14 @@
     "allergies": "الحساسية",
     "medicalHistory": "تاريخ طبى",
     "aboutMe": "عني",
-    "phone": "هاتف",
+    "phone": "رقم التليفون",
     "add": "يضيف",
     "edit": "يحرر",
     "update": "تحديث",
     "pleaseEnter": "تفضل",
     "delete": "حذف",
     "dose": "جرعة",
+    "reaction": "تفاعل",
     "contact": "اتصل",
     "allergy": "حساسية",
     "allergyReaction": "رد فعل تحسسي",
@@ -126,5 +127,8 @@
     "schedule": "برنامج",
     "searchForNote": "ابحث عن ملاحظة",
     "selectTaskType": "حدد نوع المهمة",
-    "updateCareTeamMember": "تحديث عضو فريق الرعاية"
+    "updateCareTeamMember": "تحديث عضو فريق الرعاية",
+    "providerName": "اسم المزود",
+    "contactName": "اسم جهة الاتصال"
+
 }

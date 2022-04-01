@@ -103,7 +103,7 @@
     "allergies": "Alergias",
     "medicalHistory": "Histórico médico",
     "aboutMe": "Sobre mim",
-    "phone": "telefone",
+    "phone": "Número de telefone",
     "add": "Adicionar",
     "edit": "Editar",
     "update": "Atualizar",
@@ -113,6 +113,7 @@
     "contact": "Contato",
     "allergy": "Alergia",
     "allergyReaction": "Reação Alérgica",
+    "reaction": "reação",
     "activeTasks": "Tarefas ativas",
     "addCareTeamMember": "Adicionar Membro Da Equipe De Atendimento",
     "completedTasks": "Tarefas Concluídas",
@@ -126,5 +127,7 @@
     "schedule": "Agendar",
     "searchForANote": "Procurar Uma Nota",
     "selectTaskType": "Selecione O Tipo De Tarefa",
-    "updateCareTeamMember": "Atualizar membro da equipe de cuidados"
+    "updateCareTeamMember": "Atualizar membro da equipe de cuidados",
+    "providerName": "Nome do Provedor",
+    "contactName": "Nome de Contato",
 }
