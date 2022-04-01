@@ -129,5 +129,10 @@
     "updateCareTeamMember": "更新护理团队成员",
     "backToNotes": "返回笔记",
     "sendReminderNotification": "发送提醒通知？",
-    "settingDateAndTime": "设置日期和时间会将注释添加到您的日历中"
+    "settingDateAndTime": "设置日期和时间会将注释添加到您的日历中",
+    "day": "日",
+    "week": "星期",
+    "month": "月",
+    "bad": "坏的",
+    "sendTask": "发送任务"
 }

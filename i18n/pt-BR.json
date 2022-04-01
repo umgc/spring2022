@@ -129,5 +129,10 @@
     "updateCareTeamMember": "Atualizar membro da equipe de cuidados",
     "backToNotes": "VOLTAR ÀS NOTAS",
     "sendReminderNotification": "Enviar notificação de lembrete?",
-    "settingDateAndTime": "Definir uma data e hora adicionará a nota ao seu calendário"
+    "settingDateAndTime": "Definir uma data e hora adicionará a nota ao seu calendário",
+    "day": "Dia",
+    "week": "Semana",
+    "month": "Mês",
+    "bad": "Mau",
+    "sendTask": "Enviar tarefa"
 }

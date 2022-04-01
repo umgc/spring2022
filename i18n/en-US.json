@@ -127,5 +127,10 @@
     "updateCareTeamMember": "Update Care Team Member",
     "backToNotes": "BACK TO NOTES",
     "sendReminderNotification": "Send Reminder Notification?",
-    "settingDateAndTime": "Setting a date and time will add the note to your calendar"
+    "settingDateAndTime": "Setting a date and time will add the note to your calendar",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "bad": "Bad",
+    "sendTask": "Send Task"
 }
