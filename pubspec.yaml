@@ -120,6 +120,8 @@ flutter:
     - assets/help/task_Overview.mp4
     - assets/help/createATask.mp4
     - assets/help/completeTask.mp4
+    - assets/help/notesOverview.mp4
+    - assets/help/otherTopicsOnNotes.mp4
     - assets/help/help_content.json
     - assets/images/caregiver_patient_image.png
     - assets/images/mic.png

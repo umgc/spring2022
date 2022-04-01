@@ -203,8 +203,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4"))),
+                                            videoUrl:helpItems[index].videoUrl))),
                                   )
                                 },
                             title: Text(
