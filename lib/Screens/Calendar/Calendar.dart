@@ -11,6 +11,8 @@ import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Screens/Calendar/CalendarFormatBar.dart';
 
+import '../../generated/i18n.dart';
+
 final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
 //Variable Definitions ----------------------------------------
@@ -91,7 +93,10 @@ class CalendarState extends State<Calendar> {
               onChanged: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: '--Search For A Note--',
+                hintText: '-- ' + I18n.of(context)!.searchForNote + ' --',
+                hintStyle: TextStyle(
+                    color: Colors.grey
+                ),
               )),
           const SizedBox(
             height: 15,
