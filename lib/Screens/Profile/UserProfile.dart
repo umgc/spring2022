@@ -59,7 +59,6 @@ class _ProfilePageState extends State<UserProfile> {
     final screenNav = Provider.of<MainNavObserver>(context);
     final user = UserPreferences.getUser();
     final settingObserver = Provider.of<SettingObserver>(context);
-
     textCol = textMode(settingObserver.userSettings.darkMode);
     return Builder(
       builder: (context) => Scaffold(
