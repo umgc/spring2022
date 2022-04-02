@@ -133,7 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 UserPreferences.getUser();
                 alertDialog(context, "Updated User Profile");
                 print('Encrypted data: Birthdate: ${user.bday}');
-              },
+              }, color: Color(0xFF123776),
             ),
             const SizedBox(height: 10),
             ButtonWidget(

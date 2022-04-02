@@ -4,10 +4,6 @@ import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Screens/HomePage.dart';
-import 'package:memorez/Screens/LoginPage.dart';
-import 'package:memorez/Screens/Main.dart';
-import 'package:memorez/Utility/Constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
 import '../../Comm/genLoginSignupHeader.dart';
@@ -189,23 +185,6 @@ class _HomeFormState extends State<UpdateAdmin> {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.only(left: 30.0, right: 30),
-                      //   width: double.infinity,
-                      //   child: FlatButton(
-                      //     child: Text(
-                      //       'Cancel',
-                      //       style: TextStyle(color: Colors.white),
-                      //     ),
-                      //     onPressed: () {
-                      //       Navigator.pop(context);
-                      //     },
-                      //   ),
-                      //   decoration: BoxDecoration(
-                      //     color: Colors.redAccent,
-                      //     borderRadius: BorderRadius.circular(30.0),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ],

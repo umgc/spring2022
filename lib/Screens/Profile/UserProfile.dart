@@ -73,7 +73,7 @@ class _ProfilePageState extends State<UserProfile> {
                 text: I18n.of(context)!.edit + ' ' + I18n.of(context)!.aboutMe,
                 onClicked: () {
                   screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
-                },
+                }, color: Color(0xFF123776),
               ),
             )
                 : Text(''),
