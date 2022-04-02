@@ -175,7 +175,12 @@ class CalendarState extends State<Calendar> {
 
                 if (_events.length > 0) {
                   calendarObserver.weekView();
-                  calendarObserver.getNotesOnDay();
+
+                  try {
+                    calendarObserver.getNotesOnDay();
+                  }catch (error) {
+                    print('err');
+                  }
                 }
                 (context as Element).reassemble();
               },
