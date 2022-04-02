@@ -126,6 +126,7 @@ flutter:
     - assets/help/otherTopicsOnCalendar.mp4
     - assets/help/profileOverview.mp4
     - assets/help/otherTopicsOnProfile.mp4
+    - assets/help/chatOverview.mp4
     - assets/help/settingsOverview.mp4
     - assets/help/otherTopicsOnSettings.mp4
     - assets/help/help_content.json
