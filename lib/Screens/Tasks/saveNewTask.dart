@@ -13,9 +13,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 
+import '../../Utility/ThemeUtil.dart';
+
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 enum responseText { start, Yes, No } //enum for Text Response, Schedule
 enum responseSchedule { start, Now, Future } //enum for Text Response, Schedule
+
+Color? textCol;
 
 /// Save Task page
 class SaveNewTask extends StatefulWidget {
@@ -79,7 +83,8 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
-
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     List<Step> getSteps() => [
           // Screen 1
           Step(
@@ -103,11 +108,17 @@ class _SaveNewTaskState extends State<SaveNewTask> {
                         fontWeight: FontWeight.bold),
                   ),
                 )),
-                const SizedBox(
-                    height: 55.0, child: Text('\n Select Task Type')),
+                SizedBox(
+                    height: 55.0,
+                    child: Text(
+                      '\n Select Task Type',
+                      style: TextStyle(color: textCol),
+                    )),
                 Container(
-                  constraints:
-                      const BoxConstraints.tightFor(width: 400, height: 70),
+                  constraints: BoxConstraints.tightFor(width: 400, height: 70),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                  ),
                   child: OutlinedButton.icon(
                       onPressed: () {
                         //muted
@@ -126,17 +137,19 @@ class _SaveNewTaskState extends State<SaveNewTask> {
                         size: 40,
                         color: Colors.green,
                       ),
-                      label: const Text(
-                        '\t\t\t\t\t\t\t\t Send A task for the patient \n \t\t\t\t\t\t\t to review',
-                        style: TextStyle(color: Colors.black),
+                      label: Text(
+                        '\t\t\t\t\t\t\t\t Send a task for the patient \n \t\t\t\t\t\t\t to review',
+                        style: TextStyle(color: textCol),
                       )),
                 ),
                 const SizedBox(
                   height: 10.0,
                 ),
                 Container(
-                  constraints:
-                      const BoxConstraints.tightFor(width: 400, height: 70),
+                  constraints: BoxConstraints.tightFor(width: 400, height: 70),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                  ),
                   child: OutlinedButton.icon(
                       onPressed: () {
                         setState(() {
@@ -157,9 +170,9 @@ class _SaveNewTaskState extends State<SaveNewTask> {
                         size: 40,
                         color: Colors.red,
                       ),
-                      label: const Text(
-                        '\t\t\t\t\t\t\t\t Send A task for the patient \n \t\t\t\t\t\t\t to perform an action',
-                        style: TextStyle(color: Colors.black),
+                      label: Text(
+                        '\t\t\t\t\t\t\t\t Send a task for the patient \n \t\t\t\t\t\t\t to perform an action',
+                        style: TextStyle(color: textCol),
                       )),
                 ),
                 const SizedBox(
@@ -661,6 +674,7 @@ class _SaveNewTaskState extends State<SaveNewTask> {
     }
 
     return Scaffold(
+      backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
       resizeToAvoidBottomInset: true,
       key: saveTaskScaffoldKey,
       body: Stepper(

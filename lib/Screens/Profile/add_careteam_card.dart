@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/DatabaseHandler/database_helper_careteam.dart';
 import 'package:memorez/Model/CareTeam.dart';
+import 'package:provider/provider.dart';
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 import '../../generated/i18n.dart';
 
 
@@ -13,6 +16,8 @@ class AddCareTeamCard extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
+
+Color? textCol;
 
 class _UserProfileState extends State<AddCareTeamCard> {
   final _formKey = GlobalKey<FormState>();
@@ -56,6 +61,8 @@ class _UserProfileState extends State<AddCareTeamCard> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

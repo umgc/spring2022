@@ -271,7 +271,7 @@ class _TaskHealthCheck extends State<CompleteHealthCheck> {
                                         child: IconButton(
                                             onPressed: () {
                                               setState(() {
-                                                ///User has seleced Bad, move onto the next screen
+                                                ///User has selected Bad, move onto the next screen
                                                 screen = '2';
                                                 firstSelection = 'Bad';
                                               });
@@ -280,7 +280,8 @@ class _TaskHealthCheck extends State<CompleteHealthCheck> {
                                               FontAwesomeIcons.solidAngry,
                                               color: Colors.red,
                                               size: ICON_SIZE,
-                                            )),
+                                            ),
+                                        ),
                                       ),
                                       Text(
                                         'Bad',

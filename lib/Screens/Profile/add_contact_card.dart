@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/DatabaseHandler/database_helper_contacts.dart';
 import 'package:memorez/Model/Contacts.dart';
+import 'package:provider/provider.dart';
+
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 
 
 class AddContactCard extends StatefulWidget {
@@ -13,6 +17,8 @@ class AddContactCard extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
+
+Color? textCol;
 
 class _UserProfileState extends State<AddContactCard> {
   final _formKey = GlobalKey<FormState>();
@@ -56,6 +62,8 @@ class _UserProfileState extends State<AddContactCard> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

@@ -11,6 +11,8 @@ import 'dart:math' as math;
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../Utility/ThemeUtil.dart';
+
 final saveTaskScaffoldKey = GlobalKey<ScaffoldState>();
 
 /// Save Task page
@@ -23,6 +25,8 @@ class CompleteActivity extends StatefulWidget {
   State<CompleteActivity> createState() => _TaskDetails(readOnly: this.readOnly);
 }
 
+Color? textCol;
+
 class _TaskDetails extends State<CompleteActivity> {
   /// Text task service to use for I/O operations against local system
   final TextTaskService textTaskService = new TextTaskService();
@@ -34,7 +38,8 @@ class _TaskDetails extends State<CompleteActivity> {
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
-
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
 
     try {
       responseText = taskObserver.currTaskForDetails!.responseText;
@@ -57,7 +62,9 @@ class _TaskDetails extends State<CompleteActivity> {
                     Text(
                       taskObserver.currTaskForDetails!.taskType,
                       style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: textCol),
                     ),
                     Spacer(),
                     FaIcon(getIcon(taskObserver.currTaskForDetails!.icon),
@@ -69,6 +76,7 @@ class _TaskDetails extends State<CompleteActivity> {
                 'This activity task is assigned to you to perform an action.',
                 style: TextStyle(
                   fontSize: 20.0,
+                  color: textCol,
                 ),
               ),
               Padding(
@@ -81,12 +89,15 @@ class _TaskDetails extends State<CompleteActivity> {
                       style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
+                        color: textCol,
                       ),
                     ),
                     Text(
                       taskObserver.currTaskForDetails!.description,
                       softWrap: true,
-                      style: TextStyle(fontSize: 25.0),
+                      style: TextStyle(fontSize: 25.0,
+                      color: textCol,
+                      ),
                     ),
                   ],
                 ),
@@ -98,8 +109,13 @@ class _TaskDetails extends State<CompleteActivity> {
                 child: TextField(
                   textInputAction: TextInputAction.done,
                   maxLines: 3,
-                  style: TextStyle(fontSize: 30),
-                  decoration: InputDecoration(hintText: "--Response--"),
+                  style: TextStyle(fontSize: 30, color: textCol),
+                  decoration: InputDecoration(
+                    hintText: "--Response--",
+                    hintStyle: TextStyle(
+                        color: textCol,
+                    ),
+                  ),
                   onChanged: (text) {
                     setState(() {
                       responseText = text;

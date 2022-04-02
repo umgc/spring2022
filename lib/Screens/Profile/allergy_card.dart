@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:memorez/Model/Allergy.dart';
 import 'package:memorez/Screens/Profile/add_allergy_card.dart';
 import 'package:memorez/generated/i18n.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/DatabaseHandler/database_helper_allergy.dart';
+import '../../Observables/SettingObservable.dart';
 import '../../Utility/EncryptionUtil.dart';
+import '../../Utility/ThemeUtil.dart';
 
 
 class AllergyCard extends StatefulWidget {
@@ -30,6 +33,7 @@ class _AllergyCardState extends State<AllergyCard> {
     });
   }
 
+  Color? textCol;
   Future<List<Allergy>>? _allergyList;
 
   @override
@@ -61,18 +65,25 @@ String allergyR = EncryptUtil.decryptNote(allergy.reaction!);
           ListTile(
               title: Text(
                 allergyN,
-                style: kLabelTextStyle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w900,
+                  color: textCol,
+                ),
               ),
               subtitle: Text(
                 allergyR,
-                style: kSubText,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: textCol,
+                ),
               ),
               trailing:
 
               Visibility(
                 visible: _conUserId.text == 'Admin',
                 child: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.edit, color: textCol,),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -94,6 +105,9 @@ String allergyR = EncryptUtil.decryptNote(allergy.reaction!);
   @override
   Widget build(BuildContext context) {
     print('xxxxxxxxxxxxxxxxxx${_conUserId.text}');
+
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
 
     return Row(
       children: [

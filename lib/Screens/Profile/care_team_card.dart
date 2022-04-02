@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -6,6 +7,8 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/DatabaseHandler/database_helper_careteam.dart';
 import 'package:memorez/Model/CareTeam.dart';
 import 'package:memorez/Screens/Profile/add_careteam_card.dart';
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 import '../../generated/i18n.dart';
 
 
@@ -29,6 +32,7 @@ class _CareTeamCardState extends State<CareTeamCard> {
     });
   }
 
+  Color? textCol;
   Future<List<CareTeam>>? _careTeamList;
 
   @override
@@ -57,18 +61,25 @@ class _CareTeamCardState extends State<CareTeamCard> {
           ListTile(
               title: Text(
                 careTeam.name!,
-                style: kLabelTextStyle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w900,
+                  color: textCol,
+                ),
               ),
               subtitle: Text(
                 careTeam.phone!,
-                style: kSubText,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: textCol,
+                ),
               ),
               trailing:
 
               Visibility(
                 visible: _conUserId.text == 'Admin',
                 child: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.edit, color: textCol,),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -90,6 +101,9 @@ class _CareTeamCardState extends State<CareTeamCard> {
   @override
   Widget build(BuildContext context) {
     print('xxxxxxxxxxxxxxxxxx${_conUserId.text}');
+
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
 
     return Row(
       children: [

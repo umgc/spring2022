@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Note.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
@@ -14,6 +15,8 @@ import '../../Observables/NoteObservable.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 final saveNoteScaffoldKey = GlobalKey<ScaffoldState>();
+
+Color? textCol;
 
 /// Save Note page
 class SaveNote extends StatefulWidget {
@@ -115,13 +118,27 @@ class _SaveNoteState extends State<SaveNote> {
       {required String title,
       required String value,
       required Function onChanged}) {
+
+    return Theme(
+      data: ThemeData(unselectedWidgetColor: textCol),child: RadioListTile(
+      value: value,
+      groupValue: _reminderNotification,
+      onChanged: (newValue) =>
+          setState(() => _reminderNotification = newValue.toString()),
+      title: Text(title, style: TextStyle(color: textCol),
+      ),
+      activeColor: textCol,
+      selected: false,
+    ),
+    );
     return RadioListTile(
       value: value,
       groupValue: _reminderNotification,
       onChanged: (newValue) =>
           setState(() => _reminderNotification = newValue.toString()),
-      title: Text(title),
-      activeColor: Colors.black,
+      title: Text(title, style: TextStyle(color: textCol),
+      ),
+      activeColor: textCol,
       selected: false,
     );
   }
@@ -196,18 +213,6 @@ class _SaveNoteState extends State<SaveNote> {
           noteObserver.setNewNoteEventDate(mDate);
           noteObserver.setNewNoteEventTime(mTime);
         }
-        //   if (noteObserver.newNoteIsCheckList == true ||
-        //      this.isCheckListEvent == true) {
-        //    noteObserver.setNewNoteEventTime(value);
-        //   } else {
-        //   print("value " + value.toString());
-        //    String mDate = value.split(" ")[0];
-        //  String mTime = value.split(" ")[1];
-        // noteObserver.setNewNoteEventDate(mDate);
-        //   noteObserver.setNewNoteEventTime(mTime);
-        //    noteObserver.setNewNoteEventTime(value);
-
-        //  }
       },
       validator: (val) {
         print(val);
@@ -221,6 +226,7 @@ class _SaveNoteState extends State<SaveNote> {
   Widget build(BuildContext context) {
     final noteObserver = Provider.of<NoteObserver>(context, listen: false);
     final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     String noteId = "";
     //VIEW_NOTE MODE: Populated the details of the targeted notes into the UI
     if (noteObserver.currNoteForDetails != null) {
@@ -240,6 +246,7 @@ class _SaveNoteState extends State<SaveNote> {
     var noteWidth = MediaQuery.of(context).size.width * 0.87;
 
     return Scaffold(
+      backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
       key: saveNoteScaffoldKey,
       body: Observer(
         builder: (context) => SingleChildScrollView(
@@ -252,7 +259,8 @@ class _SaveNoteState extends State<SaveNote> {
                 style: TextStyle(fontSize: fontSize),
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: I18n.of(context)!.enterNoteText),
+                    hintText: I18n.of(context)!.enterNoteText,
+                    hintStyle: TextStyle(color: Colors.grey)),
               ),
               SizedBox(height: verticalColSpace),
               _selectDate(noteObserver.newNoteIsCheckList, I18n.of(context),
@@ -262,13 +270,13 @@ class _SaveNoteState extends State<SaveNote> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                       I18n.of(context)!.settingDateAndTime,
-                      style: TextStyle(fontSize: 12, color: Colors.black54))),
+                      style: TextStyle(fontSize: 12, color: textCol))),
               Container(
                   padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
                   alignment: Alignment.centerLeft,
                   child: Text(I18n.of(context)!.sendReminderNotification,
                       style: TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold))),
+                          fontSize: 12, fontWeight: FontWeight.bold, color: textCol))),
               _checkBox(noteObserver.currNoteForDetails),
               SizedBox(height: verticalColSpace),
               Column(

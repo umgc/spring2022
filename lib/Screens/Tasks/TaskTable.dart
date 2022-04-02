@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Services/TaskService.dart';
+import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Task.dart';
 import 'package:memorez/Utility/Constant.dart';
+import '../../Observables/SettingObservable.dart';
 import '../../Observables/TaskObservable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -19,6 +21,7 @@ class _TaskTableState extends State<TaskTable> {
   @override
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context);
+    final settingObserver = Provider.of<SettingObserver>(context);
     inactiveTasksUpdated = taskObserver.inactiveTasksUpdated;
     taskObserver.resetCurrTaskIdForDetails();
 
@@ -62,6 +65,7 @@ class _TaskTableState extends State<TaskTable> {
     // taskObserver.changeScreen(TASK_SCREENS.TASK);
 
     return Scaffold(
+      backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
       body: ListView(children: [
         Column(
           children: [

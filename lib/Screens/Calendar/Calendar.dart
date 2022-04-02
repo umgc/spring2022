@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
+import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:memorez/Model/CalendarEvent.dart';
 import 'package:memorez/Model/Note.dart';
@@ -17,6 +18,8 @@ final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
 //Variable Definitions ----------------------------------------
 bool _filteredNotesIsVisible = false;
+
+Color? textCol;
 
 DateTime _focusedDay = DateTime.now();
 List<CalenderEvent> _events = [];
@@ -38,6 +41,8 @@ class CalendarState extends State<Calendar> {
     final noteObserver = Provider.of<NoteObserver>(context);
     final calendarObserver = Provider.of<CalendarObservable>(context);
     final settingObserver = Provider.of<SettingObserver>(context);
+
+    textCol = textMode(settingObserver.userSettings.darkMode);
 
     calendarObserver.setNoteObserver(noteObserver);
     calendarObserver.generateDailyTiles();
@@ -121,11 +126,11 @@ class CalendarState extends State<Calendar> {
                         child: new ListTile(
                           //onTap: () => print('${value[index]}'),
                           title: Text("${_matchedEvents[index].text}",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: textCol),
                               textAlign: TextAlign.center),
                           subtitle: Text(
                               "${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t at \t ${_matchedEvents[index].eventTime}",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: textCol),
                               textAlign: TextAlign.center),
                         ),
                       ),
@@ -180,11 +185,10 @@ class CalendarState extends State<Calendar> {
 
                 if (_events.length > 0) {
                   calendarObserver.weekView();
-
                   try {
                     calendarObserver.getNotesOnDay();
                   }catch (error) {
-                    print('err');
+                    print('setttttttttttttttt state errrrrrrrrrrrrrrror');
                   }
                 }
                 (context as Element).reassemble();
@@ -233,7 +237,6 @@ class CalendarState extends State<Calendar> {
                   }),
             ),
           ),
-
           const SizedBox(height: 8.0),
           Visibility(
             visible: calendarObserver.getNotesOnDayIsVisible(),
@@ -262,39 +265,6 @@ class CalendarState extends State<Calendar> {
                   }),
             ),
           )
-          //Area under Calendar displaying notes--------------------------------
-          // Visibility(
-          //   visible: calendarObserver.getNotesOnDayIsVisible(),
-          //   child: Expanded(
-          //       child: ValueListenableBuilder<List<CalenderEvent>>(
-          //     valueListenable: calendarObserver.selectedEvents,
-          //     builder: (context, value, _) {
-          //       print("Initialized Value Notifier: ");
-          //       return ListView.builder(
-          //           itemCount: value.length,
-          //           itemBuilder: (context, index) {
-          //             return Container(
-          //               height: 50,
-          //               margin: const EdgeInsets.symmetric(
-          //                 horizontal: 12.0,
-          //                 vertical: 3,
-          //               ),
-          //               decoration: BoxDecoration(
-          //                 color: Colors.lightBlue.shade50,
-          //                 border: Border.all(color: Colors.blueGrey, width: 1),
-          //                 borderRadius: BorderRadius.circular(12.0),
-          //               ),
-          //               child: ListTile(
-          //                 //onTap: () => print('${value[index]}'),
-          //                 title: Text(
-          //                     "${value[index]} \t at \t ${value[index].time}",
-          //                     textAlign: TextAlign.center),
-          //               ),
-          //             );
-          //           });
-          //     },
-          //   )),
-          // )
         ]),
       ),
     );

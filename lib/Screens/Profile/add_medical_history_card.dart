@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
 import 'package:memorez/Model/History.dart';
+import 'package:provider/provider.dart';
+import '../../Observables/SettingObservable.dart';
 import '../../Utility/EncryptionUtil.dart';
+import '../../Utility/ThemeUtil.dart';
 
 
 class AddHistoryCard extends StatefulWidget {
@@ -14,6 +17,8 @@ class AddHistoryCard extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
+
+Color? textCol;
 
 class _UserProfileState extends State<AddHistoryCard> {
   final _formKey = GlobalKey<FormState>();
@@ -58,6 +63,8 @@ class _UserProfileState extends State<AddHistoryCard> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

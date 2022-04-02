@@ -12,7 +12,7 @@ enum FontSize {
   LARGE,
 }
 
-enum AppTheme { BLUE, PINK } /// prob needs to be changed
+enum AppTheme { BLUE, PINK, RED, ORANGE, GREEN, DARK, GREY, PURPLE, YELLOW} /// prob needs to be changed
 
 fontSizeStringToEnum(String fontSizeString) {
   switch (fontSizeString) {
@@ -31,8 +31,24 @@ appThemeStringToEnum(String appTheme) { ///needs to be changed with appTheme
       return AppTheme.BLUE;
     case 'AppTheme.PINK':
       return AppTheme.PINK;
+    case 'AppTheme.RED':
+      return AppTheme.RED;
+    case 'AppTheme.ORANGE':
+      return AppTheme.ORANGE;
+    case 'AppTheme.GREEN':
+      return AppTheme.GREEN;
+    case 'AppTheme.DARK':
+      return AppTheme.DARK;
+    case 'AppTheme.GREY':
+      return AppTheme.GREY;
+    case 'AppTheme.PURPLE':
+      return AppTheme.PURPLE;
+    case 'AppTheme.YELLOW':
+      return AppTheme.YELLOW;
   }
 }
+
+const DEFAULT_DARK_MODE = false;
 
 const DEFAULT_FONT_SIZE = FontSize.MEDIUM;
 
@@ -80,7 +96,7 @@ const DEFAULT_ENABLE_VOICE_OVER_TEXT = true;
 
 const DEFAULT_MINUTES_BEFORE_NOTE_NOTIFICATIONS = "3";
 
-const DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS = "1";
+const DEFAULT_MINUTES_BEFORE_TASK_NOTIFICATIONS = "3";
 
 const DEFAULT_ENABLE_NOTES_NOTIFICATIONS = true;
 
@@ -97,6 +113,8 @@ class Setting {
 
   //bool to track if the app is newly installed
   bool isFirstRun = DEFAULT_IS_FIRST_RUN;
+
+  bool darkMode = DEFAULT_DARK_MODE;
 
   // language of preference
   Locale locale = DEFAULT_LOCALE;
@@ -124,6 +142,7 @@ class Setting {
     String jsonStr = """{"daysToKeepFiles": "${this.daysToKeepFiles}",
                         "locale": "${this.locale.toString()}",
                         "isFirstRun": ${this.isFirstRun},
+                        "darkMode": ${this.darkMode},
                         "enableVoiceOverText": ${this.enableVoiceOverText},
                         "appTheme": "${this.appTheme.toString()}",
                         "noteFontSize": "${this.noteFontSize.toString()}",
@@ -148,6 +167,7 @@ class Setting {
         setting.locale = DEFAULT_LOCALE;
       }
       setting.daysToKeepFiles = jsonObj['daysToKeepFiles']?.toString() ?? DEFAULT_DAYS_TO_KEEP_FILES;
+      setting.darkMode = jsonObj['darkMode'] ?? DEFAULT_DARK_MODE;
       setting.isFirstRun = jsonObj['isFirstRun'] ?? DEFAULT_IS_FIRST_RUN;
       setting.enableVoiceOverText = jsonObj['enableVoiceOverText'] ?? DEFAULT_ENABLE_VOICE_OVER_TEXT;
       setting.noteFontSize = fontSizeStringToEnum(jsonObj['noteFontSize']) ?? DEFAULT_FONT_SIZE;

@@ -109,9 +109,7 @@ class _NoteTableState extends State<NoteTable> {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: '-- ' + I18n.of(context)!.searchForNote + ' --',
-              hintStyle: TextStyle(
-                  color: Colors.grey
-              ),
+              hintStyle: TextStyle(color: Colors.grey)
             ),
             onChanged: (value) {
               _runFilter(value);

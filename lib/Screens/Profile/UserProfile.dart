@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/allergy_card.dart';
+import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/Screens/Profile/profile_card.dart';
@@ -12,6 +13,7 @@ import 'package:memorez/Screens/Profile/add_medication_card.dart';
 
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
+import '../../Observables/SettingObservable.dart';
 import '../../Utility/Constant.dart';
 import '../../generated/i18n.dart';
 import 'care_team_card.dart';
@@ -47,6 +49,8 @@ class _ProfilePageState extends State<UserProfile> {
     });
   }
 
+  Color? textCol;
+
   void removeSP(String key) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove("user_id");
@@ -56,9 +60,11 @@ class _ProfilePageState extends State<UserProfile> {
   Widget build(BuildContext context) {
     final screenNav = Provider.of<MainNavObserver>(context);
     final user = UserPreferences.getUser();
-
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Builder(
       builder: (context) => Scaffold(
+        backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
         body: ListView(
           physics: BouncingScrollPhysics(),
           children: [

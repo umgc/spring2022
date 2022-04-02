@@ -13,16 +13,20 @@ import 'dart:math' as math;
 import '../../DatabaseHandler/database_helper_profile.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
+import '../../Utility/ThemeUtil.dart';
 
 List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
 List<String> _minutesBeforeNoteNotification = ['1', '2', '3', '5', '10', '30'];
 List<String> _minutesBeforeTaskNotification = ['1', '2', '3', '5', '10', '30'];
-List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK];
+List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK,
+  AppTheme.GREEN, AppTheme.ORANGE, AppTheme.GREY,
+  AppTheme.PURPLE, AppTheme.YELLOW];
 
 List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
 
 bool careMode = false;
 
+Color? textCol;
 class Settings extends StatefulWidget {
   @override
   _SettingState createState() => _SettingState();
@@ -69,6 +73,9 @@ class _SettingState extends State<Settings> {
     final supportedLocales = GeneratedLocalizationsDelegate().supportedLocales;
     _conUserId.text == 'Admin'? careMode = true : careMode = false;
 
+    ///text color based on dark mode
+    textCol = textMode(settingObserver.userSettings.darkMode);
+
     ///Helper method to convert theme names from all caps to normal text.
     _themeToDisplayName(AppTheme appTheme) {
       switch (appTheme) {
@@ -79,6 +86,34 @@ class _SettingState extends State<Settings> {
         case AppTheme.PINK:
           {
             return I18n.of(context)!.pink;
+          }
+        // case AppTheme.RED:
+        //   {
+        //     return 'RED';
+        //   }
+        case AppTheme.GREEN:
+          {
+            return I18n.of(context)!.green;
+          }
+        case AppTheme.ORANGE:
+          {
+            return I18n.of(context)!.orange;
+          }
+        // case AppTheme.DARK:
+        //   {
+        //     return 'DARK';
+        //   }
+        case AppTheme.GREY:
+          {
+            return I18n.of(context)!.grey;
+          }
+        case AppTheme.PURPLE:
+          {
+            return I18n.of(context)!.purple;
+          }
+        case AppTheme.YELLOW:
+          {
+            return I18n.of(context)!.yellow;
           }
         default:
           throw new UnimplementedError('not implemented');
@@ -116,6 +151,7 @@ class _SettingState extends State<Settings> {
     final double _iconSize = 40.00;
 
     return Scaffold(
+      backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(15.0),
         child: Column(
@@ -151,7 +187,10 @@ class _SettingState extends State<Settings> {
                       //'Enable Notifications',
                       I18n.of(context)!.enableNotifications,
                       style: TextStyle(
-                          fontSize: _bodyFontSize, fontWeight: FontWeight.bold),
+                          fontSize: _bodyFontSize,
+                          fontWeight: FontWeight.bold,
+                          color: textCol
+                      ),
                     ),
                     Switch(
                       value:
@@ -180,10 +219,12 @@ class _SettingState extends State<Settings> {
                         style: TextStyle(
                           fontSize: _bodyFontSize,
                           fontWeight: FontWeight.bold,
+                          color: textCol
                         ),
                       ),
                     ),
                     DropdownButton<String>(
+                      dropdownColor: backgroundMode(settingObserver.userSettings.darkMode),
                       alignment: Alignment.center,
                       value: settingObserver
                           .userSettings.minutesBeforeNoteNotifications,
@@ -195,6 +236,7 @@ class _SettingState extends State<Settings> {
                             value,
                             style: TextStyle(
                               fontSize: _bodyFontSize,
+                              color: textCol
                             ),
                           ),
                         );
@@ -208,53 +250,14 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: <Widget>[
-                //     Flexible(
-                //       child: Text(
-                //         I18n.of(context)!.daysToKeepNotes,
-                //         //'Days To Keep Notes',
-                //         style: TextStyle(
-                //           fontSize: _bodyFontSize,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //     ),
-                //     DropdownButton<String>(
-                //       alignment: Alignment.center,
-                //
-                //       /// This may need to be changed to new variable.*****************
-                //       value: settingObserver.userSettings.daysToKeepFiles,
-                //       items: _daysToKeepFilesOptions
-                //           .map<DropdownMenuItem<String>>((String value) {
-                //         return DropdownMenuItem<String>(
-                //           value: value,
-                //           child: Text(
-                //             value,
-                //             style: TextStyle(
-                //               fontSize: _bodyFontSize,
-                //             ),
-                //           ),
-                //         );
-                //       }).toList(),
-                //       onChanged: (String? newValue) {
-                //         setState(() {
-                //           settingObserver.userSettings.daysToKeepFiles =
-                //               newValue!;
-                //
-                //           /// This may need to be changed to new variable.*****************
-                //
-                //           //null check
-                //         });
-                //       },
-                //     ),
-                //   ],
-                // ),
-                _addTopDivider(),
-                _addBotDivider(),
-
-                /// Tasks section
+                SizedBox(
+                  height: 10.0,
+                ),              
+                addTopDivider(settingObserver),
+                addBotDivider(settingObserver),
+                /**
+             * Tasks section
+             */
                 Row(
                   children: <Widget>[
                     Row(
@@ -281,6 +284,7 @@ class _SettingState extends State<Settings> {
                       style: TextStyle(
                         fontSize: _bodyFontSize,
                         fontWeight: FontWeight.bold,
+                        color: textCol
                       ),
                     ),
                     Switch(
@@ -310,10 +314,12 @@ class _SettingState extends State<Settings> {
                         style: TextStyle(
                           fontSize: _bodyFontSize,
                           fontWeight: FontWeight.bold,
+                          color: textCol
                         ),
                       ),
                     ),
                     DropdownButton<String>(
+                      dropdownColor: backgroundMode(settingObserver.userSettings.darkMode),
                       alignment: Alignment.center,
                       value: settingObserver
                           .userSettings.minutesBeforeTaskNotifications,
@@ -325,6 +331,7 @@ class _SettingState extends State<Settings> {
                             value,
                             style: TextStyle(
                               fontSize: _bodyFontSize,
+                              color: textCol
                             ),
                           ),
                         );
@@ -338,8 +345,11 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
-                _addTopDivider(),
-                _addBotDivider(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                addTopDivider(settingObserver),
+                addBotDivider(settingObserver),
               ],
               /**
              * App Settings Section
@@ -372,10 +382,12 @@ class _SettingState extends State<Settings> {
                       style: TextStyle(
                         fontSize: _bodyFontSize,
                         fontWeight: FontWeight.bold,
+                        color: textCol,
                       ),
                     ),
                   ),
                   DropdownButton<FontSize?>(
+                    dropdownColor: backgroundMode(settingObserver.userSettings.darkMode),
                     alignment: Alignment.center,
                     value: settingObserver.userSettings.menuFontSize,
                     items: fontSizes
@@ -386,6 +398,7 @@ class _SettingState extends State<Settings> {
                           _fontToDisplayName(value),
                           style: TextStyle(
                             fontSize: _bodyFontSize,
+                            color: textCol
                           ),
                         ),
                       );
@@ -407,47 +420,11 @@ class _SettingState extends State<Settings> {
                     style: TextStyle(
                       fontSize: _bodyFontSize,
                       fontWeight: FontWeight.bold,
+                      color: textCol
                     ),
                   ),
-
-                  // Text(I18n.of(context)!.language,
-                  //     style: Theme.of(context).textTheme.bodyText2),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(3),
-                  //   child: Container(
-                  //     width: 60,
-                  //     height: 40,
-                  //     padding: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                  //     decoration: BoxDecoration(
-                  //       border: Border.all(color: Colors.black, width: 1),
-                  //     ),
-                  //       DropdownButton(
-                  //       hint: Text(
-                  //         I18n.of(context)!.selectLanguage,
-                  //         style: Theme.of(context).textTheme.headline6,
-                  //       ),
-                  //
-                  //       value: settingObserver.userSettings.locale,
-                  //       onChanged: (Locale? newLocale) {
-                  //         setState(() {
-                  //           if (newLocale != null) {
-                  //             settingObserver.userSettings.locale = newLocale;
-                  //           }
-                  //         });
-                  //       },
-                  //       isExpanded: true,
-                  //       underline: SizedBox(),
-                  //       style: Theme.of(context).textTheme.bodyText1,
-                  //       items: supportedLocales.map((valueItem) {
-                  //         return DropdownMenuItem(
-                  //             value: valueItem,
-                  //             child: Text((LocaleService.getDisplayLanguage(
-                  //                 valueItem.languageCode)["name"])));
-                  //       }).toList(),
-                  //     ),
-
-                  ///
                   DropdownButton(
+                    dropdownColor: backgroundMode(settingObserver.userSettings.darkMode),
                     alignment: Alignment.center,
                     //value: note1,
                     value: settingObserver.userSettings.locale,
@@ -459,6 +436,7 @@ class _SettingState extends State<Settings> {
                               valueItem.languageCode)["name"]),
                           style: TextStyle(
                             fontSize: _bodyFontSize,
+                            color: textCol
                           ),
                         ),
                       );
@@ -482,9 +460,11 @@ class _SettingState extends State<Settings> {
                     style: TextStyle(
                       fontSize: _bodyFontSize,
                       fontWeight: FontWeight.bold,
+                      color: textCol
                     ),
                   ),
                   DropdownButton<AppTheme>(
+                    dropdownColor: backgroundMode(settingObserver.userSettings.darkMode),
                     alignment: Alignment.center,
                     value: settingObserver.userSettings.appTheme,
                     items: themes
@@ -495,6 +475,7 @@ class _SettingState extends State<Settings> {
                           _themeToDisplayName(value),
                           style: TextStyle(
                             fontSize: _bodyFontSize,
+                            color: textCol
                           ),
                         ),
                       );
@@ -507,9 +488,37 @@ class _SettingState extends State<Settings> {
                   ),
                 ],
               ),
-              _addTopDivider(),
-              _addBotDivider(),
-
+              /// Dark mode selection
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    I18n.of(context)!.darkMode,
+                    style: TextStyle(
+                        fontSize: _bodyFontSize, fontWeight: FontWeight.bold,
+                        color: textCol),
+                  ),
+                  Switch(
+                    value:
+                    settingObserver.userSettings.darkMode,
+                    onChanged: (bool newValue) {
+                      setState(() {
+                        settingObserver
+                            .userSettings.darkMode = newValue;
+                      });
+                    },
+                    inactiveThumbColor: themeToColor(settingObserver.userSettings.appTheme),
+                    inactiveTrackColor: Colors.grey,
+                    activeTrackColor: Colors.green,
+                    activeColor: themeToColor(settingObserver.userSettings.appTheme),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.0, //for spacing
+              ),
+              addTopDivider(settingObserver),
+              addBotDivider(settingObserver),
               /// Caregiver Mode Button
 
               Padding(
@@ -584,38 +593,16 @@ class _SettingState extends State<Settings> {
                               Radius.circular(12.0),
                             ),
                           ),
-                          backgroundColor: Color(0xFF0D47A1),
+                          //backgroundColor: themeToColor(settingObserver.userSettings.appTheme),
+                          backgroundColor: Color(0xFF0D47A1),//////////////////////////////////////////////
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                      //   child: GestureDetector(
-                      //       onTap: () {
-                      //         careMode = false;
-                      //         screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
-                      //       },
-                      //       child: Column(
-                      //         children: [
-                      //           Icon(
-                      //             Icons.supervised_user_circle,
-                      //             size: 40.0,
-                      //             color: Colors.red,
-                      //           ),
-                      //           Text(
-                      //             'Update Caregiver',
-                      //             style: TextStyle(fontSize: 14),
-                      //           )
-                      //         ],
-                      //       )),
-                      // ),
-
                   ],
                 ),
               ),
 
-              _addTopDivider(),
-              _addBotDivider(),
-
+              addTopDivider(settingObserver),
+              addBotDivider(settingObserver),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -640,7 +627,9 @@ class _SettingState extends State<Settings> {
                             I18n.of(context)!.cancel,
                             style: TextStyle(
                                 fontSize: _bodyFontSize,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: textCol,
+                            ),
                           )
                         ],
                       )),
@@ -664,7 +653,9 @@ class _SettingState extends State<Settings> {
                             I18n.of(context)!.save,
                             style: TextStyle(
                                 fontSize: _bodyFontSize,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                color: textCol
+                            ),
                           )
                         ],
                       ),
@@ -695,7 +686,9 @@ class _SettingState extends State<Settings> {
                           I18n.of(context)!.resetSettings,
                           style: TextStyle(
                               fontSize: _bodyFontSize,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                            color: textCol,
+                          ),
                         ),
                       ],
                     ),
@@ -707,19 +700,19 @@ class _SettingState extends State<Settings> {
     );
   }
 }
-
-Divider _addTopDivider() {
+Divider addTopDivider(SettingObserver ob) {
   return Divider(
+    color: dividerColor(ob.userSettings.darkMode),
     thickness: 2.0,
-    indent: 5,
+    indent: 1,
     endIndent: 5,
   );
 }
-
-Divider _addBotDivider() {
+Divider addBotDivider(SettingObserver ob) {
   return Divider(
+    color: dividerColor(ob.userSettings.darkMode),
     thickness: 2.0,
-    indent: 5,
+    indent: 1,
     height: 40,
     endIndent: 5,
   );
