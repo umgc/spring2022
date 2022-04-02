@@ -6,10 +6,13 @@ class VideoPlayerScreen extends StatefulWidget {
   //String tab;
   String title;
   String videoUrl;
-  VideoPlayerScreen({Key? key, this.title="Memory Magic Preview", this.videoUrl=""}) : super(key: key);
+  VideoPlayerScreen(
+      {Key? key, this.title = "Memoreez Preview", this.videoUrl = ""})
+      : super(key: key);
 
   @override
-  _VideoPlayerScreenState createState() => _VideoPlayerScreenState(this.title, this.videoUrl);
+  _VideoPlayerScreenState createState() =>
+      _VideoPlayerScreenState(this.title, this.videoUrl);
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
@@ -19,14 +22,14 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   //late String tab;
   late String title;
   late String videoUrlpath;
-  _VideoPlayerScreenState( this.title, this.videoUrlpath);
+  _VideoPlayerScreenState(this.title, this.videoUrlpath);
 
   @override
   void initState() {
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
-    //_controller = VideoPlayerController.network( 
+    //_controller = VideoPlayerController.network(
     //                  'https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4');
     _controller = VideoPlayerController.asset(this.videoUrlpath);
 
@@ -54,8 +57,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
-
     return Scaffold(
       appBar: AppBar(
         title: Text("${this.title}"),
@@ -74,9 +75,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 //child: VideoPlayer(_controller),
                 Center(
                     child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: Chewie(controller: chewieController
-                      ),
+              aspectRatio: _controller.value.aspectRatio,
+              child: Chewie(controller: chewieController),
             ));
           } else {
             // If the VideoPlayerController is still initializing, show a
