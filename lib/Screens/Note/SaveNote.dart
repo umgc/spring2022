@@ -261,12 +261,12 @@ class _SaveNoteState extends State<SaveNote> {
                   padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                      'Setting a date and time will add the note to your calendar',
+                      I18n.of(context)!.settingDateAndTime,
                       style: TextStyle(fontSize: 12, color: Colors.black54))),
               Container(
                   padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
                   alignment: Alignment.centerLeft,
-                  child: Text('Send Reminder Notification?',
+                  child: Text(I18n.of(context)!.sendReminderNotification,
                       style: TextStyle(
                           fontSize: 12, fontWeight: FontWeight.bold))),
               _checkBox(noteObserver.currNoteForDetails),
@@ -286,7 +286,7 @@ class _SaveNoteState extends State<SaveNote> {
                       Icons.keyboard_return,
                     ),
                     label: Text(
-                      'BACK TO NOTES',
+                      I18n.of(context)!.backToNotes,
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
@@ -306,7 +306,7 @@ class _SaveNoteState extends State<SaveNote> {
                       Icons.save,
                     ),
                     label: Text(
-                      'SAVE NOTE',
+                      I18n.of(context)!.saveNote,
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
@@ -328,7 +328,7 @@ class _SaveNoteState extends State<SaveNote> {
                         Icons.delete,
                       ),
                       label: Text(
-                        'REMOVE NOTE',
+                        I18n.of(context)!.deleteNote,
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {

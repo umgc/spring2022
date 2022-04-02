@@ -8,7 +8,7 @@
     "micButton": "ميكروفون",
     "pressToRecord": "اضغط للتسجيل",
     "yes": "نعم",
-    "saveNote": "حفظ الملاحظة",
+    "saveNote": "احفظ ملاحظة",
     "date": "تاريخ",
     "note": "ملحوظة",
     "notesDetailScreenName": "تفاصيل الملاحظات",
@@ -126,5 +126,13 @@
     "schedule": "برنامج",
     "searchForNote": "ابحث عن ملاحظة",
     "selectTaskType": "حدد نوع المهمة",
-    "updateCareTeamMember": "تحديث عضو فريق الرعاية"
+    "updateCareTeamMember": "تحديث عضو فريق الرعاية",
+    "backToNotes": "عودة إلى الملاحظات",
+    "sendReminderNotification": "إرسال إشعار تذكير؟",
+    "settingDateAndTime": "سيؤدي تحديد التاريخ والوقت إلى إضافة الملاحظة إلى التقويم الخاص بك",
+    "day": "يوم",
+    "week": "أسبوع",
+    "month": "شهر",
+    "bad": "سيئة",
+    "sendTask": "إرسال المهمة"
 }
