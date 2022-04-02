@@ -169,7 +169,7 @@ class _UserProfileState extends State<AddAllergyCard> {
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
                               //? 'Please enter a reaction'
-                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.reaction
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.allergyReaction
 
                               : null,
                           onSaved: (input) => _reaction = input,

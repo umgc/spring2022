@@ -126,6 +126,6 @@
     "searchForNote": "Search For A Note",
     "selectTaskType": "Select Task Type",
     "updateCareTeamMember": "Update Care Team Member",
-    "providerName": "Provider Name",
+    "providerName": "Provider Name (ex:Dr. Evangelista)",
     "contactName": "Contact Name"
 }
