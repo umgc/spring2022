@@ -12,7 +12,7 @@ enum FontSize {
   LARGE,
 }
 
-enum AppTheme { BLUE, PINK, RED, ORANGE, GREEN, DARK, LIGHT, PURPLE, YELLOW} /// prob needs to be changed
+enum AppTheme { BLUE, PINK, RED, ORANGE, GREEN, DARK, GREY, PURPLE, YELLOW} /// prob needs to be changed
 
 fontSizeStringToEnum(String fontSizeString) {
   switch (fontSizeString) {
@@ -39,8 +39,8 @@ appThemeStringToEnum(String appTheme) { ///needs to be changed with appTheme
       return AppTheme.GREEN;
     case 'AppTheme.DARK':
       return AppTheme.DARK;
-    case 'AppTheme.LIGHT':
-      return AppTheme.LIGHT;
+    case 'AppTheme.GREY':
+      return AppTheme.GREY;
     case 'AppTheme.PURPLE':
       return AppTheme.PURPLE;
     case 'AppTheme.YELLOW':

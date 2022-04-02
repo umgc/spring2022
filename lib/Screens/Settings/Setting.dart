@@ -18,8 +18,8 @@ import '../../Utility/ThemeUtil.dart';
 List<FontSize> fontSizes = [FontSize.SMALL, FontSize.MEDIUM, FontSize.LARGE];
 List<String> _minutesBeforeNoteNotification = ['1', '2', '3', '5', '10', '30'];
 List<String> _minutesBeforeTaskNotification = ['1', '2', '3', '5', '10', '30'];
-List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK, AppTheme.RED,
-  AppTheme.GREEN, AppTheme.ORANGE, AppTheme.DARK, AppTheme.LIGHT,
+List<AppTheme> themes = [AppTheme.BLUE, AppTheme.PINK,
+  AppTheme.GREEN, AppTheme.ORANGE, AppTheme.GREY,
   AppTheme.PURPLE, AppTheme.YELLOW];
 
 List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
@@ -87,33 +87,33 @@ class _SettingState extends State<Settings> {
           {
             return I18n.of(context)!.pink;
           }
-        case AppTheme.RED:
-          {
-            return 'RED';
-          }
+        // case AppTheme.RED:
+        //   {
+        //     return 'RED';
+        //   }
         case AppTheme.GREEN:
           {
-            return 'GREEN';
+            return I18n.of(context)!.green;
           }
         case AppTheme.ORANGE:
           {
-            return 'ORANGE';
+            return I18n.of(context)!.orange;
           }
-        case AppTheme.DARK:
+        // case AppTheme.DARK:
+        //   {
+        //     return 'DARK';
+        //   }
+        case AppTheme.GREY:
           {
-            return 'DARK';
-          }
-        case AppTheme.LIGHT:
-          {
-            return 'LIGHT';
+            return I18n.of(context)!.grey;
           }
         case AppTheme.PURPLE:
           {
-            return 'PURPLE';
+            return I18n.of(context)!.purple;
           }
         case AppTheme.YELLOW:
           {
-            return 'YELLOW';
+            return I18n.of(context)!.yellow;
           }
         default:
           throw new UnimplementedError('not implemented');
@@ -493,7 +493,7 @@ class _SettingState extends State<Settings> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Dark Mode',
+                    I18n.of(context)!.darkMode,
                     style: TextStyle(
                         fontSize: _bodyFontSize, fontWeight: FontWeight.bold,
                         color: textCol),

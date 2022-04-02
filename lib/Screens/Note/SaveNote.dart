@@ -260,7 +260,7 @@ class _SaveNoteState extends State<SaveNote> {
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: I18n.of(context)!.enterNoteText,
-                    hintStyle: TextStyle(color: Colors.green)),
+                    hintStyle: TextStyle(color: Colors.grey)),
               ),
               SizedBox(height: verticalColSpace),
               _selectDate(noteObserver.newNoteIsCheckList, I18n.of(context),
