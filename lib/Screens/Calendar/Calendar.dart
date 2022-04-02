@@ -12,6 +12,8 @@ import 'package:memorez/Observables/NoteObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Screens/Calendar/CalendarFormatBar.dart';
 
+import '../../generated/i18n.dart';
+
 final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
 //Variable Definitions ----------------------------------------
@@ -96,12 +98,11 @@ class CalendarState extends State<Calendar> {
               onChanged: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: '--Search For A Note--',
+                hintText: '-- ' + I18n.of(context)!.searchForNote + ' --',
                 hintStyle: TextStyle(
-                  color: Colors.grey,
+                    color: Colors.grey
                 ),
-              ),
-          ),
+              )),
           const SizedBox(
             height: 15,
           ),
@@ -236,7 +237,6 @@ class CalendarState extends State<Calendar> {
                   }),
             ),
           ),
-
           const SizedBox(height: 8.0),
           Visibility(
             visible: calendarObserver.getNotesOnDayIsVisible(),
@@ -265,39 +265,6 @@ class CalendarState extends State<Calendar> {
                   }),
             ),
           )
-          //Area under Calendar displaying notes--------------------------------
-          // Visibility(
-          //   visible: calendarObserver.getNotesOnDayIsVisible(),
-          //   child: Expanded(
-          //       child: ValueListenableBuilder<List<CalenderEvent>>(
-          //     valueListenable: calendarObserver.selectedEvents,
-          //     builder: (context, value, _) {
-          //       print("Initialized Value Notifier: ");
-          //       return ListView.builder(
-          //           itemCount: value.length,
-          //           itemBuilder: (context, index) {
-          //             return Container(
-          //               height: 50,
-          //               margin: const EdgeInsets.symmetric(
-          //                 horizontal: 12.0,
-          //                 vertical: 3,
-          //               ),
-          //               decoration: BoxDecoration(
-          //                 color: Colors.lightBlue.shade50,
-          //                 border: Border.all(color: Colors.blueGrey, width: 1),
-          //                 borderRadius: BorderRadius.circular(12.0),
-          //               ),
-          //               child: ListTile(
-          //                 //onTap: () => print('${value[index]}'),
-          //                 title: Text(
-          //                     "${value[index]} \t at \t ${value[index].time}",
-          //                     textAlign: TextAlign.center),
-          //               ),
-          //             );
-          //           });
-          //     },
-          //   )),
-          // )
         ]),
       ),
     );

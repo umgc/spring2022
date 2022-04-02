@@ -9,6 +9,8 @@ import 'package:memorez/utils/user_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/transportation_card.dart';
+import 'package:memorez/Screens/Profile/add_medication_card.dart';
+
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Observables/SettingObservable.dart';
@@ -77,7 +79,7 @@ class _ProfilePageState extends State<UserProfile> {
                 text: I18n.of(context)!.edit + ' ' + I18n.of(context)!.aboutMe,
                 onClicked: () {
                   screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
-                },
+                }, color: Color(0xFF123776),
               ),
             )
                 : Text(''),
@@ -95,7 +97,10 @@ class _ProfilePageState extends State<UserProfile> {
             AllergyCard(),
             const SizedBox(child: Divider(color: Colors.blueGrey)),
             HistoryCard(),
-            const SizedBox(child: Divider(color: Colors.blueGrey), height: 60,),
+            const SizedBox(
+              child: Divider(color: Colors.blueGrey),
+              height: 60,
+            ),
             // const SizedBox(child: Divider(color: Colors.blueGrey)),
             // MedicalHistoryCard(),
           ],

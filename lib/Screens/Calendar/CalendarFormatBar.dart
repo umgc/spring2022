@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Observables/CalenderObservable.dart';
 
+import '../../generated/i18n.dart';
+
 class calendarFormatBar extends StatefulWidget {
   const calendarFormatBar({Key? key}) : super(key: key);
 
@@ -34,7 +36,7 @@ class _calendarFormatBarState extends State<calendarFormatBar> {
           child: Row(
             children: [
               Text(
-                'Week',
+                I18n.of(context)!.week,
               ),
             ],
           ),
@@ -71,7 +73,7 @@ class _calendarFormatBarState extends State<calendarFormatBar> {
             children: [
               SizedBox(width: 15.0),
               Text(
-                'Month',
+                I18n.of(context)!.month,
               ),
             ],
           ),
@@ -108,7 +110,7 @@ class _calendarFormatBarState extends State<calendarFormatBar> {
             children: [
               SizedBox(width: 15.0),
               Text(
-                'Day',
+                I18n.of(context)!.day,
               ),
             ],
           ),

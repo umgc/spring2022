@@ -9,6 +9,8 @@ import '../../Observables/NoteObservable.dart';
 import 'package:memorez/Services/NoteService.dart';
 import 'package:intl/intl.dart';
 
+import '../../generated/i18n.dart';
+
 bool _filteredNotesIsVisible = false;
 bool _unfilteredNotes = true;
 
@@ -106,7 +108,7 @@ class _NoteTableState extends State<NoteTable> {
             controller: controller,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: '--Search For A Note--',
+              hintText: '-- ' + I18n.of(context)!.searchForNote + ' --',
               hintStyle: TextStyle(color: Colors.grey)
             ),
             onChanged: (value) {
@@ -126,7 +128,7 @@ class _NoteTableState extends State<NoteTable> {
               Icons.add,
             ),
             label: Text(
-              'Add Note',
+              I18n.of(context)!.addNote,
               style: TextStyle(fontSize: 20),
             ),
             onPressed: () {

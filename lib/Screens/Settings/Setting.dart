@@ -27,7 +27,6 @@ List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
 bool careMode = false;
 
 Color? textCol;
-
 class Settings extends StatefulWidget {
   @override
   _SettingState createState() => _SettingState();
@@ -229,8 +228,6 @@ class _SettingState extends State<Settings> {
                       alignment: Alignment.center,
                       value: settingObserver
                           .userSettings.minutesBeforeNoteNotifications,
-
-                      /// the default or saved value
                       items: _minutesBeforeNoteNotification
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
@@ -251,58 +248,13 @@ class _SettingState extends State<Settings> {
                         });
                       },
                     ),
-
                   ],
                 ),
                 SizedBox(
                   height: 10.0,
-                ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: <Widget>[
-                //     Flexible(
-                //       child: Text(
-                //         I18n.of(context)!.daysToKeepNotes,
-                //         //'Days To Keep Notes',
-                //         style: TextStyle(
-                //           fontSize: _bodyFontSize,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       ),
-                //     ),
-                //     DropdownButton<String>(
-                //       alignment: Alignment.center,
-                //
-                //       /// This may need to be changed to new variable.*****************
-                //       value: settingObserver.userSettings.daysToKeepFiles,
-                //       items: _daysToKeepFilesOptions
-                //           .map<DropdownMenuItem<String>>((String value) {
-                //         return DropdownMenuItem<String>(
-                //           value: value,
-                //           child: Text(
-                //             value,
-                //             style: TextStyle(
-                //               fontSize: _bodyFontSize,
-                //             ),
-                //           ),
-                //         );
-                //       }).toList(),
-                //       onChanged: (String? newValue) {
-                //         setState(() {
-                //           settingObserver.userSettings.daysToKeepFiles =
-                //               newValue!;
-                //
-                //           /// This may need to be changed to new variable.*****************
-                //
-                //           //null check
-                //         });
-                //       },
-                //     ),
-                //   ],
-                // ),
+                ),              
                 addTopDivider(settingObserver),
                 addBotDivider(settingObserver),
-
                 /**
              * Tasks section
              */
@@ -471,44 +423,6 @@ class _SettingState extends State<Settings> {
                       color: textCol
                     ),
                   ),
-
-                  // Text(I18n.of(context)!.language,
-                  //     style: Theme.of(context).textTheme.bodyText2),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(3),
-                  //   child: Container(
-                  //     width: 60,
-                  //     height: 40,
-                  //     padding: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                  //     decoration: BoxDecoration(
-                  //       border: Border.all(color: Colors.black, width: 1),
-                  //     ),
-                  //       DropdownButton(
-                  //       hint: Text(
-                  //         I18n.of(context)!.selectLanguage,
-                  //         style: Theme.of(context).textTheme.headline6,
-                  //       ),
-                  //
-                  //       value: settingObserver.userSettings.locale,
-                  //       onChanged: (Locale? newLocale) {
-                  //         setState(() {
-                  //           if (newLocale != null) {
-                  //             settingObserver.userSettings.locale = newLocale;
-                  //           }
-                  //         });
-                  //       },
-                  //       isExpanded: true,
-                  //       underline: SizedBox(),
-                  //       style: Theme.of(context).textTheme.bodyText1,
-                  //       items: supportedLocales.map((valueItem) {
-                  //         return DropdownMenuItem(
-                  //             value: valueItem,
-                  //             child: Text((LocaleService.getDisplayLanguage(
-                  //                 valueItem.languageCode)["name"])));
-                  //       }).toList(),
-                  //     ),
-
-                  ///
                   DropdownButton(
                     dropdownColor: backgroundMode(settingObserver.userSettings.darkMode),
                     alignment: Alignment.center,
@@ -574,7 +488,6 @@ class _SettingState extends State<Settings> {
                   ),
                 ],
               ),
-
               /// Dark mode selection
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -606,7 +519,6 @@ class _SettingState extends State<Settings> {
               ),
               addTopDivider(settingObserver),
               addBotDivider(settingObserver),
-
               /// Caregiver Mode Button
 
               Padding(
@@ -685,35 +597,12 @@ class _SettingState extends State<Settings> {
                           backgroundColor: Color(0xFF0D47A1),//////////////////////////////////////////////
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
-                      //   child: GestureDetector(
-                      //       onTap: () {
-                      //         careMode = false;
-                      //         screenNav.changeScreen(CAREGIVER_SCREENS.CAREGIVER);
-                      //       },
-                      //       child: Column(
-                      //         children: [
-                      //           Icon(
-                      //             Icons.supervised_user_circle,
-                      //             size: 40.0,
-                      //             color: Colors.red,
-                      //           ),
-                      //           Text(
-                      //             'Update Caregiver',
-                      //             style: TextStyle(fontSize: 14),
-                      //           )
-                      //         ],
-                      //       )),
-                      // ),
-
                   ],
                 ),
               ),
 
               addTopDivider(settingObserver),
               addBotDivider(settingObserver),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -811,7 +700,6 @@ class _SettingState extends State<Settings> {
     );
   }
 }
-
 Divider addTopDivider(SettingObserver ob) {
   return Divider(
     color: dividerColor(ob.userSettings.darkMode),
@@ -820,7 +708,6 @@ Divider addTopDivider(SettingObserver ob) {
     endIndent: 5,
   );
 }
-
 Divider addBotDivider(SettingObserver ob) {
   return Divider(
     color: dividerColor(ob.userSettings.darkMode),

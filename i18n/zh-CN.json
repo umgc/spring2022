@@ -8,7 +8,7 @@
     "micButton": "麦克风",
     "pressToRecord": "按录制",
     "yes": "是的",
-    "saveNote": "保存笔记",
+    "saveNote": "保存注释",
     "date": "日期",
     "note": "笔记",
     "notesDetailScreenName": "笔记详情",
@@ -124,7 +124,15 @@
     "updateCaregiver": "更新看护人",
     "reminder": "提醒",
     "schedule": "日程",
-    "searchForANote": "搜索笔记",
+    "searchForNote": "搜索笔记",
     "selectTaskType": "选择任务类型",
-    "updateCareTeamMember": "更新护理团队成员"
+    "updateCareTeamMember": "更新护理团队成员",
+    "backToNotes": "返回笔记",
+    "sendReminderNotification": "发送提醒通知？",
+    "settingDateAndTime": "设置日期和时间会将注释添加到您的日历中",
+    "day": "日",
+    "week": "星期",
+    "month": "月",
+    "bad": "坏的",
+    "sendTask": "发送任务"
 }

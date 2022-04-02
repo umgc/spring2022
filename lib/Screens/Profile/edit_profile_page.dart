@@ -36,7 +36,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Color? textCol;
   @override
   Widget build(BuildContext context) {
-
     final settingObserver = Provider.of<SettingObserver>(context);
     textCol = textMode(settingObserver.userSettings.darkMode);
     final screenNav = Provider.of<MainNavObserver>(context);
@@ -143,8 +142,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 UserPreferences.getUser();
                 alertDialog(context, "Updated User Profile");
                 print('Encrypted data: Birthdate: ${user.bday}');
-              },
+              }, color: Color(0xFF123776),
             ),
+            const SizedBox(height: 10),
+            ButtonWidget(
+              text: 'Cancel',
+              color: Colors.red,
+              onClicked: () {
+                screenNav.changeScreen(MENU_SCREENS.USERPROFILE);
+                alertDialog(context, "No Changes Saved");
+              },
+            )
           ],
         ),
       ),

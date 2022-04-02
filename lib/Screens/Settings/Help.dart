@@ -147,8 +147,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4")
+                                            videoUrl:helpItems[index].videoUrl)
                                         )
                                     ),
                                   )
@@ -218,8 +217,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4"))),
+                                            videoUrl:helpItems[index].videoUrl))),
                                   )
                                 },
                             title: Text(
@@ -282,8 +280,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4"))),
+                                            videoUrl:helpItems[index].videoUrl))),
                                   )
                                 },
                             title: Text(
@@ -349,8 +346,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4"))),
+                                            videoUrl:helpItems[index].videoUrl))),
                                   )
                                 },
                             title: Text(
@@ -415,8 +411,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4"))),
+                                            videoUrl:helpItems[index].videoUrl))),
                                   )
                                 },
                             title: Text(
@@ -482,8 +477,7 @@ class HelpTable extends StatelessWidget {
                                     MaterialPageRoute(
                                         builder: (context) => (VideoPlayerScreen(
                                             title: helpItems[index].title,
-                                            videoUrl:
-                                                "assets/help/example_help.mp4"))),
+                                            videoUrl:helpItems[index].videoUrl))),
                                   )
                                 },
                             title: Text(
