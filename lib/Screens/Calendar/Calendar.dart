@@ -97,7 +97,11 @@ class CalendarState extends State<Calendar> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: '--Search For A Note--',
-              )),
+                hintStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+          ),
           const SizedBox(
             height: 15,
           ),

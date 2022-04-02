@@ -73,21 +73,51 @@ class _UserProfileState extends State<ProfileCard> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text(I18n.of(context)!.name, style: kLabelTextStyle),
-                  Text(user.name),
+                  Text(I18n.of(context)!.name,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w900,
+                        color: textCol,
+                      ),
+                  ),
+                  Text(user.name,
+                    style: TextStyle(
+                        color: textCol,
+                    ),
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text(I18n.of(context)!.dateOfBirth, style: kLabelTextStyle),
-                  Text(EncryptUtil.decryptNote(user.bday)),
-                  SizedBox(
-                    height: 20.0,
+                  Text(I18n.of(context)!.dateOfBirth,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w900,
+                        color: textCol,
+                      ),
+                  ),
+                  Text(EncryptUtil.decryptNote(user.bday),
+                    style: TextStyle(
+                        color: textCol
+                    ),
                   ),
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text(I18n.of(context)!.phoneNumber, style: kLabelTextStyle),
-                  Text(user.phone),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(I18n.of(context)!.phoneNumber,
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w900,
+                        color: textCol,
+                      ),
+                  ),
+                  Text(user.phone,
+                  style: TextStyle(
+                    color: textCol,
+                  ),
+                  ),
                 ],
               ),
             ),

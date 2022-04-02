@@ -84,7 +84,6 @@ class _SaveNewTaskState extends State<SaveNewTask> {
   Widget build(BuildContext context) {
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final settingObserver = Provider.of<SettingObserver>(context);
-
     textCol = textMode(settingObserver.userSettings.darkMode);
     List<Step> getSteps() => [
           // Screen 1

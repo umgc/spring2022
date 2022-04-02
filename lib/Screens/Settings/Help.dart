@@ -7,11 +7,16 @@ import 'package:memorez/Observables/ScreenNavigator.dart';
 import 'package:memorez/Screens/Components/VideoPlayer.dart';
 import 'package:memorez/generated/i18n.dart';
 
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
+
 
 class Help extends StatefulWidget {
   @override
   HelpState createState() => HelpState();
 }
+
+Color? textCol;
 
 class HelpState extends State<Help> {
   @override
@@ -20,8 +25,11 @@ class HelpState extends State<Help> {
     final helpObserver = Provider.of<HelpObserver>(context);
     final MenuObserver menuObserver = Provider.of<MenuObserver>(context);
     final MainNavObserver navObserver = Provider.of<MainNavObserver>(context);
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
 
     return Scaffold(
+      backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
         body: SingleChildScrollView(
       child:
           HelpTable(helpObserver.helpItems, () => {"Displayed Help Content"}),
@@ -40,16 +48,18 @@ class HelpState extends State<Help> {
   }
 }
 
-Divider addTopDivider() {
+Divider addTopDivider(SettingObserver ob) {
   return Divider(
+    color: dividerColor(ob.userSettings.darkMode),
     thickness: 2.0,
     indent: 5,
     endIndent: 5,
   );
 }
 
-Divider addBotDivider() {
+Divider addBotDivider(SettingObserver ob) {
   return Divider(
+    color: dividerColor(ob.userSettings.darkMode),
     thickness: 2.0,
     indent: 5,
     height: 20,
@@ -74,6 +84,8 @@ class HelpTable extends StatelessWidget {
   static const ICON_SIZE = 40.00;
   @override
   Widget build(BuildContext context) {
+
+    final settingObserver = Provider.of<SettingObserver>(context);
 
     ///Font size for section headers
     double _sectionFontSize =
@@ -109,6 +121,7 @@ class HelpTable extends StatelessWidget {
           style: TextStyle(
             fontSize: _sectionFontSize,
             fontWeight: FontWeight.bold,
+            color: textCol
           ),
         ),
         ListView.builder(
@@ -170,8 +183,8 @@ class HelpTable extends StatelessWidget {
           },
         ),
 
-        addTopDivider(),
-        addBotDivider(),
+        addTopDivider(settingObserver),
+        addBotDivider(settingObserver),
 
         /// Notes section
         Text(
@@ -179,6 +192,7 @@ class HelpTable extends StatelessWidget {
           style: TextStyle(
             fontSize: _sectionFontSize,
               fontWeight: FontWeight.bold,
+              color: textCol
           ),
         ),
         ListView.builder(
@@ -237,8 +251,8 @@ class HelpTable extends StatelessWidget {
           },
         ),
 
-        addTopDivider(),
-        addBotDivider(),
+        addTopDivider(settingObserver),
+        addBotDivider(settingObserver),
 
         /// Calendar section
         Text(
@@ -246,6 +260,7 @@ class HelpTable extends StatelessWidget {
           style: TextStyle(
             fontSize: _sectionFontSize,
               fontWeight: FontWeight.bold,
+              color: textCol
           ),
         ),
         ListView.builder(
@@ -299,8 +314,8 @@ class HelpTable extends StatelessWidget {
           },
         ),
 
-        addTopDivider(),
-        addBotDivider(),
+        addTopDivider(settingObserver),
+        addBotDivider(settingObserver),
 
         /// Profile section
         Text(
@@ -308,6 +323,7 @@ class HelpTable extends StatelessWidget {
           style: TextStyle(
             fontSize: _sectionFontSize,
               fontWeight: FontWeight.bold,
+              color: textCol
           ),
         ),
         ListView.builder(
@@ -364,8 +380,8 @@ class HelpTable extends StatelessWidget {
             ]);
           },
         ),
-        addTopDivider(),
-        addBotDivider(),
+        addTopDivider(settingObserver),
+        addBotDivider(settingObserver),
 
         /// Settings section
         Text(
@@ -373,6 +389,7 @@ class HelpTable extends StatelessWidget {
           style: TextStyle(
             fontSize: _sectionFontSize,
               fontWeight: FontWeight.bold,
+              color: textCol
           ),
         ),
         ListView.builder(
@@ -430,8 +447,8 @@ class HelpTable extends StatelessWidget {
           },
         ),
 
-        addTopDivider(),
-        addBotDivider(),
+        addTopDivider(settingObserver),
+        addBotDivider(settingObserver),
 
         /// Chat section
         Text(
@@ -439,6 +456,7 @@ class HelpTable extends StatelessWidget {
           style: TextStyle(
             fontSize: _sectionFontSize,
               fontWeight: FontWeight.bold,
+              color: textCol
           ),
         ),
         ListView.builder(

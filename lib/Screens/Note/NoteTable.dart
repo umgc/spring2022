@@ -107,6 +107,7 @@ class _NoteTableState extends State<NoteTable> {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: '--Search For A Note--',
+              hintStyle: TextStyle(color: Colors.grey)
             ),
             onChanged: (value) {
               _runFilter(value);
