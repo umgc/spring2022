@@ -122,6 +122,12 @@ flutter:
     - assets/help/completeTask.mp4
     - assets/help/notesOverview.mp4
     - assets/help/otherTopicsOnNotes.mp4
+    - assets/help/calendarOverview.mp4
+    - assets/help/otherTopicsOnCalendar.mp4
+    - assets/help/profileOverview.mp4
+    - assets/help/otherTopicsOnProfile.mp4
+    - assets/help/settingsOverview.mp4
+    - assets/help/otherTopicsOnSettings.mp4
     - assets/help/help_content.json
     - assets/images/caregiver_patient_image.png
     - assets/images/mic.png
