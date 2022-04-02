@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memorez/Services/LocaleService.dart';
@@ -12,6 +14,7 @@ class SelectLanguageScreen extends StatefulWidget {
 }
 
 class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
+  String defaultLocale = Platform.localeName;
   var language = (I18n.locale?.countryCode != null &&
           I18n.locale?.languageCode != null)
       ? I18n.locale
@@ -20,10 +23,13 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('LOCAL xxx====> ${defaultLocale}');
     VoiceOverTextService.speakOutLoud(I18n.of(context)!.selectLanguage,
         (language as Locale).languageCode.toString());
 
+
     final onboardingObserver = Provider.of<OnboardObserver>(context);
+
     return Scaffold(
         body: Column(
       children: [

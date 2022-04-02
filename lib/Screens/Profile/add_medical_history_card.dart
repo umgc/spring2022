@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
-import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Model/user.dart';
-import 'package:memorez/Screens/Profile/profile_constants.dart';
-import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
-import 'package:memorez/utils/user_preferences.dart';
-import 'package:memorez/Model/MedicationModel.dart';
-import 'package:memorez/Model/Allergy.dart';
-import 'package:memorez/Model/Medical.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
 import 'package:memorez/Model/History.dart';
 import '../../Utility/EncryptionUtil.dart';
-import '../Main.dart';
-import 'edit_profile_page.dart';
+
 
 class AddHistoryCard extends StatefulWidget {
   final Function? updateHistoryList;
@@ -89,7 +79,8 @@ class _UserProfileState extends State<AddHistoryCard> {
                   height: 20.0,
                 ),
                 Text(
-                  widget.history == null ? 'Add Past Medical History' : 'Update Past Medical History',
+                  widget.history == null ? I18n.of(context)!.add + ' ' + I18n.of(context)!.medicalHistory :
+                  I18n.of(context)!.update + ' ' + I18n.of(context)!.medicalHistory,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -109,7 +100,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: 'Past Medical History',
+                              labelText: I18n.of(context)!.medicalHistory,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -118,7 +109,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Past Medical History',
+                              labelText: I18n.of(context)!.medicalHistory,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -127,7 +118,8 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter medical history (ex: Diabetes)'
+                              //? 'Please enter medical history'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.medicalHistory
                               : null,
                           onSaved: (input) => _history = input,
                           initialValue:
@@ -143,7 +135,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                           decoration:
                           widget.history != null?
                           InputDecoration(
-                              labelText: 'Note',
+                              labelText: I18n.of(context)!.description,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -152,7 +144,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))):
                           InputDecoration(
-                              labelText: 'Note',
+                              labelText: I18n.of(context)!.note,
                               labelStyle: TextStyle(
                                 fontSize: 18,
                                 color: Colors.black,
@@ -161,7 +153,8 @@ class _UserProfileState extends State<AddHistoryCard> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a note or description (ex: Managed by Dr. Evangelista- PCP)'
+                             // ? 'Please enter a note'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.note
                               : null,
                           onSaved: (input) => _desc = input,
                           initialValue:
@@ -180,7 +173,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.history == null ? 'Add' : 'Update',
+                            widget.history == null ? I18n.of(context)!.add : I18n.of(context)!.update,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -202,7 +195,7 @@ class _UserProfileState extends State<AddHistoryCard> {
                         child: TextButton(
                           onPressed: _delete,
                           child: Text(
-                            'Delete',
+                            I18n.of(context)!.delete,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
-import 'package:memorez/Services/NoteService.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/generated/i18n.dart';
 import '../../Observables/NoteObservable.dart';

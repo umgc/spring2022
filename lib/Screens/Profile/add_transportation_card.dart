@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
-import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Model/user.dart';
-import 'package:memorez/Screens/Profile/profile_constants.dart';
-import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
-import 'package:memorez/utils/user_preferences.dart';
-import 'package:memorez/Model/MedicationModel.dart';
-import 'package:memorez/Model/Allergy.dart';
-import 'package:memorez/Model/Medical.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/DatabaseHandler/database_helper_transportation.dart';
 import 'package:memorez/Model/Transportation.dart';
 
-import '../Main.dart';
-import 'edit_profile_page.dart';
 
 class AddTransportationCard extends StatefulWidget {
   final Function? updateTransportationList;
@@ -90,8 +79,8 @@ class _UserProfileState extends State<AddTransportationCard> {
                 ),
                 Text(
                   widget.transportation == null
-                      ? 'Add Transportation'
-                      : 'Update Transportation',
+                      ? I18n.of(context)!.add + ' ' + I18n.of(context)!.transportation
+                      : I18n.of(context)!.update + ' ' + I18n.of(context)!.transportation,
                   style: TextStyle(
                       color: Color(0xFF1565C0),
                       fontWeight: FontWeight.w800,
@@ -110,7 +99,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText: 'Transportation Name',
+                                  labelText: I18n.of(context)!.transportation,
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -120,7 +109,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0)))
                               : InputDecoration(
-                                  labelText: 'Transportation Name',
+                                  labelText: I18n.of(context)!.transportation,
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -130,7 +119,8 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter transportation name (ex: Medibus)'
+                              //? 'Please enter transportation name'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.transportation + ' ' + I18n.of(context)!.name
                               : null,
                           onSaved: (input) => _name = input,
                           initialValue: widget.transportation?.name.toString(),
@@ -142,7 +132,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                           style: TextStyle(fontSize: 18),
                           decoration: widget.transportation != null
                               ? InputDecoration(
-                                  labelText: 'Phone Number',
+                                  labelText: I18n.of(context)!.phone,
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -152,7 +142,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0)))
                               : InputDecoration(
-                                  labelText: 'Phone Number',
+                                  labelText: I18n.of(context)!.phone,
                                   labelStyle: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black,
@@ -162,7 +152,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                                       borderRadius:
                                           BorderRadius.circular(10.0))),
                           validator: (input) => input!.trim().isEmpty
-                              ? 'Please enter a phone number'
+                              ? I18n.of(context)!.pleaseEnter + ' ' + I18n.of(context)!.phone
                               : null,
                           onSaved: (input) => _phone = input,
                           initialValue: widget.transportation?.phone.toString(),
@@ -178,7 +168,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                         child: TextButton(
                           onPressed: _submit,
                           child: Text(
-                            widget.transportation == null ? 'Add' : 'Update',
+                            widget.transportation == null ? I18n.of(context)!.add : I18n.of(context)!.update,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -198,7 +188,7 @@ class _UserProfileState extends State<AddTransportationCard> {
                               child: TextButton(
                                 onPressed: _delete,
                                 child: Text(
-                                  'Delete',
+                                  I18n.of(context)!.delete,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0,

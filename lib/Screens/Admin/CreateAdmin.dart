@@ -5,14 +5,11 @@ import 'package:memorez/Comm/genLoginSignupHeader.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Screens/HomePage.dart';
-import 'package:memorez/Screens/LoginPage.dart';
 import 'package:memorez/Observables/SettingObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import '../DatabaseHandler/DBHelper.dart';
-import '../main.dart';
-import '../DatabaseHandler/database_helper_profile.dart';
+import '../../main.dart';
+import '../../DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
 
 class SignupForm extends StatefulWidget {
@@ -159,12 +156,7 @@ class _SignupFormState extends State<SignupForm> {
                                     icon: Icons.phone,
                                     inputType: TextInputType.phone,
                                     hintName: 'Phone Number'),
-                                // SizedBox(height: 10.0),
-                                // getTextFormField(
-                                //     controller: _conEmail,
-                                //     icon: Icons.email,
-                                //     inputType: TextInputType.emailAddress,
-                                //     hintName: 'Email'),
+
                                 SizedBox(height: 10.0),
                                 getTextFormField(
                                   controller: _conPassword,
@@ -222,28 +214,6 @@ class _SignupFormState extends State<SignupForm> {
                               ],
                             ),
                           )),
-                  // Visibility(
-                  //   visible: !isFirstRun,
-                  //   child: Container(
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         Text('Already have an account? '),
-                  //         FlatButton(
-                  //           textColor: Color(0xFF0D47A1),
-                  //           child: Text('Sign In'),
-                  //           onPressed: () {
-                  //             Navigator.pushAndRemoveUntil(
-                  //                 context,
-                  //                 MaterialPageRoute(
-                  //                     builder: (_) => LoginForm()),
-                  //                 (Route<dynamic> route) => true);
-                  //           },
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

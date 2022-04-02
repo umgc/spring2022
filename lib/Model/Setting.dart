@@ -1,4 +1,10 @@
-import 'dart:ui';
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+
+import '../generated/i18n.dart';
 
 enum FontSize {
   SMALL,
@@ -31,8 +37,40 @@ appThemeStringToEnum(String appTheme) { ///needs to be changed with appTheme
 const DEFAULT_FONT_SIZE = FontSize.MEDIUM;
 
 const DEFAULT_DAYS_TO_KEEP_FILES = "7";
+String defaultLocale = Platform.localeName;
 
-const DEFAULT_LOCALE = const Locale("en", "US");
+
+// var DEFAULT_LOCALE = Locale("en", "US");
+
+var DEFAULT_LOCALE = determineLanguage();
+
+determineLanguage() {
+  print('888888888888888 ${ui.window.locale.languageCode}');
+  if(ui.window.locale.languageCode == 'en'){
+    var DEFAULT_LOCALE = Locale("en", "US");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'es'){
+    var DEFAULT_LOCALE = Locale("es", "US");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'pt'){
+    var DEFAULT_LOCALE = Locale("pt", "BR");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'ar'){
+    var DEFAULT_LOCALE = Locale("ar", "SY");
+    return DEFAULT_LOCALE;
+  }
+  if(ui.window.locale.languageCode == 'zh'){
+    var DEFAULT_LOCALE = Locale("zh", "CN");
+    return DEFAULT_LOCALE;
+  } else {
+    var DEFAULT_LOCALE = Locale("en", "US");
+    return DEFAULT_LOCALE;
+  }
+}
+// Locale('${ui.window.locale.languageCode}');
 
 const DEFAULT_APP_THEME = AppTheme.BLUE;
 

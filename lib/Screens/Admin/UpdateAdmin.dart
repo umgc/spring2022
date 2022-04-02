@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:memorez/Comm/comHelper.dart';
 import 'package:memorez/Comm/genTextFormField.dart';
@@ -11,8 +10,8 @@ import 'package:memorez/Screens/Main.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
-import '../Comm/genLoginSignupHeader.dart';
-import '../main.dart';
+import '../../Comm/genLoginSignupHeader.dart';
+import '../../main.dart';
 
 class UpdateAdmin extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
@@ -9,10 +9,8 @@ import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
-
 import '../../Observables/ScreenNavigator.dart';
-import '../Main.dart';
-import 'edit_profile_page.dart';
+
 
 class ProfileCard extends StatefulWidget {
   @override
@@ -66,16 +64,16 @@ class _UserProfileState extends State<ProfileCard> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('About Me', style: kSectionTitleTextStyle),
+                  Text(I18n.of(context)!.aboutMe, style: kSectionTitleTextStyle),
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text('Name', style: kLabelTextStyle),
+                  Text(I18n.of(context)!.name, style: kLabelTextStyle),
                   Text(user.name),
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text('Date of Birth', style: kLabelTextStyle),
+                  Text(I18n.of(context)!.dateOfBirth, style: kLabelTextStyle),
                   Text(EncryptUtil.decryptNote(user.bday)),
                   SizedBox(
                     height: 20.0,
@@ -83,7 +81,7 @@ class _UserProfileState extends State<ProfileCard> {
                   SizedBox(
                     height: 20.0,
                   ),
-                  Text('Phone Number', style: kLabelTextStyle),
+                  Text(I18n.of(context)!.phoneNumber, style: kLabelTextStyle),
                   Text(user.phone),
                 ],
               ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:memorez/Components/CancelButton.dart';
 import 'package:memorez/Observables/MenuObservable.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/generated/i18n.dart';

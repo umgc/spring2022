@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:memorez/Screens/Profile/add_medication_card.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
-import 'package:memorez/Model/user.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
-import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
-import 'package:memorez/utils/user_preferences.dart';
-import 'package:memorez/Model/MedicationModel.dart';
-import 'package:memorez/Model/Allergy.dart';
-import 'package:memorez/Model/Medical.dart';
 import 'package:memorez/DatabaseHandler/database_helper_transportation.dart';
-import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Model/Transportation.dart';
 import 'package:memorez/Screens/Profile/add_transportation_card.dart';
 
-import '../Main.dart';
-import 'add_allergy_card.dart';
-import 'add_medical_history_card.dart';
-import 'edit_profile_page.dart';
 
 class TransportationCard extends StatefulWidget {
   @override
@@ -135,7 +124,7 @@ class _TransportationCardState extends State<TransportationCard> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Transportation',
+                                  I18n.of(context)!.transportation,
                                   style: kSectionTitleTextStyle,
                                 ),
                                 SizedBox(

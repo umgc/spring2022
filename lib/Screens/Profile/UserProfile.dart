@@ -2,18 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:memorez/Screens/Profile/allergy_card.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:memorez/Model/user.dart';
-import 'package:memorez/Screens/AdminPage.dart';
-import 'package:memorez/Screens/HomePage.dart';
-import 'package:memorez/Screens/LoginPage.dart';
-import 'package:memorez/Screens/Main.dart';
-import 'package:memorez/Screens/Profile/edit_profile_page.dart';
 import 'package:memorez/Screens/Profile/profile_card.dart';
-import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/button_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
-import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/transportation_card.dart';
@@ -22,6 +13,7 @@ import 'package:memorez/Screens/Profile/add_medication_card.dart';
 import '../../Model/UserModel.dart';
 import '../../Observables/ScreenNavigator.dart';
 import '../../Utility/Constant.dart';
+import '../../generated/i18n.dart';
 import 'care_team_card.dart';
 import 'contact_card.dart';
 import 'medical_history_card.dart';
@@ -75,16 +67,15 @@ class _ProfilePageState extends State<UserProfile> {
             //If admin, show edit, else stay the same
             _conUserId.text == 'Admin'
                 ? Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: ButtonWidget(
-                      color: Color(0xFF0D47A1),
-                      text: 'Edit About',
-                      onClicked: () {
-                        screenNav
-                            .changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
-                      },
-                    ),
-                  )
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: ButtonWidget(
+
+                text: I18n.of(context)!.edit + ' ' + I18n.of(context)!.aboutMe,
+                onClicked: () {
+                  screenNav.changeScreen(PROFILE_SCREENS.UPDATE_USERPROFILE);
+                },
+              ),
+            )
                 : Text(''),
 
             const SizedBox(height: 24),

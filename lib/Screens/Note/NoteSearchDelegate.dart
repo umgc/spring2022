@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Note.dart';
 import 'package:memorez/Observables/NoteObservable.dart';
-import 'package:memorez/Observables/ScreenNavigator.dart';
-
 import 'NoteTable.dart';
 
 class NoteSearchDelegate extends SearchDelegate {
