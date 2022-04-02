@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:memorez/Model/MedicationModel.dart';
 import 'package:memorez/DatabaseHandler/database_helper.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
+import 'package:provider/provider.dart';
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 import '../../generated/i18n.dart';
 
 
@@ -14,6 +17,8 @@ class AddMedicationCard extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
+
+Color? textCol;
 
 class _UserProfileState extends State<AddMedicationCard> {
   final _formKey = GlobalKey<FormState>();
@@ -61,6 +66,8 @@ class _UserProfileState extends State<AddMedicationCard> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:provider/provider.dart';
 import 'package:memorez/Utility/Constant.dart';
 import 'package:memorez/generated/i18n.dart';
 import '../../Observables/NoteObservable.dart';
+import '../../Observables/SettingObservable.dart';
 import 'NoteTable.dart';
 
 final viewNotesScaffoldKey = GlobalKey<ScaffoldState>();
@@ -27,9 +29,11 @@ class _ViewNotesState extends State<ViewNotes> {
 
     final noteObserver = Provider.of<NoteObserver>(context);
     noteObserver.resetCurrNoteIdForDetails();
+    final settingObserver = Provider.of<SettingObserver>(context);
 
     //noteObserver.changeScreen(NOTE_SCREENS.NOTE);
     return Scaffold(
+      backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
       resizeToAvoidBottomInset: true,
       body: NoteTable(noteObserver.usersNotes, () => print("done")),
 

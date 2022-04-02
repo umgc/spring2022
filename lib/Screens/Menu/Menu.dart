@@ -7,12 +7,15 @@ import 'package:memorez/generated/i18n.dart';
 import '../../Observables/MenuObservable.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../Observables/SettingObservable.dart';
 import '../../Observables/TaskObservable.dart';
 import '../../Utility/Constant.dart';
 import 'package:memorez/Screens/Settings/Trigger.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
 import 'package:memorez/Screens/Settings/SyncToCloud.dart';
 import 'package:memorez/Screens/Main.dart';
+
+import '../../Utility/ThemeUtil.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -28,10 +31,12 @@ class MenuState extends State<Menu> {
     final menuObserver = Provider.of<MenuObserver>(context, listen: false);
     final taskObserver = Provider.of<TaskObserver>(context, listen: false);
     final screenNav = Provider.of<MainNavObserver>(context);
+    final settingObserver = Provider.of<SettingObserver>(context);
     return Observer(
         builder: (_) => (menuObserver.currentScreen == MENU_SCREENS.MENU)
             ? Scaffold(
 
+          backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
           body: Column(
 
             children: <Widget>[
@@ -50,7 +55,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.deepPurple,
+                            backgroundColor: accent2(settingObserver.userSettings.appTheme),
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),
@@ -87,7 +92,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.blueAccent,
+                            backgroundColor: accent1(settingObserver.userSettings.appTheme),
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),
@@ -123,7 +128,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.lightBlueAccent,
+                            backgroundColor: accent3(settingObserver.userSettings.appTheme),
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),
@@ -158,7 +163,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.blueAccent,
+                            backgroundColor: accent1(settingObserver.userSettings.appTheme),
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),
@@ -193,7 +198,7 @@ class MenuState extends State<Menu> {
                         child: TextButton(
                           style: TextButton.styleFrom(
                             primary: Colors.white,
-                            backgroundColor: Colors.deepPurple,
+                            backgroundColor: accent2(settingObserver.userSettings.appTheme),
                             textStyle: TextStyle(
                               fontSize: 40,
                             ),

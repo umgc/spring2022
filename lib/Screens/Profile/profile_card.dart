@@ -10,6 +10,8 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/Screens/Profile/widget/profile_widget.dart';
 import 'package:memorez/utils/user_preferences.dart';
 import '../../Observables/ScreenNavigator.dart';
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 
 
 class ProfileCard extends StatefulWidget {
@@ -23,6 +25,7 @@ class _UserProfileState extends State<ProfileCard> {
   late DbHelper dbHelper;
   var _conUserId = TextEditingController();
 
+  Color? textCol;
   UserModel? get userData => null;
 
   @override
@@ -49,6 +52,8 @@ class _UserProfileState extends State<ProfileCard> {
   @override
   Widget build(BuildContext context) {
 
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     final user = UserPreferences.getUser();
     final screenNav = Provider.of<MainNavObserver>(context);
     return Builder(builder: (context) => buildProfileCard(user));

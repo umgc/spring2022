@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/generated/i18n.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
@@ -7,6 +8,9 @@ import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/DatabaseHandler/database_helper_transportation.dart';
 import 'package:memorez/Model/Transportation.dart';
 import 'package:memorez/Screens/Profile/add_transportation_card.dart';
+
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 
 
 class TransportationCard extends StatefulWidget {
@@ -30,6 +34,7 @@ class _TransportationCardState extends State<TransportationCard> {
   }
 
   Future<List<Transportation>>? _transportationList;
+  Color? textCol;
 
   @override
   void initState() {
@@ -57,18 +62,25 @@ class _TransportationCardState extends State<TransportationCard> {
           ListTile(
               title: Text(
                 transportation.name!,
-                style: kLabelTextStyle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w900,
+                  color: textCol,
+                ),
               ),
               subtitle: Text(
                 transportation.phone!,
-                style: kSubText,
+                style: TextStyle (
+                    fontSize: 12.0,
+                    color: textCol
+                ),
               ),
               trailing:
 
               Visibility(
                 visible: _conUserId.text == 'Admin',
                 child: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.edit, color: textCol),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -90,7 +102,8 @@ class _TransportationCardState extends State<TransportationCard> {
   @override
   Widget build(BuildContext context) {
     print('xxxxxxxxxxxxxxxxxx${_conUserId.text}');
-
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Row(
       children: [
         FutureBuilder(

@@ -82,7 +82,7 @@ class _calendarFormatBarState extends State<calendarFormatBar> {
           },
         ),
         VerticalDivider(
-          color: Colors.black,
+          color: Colors.tealAccent,
           thickness: 2,
           width: 20,
           indent: 10,

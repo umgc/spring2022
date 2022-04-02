@@ -17,6 +17,7 @@ import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/Screens/Settings/Help.dart';
 import '../DatabaseHandler/DBHelper.dart';
 import '../Model/UserModel.dart';
+import '../Utility/ThemeUtil.dart';
 import 'Profile/UserProfile.dart';
 import 'Settings/Setting.dart';
 import 'Note/Note.dart';
@@ -259,6 +260,8 @@ class _MainNavigatorState extends State<MainNavigator> {
     final menuObserver = Provider.of<MenuObserver>(context);
     return Observer(
       builder: (_) => Scaffold(
+        ///
+        backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
         resizeToAvoidBottomInset:screenNav.currentScreen!=MAIN_SCREENS.CALENDAR,
         appBar: AppBar(
           //removes the backbutton in the appbar

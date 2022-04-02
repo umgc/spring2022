@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Utility/EncryptionUtil.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:memorez/DatabaseHandler/database_helper_profile.dart';
 import 'package:memorez/Model/UserModel.dart';
 import 'package:memorez/Screens/Profile/profile_constants.dart';
 import 'package:memorez/DatabaseHandler/databse_helper_history.dart';
 import 'package:memorez/Model/History.dart';
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 import '../../generated/i18n.dart';
 import 'add_medical_history_card.dart';
 
@@ -30,6 +33,7 @@ class _HistoryCardState extends State<HistoryCard> {
     });
   }
 
+  Color? textCol;
   Future<List<History>>? _historyList;
 
   @override
@@ -59,18 +63,25 @@ class _HistoryCardState extends State<HistoryCard> {
           ListTile(
               title: Text(
                 mh,
-                style: kLabelTextStyle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w900,
+                  color: textCol
+                ),
               ),
               subtitle: Text(
                 dh,
-                style: kSubText,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: textCol,
+                ),
               ),
               trailing:
 
               Visibility(
                 visible: _conUserId.text == 'Admin',
                 child: IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.edit, color: textCol,),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -92,7 +103,8 @@ class _HistoryCardState extends State<HistoryCard> {
   @override
   Widget build(BuildContext context) {
     print('xxxxxxxxxxxxxxxxxx${_conUserId.text}');
-
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Row(
       children: [
         FutureBuilder(

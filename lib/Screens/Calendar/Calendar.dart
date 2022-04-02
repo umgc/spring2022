@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
+import 'package:memorez/Utility/ThemeUtil.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:memorez/Model/CalendarEvent.dart';
 import 'package:memorez/Model/Note.dart';
@@ -15,6 +16,8 @@ final viewCalendarScaffoldKey = GlobalKey<ScaffoldState>();
 
 //Variable Definitions ----------------------------------------
 bool _filteredNotesIsVisible = false;
+
+Color? textCol;
 
 DateTime _focusedDay = DateTime.now();
 List<CalenderEvent> _events = [];
@@ -36,6 +39,8 @@ class CalendarState extends State<Calendar> {
     final noteObserver = Provider.of<NoteObserver>(context);
     final calendarObserver = Provider.of<CalendarObservable>(context);
     final settingObserver = Provider.of<SettingObserver>(context);
+
+    textCol = textMode(settingObserver.userSettings.darkMode);
 
     calendarObserver.setNoteObserver(noteObserver);
     calendarObserver.generateDailyTiles();
@@ -116,11 +121,11 @@ class CalendarState extends State<Calendar> {
                         child: new ListTile(
                           //onTap: () => print('${value[index]}'),
                           title: Text("${_matchedEvents[index].text}",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: textCol),
                               textAlign: TextAlign.center),
                           subtitle: Text(
                               "${DateFormat('MM-dd-yyyy').format(DateTime.parse((_matchedEvents[index].eventDate)))} \t at \t ${_matchedEvents[index].eventTime}",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: textCol),
                               textAlign: TextAlign.center),
                         ),
                       ),
@@ -175,7 +180,11 @@ class CalendarState extends State<Calendar> {
 
                 if (_events.length > 0) {
                   calendarObserver.weekView();
-                  calendarObserver.getNotesOnDay();
+                  try {
+                    calendarObserver.getNotesOnDay();
+                  }catch (error) {
+                    print('setttttttttttttttt state errrrrrrrrrrrrrrror');
+                  }
                 }
                 (context as Element).reassemble();
               },

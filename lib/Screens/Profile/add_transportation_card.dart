@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:memorez/generated/i18n.dart';
 import 'package:memorez/DatabaseHandler/database_helper_transportation.dart';
 import 'package:memorez/Model/Transportation.dart';
+import 'package:provider/provider.dart';
+
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 
 
 class AddTransportationCard extends StatefulWidget {
@@ -13,6 +17,7 @@ class AddTransportationCard extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
+Color? textCol;
 
 class _UserProfileState extends State<AddTransportationCard> {
   final _formKey = GlobalKey<FormState>();
@@ -57,6 +62,8 @@ class _UserProfileState extends State<AddTransportationCard> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

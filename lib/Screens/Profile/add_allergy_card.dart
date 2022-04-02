@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/DatabaseHandler/database_helper_allergy.dart';
+import 'package:provider/provider.dart';
 import '../../Model/Allergy.dart';
+import '../../Observables/SettingObservable.dart';
 import '../../Utility/EncryptionUtil.dart';
+import '../../Utility/ThemeUtil.dart';
 import '../../generated/i18n.dart';
 
 
@@ -14,6 +17,8 @@ class AddAllergyCard extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
+
+Color? textCol;
 
 class _UserProfileState extends State<AddAllergyCard> {
   final _formKey = GlobalKey<FormState>();
@@ -62,6 +67,8 @@ class _UserProfileState extends State<AddAllergyCard> {
 
   @override
   Widget build(BuildContext context) {
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),

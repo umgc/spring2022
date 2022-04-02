@@ -16,6 +16,8 @@ import 'package:memorez/Screens/Profile/widget/textfield_widget.dart';
 import 'package:path/path.dart';
 import '../../Comm/comHelper.dart';
 import '../../Observables/ScreenNavigator.dart';
+import '../../Observables/SettingObservable.dart';
+import '../../Utility/ThemeUtil.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -31,16 +33,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
     user = UserPreferences.getUser();
   }
 
+  Color? textCol;
   @override
   Widget build(BuildContext context) {
 
+    final settingObserver = Provider.of<SettingObserver>(context);
+    textCol = textMode(settingObserver.userSettings.darkMode);
     final screenNav = Provider.of<MainNavObserver>(context);
     return Builder(
       builder: (context) => Scaffold(
+        backgroundColor: backgroundMode(settingObserver.userSettings.darkMode),
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 32),
           physics: BouncingScrollPhysics(),
           children: [
+            SizedBox(
+              height: 10,
+            ),
             Text(
               I18n.of(context)!.aboutMe,
               style: kSectionTitleTextStyle,
