@@ -48,8 +48,8 @@ class I18n implements WidgetsLocalizations {
 	String get pressToRecord => "Press to Record";
 	/// "Yes"
 	String get yes => "Yes";
-	/// "Save Note"
-	String get saveNote => "Save Note";
+	/// "SAVE NOTE"
+	String get saveNote => "SAVE NOTE";
 	/// "Date"
 	String get date => "Date";
 	/// "Note"
@@ -1061,80 +1061,80 @@ class _I18n_zh_CN extends I18n {
 	@override
 	String get updateCareTeamMember => "更新护理团队成员";
 }
-class _I18n_es_US extends I18n {
-  const _I18n_es_US();
+class _I18n_pt_BR extends I18n {
+  const _I18n_pt_BR();
   @override
   TextDirection get textDirection => TextDirection.ltr;
-	/// "Inicio"
+	/// "Casa"
 	@override
-	String get homeScreenName => "Inicio";
-	/// "Menú"
+	String get homeScreenName => "Casa";
+	/// "Cardápio"
 	@override
-	String get menuScreenName => "Menú";
+	String get menuScreenName => "Cardápio";
 	/// "Notas"
 	@override
 	String get notesScreenName => "Notas";
-	/// "Notificaciones"
+	/// "Notificações"
 	@override
-	String get notificationsScreenName => "Notificaciones";
-	/// "Configuración"
+	String get notificationsScreenName => "Notificações";
+	/// "Configuração"
 	@override
-	String get settingScreenName => "Configuración";
-	/// "Calendario"
+	String get settingScreenName => "Configuração";
+	/// "Calendário"
 	@override
-	String get calendarScreenName => "Calendario";
-	/// "Micrófono"
+	String get calendarScreenName => "Calendário";
+	/// "Microfone"
 	@override
-	String get micButton => "Micrófono";
-	/// "Presione para grabar"
+	String get micButton => "Microfone";
+	/// "Pressione para gravar"
 	@override
-	String get pressToRecord => "Presione para grabar";
-	/// "sí"
+	String get pressToRecord => "Pressione para gravar";
+	/// "sim"
 	@override
-	String get yes => "sí";
-	/// "Guardar nota"
+	String get yes => "sim";
+	/// "SALVAR NOTA"
 	@override
-	String get saveNote => "Guardar nota";
-	/// "Fecha"
+	String get saveNote => "SALVAR NOTA";
+	/// "Encontro"
 	@override
-	String get date => "Fecha";
-	/// "Nota"
+	String get date => "Encontro";
+	/// "Observação"
 	@override
-	String get note => "Nota";
-	/// "Detalles de notas"
+	String get note => "Observação";
+	/// "Detalhes das notas"
 	@override
-	String get notesDetailScreenName => "Detalles de notas";
-	/// "Agregar notas"
+	String get notesDetailScreenName => "Detalhes das notas";
+	/// "Adicionar notas"
 	@override
-	String get addNotesScreenName => "Agregar notas";
-	/// "Lista de Verificación"
+	String get addNotesScreenName => "Adicionar notas";
+	/// "Lista de controle"
 	@override
-	String get checklistScreenName => "Lista de Verificación";
-	/// "Ayuda"
+	String get checklistScreenName => "Lista de controle";
+	/// "Ajuda"
 	@override
-	String get helpScreen => "Ayuda";
-	/// "Palabras Claves"
+	String get helpScreen => "Ajuda";
+	/// "Desencadear"
 	@override
-	String get triggerScreen => "Palabras Claves";
-	/// "Sincronizar con la nube"
+	String get triggerScreen => "Desencadear";
+	/// "Sincronizar com a nuvem"
 	@override
-	String get syncToCloudScreen => "Sincronizar con la nube";
-	/// "Configuración de la nube"
+	String get syncToCloudScreen => "Sincronizar com a nuvem";
+	/// "Configuração da nuvem"
 	@override
-	String get onboardCloudSetup => "Configuración de la nube";
-	/// "Permiso"
+	String get onboardCloudSetup => "Configuração da nuvem";
+	/// "Permissão"
 	@override
-	String get onboardPermissionSetup => "Permiso";
-	/// "Seleccione el idioma"
+	String get onboardPermissionSetup => "Permissão";
+	/// "Selecione o idioma"
 	@override
-	String get onboardLangSetup => "Seleccione el idioma";
-	/// "Introducción"
+	String get onboardLangSetup => "Selecione o idioma";
+	/// "Introdução"
 	@override
-	String get walkthroughScreen => "Introducción";
-	/// "¿Le gustaría configurar una cuenta en la nube?"
+	String get walkthroughScreen => "Introdução";
+	/// "Você gostaria de configurar uma conta na nuvem?"
 	@override
-	String get cloudSetupPrompt => "¿Le gustaría configurar una cuenta en la nube?";
-	/// "No"
+	String get cloudSetupPrompt => "Você gostaria de configurar uma conta na nuvem?";
+	/// "Não"
 	@override
 	String get no => "No";
 	/// "Bienvenido a Memoreez"
@@ -1142,134 +1142,134 @@ class _I18n_es_US extends I18n {
 	String get welcome => "Bienvenido a Memoreez";
 	/// "atrás"
 	@override
-	String get back => "atrás";
-	/// "próximo"
+	String get back => "Voltar";
+	/// "Próximo"
 	@override
-	String get next => "próximo";
-	/// "Seleccione su idioma principal."
+	String get next => "Próximo";
+	/// "Selecione seu idioma principal."
 	@override
-	String get selectLanguage => "Seleccione su idioma principal.";
-	/// "Idioma"
+	String get selectLanguage => "Selecione seu idioma principal.";
+	/// "Língua"
 	@override
-	String get language => "Idioma";
-	/// "¿Tenemos permiso para acceder a su micrófono?"
+	String get language => "Língua";
+	/// "Temos permissão para acessar seu microfone?"
 	@override
-	String get promptPermission => "¿Tenemos permiso para acceder a su micrófono?";
-	/// "Seleccionar tamaño de fuente para notas"
+	String get promptPermission => "Temos permissão para acessar seu microfone?";
+	/// "Selecione o tamanho da fonte para as notas"
 	@override
-	String get promptNoteFontSize => "Seleccionar tamaño de fuente para notas";
-	/// "Seleccionar tamaño de fuente para el menú"
+	String get promptNoteFontSize => "Selecione o tamanho da fonte para as notas";
+	/// "Selecione o tamanho da fonte para o menu"
 	@override
-	String get promptMenuFontSize => "Seleccionar tamaño de fuente para el menú";
-	/// "Seleccione la línea de tiempo de eliminación de notas"
+	String get promptMenuFontSize => "Selecione o tamanho da fonte para o menu";
+	/// "Selecione o cronograma de exclusão de notas"
 	@override
-	String get promptNoteDeletionTimeline => "Seleccione la línea de tiempo de eliminación de notas";
-	/// "Pequeña"
+	String get promptNoteDeletionTimeline => "Selecione o cronograma de exclusão de notas";
+	/// "Pequena"
 	@override
-	String get small => "Pequeña";
-	/// "Medio"
+	String get small => "Pequena";
+	/// "Médio"
 	@override
-	String get medium => "Medio";
+	String get medium => "Médio";
 	/// "Grande"
 	@override
 	String get large => "Grande";
 	/// "Cancelar"
 	@override
 	String get cancel => "Cancelar";
-	/// "Ahorrar"
+	/// "Salve"
 	@override
-	String get save => "Ahorrar";
-	/// "Configuraciones de seguridad"
+	String get save => "Salve";
+	/// "Configurações de segurança"
 	@override
-	String get securitySettings => "Configuraciones de seguridad";
-	/// "NOTA: Este permiso permitirá todo tipo de interacción de voz."
+	String get securitySettings => "Configurações de segurança";
+	/// "NOTA: Esta permissão permitirá todos os tipos de interação por voz."
 	@override
-	String get permissionNote => "NOTA: Este permiso permitirá todo tipo de interacción de voz.";
-	/// "Días para guardar notas"
+	String get permissionNote => "NOTA: Esta permissão permitirá todos os tipos de interação por voz.";
+	/// "Dias para manter notas"
 	@override
-	String get daysToKeepNotes => "Días para guardar notas";
-	/// "Tamaño de fuente de nota"
+	String get daysToKeepNotes => "Dias para manter notas";
+	/// "Tamanho da fonte da nota"
 	@override
-	String get noteFontSize => "Tamaño de fuente de nota";
-	/// "Tamaño de fuente del menú"
+	String get noteFontSize => "Tamanho da fonte da nota";
+	/// "Tamanho da fonte do menu"
 	@override
-	String get menuFontSize => "Tamaño de fuente del menú";
-	/// "Ayudar"
+	String get menuFontSize => "Tamanho da fonte do menu";
+	/// "Ajuda"
 	@override
-	String get help => "Ayudar";
-	/// "Desencadenar"
+	String get help => "Ajuda";
+	/// "Desencadear"
 	@override
-	String get trigger => "Desencadenar";
-	/// "Sincronizar con la nube"
+	String get trigger => "Desencadear";
+	/// "Sincronizar com a nuvem"
 	@override
-	String get syncToCloud => "Sincronizar con la nube";
-	/// "Cargando"
+	String get syncToCloud => "Sincronizar com a nuvem";
+	/// "Carregando"
 	@override
-	String get loading => "Cargando";
+	String get loading => "Carregando";
 	/// "Editar nota"
 	@override
 	String get editNote => "Editar nota";
-	/// "Borrar nota"
+	/// "Apagar Nota"
 	@override
-	String get deleteNote => "Borrar nota";
-	/// "Confirmar eliminación de nota"
+	String get deleteNote => "Apagar Nota";
+	/// "Confirmar exclusão de nota"
 	@override
-	String get confirmNoteDeletion => "Confirmar eliminación de nota";
-	/// "¿Estás seguro que quieres eliminar esta nota?"
+	String get confirmNoteDeletion => "Confirmar exclusão de nota";
+	/// "Tem certeza de que deseja excluir esta anotação?"
 	@override
-	String get areYouSureYouWantToDelete => "¿Estás seguro que quieres eliminar esta nota?";
-	/// "Nota guardada"
+	String get areYouSureYouWantToDelete => "Tem certeza de que deseja excluir esta anotação?";
+	/// "Nota salva"
 	@override
-	String get noteSaved => "Nota guardada";
-	/// "Ingrese el texto de su nota"
+	String get noteSaved => "Nota salva";
+	/// "Insira o texto da sua nota"
 	@override
-	String get enterNoteText => "Ingrese el texto de su nota";
+	String get enterNoteText => "Insira o texto da sua nota";
 	/// "OK"
 	@override
 	String get ok => "OK";
-	/// "La nota se guardó con éxito."
+	/// "A nota foi salva com sucesso."
 	@override
-	String get noteSavedSuccess => "La nota se guardó con éxito.";
-	/// "Añadir la nota"
+	String get noteSavedSuccess => "A nota foi salva com sucesso.";
+	/// "Adicionar nota"
 	@override
-	String get addNote => "Añadir la nota";
-	/// "¿Le gustaría hablar o escribir una nota?"
+	String get addNote => "Adicionar nota";
+	/// "Você gostaria de falar ou escrever uma nota?"
 	@override
-	String get speakOrWritePrompt => "¿Le gustaría hablar o escribir una nota?";
-	/// "Seleccione el tema de la aplicación"
+	String get speakOrWritePrompt => "Você gostaria de falar ou escrever uma nota?";
+	/// "Selecione o tema do aplicativo"
 	@override
-	String get promptTheme => "Seleccione el tema de la aplicación";
+	String get promptTheme => "Selecione o tema do aplicativo";
 	/// "Tema"
 	@override
 	String get theme => "Tema";
 	/// "Azul"
 	@override
 	String get blue => "Azul";
-	/// "Rosado"
+	/// "Cor de rosa"
 	@override
-	String get pink => "Rosado";
-	/// "¿Le puedo ayudar en algo?"
+	String get pink => "Cor de rosa";
+	/// "Como posso ajudá-lo?"
 	@override
-	String get howCanIHelpYou => "¿Le puedo ayudar en algo?";
-	/// "Activar notificaciones para notas"
+	String get howCanIHelpYou => "Como posso ajudá-lo?";
+	/// "Ativar notificações para notas"
 	@override
-	String get turnOnNotesNotification => "Activar notificaciones para notas";
-	/// "Activar recordatorio antes de un evento"
+	String get turnOnNotesNotification => "Ativar notificações para notas";
+	/// "Ativar lembrete antes de um evento"
 	@override
-	String get turnOnEventReminder => "Activar recordatorio antes de un evento";
-	/// "Nota: el recordatorio comienza 15 minutos antes del evento."
+	String get turnOnEventReminder => "Ativar lembrete antes de um evento";
+	/// "Nota: o lembrete começa 15 minutos antes do evento."
 	@override
-	String get reminderStartTime => "Nota: el recordatorio comienza 15 minutos antes del evento.";
-	/// "Notificaciones de actividades"
+	String get reminderStartTime => "Nota: o lembrete começa 15 minutos antes do evento.";
+	/// "Notificações de atividades"
 	@override
-	String get activitiesNotifications => "Notificaciones de actividades";
-	/// "Activar Notificación para Caminata por horas"
+	String get activitiesNotifications => "Notificações de atividades";
+	/// "Ativar notificação para caminhada de hora em hora"
 	@override
-	String get turnOnHourlyWalkNotification => "Activar Notificación para Caminata por horas";
-	/// "Activar la notificación de agua por hora"
+	String get turnOnHourlyWalkNotification => "Ativar notificação para caminhada de hora em hora";
+	/// "Ativar notificação para água de hora em hora"
 	@override
-	String get turnOnHourlyWaterNotification => "Activar la notificación de agua por hora";
-	/// "Activar la notificación para el baño"
+	String get turnOnHourlyWaterNotification => "Ativar notificação para água de hora em hora";
+	/// "Ativar notificação para banheiro"
 	@override
 	String get turnOnBathroomNotification => "Activar la notificación para el baño";
 	/// "Aquí hay un video de un breve tutorial sobre cómo usar la aplicación Memoreez"
@@ -1277,88 +1277,88 @@ class _I18n_es_US extends I18n {
 	String get walkthroughVideoLine => "Aquí hay un video de un breve tutorial sobre cómo usar la aplicación Memoreez";
 	/// "Las funciones serán limitadas sin permitir el acceso a su micrófono."
 	@override
-	String get micLimitedAccess => "Las funciones serán limitadas sin permitir el acceso a su micrófono.";
-	/// "Notificaciones de notas"
+	String get micLimitedAccess => "Os recursos serão limitados sem permitir o acesso ao seu microfone.";
+	/// "Notificações de notas"
 	@override
-	String get notesNotificiations => "Notificaciones de notas";
-	/// "Ajustes"
+	String get notesNotificiations => "Notificações de notas";
+	/// "Definições"
 	@override
-	String get generalSettingsScreen => "Ajustes";
-	/// "Reiniciar"
+	String get generalSettingsScreen => "Definições";
+	/// "Redefinir"
 	@override
-	String get resetSettings => "Reiniciar";
-	/// "Ajustes"
+	String get resetSettings => "Redefinir";
+	/// "Definições"
 	@override
-	String get generalSetting => "Ajustes";
-	/// "¿Debería crear una nota?"
+	String get generalSetting => "Definições";
+	/// "Devo criar uma nota?"
 	@override
-	String get shouldICreateANote => "¿Debería crear una nota?";
-	/// "Ok, no crearé una nota."
+	String get shouldICreateANote => "Devo criar uma nota?";
+	/// "Ok, não vou criar uma nota."
 	@override
-	String get willNotCreateNote => "Ok, no crearé una nota.";
-	/// "¡Seguro! ¿Le puedo ayudar en algo?"
+	String get willNotCreateNote => "Ok, não vou criar uma nota.";
+	/// "Certo! Como posso ajudá-lo?"
 	@override
-	String get sureHowCanIHelp => "¡Seguro! ¿Le puedo ayudar en algo?";
-	/// "¡Está bien, gracias! Adiós."
+	String get sureHowCanIHelp => "Certo! Como posso ajudá-lo?";
+	/// "Ok, obrigado! Bye Bye."
 	@override
-	String get thxBye => "¡Está bien, gracias! Adiós.";
-	/// "Creó la siguiente nota:"
+	String get thxBye => "Ok, obrigado! Bye Bye.";
+	/// "Criou a seguinte nota:"
 	@override
-	String get createdTheFollowingNote => "Creó la siguiente nota:";
-	/// "Fecha de inicio"
+	String get createdTheFollowingNote => "Criou a seguinte nota:";
+	/// "Data de início"
 	@override
-	String get startDate => "Fecha de inicio";
-	/// "Seleccione fecha"
+	String get startDate => "Data de início";
+	/// "Selecione a data"
 	@override
-	String get selectDate => "Seleccione fecha";
-	/// "Ingrese la hora"
+	String get selectDate => "Selecione a data";
+	/// "Digite o tempo"
 	@override
-	String get enterTime => "Ingrese la hora";
-	/// "Selección clara"
+	String get enterTime => "Digite o tempo";
+	/// "Seleção clara"
 	@override
-	String get clearSelection => "Selección clara";
-	/// "Permitir notificaciones"
+	String get clearSelection => "Seleção clara";
+	/// "Ativar notificações"
 	@override
-	String get enableNotifications => "Permitir notificaciones";
-	/// "Minutos antes de las notificaciones"
+	String get enableNotifications => "Ativar notificações";
+	/// "Minutos antes das notificações"
 	@override
-	String get minutesBeforeNotifications => "Minutos antes de las notificaciones";
-	/// "Tareas"
+	String get minutesBeforeNotifications => "Minutos antes das notificações";
+	/// "Tarefas"
 	@override
-	String get tasks => "Tareas";
-	/// "Tamaño de fuente"
+	String get tasks => "Tarefas";
+	/// "Tamanho da fonte"
 	@override
-	String get fontSize => "Tamaño de fuente";
-	/// "Ajustes de Aplicacion"
+	String get fontSize => "Tamanho da fonte";
+	/// "Configurações do aplicativo"
 	@override
-	String get appSettings => "Ajustes de Aplicacion";
+	String get appSettings => "Configurações do aplicativo";
 	/// "Perfil"
 	@override
 	String get profile => "Perfil";
-	/// "Chat"
+	/// "bater papo"
 	@override
-	String get chat => "Chat";
-	/// "Temas de ayuda"
+	String get chat => "bater papo";
+	/// "Tópicos de ajuda"
 	@override
-	String get helpTopics => "Temas de ayuda";
-	/// "Editar información del paciente"
+	String get helpTopics => "Tópicos de ajuda";
+	/// "Editar informações do paciente"
 	@override
-	String get editpatientinformation => "Editar información del paciente";
-	/// "Nombre"
+	String get editpatientinformation => "Editar informações do paciente";
+	/// "Nome"
 	@override
-	String get name => "Nombre";
-	/// "Fecha de nacimiento"
+	String get name => "Nome";
+	/// "Data de nascimento"
 	@override
-	String get dateOfBirth => "Fecha de nacimiento";
-	/// "Número de teléfono"
+	String get dateOfBirth => "Data de nascimento";
+	/// "Número de telefone"
 	@override
-	String get phoneNumber => "Número de teléfono";
-	/// "Contactos"
+	String get phoneNumber => "Número de telefone";
+	/// "Contatos"
 	@override
-	String get contacts => "Contactos";
-	/// "Equipo de atención"
+	String get contacts => "Contatos";
+	/// "Equipe de atendimento"
 	@override
-	String get careTeam => "Equipo de atención";
+	String get careTeam => "Equipe de atendimento";
 	/// "Transporte"
 	@override
 	String get transportation => "Transporte";
@@ -1371,82 +1371,129 @@ class _I18n_es_US extends I18n {
 	/// "Alergias"
 	@override
 	String get allergies => "Alergias";
-	/// "Historial médico"
+	/// "Histórico médico"
 	@override
-	String get medicalHistory => "Historial médico";
-	/// "Sobre mí"
+	String get medicalHistory => "Histórico médico";
+	/// "Sobre mim"
 	@override
-	String get aboutMe => "Sobre mí";
-	/// "Teléfono"
+	String get aboutMe => "Sobre mim";
+	/// "telefone"
 	@override
-	String get phone => "Teléfono";
-	/// "Agregar"
+	String get phone => "telefone";
+	/// "Adicionar"
 	@override
-	String get add => "Agregar";
+	String get add => "Adicionar";
 	/// "Editar"
 	@override
 	String get edit => "Editar";
-	/// "Actualizar"
+	/// "Atualizar"
 	@override
-	String get update => "Actualizar";
-	/// "Por favor escribe"
+	String get update => "Atualizar";
+	/// "Por favor entrar"
 	@override
-	String get pleaseEnter => "Por favor escribe";
-	/// "Borrar"
+	String get pleaseEnter => "Por favor entrar";
+	/// "Excluir"
 	@override
-	String get delete => "Borrar";
-	/// "Dosis"
+	String get delete => "Excluir";
+	/// "dosagem"
 	@override
-	String get dose => "Dosis";
-	/// "Contacto"
+	String get dose => "dosagem";
+	/// "Contato"
 	@override
-	String get contact => "Contacto";
+	String get contact => "Contato";
 	/// "Alergia"
 	@override
 	String get allergy => "Alergia";
-	/// "Reacción Alérgica"
+	/// "Reação Alérgica"
 	@override
-	String get allergyReaction => "Reacción Alérgica";
-	/// "Tareas activas"
+	String get allergyReaction => "Reação Alérgica";
+	/// "Tarefas ativas"
 	@override
-	String get activeTasks => "Tareas activas";
-	/// "Agregar Miembro Del Equipo De Atención"
+	String get activeTasks => "Tarefas ativas";
+	/// "Adicionar Membro Da Equipe De Atendimento"
 	@override
-	String get addCareTeamMember => "Agregar Miembro Del Equipo De Atención";
-	/// "Tareas Completadas"
+	String get addCareTeamMember => "Adicionar Membro Da Equipe De Atendimento";
+	/// "Tarefas Concluídas"
 	@override
-	String get completedTasks => "Tareas Completadas";
+	String get completedTasks => "Tarefas Concluídas";
 	/// "Continuar"
 	@override
 	String get continueWord => "Continuar";
-	/// "Descripción"
+	/// "Descrição"
 	@override
-	String get description => "Descripción";
-	/// "Detalles"
+	String get description => "Descrição";
+	/// "Detalhes"
 	@override
-	String get details => "Detalles";
-	/// "Habilitar El Modo De Cuidador"
+	String get details => "Detalhes";
+	/// "Ativar O Modo De Cuidador"
 	@override
-	String get enableCaregiverMode => "Habilitar El Modo De Cuidador";
-	/// "Salir Del Cuidador"
+	String get enableCaregiverMode => "Ativar O Modo De Cuidador";
+	/// "Sair Do Cuidador"
 	@override
-	String get exitCaregiver => "Salir Del Cuidador";
-	/// "Actualizar cuidador"
+	String get exitCaregiver => "Sair Do Cuidador";
+	/// "Atualizar Cuidador"
 	@override
-	String get updateCaregiver => "Actualizar cuidador";
-	/// "Recordatorio"
+	String get updateCaregiver => "Atualizar Cuidador";
+	/// "Lembrete"
 	@override
-	String get reminder => "Recordatorio";
-	/// "Calendario"
+	String get reminder => "Lembrete";
+	/// "Agendar"
 	@override
-	String get schedule => "Calendario";
-	/// "Buscar Una Nota"
+	String get schedule => "Agendar";
+	/// "Procurar Uma Nota"
 	@override
-	String get searchForNote => "Buscar Una Nota";
-	/// "Seleccionar Tipo De Tarea"
+	String get searchForNote => "Procurar Uma Nota";
+	/// "Selecione O Tipo De Tarefa"
 	@override
-	String get selectTaskType => "Seleccionar Tipo De Tarea";
-	/// "Actualizar miembro del equipo de atención"
+	String get selectTaskType => "Selecione O Tipo De Tarefa";
+	/// "Atualizar membro da equipe de cuidados"
+	@override
+	String get updateCareTeamMember => "Atualizar membro da equipe de cuidados";
+	/// "VOLTAR ÀS NOTAS"
+	@override
+	String get backToNotes => "VOLTAR ÀS NOTAS";
+	/// "Enviar notificação de lembrete?"
+	@override
+	String get sendReminderNotification => "Enviar notificação de lembrete?";
+	/// "Definir uma data e hora adicionará a nota ao seu calendário"
+	@override
+	String get settingDateAndTime => "Definir uma data e hora adicionará a nota ao seu calendário";
+	/// "Dia"
+	@override
+	String get day => "Dia";
+	/// "Semana"
+	@override
+	String get week => "Semana";
+	/// "Mês"
+	@override
+	String get month => "Mês";
+	/// "Mau"
+	@override
+	String get bad => "Mau";
+	/// "Enviar tarefa"
+	@override
+	String get sendTask => "Enviar tarefa";
+}
+class _I18n_ar_SY extends I18n {
+  const _I18n_ar_SY();
+  @override
+  TextDirection get textDirection => TextDirection.rtl;
+	/// "الصفحة الرئيسية"
+	@override
+	String get homeScreenName => "الصفحة الرئيسية";
+	/// "الصفحة القائمة"
+	@override
+	String get menuScreenName => "الصفحة القائمة";
+	/// "صفحة المسودات"
+	@override
+	String get notesScreenName => "صفحة المسودات";
+	/// "صفحة الإشعارات"
+	@override
+	String get notificationsScreenName => "صفحة الإشعارات";
+	/// "صفحة الإعدادات"
+	@override
+	String get settingScreenName => "صفحة الإعدادات";
+	/// "صفحة التقويم"
 	@override
 	String get updateCareTeamMember => "Actualizar miembro del equipo de atención";
 }

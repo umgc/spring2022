@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memorez/Services/TaskService.dart';
+import 'package:memorez/generated/i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:memorez/Model/Task.dart';
 import 'package:memorez/Utility/Constant.dart';
@@ -72,7 +73,7 @@ class _TaskTableState extends State<TaskTable> {
                   Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text(
-                      'Active Tasks',
+                      I18n.of(context)!.activeTasks,
                       style: TextStyle(
                           fontSize: 25.0,
                           fontWeight: FontWeight.bold,
@@ -193,7 +194,7 @@ class _TaskTableState extends State<TaskTable> {
                   Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Text(
-                      'Completed Tasks',
+                      I18n.of(context)!.completedTasks,
                       style: TextStyle(
                           fontSize: 25.0,
                           fontWeight: FontWeight.bold,

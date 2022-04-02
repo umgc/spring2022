@@ -23,8 +23,6 @@ List<String> _daysToKeepFilesOptions = ["1", "3", "5", "7", "14", "Forever"];
 
 bool careMode = false;
 
-/// days to keep Notes???
-
 class Settings extends StatefulWidget {
   @override
   _SettingState createState() => _SettingState();
@@ -189,8 +187,6 @@ class _SettingState extends State<Settings> {
                       alignment: Alignment.center,
                       value: settingObserver
                           .userSettings.minutesBeforeNoteNotifications,
-
-                      /// the default or saved value
                       items: _minutesBeforeNoteNotification
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
@@ -212,55 +208,53 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: Text( 
-                        I18n.of(context)!.daysToKeepNotes,
-                        //'Days To Keep Notes',
-                        style: TextStyle(
-                          fontSize: _bodyFontSize,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    DropdownButton<String>(
-                      alignment: Alignment.center,
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: <Widget>[
+                //     Flexible(
+                //       child: Text(
+                //         I18n.of(context)!.daysToKeepNotes,
+                //         //'Days To Keep Notes',
+                //         style: TextStyle(
+                //           fontSize: _bodyFontSize,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ),
+                //     DropdownButton<String>(
+                //       alignment: Alignment.center,
+                //
+                //       /// This may need to be changed to new variable.*****************
+                //       value: settingObserver.userSettings.daysToKeepFiles,
+                //       items: _daysToKeepFilesOptions
+                //           .map<DropdownMenuItem<String>>((String value) {
+                //         return DropdownMenuItem<String>(
+                //           value: value,
+                //           child: Text(
+                //             value,
+                //             style: TextStyle(
+                //               fontSize: _bodyFontSize,
+                //             ),
+                //           ),
+                //         );
+                //       }).toList(),
+                //       onChanged: (String? newValue) {
+                //         setState(() {
+                //           settingObserver.userSettings.daysToKeepFiles =
+                //               newValue!;
+                //
+                //           /// This may need to be changed to new variable.*****************
+                //
+                //           //null check
+                //         });
+                //       },
+                //     ),
+                //   ],
+                // ),
+                _addTopDivider(),
+                _addBotDivider(),
 
-                      /// This may need to be changed to new variable.*****************
-                      value: settingObserver.userSettings.daysToKeepFiles,
-                      items: _daysToKeepFilesOptions
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              fontSize: _bodyFontSize,
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          settingObserver.userSettings.daysToKeepFiles =
-                              newValue!;
-
-                          /// This may need to be changed to new variable.*****************
-
-                          //null check
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                addTopDivider(),
-                addBotDivider(),
-
-                /**
-             * Tasks section
-             */
+                /// Tasks section
                 Row(
                   children: <Widget>[
                     Row(
@@ -344,8 +338,8 @@ class _SettingState extends State<Settings> {
                     ),
                   ],
                 ),
-                addTopDivider(),
-                addBotDivider(),
+                _addTopDivider(),
+                _addBotDivider(),
               ],
               /**
              * App Settings Section
@@ -513,8 +507,8 @@ class _SettingState extends State<Settings> {
                   ),
                 ],
               ),
-              addTopDivider(),
-              addBotDivider(),
+              _addTopDivider(),
+              _addBotDivider(),
 
               /// Caregiver Mode Button
 
@@ -619,8 +613,8 @@ class _SettingState extends State<Settings> {
                 ),
               ),
 
-              addTopDivider(),
-              addBotDivider(),
+              _addTopDivider(),
+              _addBotDivider(),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -714,7 +708,7 @@ class _SettingState extends State<Settings> {
   }
 }
 
-Divider addTopDivider() {
+Divider _addTopDivider() {
   return Divider(
     thickness: 2.0,
     indent: 5,
@@ -722,7 +716,7 @@ Divider addTopDivider() {
   );
 }
 
-Divider addBotDivider() {
+Divider _addBotDivider() {
   return Divider(
     thickness: 2.0,
     indent: 5,

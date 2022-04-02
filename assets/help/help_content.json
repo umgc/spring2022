@@ -2,58 +2,54 @@
 [
   {
     "title":"TASK: Overview of Tasks",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/task_Overview.mp4"
   },
 
   {
     "title":"TASK: How to create a Task",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/createATask.mp4"
   },
   {
-    "title":"TASK: How to edit a Task",
-    "videoUrl":"sample.com"
+    "title":"TASK: How to complete a Task",
+    "videoUrl":"assets/help/completeTask.mp4"
   },
   {
     "title":"NOTES: Overview of Notes",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/notesOverview.mp4"
   },
   {
     "title":"NOTES: Other topics on Notes",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/otherTopicsOnNotes.mp4"
   },
   {
     "title":"CALENDAR: Overview of Calendar",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/calendarOverview.mp4"
   },
   {
     "title":"CALENDAR: Other topics on Calendar",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/otherTopicsOnCalendar.mp4"
   },
 
   {
     "title":"PROFILE: Overview of Profile",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/profileOverview.mp4"
   },
   {
     "title":"PROFILE: Other topics on Profile",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/otherTopicsOnProfile.mp4"
   },
 
   {
     "title":"SETTINGS: Overview of Settings",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/settingsOverview.mp4"
   },
   {
     "title":"SETTINGS: Other topics on Settings",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/otherTopicsOnSettings.mp4"
   },
 
   {
     "title":"CHAT: Overview of Chat",
-    "videoUrl":"sample.com"
-  },
-  {
-    "title":"CHAT: Other topics on Chat",
-    "videoUrl":"sample.com"
+    "videoUrl":"assets/help/chatOverview.mp4"
   }
 ]
